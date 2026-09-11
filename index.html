@@ -2610,10 +2610,38 @@ function getTodayString(){
 
 function defaultDateForSelectedMonth(){
 
-  return getTodayString();
+  const today = new Date();
+
+  const [
+    selectedYear,
+    selectedMonthNumber
+  ] = selectedMonth
+    .split("-")
+    .map(Number);
+
+  const todayDay =
+    today.getDate();
+
+  const lastDay =
+    new Date(
+      selectedYear,
+      selectedMonthNumber,
+      0
+    ).getDate();
+
+  const day =
+    Math.min(
+      todayDay,
+      lastDay
+    );
+
+  return `${selectedYear}-${String(
+    selectedMonthNumber
+  ).padStart(2,"0")}-${String(
+    day
+  ).padStart(2,"0")}`;
 
 }
-
 
 function recordsFor(key,monthKey){
 
