@@ -640,9 +640,10 @@ button{
 
 .batch-fields{
   display:grid;
-  grid-template-columns:1fr 94px;
+  grid-template-columns:110px 94px;
   gap:7px;
   margin-top:10px;
+  justify-content:start;
 }
 
 .batch-field-label{
@@ -660,6 +661,10 @@ button{
   padding:8px 4px;
   color:#10254c;
   font-size:9px;
+}
+
+.claim-date{
+  max-width:110px;
 }
 
 .claim-date:disabled,
@@ -1781,33 +1786,6 @@ button{
 
 <div class="month-status" id="monthStatusText"></div>
 
-<div class="card month-overview">
-
-  <div class="month-overview-title">이번 달 진행 현황</div>
-
-  <div class="overview-grid">
-    <div class="overview-item">
-      <div class="overview-label">작성</div>
-      <div class="overview-value" id="overviewWritten">0건</div>
-    </div>
-
-    <div class="overview-item">
-      <div class="overview-label">적립신청</div>
-      <div class="overview-value" id="overviewRequested">0건</div>
-    </div>
-
-    <div class="overview-item">
-      <div class="overview-label">적립완료</div>
-      <div class="overview-value" id="overviewCompleted">0건</div>
-    </div>
-
-    <div class="overview-item">
-      <div class="overview-label">확정포인트</div>
-      <div class="overview-value overview-point" id="overviewPoint">0P</div>
-    </div>
-  </div>
-
-</div>
 
 <div class="section-title">이번 달 활동</div>
 <div id="monthlyActivities"></div>
@@ -3828,8 +3806,6 @@ function renderMonthPage(){
     +
     createNormalActivityCard("instagram");
 
-  renderMonthOverview();
-
 }
 
 
@@ -4959,24 +4935,6 @@ function createSharePostCard(post){
               ·
               <strong>${formatNumber(point)}P</strong>
             </div>
-
-            ${
-              targetUrl
-              ?
-              `
-              <a
-                class="share-head-url"
-                href="${escapeAttribute(targetUrl)}"
-                target="_blank"
-                rel="noopener"
-                onclick="event.stopPropagation()"
-              >
-                🔗 ${escapeHtml(post.url)}
-              </a>
-              `
-              :
-              ""
-            }
 
           </div>
 
