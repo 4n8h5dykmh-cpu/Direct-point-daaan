@@ -1,0 +1,3194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#fff7fa">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>다이렉트 포인트</title>
+
+<style>
+:root{
+  --pink:#ff5d91;
+  --pink2:#fff0f5;
+  --line:#eee3e7;
+  --text:#29252a;
+  --muted:#8d858b;
+  --bg:#faf8f9;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:var(--bg);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+  color:var(--text);
+}
+
+button,input,select{font:inherit}
+button{cursor:pointer}
+
+.app{
+  max-width:520px;
+  margin:auto;
+  min-height:100vh;
+  background:#fff;
+  padding-bottom:92px;
+}
+
+header{
+  padding:22px 18px 12px;
+  background:linear-gradient(180deg,#fff4f8,#fff);
+}
+
+h1{
+  font-size:23px;
+  margin:0 0 5px;
+}
+
+.sub{
+  font-size:13px;
+  color:var(--muted);
+}
+
+.page{
+  display:none;
+  padding:14px;
+}
+
+.page.active{
+  display:block;
+}
+
+.card{
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#fff;
+  padding:15px;
+  margin-bottom:12px;
+  box-shadow:0 3px 12px rgba(0,0,0,.025);
+}
+
+.row{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.between{
+  justify-content:space-between;
+}
+
+.muted{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.strong{
+  font-weight:750;
+}
+
+.big{
+  font-size:25px;
+  font-weight:800;
+}
+
+.pink{
+  color:var(--pink);
+}
+
+.btn{
+  border:0;
+  border-radius:12px;
+  padding:10px 13px;
+  background:var(--pink);
+  color:#fff;
+  font-weight:700;
+}
+
+.btn.light{
+  background:var(--pink2);
+  color:var(--pink);
+}
+
+.btn.gray{
+  background:#f3f1f2;
+  color:#555;
+}
+
+input,select{
+  width:100%;
+  border:1px solid #e7dfe2;
+  border-radius:11px;
+  padding:10px;
+  background:#fff;
+  min-width:0;
+}
+
+label{
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:5px;
+}
+
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+}
+
+.progress{
+  height:9px;
+  background:#f2edef;
+  border-radius:99px;
+  overflow:hidden;
+}
+
+.progress>i{
+  display:block;
+  height:100%;
+  background:var(--pink);
+  border-radius:99px;
+}
+
+nav{
+  position:fixed;
+  z-index:20;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(520px,100%);
+  height:76px;
+  background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+
+nav button{
+  border:0;
+  background:none;
+  font-size:10px;
+  color:#837a80;
+  padding:8px 2px;
+}
+
+nav button span{
+  display:block;
+  font-size:19px;
+  margin-bottom:3px;
+}
+
+nav button.active{
+  color:var(--pink);
+  font-weight:800;
+}
+
+.tabs{
+  display:flex;
+  gap:7px;
+  margin-bottom:12px;
+}
+
+.tab{
+  flex:1;
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:12px;
+  padding:9px;
+  font-weight:700;
+  color:#777;
+}
+
+.tab.active{
+  background:var(--pink);
+  color:#fff;
+  border-color:var(--pink);
+}
+
+.section-title{
+  font-size:18px;
+  font-weight:800;
+  margin:4px 2px 12px;
+}
+
+.cat-head,
+.post-summary{
+  display:grid;
+  align-items:center;
+  gap:7px;
+}
+
+.cat-head{
+  grid-template-columns:1fr auto auto;
+}
+
+.post-summary{
+  grid-template-columns:62px minmax(0,1fr) 66px 30px 24px;
+}
+
+.clickable{
+  cursor:pointer;
+}
+
+.title-ellipsis{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:13px;
+  font-weight:650;
+}
+
+.point-cell{
+  text-align:right;
+  font-size:12px;
+  font-weight:750;
+}
+
+.link-icon{
+  text-decoration:none;
+  text-align:center;
+  font-size:16px;
+}
+
+.expand{
+  margin-top:10px;
+  padding-top:12px;
+  border-top:1px dashed var(--line);
+}
+
+.record{
+  padding:10px 0;
+  border-top:1px solid #f3edef;
+}
+
+.record:first-child{
+  border-top:0;
+}
+
+.url-line{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.url-link{
+  min-width:0;
+  flex:1;
+  color:#2875d0;
+  text-decoration:underline;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:13px;
+}
+
+.smallbtn{
+  border:0;
+  border-radius:9px;
+  padding:7px 9px;
+  font-size:12px;
+  font-weight:700;
+  background:#f3f1f2;
+  color:#555;
+  white-space:nowrap;
+}
+
+.share-header-grid{
+  display:grid;
+  grid-template-columns:118px minmax(0,1fr);
+  gap:8px;
+  align-items:end;
+}
+
+.share-header-grid input[type=date]{
+  padding-left:7px;
+  padding-right:5px;
+  font-size:12px;
+}
+
+.share-row{
+  display:grid;
+  grid-template-columns:105px minmax(0,1fr);
+  gap:8px;
+  margin-bottom:8px;
+}
+
+.share-actions{
+  display:grid;
+  grid-template-columns:1fr 84px;
+  gap:8px;
+}
+
+.badge{
+  font-size:11px;
+  padding:4px 7px;
+  border-radius:99px;
+  background:var(--pink2);
+  color:var(--pink);
+  white-space:nowrap;
+}
+
+.history{
+  display:grid;
+  grid-template-columns:78px 1fr auto;
+  gap:8px;
+  padding:11px 0;
+  border-bottom:1px solid #f2ecef;
+  font-size:13px;
+}
+
+.empty{
+  text-align:center;
+  color:#aaa;
+  padding:24px 8px;
+}
+
+.calendar{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:5px;
+}
+
+.day{
+  aspect-ratio:1;
+  border:0;
+  border-radius:50%;
+  background:#f7f4f5;
+}
+
+.day.on{
+  background:var(--pink);
+  color:#fff;
+  font-weight:800;
+}
+
+.month-head{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.month-head input{
+  max-width:170px;
+}
+
+.note{
+  font-size:12px;
+  line-height:1.55;
+  color:#777;
+  background:#faf6f8;
+  padding:10px;
+  border-radius:11px;
+}
+
+@media(max-width:390px){
+  .post-summary{
+    grid-template-columns:55px minmax(0,1fr) 57px 27px 20px;
+    gap:4px;
+  }
+
+  .share-header-grid{
+    grid-template-columns:108px minmax(0,1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+  <h1>다이렉트 포인트 💗</h1>
+  <div class="sub">결혼준비 포인트를 한 곳에서 관리해요</div>
+</header>
+
+<main>
+  <section id="homePage" class="page active"></section>
+  <section id="historyPage" class="page"></section>
+  <section id="monthPage" class="page"></section>
+  <section id="cafePage" class="page"></section>
+  <section id="blogPage" class="page"></section>
+  <section id="sharePage" class="page"></section>
+</main>
+
+<nav>
+  <button data-page="homePage" class="active"><span>🏠</span>홈</button>
+  <button data-page="historyPage"><span>🧾</span>적립내역</button>
+  <button data-page="monthPage"><span>📅</span>월별신청</button>
+  <button data-page="cafePage"><span>💬</span>카페활동</button>
+  <button data-page="blogPage"><span>📝</span>블로그</button>
+  <button data-page="sharePage"><span>✉️</span>정보공유</button>
+</nav>
+
+</div>
+
+<script>
+
+const STORAGE_KEY="directPointData_v1";
+
+const LEGACY_INTRO_POINT=73000;
+const LEGACY_BLOG_POINT=171000;
+const LEGACY_BLOG_COUNT=28;
+
+const GOAL=3000000;
+
+const WEDDING_DATE=
+new Date("2027-09-04T00:00:00");
+
+let appData={
+  records:[],
+  monthlyClaims:{},
+  blogRecords:[],
+  sharePosts:[]
+};
+
+let blogTab=20;
+
+let openBlogCategories=new Set();
+let openBlogRecords=new Set();
+let editingBlogUrls=new Set();
+let openSharePosts=new Set();
+
+const BLOG_CATS=[
+  {id:"hall",name:"웨딩홀",max:20,icon:"💍"},
+  {id:"studio",name:"스튜디오",max:20,icon:"📷"},
+  {id:"dress",name:"드레스",max:20,icon:"👗"},
+  {id:"makeup",name:"메이크업",max:20,icon:"💄"},
+  {id:"direct",name:"다이렉트",max:20,icon:"📄"},
+
+  {id:"hanbok",name:"한복",max:10,icon:"🎀"},
+  {id:"jewelry",name:"예물",max:10,icon:"💎"},
+  {id:"photo",name:"본식사진",max:10,icon:"📸"},
+  {id:"honeymoon",name:"허니문",max:10,icon:"✈️"},
+  {id:"bouquet",name:"부케",max:10,icon:"💐"},
+  {id:"pyebaek",name:"폐백",max:10,icon:"🎎"},
+  {id:"weddingcar",name:"웨딩카",max:10,icon:"🚗"},
+  {id:"dvd",name:"DVD",max:10,icon:"🎥"},
+  {id:"music",name:"축하연주",max:10,icon:"🎵"},
+  {id:"appliance",name:"가전",max:10,icon:"🏠"}
+];
+
+const GRADE_POINTS={
+  일반:2000,
+  우수:5000,
+  서포터즈:50000
+};
+
+const MONTH_TYPES={
+
+  restaurant:{
+    name:"맛집소개",
+    point:1000,
+    monthlyMax:1
+  },
+
+  discussion:{
+    name:"결혼준비토론",
+    point:10000,
+    monthlyMax:1,
+    totalMax:10
+  },
+
+  like:{
+    name:"좋아요 30개",
+    point:1000,
+    monthlyMax:2,
+    totalMax:20
+  },
+
+  instagram:{
+    name:"인스타그램",
+    point:1000,
+    monthlyMax:2,
+    totalMax:20
+  }
+
+};
+
+function today(){
+  return new Date()
+  .toISOString()
+  .slice(0,10);
+}
+
+function monthNow(){
+  return today().slice(0,7);
+}
+
+function uid(){
+  return Date.now().toString(36)
+  +Math.random().toString(36).slice(2,8);
+}
+
+function won(n){
+  return Number(n||0)
+  .toLocaleString("ko-KR")+"P";
+}
+
+function esc(s){
+
+  return String(s??"")
+  .replace(
+    /[&<>"']/g,
+    m=>({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#39;"
+    }[m])
+  );
+
+}
+
+function attr(s){
+  return esc(s);
+}
+
+function safeUrl(u){
+
+  u=String(u||"").trim();
+
+  if(!u) return "";
+
+  if(!/^https?:\/\//i.test(u)){
+    u="https://"+u;
+  }
+
+  return u;
+
+}
+
+function save(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(appData)
+  );
+
+}
+
+function load(){
+
+  try{
+
+    const x=
+    JSON.parse(
+      localStorage.getItem(STORAGE_KEY)
+      ||"null"
+    );
+
+    if(x) appData=x;
+
+  }catch(e){}
+
+  normalize();
+
+}
+
+function normalize(){
+
+  appData.records=
+  Array.isArray(appData.records)
+  ?appData.records:[];
+
+  appData.monthlyClaims=
+  appData.monthlyClaims
+  &&typeof appData.monthlyClaims==="object"
+  ?appData.monthlyClaims:{};
+
+  appData.blogRecords=
+  Array.isArray(appData.blogRecords)
+  ?appData.blogRecords:[];
+
+  appData.sharePosts=
+  Array.isArray(appData.sharePosts)
+  ?appData.sharePosts:[];
+
+  appData.records.forEach(r=>{
+
+    if(
+      r.type==="diary"
+      &&r.urlNo==null
+    ){
+      r.urlNo="";
+    }
+
+  });
+
+  appData.blogRecords.forEach(r=>{
+
+    if(r.title==null){
+      r.title="새 블로그 글";
+    }
+
+    if(r.url==null){
+      r.url="";
+    }
+
+    if(!r.grade){
+      r.grade="일반";
+    }
+
+    if(!r.status){
+      r.status="작성완료";
+    }
+
+  });
+
+  appData.sharePosts.forEach(p=>{
+
+    if(p.url==null){
+      p.url="";
+    }
+
+    p.shares=
+    Array.isArray(p.shares)
+    ?p.shares:[];
+
+  });
+
+  save();
+
+}
+
+function completedBlogPoints(){
+
+  return appData.blogRecords
+  .filter(r=>r.status==="적립완료")
+  .reduce(
+    (a,r)=>a+(GRADE_POINTS[r.grade]||0),
+    0
+  );
+
+}
+
+function completedSharePoints(){
+
+  return appData.sharePosts
+  .reduce(
+    (a,p)=>
+      a+
+      p.shares
+      .filter(s=>s.status==="적립완료")
+      .length*1000,
+    0
+  );
+
+}
+
+function monthlyEarned(){
+
+  let n=
+
+  appData.records
+  .filter(
+    r=>
+    MONTH_TYPES[r.type]
+    &&r.status==="적립완료"
+  )
+  .reduce(
+    (a,r)=>
+    a+(MONTH_TYPES[r.type].point||0),
+    0
+  );
+
+  Object.values(
+    appData.monthlyClaims
+  ).forEach(c=>{
+
+    if(c.status==="적립완료"){
+      n+=c.point||0;
+    }
+
+  });
+
+  return n;
+
+}
+
+function totalPoints(){
+
+  return
+  LEGACY_INTRO_POINT+
+  LEGACY_BLOG_POINT+
+  monthlyEarned()+
+  completedBlogPoints()+
+  completedSharePoints();
+
+}
+
+function getHistory(){
+
+  let h=[];
+
+  appData.records
+  .filter(
+    r=>
+    MONTH_TYPES[r.type]
+    &&r.status==="적립완료"
+  )
+  .forEach(r=>{
+
+    h.push({
+
+      date:r.date,
+
+      name:
+      MONTH_TYPES[r.type].name,
+
+      point:
+      MONTH_TYPES[r.type].point,
+
+      type:"month"
+
+    });
+
+  });
+
+  Object.values(
+    appData.monthlyClaims
+  )
+  .filter(
+    c=>c.status==="적립완료"
+  )
+  .forEach(c=>{
+
+    h.push({
+
+      date:
+      c.applyDate
+      ||c.month+"-28",
+
+      name:c.name,
+
+      point:c.point||0,
+
+      type:"month"
+
+    });
+
+  });
+
+  appData.blogRecords
+  .filter(
+    r=>r.status==="적립완료"
+  )
+  .forEach(r=>{
+
+    let c=
+    BLOG_CATS.find(
+      x=>x.id===r.category
+    );
+
+    h.push({
+
+      date:r.date,
+
+      name:
+      `블로그 · ${c?.name||""} · ${r.title||"제목 없음"}`,
+
+      point:
+      GRADE_POINTS[r.grade]||0,
+
+      type:"blog"
+
+    });
+
+  });
+
+  appData.sharePosts
+  .forEach(p=>
+
+    p.shares
+    .filter(
+      s=>s.status==="적립완료"
+    )
+    .forEach(s=>{
+
+      h.push({
+
+        date:s.date,
+
+        name:
+        `정보공유 · ${p.title||"제목 없음"}`,
+
+        point:1000,
+
+        type:"share"
+
+      });
+
+    })
+
+  );
+
+  return h.sort(
+    (a,b)=>
+    (b.date||"")
+    .localeCompare(a.date||"")
+  );
+
+}
+
+function renderHome(){
+
+  let d=
+  Math.ceil(
+    (
+      WEDDING_DATE-
+      new Date()
+    )/86400000
+  );
+
+  let total=totalPoints();
+
+  let pct=
+  Math.min(
+    100,
+    total/GOAL*100
+  );
+
+  let blogP=
+
+  LEGACY_BLOG_POINT+
+  completedBlogPoints()+
+  completedSharePoints();
+
+  let blogC=
+
+  LEGACY_BLOG_COUNT+
+
+  appData.blogRecords
+  .filter(
+    r=>r.status==="적립완료"
+  ).length+
+
+  appData.sharePosts
+  .reduce(
+    (a,p)=>
+    a+
+    p.shares
+    .filter(
+      s=>s.status==="적립완료"
+    )
+    .length,
+    0
+  );
+
+  document
+  .getElementById("homePage")
+  .innerHTML=`
+
+  <div class="card">
+
+    <div class="muted">
+      2027.09.04 결혼식까지
+    </div>
+
+    <div class="big pink">
+      D-${Math.max(0,d)}
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="row between">
+
+      <div>
+
+        <div class="muted">
+          현재 총 포인트
+        </div>
+
+        <div class="big">
+          ${won(total)}
+        </div>
+
+      </div>
+
+      <div class="badge">
+        목표 ${GOAL.toLocaleString()}P
+      </div>
+
+    </div>
+
+    <div
+      class="progress"
+      style="margin-top:12px"
+    >
+
+      <i
+        style="width:${pct}%"
+      ></i>
+
+    </div>
+
+    <div
+      class="muted"
+      style="margin-top:6px"
+    >
+
+      ${pct.toFixed(1)}% 달성
+
+    </div>
+
+  </div>
+
+
+  <div class="grid2">
+
+    <div class="card">
+
+      <div class="muted">
+        월별신청 적립
+      </div>
+
+      <div class="strong">
+        ${won(monthlyEarned())}
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="muted">
+        블로그·정보공유
+      </div>
+
+      <div class="strong">
+        ${won(blogP)}
+      </div>
+
+      <div class="muted">
+        ${blogC}건
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="row between">
+
+      <b>
+        데이터 백업
+      </b>
+
+      <div>
+
+        <button
+          class="smallbtn"
+          onclick="exportBackup()"
+        >
+          내보내기
+        </button>
+
+        <button
+          class="smallbtn"
+          onclick="
+          document
+          .getElementById('backupInput')
+          .click()
+          "
+        >
+          가져오기
+        </button>
+
+      </div>
+
+    </div>
+
+    <input
+      id="backupInput"
+      type="file"
+      accept=".json,application/json"
+      hidden
+      onchange="importBackup(this)"
+    >
+
+    <div
+      class="note"
+      style="margin-top:10px"
+    >
+
+      입력 내용은 이 브라우저에 저장돼요.
+      가끔 백업 파일을 보관해두는 것을 추천해요.
+
+    </div>
+
+  </div>
+
+  `;
+
+}
+
+function renderHistory(){
+
+  let h=getHistory();
+
+  let sum=
+  h.reduce(
+    (a,x)=>a+x.point,
+    0
+  );
+
+  document
+  .getElementById("historyPage")
+  .innerHTML=`
+
+  <div class="section-title">
+    적립내역
+  </div>
+
+  <div class="card">
+
+    <div class="muted">
+      새로 기록한 적립완료 포인트
+    </div>
+
+    <div class="big">
+      ${won(sum)}
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    ${
+      h.length
+      ?
+      h.map(x=>`
+
+        <div class="history">
+
+          <span>
+            ${esc(x.date||"-")}
+          </span>
+
+          <span>
+            ${esc(x.name)}
+          </span>
+
+          <b>
+            ${won(x.point)}
+          </b>
+
+        </div>
+
+      `).join("")
+
+      :
+
+      `
+      <div class="empty">
+        아직 적립완료 내역이 없어요.
+      </div>
+      `
+    }
+
+  </div>
+
+  `;
+
+}
+
+function getClaim(key,def){
+
+  if(!appData.monthlyClaims[key]){
+
+    appData.monthlyClaims[key]={
+      ...def,
+      status:"미신청",
+      applyDate:""
+    };
+
+  }
+
+  return appData.monthlyClaims[key];
+
+}
+
+function monthRecords(type,m){
+
+  return appData.records.filter(
+    r=>
+    r.type===type
+    &&
+    (r.date||"").slice(0,7)===m
+  );
+
+}
+
+function renderMonth(){
+
+  let m=
+  document
+  .getElementById("monthPicker")
+  ?.value
+  ||monthNow();
+
+  let comments=
+  monthRecords("comment",m);
+
+  let diaries=
+  monthRecords("diary",m);
+
+  let cc=
+  getClaim(
+    "comment:"+m,
+    {
+      month:m,
+      name:"댓글교류",
+      point:comments.length*1000
+    }
+  );
+
+  cc.point=
+  comments.length*1000;
+
+  let dc=
+  getClaim(
+    "diary:"+m,
+    {
+      month:m,
+      name:"결혼일기",
+      point:5000
+    }
+  );
+
+  dc.point=5000;
+
+  let days=
+  new Date(
+    +m.slice(0,4),
+    +m.slice(5,7),
+    0
+  ).getDate();
+
+  let selected=
+  new Set(
+    comments.map(
+      r=>+r.date.slice(8,10)
+    )
+  );
+
+  let cal=
+  Array
+  .from(
+    {length:days},
+    (_,i)=>`
+
+      <button
+        class="day ${
+          selected.has(i+1)
+          ?"on":""
+        }"
+        onclick="
+        toggleComment(
+          '${m}',
+          ${i+1}
+        )
+        "
+      >
+        ${i+1}
+      </button>
+
+    `
+  )
+  .join("");
+
+  let others=
+
+  Object.entries(
+    MONTH_TYPES
+  )
+  .map(([type,x])=>{
+
+    let rows=
+    monthRecords(type,m);
+
+    return `
+
+    <div class="card">
+
+      <div class="row between">
+
+        <b>
+          ${x.name}
+        </b>
+
+        <span class="badge">
+          ${won(x.point)}
+          · 월 ${x.monthlyMax}회
+        </span>
+
+      </div>
+
+      ${
+        rows
+        .map(
+          r=>individualRow(r,type)
+        )
+        .join("")
+      }
+
+      <button
+        class="btn light"
+        style="
+        margin-top:10px;
+        width:100%
+        "
+        onclick="
+        addIndividual(
+          '${type}',
+          '${m}'
+        )
+        "
+      >
+        + 추가
+      </button>
+
+    </div>
+
+    `;
+
+  })
+  .join("");
+
+  document
+  .getElementById("monthPage")
+  .innerHTML=`
+
+  <div class="section-title">
+    월별신청
+  </div>
+
+  <div class="month-head">
+
+    <label style="margin:0">
+      조회 월
+    </label>
+
+    <input
+      id="monthPicker"
+      type="month"
+      value="${m}"
+      onchange="renderMonth()"
+    >
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="row between">
+
+      <b>
+        댓글교류
+      </b>
+
+      <span class="badge">
+        ${comments.length}/10
+        ·
+        ${won(comments.length*1000)}
+      </span>
+
+    </div>
+
+    <div
+      class="calendar"
+      style="margin-top:12px"
+    >
+
+      ${cal}
+
+    </div>
+
+    ${
+      claimBox(
+        "comment:"+m,
+        cc,
+        comments.length>0
+      )
+    }
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="row between">
+
+      <b>
+        결혼일기
+      </b>
+
+      <span class="badge">
+        ${diaries.length}/20
+      </span>
+
+    </div>
+
+    ${
+      diaries
+      .map(r=>`
+
+        <div class="record">
+
+          <div class="grid2">
+
+            <input
+              type="date"
+              value="${r.date}"
+              onchange="
+              updRec(
+                '${r.id}',
+                'date',
+                this.value
+              )
+              "
+            >
+
+            <input
+              inputmode="numeric"
+              placeholder="URL 번호"
+              value="${attr(r.urlNo||"")}"
+              onchange="
+              updRec(
+                '${r.id}',
+                'urlNo',
+                this.value
+              )
+              "
+            >
+
+          </div>
+
+          <button
+            class="smallbtn"
+            style="margin-top:7px"
+            onclick="
+            delRec('${r.id}')
+            "
+          >
+            삭제
+          </button>
+
+        </div>
+
+      `)
+      .join("")
+    }
+
+    <button
+      class="btn light"
+      style="
+      margin-top:10px;
+      width:100%
+      "
+      onclick="
+      addDiary('${m}')
+      "
+      ${
+        diaries.length>=20
+        ?"disabled":""
+      }
+    >
+      + 결혼일기 추가
+    </button>
+
+    ${
+      claimBox(
+        "diary:"+m,
+        dc,
+        diaries.length===20
+        &&
+        diaries.every(
+          r=>
+          String(r.urlNo||"")
+          .trim()
+        )
+      )
+    }
+
+  </div>
+
+  ${others}
+
+  `;
+
+  save();
+
+}
+
+function claimBox(
+  key,
+  c,
+  enabled
+){
+
+  return `
+
+  <div class="expand">
+
+    <div class="grid2">
+
+      <div>
+
+        <label>
+          신청일
+        </label>
+
+        <input
+          type="date"
+          value="${c.applyDate||""}"
+          onchange="
+          updateClaim(
+            '${key}',
+            'applyDate',
+            this.value
+          )
+          "
+        >
+
+      </div>
+
+      <div>
+
+        <label>
+          관리
+        </label>
+
+        <select
+          onchange="
+          updateClaim(
+            '${key}',
+            'status',
+            this.value
+          )
+          "
+          ${
+            enabled
+            ?"":"disabled"
+          }
+        >
+
+          ${
+            [
+              "미신청",
+              "적립신청",
+              "적립완료"
+            ]
+            .map(
+              s=>`
+              <option
+                ${
+                  c.status===s
+                  ?"selected":""
+                }
+              >
+                ${s}
+              </option>
+              `
+            )
+            .join("")
+          }
+
+        </select>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  `;
+
+}
+
+function individualRow(
+  r,
+  type
+){
+
+  return `
+
+  <div class="record">
+
+    <div class="grid2">
+
+      <div>
+
+        <label>
+          작성일
+        </label>
+
+        <input
+          type="date"
+          value="${r.date}"
+          onchange="
+          updRec(
+            '${r.id}',
+            'date',
+            this.value
+          )
+          "
+        >
+
+      </div>
+
+      <div>
+
+        <label>
+          관리
+        </label>
+
+        <select
+          onchange="
+          updRec(
+            '${r.id}',
+            'status',
+            this.value
+          )
+          "
+        >
+
+          ${
+            [
+              "작성완료",
+              "적립신청",
+              "적립완료"
+            ]
+            .map(
+              s=>`
+              <option
+                ${
+                  r.status===s
+                  ?"selected":""
+                }
+              >
+                ${s}
+              </option>
+              `
+            )
+            .join("")
+          }
+
+        </select>
+
+      </div>
+
+    </div>
+
+    <div
+      class="row between"
+      style="margin-top:7px"
+    >
+
+      <b>
+        ${won(MONTH_TYPES[type].point)}
+      </b>
+
+      <button
+        class="smallbtn"
+        onclick="
+        delRec('${r.id}')
+        "
+      >
+        삭제
+      </button>
+
+    </div>
+
+  </div>
+
+  `;
+
+}
+
+function toggleComment(
+  m,
+  d
+){
+
+  let date=
+  m+"-"+String(d).padStart(2,"0");
+
+  let found=
+  appData.records.find(
+    r=>
+    r.type==="comment"
+    &&
+    r.date===date
+  );
+
+  if(found){
+
+    appData.records=
+    appData.records.filter(
+      r=>r.id!==found.id
+    );
+
+  }else if(
+    monthRecords(
+      "comment",
+      m
+    ).length<10
+  ){
+
+    appData.records.push({
+      id:uid(),
+      type:"comment",
+      date
+    });
+
+  }
+
+  resetClaim(
+    "comment:"+m
+  );
+
+  save();
+  renderAll();
+
+}
+
+function addDiary(m){
+
+  if(
+    monthRecords(
+      "diary",
+      m
+    ).length>=20
+  ) return;
+
+  appData.records.push({
+
+    id:uid(),
+
+    type:"diary",
+
+    date:m+"-01",
+
+    urlNo:""
+
+  });
+
+  resetClaim(
+    "diary:"+m
+  );
+
+  save();
+  renderAll();
+
+}
+
+function addIndividual(
+  type,
+  m
+){
+
+  let cfg=
+  MONTH_TYPES[type];
+
+  let rows=
+  monthRecords(
+    type,
+    m
+  );
+
+  if(
+    rows.length>=cfg.monthlyMax
+  ){
+
+    return alert(
+      "이번 달 최대 횟수까지 추가했어요."
+    );
+
+  }
+
+  if(
+    cfg.totalMax
+    &&
+    appData.records
+    .filter(
+      r=>r.type===type
+    )
+    .length>=cfg.totalMax
+  ){
+
+    return alert(
+      "전체 최대 횟수까지 추가했어요."
+    );
+
+  }
+
+  appData.records.push({
+
+    id:uid(),
+
+    type,
+
+    date:m+"-01",
+
+    status:"작성완료"
+
+  });
+
+  save();
+  renderAll();
+
+}
+
+function updRec(
+  id,
+  k,
+  v
+){
+
+  let r=
+  appData.records.find(
+    x=>x.id===id
+  );
+
+  if(!r) return;
+
+  r[k]=v;
+
+  if(
+    r.type==="diary"
+  ){
+
+    resetClaim(
+      "diary:"+
+      (r.date||monthNow())
+      .slice(0,7)
+    );
+
+  }
+
+  save();
+  renderAll();
+
+}
+
+function delRec(id){
+
+  let r=
+  appData.records.find(
+    x=>x.id===id
+  );
+
+  if(!r) return;
+
+  appData.records=
+  appData.records.filter(
+    x=>x.id!==id
+  );
+
+  save();
+  renderAll();
+
+}
+
+function resetClaim(key){
+
+  let c=
+  appData.monthlyClaims[key];
+
+  if(
+    c
+    &&
+    c.status!=="미신청"
+  ){
+
+    c.status="미신청";
+    c.applyDate="";
+
+  }
+
+}
+
+function updateClaim(
+  key,
+  k,
+  v
+){
+
+  let c=
+  appData.monthlyClaims[key];
+
+  if(!c) return;
+
+  if(
+    k==="status"
+    &&
+    v!=="미신청"
+    &&
+    !c.applyDate
+  ){
+
+    alert(
+      "신청일을 먼저 선택해 주세요."
+    );
+
+    return renderAll();
+
+  }
+
+  c[k]=v;
+
+  save();
+  renderAll();
+
+}
+
+/* =========================
+   블로그
+========================= */
+
+function renderBlog(){
+
+  let cats=
+  BLOG_CATS.filter(
+    c=>c.max===blogTab
+  );
+
+  let html=
+  cats.map(c=>{
+
+    let rs=
+    appData.blogRecords.filter(
+      r=>r.category===c.id
+    );
+
+    let done=
+    rs.filter(
+      r=>r.status==="적립완료"
+    );
+
+    let pts=
+    done.reduce(
+      (a,r)=>
+      a+(GRADE_POINTS[r.grade]||0),
+      0
+    );
+
+    let open=
+    openBlogCategories.has(c.id);
+
+    return `
+
+    <div class="card">
+
+      <div
+        class="cat-head clickable"
+        onclick="
+        toggleBlogCat('${c.id}')
+        "
+      >
+
+        <div>
+
+          <b>
+            ${c.icon} ${c.name}
+          </b>
+
+          <div class="muted">
+
+            적립완료
+            ${done.length}건
+            ·
+            ${won(pts)}
+
+          </div>
+
+        </div>
+
+        <span class="badge">
+          ${rs.length}/${c.max}
+        </span>
+
+        <span>
+          ${open?"▲":"▼"}
+        </span>
+
+      </div>
+
+      ${
+        open
+        ?
+        `
+
+        <div class="expand">
+
+          ${
+            rs.length
+            ?
+            rs.map(blogRow).join("")
+            :
+            `
+            <div class="empty">
+              작성한 글이 없어요.
+            </div>
+            `
+          }
+
+          <button
+            class="btn light"
+            style="
+            width:100%;
+            margin-top:8px
+            "
+            onclick="
+            event.stopPropagation();
+            addBlog('${c.id}')
+            "
+            ${
+              rs.length>=c.max
+              ?"disabled":""
+            }
+          >
+            + 글 추가
+          </button>
+
+        </div>
+
+        `
+        :""
+      }
+
+    </div>
+
+    `;
+
+  })
+  .join("");
+
+  document
+  .getElementById("blogPage")
+  .innerHTML=`
+
+  <div class="section-title">
+    블로그
+  </div>
+
+  <div class="tabs">
+
+    <button
+      class="tab ${
+        blogTab===20
+        ?"active":""
+      }"
+      onclick="
+      blogTab=20;
+      renderBlog()
+      "
+    >
+      20개 작성 가능 (5)
+    </button>
+
+    <button
+      class="tab ${
+        blogTab===10
+        ?"active":""
+      }"
+      onclick="
+      blogTab=10;
+      renderBlog()
+      "
+    >
+      10개 작성 가능 (10)
+    </button>
+
+  </div>
+
+  ${html}
+
+  `;
+
+}
+
+function blogRow(r){
+
+  let open=
+  openBlogRecords.has(r.id);
+
+  let editing=
+  editingBlogUrls.has(r.id);
+
+  let p=
+  r.status==="적립완료"
+  ?
+  (GRADE_POINTS[r.grade]||0)
+  :
+  0;
+
+  let u=
+  safeUrl(r.url);
+
+  return `
+
+  <div class="record">
+
+    <div class="post-summary">
+
+      <input
+        type="date"
+        value="${r.date}"
+        style="
+        font-size:10px;
+        padding:7px 3px
+        "
+        onclick="
+        event.stopPropagation()
+        "
+        onchange="
+        updateBlog(
+          '${r.id}',
+          'date',
+          this.value
+        )
+        "
+      >
+
+      <input
+        class="title-ellipsis"
+        value="${attr(r.title||"")}"
+        placeholder="글 제목"
+        onclick="
+        event.stopPropagation()
+        "
+        onchange="
+        updateBlog(
+          '${r.id}',
+          'title',
+          this.value
+        )
+        "
+      >
+
+      <div class="point-cell">
+
+        ${
+          p
+          ?won(p)
+          :"-"
+        }
+
+      </div>
+
+      ${
+        u
+        ?
+        `
+        <a
+          class="link-icon"
+          href="${attr(u)}"
+          target="_blank"
+          rel="noopener"
+          onclick="
+          event.stopPropagation()
+          "
+        >
+          🔗
+        </a>
+        `
+        :
+        `<span></span>`
+      }
+
+      <span
+        class="clickable"
+        onclick="
+        toggleBlogRecord('${r.id}')
+        "
+      >
+        ${open?"▲":"▼"}
+      </span>
+
+    </div>
+
+    ${
+      open
+      ?
+      `
+
+      <div class="expand">
+
+        <div class="grid2">
+
+          <div>
+
+            <label>
+              등급
+            </label>
+
+            <select
+              onchange="
+              updateBlog(
+                '${r.id}',
+                'grade',
+                this.value
+              )
+              "
+            >
+
+              ${
+                Object.keys(
+                  GRADE_POINTS
+                )
+                .map(
+                  x=>`
+                  <option
+                    ${
+                      r.grade===x
+                      ?"selected":""
+                    }
+                  >
+                    ${x}
+                  </option>
+                  `
+                )
+                .join("")
+              }
+
+            </select>
+
+          </div>
+
+          <div>
+
+            <label>
+              관리
+            </label>
+
+            <select
+              onchange="
+              updateBlog(
+                '${r.id}',
+                'status',
+                this.value
+              )
+              "
+            >
+
+              ${
+                [
+                  "작성완료",
+                  "적립신청",
+                  "적립완료"
+                ]
+                .map(
+                  x=>`
+                  <option
+                    ${
+                      r.status===x
+                      ?"selected":""
+                    }
+                  >
+                    ${x}
+                  </option>
+                  `
+                )
+                .join("")
+              }
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <div
+          style="margin-top:10px"
+        >
+
+          <label>
+            게시물 링크
+          </label>
+
+          ${
+            editing||!u
+            ?
+            `
+
+            <div class="url-line">
+
+              <input
+                placeholder="https://blog.naver.com/..."
+                value="${attr(r.url||"")}"
+                onchange="
+                updateBlogUrl(
+                  '${r.id}',
+                  this.value
+                )
+                "
+              >
+
+              <button
+                class="smallbtn"
+                onclick="
+                finishBlogUrl('${r.id}')
+                "
+              >
+                저장
+              </button>
+
+            </div>
+
+            `
+            :
+            `
+
+            <div class="url-line">
+
+              <a
+                class="url-link"
+                href="${attr(u)}"
+                target="_blank"
+                rel="noopener"
+              >
+                ${esc(r.url)}
+              </a>
+
+              <button
+                class="smallbtn"
+                onclick="
+                editBlogUrl('${r.id}')
+                "
+              >
+                수정
+              </button>
+
+            </div>
+
+            `
+          }
+
+        </div>
+
+
+        <div
+          class="row between"
+          style="margin-top:12px"
+        >
+
+          <span class="muted">
+            적립완료 시
+            ${won(
+              GRADE_POINTS[r.grade]||0
+            )}
+          </span>
+
+          <button
+            class="smallbtn"
+            style="color:#d84a4a"
+            onclick="
+            deleteBlog('${r.id}')
+            "
+          >
+            삭제
+          </button>
+
+        </div>
+
+      </div>
+
+      `
+      :""
+    }
+
+  </div>
+
+  `;
+
+}
+
+function toggleBlogCat(id){
+
+  if(
+    openBlogCategories.has(id)
+  ){
+
+    openBlogCategories.delete(id);
+
+  }else{
+
+    openBlogCategories.add(id);
+
+  }
+
+  renderBlog();
+
+}
+
+function toggleBlogRecord(id){
+
+  if(
+    openBlogRecords.has(id)
+  ){
+
+    openBlogRecords.delete(id);
+
+  }else{
+
+    openBlogRecords.add(id);
+
+  }
+
+  renderBlog();
+
+}
+
+function addBlog(cat){
+
+  let c=
+  BLOG_CATS.find(
+    x=>x.id===cat
+  );
+
+  let rs=
+  appData.blogRecords.filter(
+    r=>r.category===cat
+  );
+
+  if(
+    rs.length>=c.max
+  ) return;
+
+  let id=uid();
+
+  appData.blogRecords.push({
+
+    id,
+
+    category:cat,
+
+    date:today(),
+
+    title:"새 블로그 글",
+
+    url:"",
+
+    grade:"일반",
+
+    status:"작성완료"
+
+  });
+
+  openBlogCategories.add(cat);
+  openBlogRecords.add(id);
+  editingBlogUrls.add(id);
+
+  save();
+  renderAll();
+
+}
+
+function updateBlog(
+  id,
+  k,
+  v
+){
+
+  let r=
+  appData.blogRecords.find(
+    x=>x.id===id
+  );
+
+  if(!r) return;
+
+  r[k]=v;
+
+  save();
+  renderAll();
+
+}
+
+function updateBlogUrl(
+  id,
+  v
+){
+
+  let r=
+  appData.blogRecords.find(
+    x=>x.id===id
+  );
+
+  if(!r) return;
+
+  r.url=v;
+
+  save();
+
+}
+
+function editBlogUrl(id){
+
+  editingBlogUrls.add(id);
+
+  renderBlog();
+
+}
+
+function finishBlogUrl(id){
+
+  editingBlogUrls.delete(id);
+
+  save();
+  renderAll();
+
+}
+
+function deleteBlog(id){
+
+  if(
+    !confirm(
+      "이 블로그 글을 삭제할까요?"
+    )
+  ) return;
+
+  appData.blogRecords=
+  appData.blogRecords.filter(
+    r=>r.id!==id
+  );
+
+  openBlogRecords.delete(id);
+  editingBlogUrls.delete(id);
+
+  save();
+  renderAll();
+
+}
+
+/* =========================
+   정보공유
+========================= */
+
+function renderShare(){
+
+  let posts=
+  appData.sharePosts;
+
+  document
+  .getElementById("sharePage")
+  .innerHTML=`
+
+  <div
+    class="row between"
+    style="margin-bottom:12px"
+  >
+
+    <div
+      class="section-title"
+      style="margin:0"
+    >
+      정보공유
+    </div>
+
+    <button
+      class="btn"
+      onclick="addSharePost()"
+    >
+      + 글 추가
+    </button>
+
+  </div>
+
+  ${
+    posts.length
+    ?
+    posts.map(sharePost).join("")
+    :
+    `
+    <div class="card empty">
+      아직 정보공유 글이 없어요.
+    </div>
+    `
+  }
+
+  `;
+
+}
+
+function sharePost(p){
+
+  let open=
+  openSharePosts.has(p.id);
+
+  let pts=
+  p.shares
+  .filter(
+    s=>s.status==="적립완료"
+  )
+  .length*1000;
+
+  let u=
+  safeUrl(p.url);
+
+  return `
+
+  <div class="card">
+
+    <div class="share-header-grid">
+
+      <div>
+
+        <label>
+          작성일
+        </label>
+
+        <input
+          type="date"
+          value="${p.date}"
+          onchange="
+          updateSharePost(
+            '${p.id}',
+            'date',
+            this.value
+          )
+          "
+        >
+
+      </div>
+
+      <div>
+
+        <label>
+          글 제목
+        </label>
+
+        <input
+          value="${attr(p.title||"")}"
+          placeholder="작성한 글 제목"
+          onchange="
+          updateSharePost(
+            '${p.id}',
+            'title',
+            this.value
+          )
+          "
+        >
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="row between"
+      style="margin-top:10px"
+    >
+
+      <div
+        class="row"
+        style="min-width:0"
+      >
+
+        ${
+          u
+          ?
+          `
+
+          <a
+            class="url-link"
+            href="${attr(u)}"
+            target="_blank"
+            rel="noopener"
+          >
+            ${esc(p.url)}
+          </a>
+
+          `
+          :
+          `
+
+          <span class="muted">
+            게시물 링크 없음
+          </span>
+
+          `
+        }
+
+      </div>
+
+
+      <div class="row">
+
+        <span class="badge">
+
+          ${p.shares.length}건
+          ·
+          ${won(pts)}
+
+        </span>
+
+        <button
+          class="smallbtn"
+          onclick="
+          toggleSharePost('${p.id}')
+          "
+        >
+          ${open?"▲":"▼"}
+        </button>
+
+      </div>
+
+    </div>
+
+
+    ${
+      open
+      ?
+      `
+
+      <div class="expand">
+
+        <div>
+
+          <label>
+            게시물 URL
+          </label>
+
+          <input
+            placeholder="https://..."
+            value="${attr(p.url||"")}"
+            onchange="
+            updateSharePost(
+              '${p.id}',
+              'url',
+              this.value
+            )
+            "
+          >
+
+        </div>
+
+
+        <div
+          style="margin-top:12px"
+        >
+
+          ${
+            p.shares
+            .map(
+              s=>shareRow(p,s)
+            )
+            .join("")
+          }
+
+        </div>
+
+
+        <button
+          class="btn light"
+          style="
+          width:100%;
+          margin-top:8px
+          "
+          onclick="
+          addShare('${p.id}')
+          "
+        >
+          + 공유 추가
+        </button>
+
+
+        <div
+          style="
+          text-align:right;
+          margin-top:10px
+          "
+        >
+
+          <button
+            class="smallbtn"
+            style="color:#d84a4a"
+            onclick="
+            deleteSharePost('${p.id}')
+            "
+          >
+            글 삭제
+          </button>
+
+        </div>
+
+      </div>
+
+      `
+      :""
+    }
+
+  </div>
+
+  `;
+
+}
+
+function shareRow(
+  p,
+  s
+){
+
+  return `
+
+  <div class="record">
+
+    <div class="share-row">
+
+      <div>
+
+        <label>
+          공유일
+        </label>
+
+        <input
+          type="date"
+          value="${s.date}"
+          onchange="
+          updateShare(
+            '${p.id}',
+            '${s.id}',
+            'date',
+            this.value
+          )
+          "
+        >
+
+      </div>
+
+      <div>
+
+        <label>
+          이메일
+        </label>
+
+        <input
+          type="email"
+          value="${attr(s.email||"")}"
+          placeholder="example@email.com"
+          onchange="
+          updateShare(
+            '${p.id}',
+            '${s.id}',
+            'email',
+            this.value
+          )
+          "
+        >
+
+      </div>
+
+    </div>
+
+
+    <div class="share-actions">
+
+      <select
+        onchange="
+        updateShare(
+          '${p.id}',
+          '${s.id}',
+          'status',
+          this.value
+        )
+        "
+      >
+
+        ${
+          [
+            "전송완료",
+            "적립신청",
+            "적립완료"
+          ]
+          .map(
+            x=>`
+            <option
+              ${
+                s.status===x
+                ?"selected":""
+              }
+            >
+              ${x}
+            </option>
+            `
+          )
+          .join("")
+        }
+
+      </select>
+
+      <button
+        class="smallbtn"
+        onclick="
+        deleteShare(
+          '${p.id}',
+          '${s.id}'
+        )
+        "
+      >
+        삭제
+      </button>
+
+    </div>
+
+
+    <div
+      class="muted"
+      style="margin-top:6px"
+    >
+      적립완료 시 1,000P
+    </div>
+
+  </div>
+
+  `;
+
+}
+
+function addSharePost(){
+
+  let id=uid();
+
+  appData.sharePosts.unshift({
+
+    id,
+
+    date:today(),
+
+    title:"새 정보공유 글",
+
+    url:"",
+
+    shares:[]
+
+  });
+
+  openSharePosts.add(id);
+
+  save();
+  renderAll();
+
+}
+
+function toggleSharePost(id){
+
+  if(
+    openSharePosts.has(id)
+  ){
+
+    openSharePosts.delete(id);
+
+  }else{
+
+    openSharePosts.add(id);
+
+  }
+
+  renderShare();
+
+}
+
+function updateSharePost(
+  id,
+  k,
+  v
+){
+
+  let p=
+  appData.sharePosts.find(
+    x=>x.id===id
+  );
+
+  if(!p) return;
+
+  p[k]=v;
+
+  save();
+  renderAll();
+
+}
+
+function deleteSharePost(id){
+
+  if(
+    !confirm(
+      "이 정보공유 글과 공유 내역을 모두 삭제할까요?"
+    )
+  ) return;
+
+  appData.sharePosts=
+  appData.sharePosts.filter(
+    p=>p.id!==id
+  );
+
+  openSharePosts.delete(id);
+
+  save();
+  renderAll();
+
+}
+
+function addShare(pid){
+
+  let p=
+  appData.sharePosts.find(
+    x=>x.id===pid
+  );
+
+  if(!p) return;
+
+  p.shares.push({
+
+    id:uid(),
+
+    date:today(),
+
+    email:"",
+
+    status:"전송완료"
+
+  });
+
+  save();
+  renderAll();
+
+}
+
+function updateShare(
+  pid,
+  sid,
+  k,
+  v
+){
+
+  let p=
+  appData.sharePosts.find(
+    x=>x.id===pid
+  );
+
+  let s=
+  p?.shares.find(
+    x=>x.id===sid
+  );
+
+  if(!s) return;
+
+  s[k]=v;
+
+  save();
+  renderAll();
+
+}
+
+function deleteShare(
+  pid,
+  sid
+){
+
+  let p=
+  appData.sharePosts.find(
+    x=>x.id===pid
+  );
+
+  if(!p) return;
+
+  p.shares=
+  p.shares.filter(
+    s=>s.id!==sid
+  );
+
+  save();
+  renderAll();
+
+}
+
+/* =========================
+   카페
+========================= */
+
+function renderCafe(){
+
+  document
+  .getElementById("cafePage")
+  .innerHTML=`
+
+  <div class="section-title">
+    카페활동
+  </div>
+
+  <div class="card">
+
+    <div class="empty">
+
+      카페활동 상세 메뉴는
+      다음 단계에서 만들 수 있어요.
+
+      <br><br>
+
+      댓글교류와 결혼일기는
+      현재 월별신청에서 관리됩니다.
+
+    </div>
+
+  </div>
+
+  `;
+
+}
+
+/* =========================
+   백업
+========================= */
+
+function exportBackup(){
+
+  let blob=
+  new Blob(
+    [
+      JSON.stringify(
+        {
+          version:5,
+          exportedAt:
+          new Date().toISOString(),
+          data:appData
+        },
+        null,
+        2
+      )
+    ],
+    {
+      type:"application/json"
+    }
+  );
+
+  let a=
+  document.createElement("a");
+
+  a.href=
+  URL.createObjectURL(blob);
+
+  a.download=
+  `다이렉트포인트_백업_${today()}.json`;
+
+  a.click();
+
+  URL.revokeObjectURL(
+    a.href
+  );
+
+}
+
+function importBackup(input){
+
+  let f=
+  input.files?.[0];
+
+  if(!f) return;
+
+  let r=
+  new FileReader();
+
+  r.onload=()=>{
+
+    try{
+
+      let x=
+      JSON.parse(r.result);
+
+      appData=
+      x.data||x;
+
+      normalize();
+      renderAll();
+
+      alert(
+        "백업을 불러왔어요."
+      );
+
+    }catch(e){
+
+      alert(
+        "백업 파일을 확인해 주세요."
+      );
+
+    }
+
+  };
+
+  r.readAsText(f);
+
+  input.value="";
+
+}
+
+/* =========================
+   전체 렌더
+========================= */
+
+function renderAll(){
+
+  renderHome();
+  renderHistory();
+  renderMonth();
+  renderCafe();
+  renderBlog();
+  renderShare();
+
+}
+
+document
+.querySelectorAll("nav button")
+.forEach(b=>{
+
+  b.onclick=()=>{
+
+    document
+    .querySelectorAll(".page")
+    .forEach(
+      p=>
+      p.classList.remove("active")
+    );
+
+    document
+    .querySelectorAll("nav button")
+    .forEach(
+      x=>
+      x.classList.remove("active")
+    );
+
+    document
+    .getElementById(
+      b.dataset.page
+    )
+    .classList.add("active");
+
+    b.classList.add("active");
+
+    renderAll();
+
+  };
+
+});
+
+load();
+renderAll();
+
+</script>
+
+</body>
+</html>
