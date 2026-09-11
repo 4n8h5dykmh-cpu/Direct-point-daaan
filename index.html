@@ -5676,7 +5676,7 @@ function renderHome(){
   ).textContent =
     `오늘은 ${now.getMonth()+1}월 ${now.getDate()}일 | 이번 달 D-${remain}`;
 
-  const blogActivityPoint =
+   const blogActivityPoint =
     LEGACY_BLOG_POINT
     +
     totalBlogEarnedPoints()
@@ -5700,7 +5700,7 @@ function renderHome(){
   ).textContent =
     `${blogActivityCount}건`;
 
-   const cafePoint =
+  const cafePoint =
     allMonthlyEarnedPoints();
 
   const cafeCompleted =
@@ -5722,6 +5722,11 @@ function renderHome(){
     LEGACY_BLOG_POINT
     +
     newEarnedPoints();
+
+  document.getElementById(
+    "currentPoint"
+  ).textContent =
+    `${formatNumber(currentPoint)}원`;
 
   const pointGoal =
     Number(appData.settings.pointGoal || 3000000);
@@ -5750,7 +5755,7 @@ function renderHome(){
     `${formatNumber(currentPoint)}원 / ${formatNumber(pointGoal)}원`;
 
 }
-
+  
 /* =========================
    HISTORY
 ========================= */
