@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#fffafa">
 <meta name="apple-mobile-web-app-capable" content="yes">
-
+  
 <title>다이렉트 포인트</title>
 
 <style>
@@ -5183,6 +5183,13 @@ function createSharePostCard(post){
 
         </div>
 
+        <button
+          class="add-btn"
+          onclick="addShareRecord('${post.id}')"
+        >
+         + 공유 추가
+        </button>
+
         <div class="share-table-head">
           <div>공유일</div>
           <div>이메일</div>
@@ -5192,13 +5199,6 @@ function createSharePostCard(post){
         </div>
 
         ${rows}
-
-        <button
-          class="add-btn"
-          onclick="addShareRecord('${post.id}')"
-        >
-          + 공유 추가
-        </button>
 
       </div>
 
