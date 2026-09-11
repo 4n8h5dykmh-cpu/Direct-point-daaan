@@ -1869,7 +1869,7 @@ button{
 
   <div class="card point-card">
     <div class="label">현재 포인트</div>
-    <div class="big-number current" id="currentPoint">244,000원</div>
+    <div class="big-number current" id="currentPoint">0원</div>
   </div>
 </div>
 
@@ -1921,7 +1921,7 @@ button{
     <div class="cafe-point-breakdown">
       <div class="cafe-point-row">
         <span>글작성</span>
-        <strong id="homeBlogWritePoint">171,000원</strong>
+        <strong id="homeBlogWritePoint">0원</strong>
       </div>
 
       <div class="cafe-point-row">
@@ -2278,9 +2278,6 @@ button{
 ========================= */
 
 const STORAGE_KEY = "directPointData_v1";
-
-const LEGACY_BLOG_POINT = 171000;
-const LEGACY_BLOG_COUNT = 28;
 
 let selectedDate = new Date();
 selectedDate.setDate(1);
@@ -5752,8 +5749,6 @@ function renderHome(){
     `오늘은 ${now.getMonth()+1}월 ${now.getDate()}일 | 이번 달 D-${remain}`;
 
   const blogWritePoint =
-    LEGACY_BLOG_POINT
-    +
     totalBlogEarnedPoints();
 
   const blogSharePoint =
@@ -5785,8 +5780,6 @@ function renderHome(){
     `${formatNumber(cafeDailyPoint)}원`;
 
   const currentPoint =
-    LEGACY_BLOG_POINT
-    +
     newEarnedPoints();
 
   document.getElementById(
