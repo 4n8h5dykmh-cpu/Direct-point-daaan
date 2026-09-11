@@ -1540,6 +1540,146 @@ button{
   text-align:right;
 }
 
+
+/* CAFE ACTIVITY */
+.cafe-tabs{
+  display:flex;
+  gap:7px;
+  margin-bottom:11px;
+  overflow-x:auto;
+  padding-bottom:2px;
+}
+
+.cafe-tab{
+  flex:0 0 auto;
+  border:0;
+  border-radius:12px;
+  padding:10px 14px;
+  background:#f3f6fb;
+  color:#687386;
+  font-size:11px;
+  font-weight:800;
+}
+
+.cafe-tab.active{
+  background:#fff0f5;
+  color:#ff2c69;
+  box-shadow:inset 0 0 0 1px #ffd3df;
+}
+
+.cafe-basic-summary{
+  padding:15px;
+  margin-bottom:11px;
+}
+
+.cafe-basic-summary-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.cafe-basic-summary-label{
+  color:#7c8797;
+  font-size:11px;
+}
+
+.cafe-basic-summary-point{
+  color:#ff2c69;
+  font-size:22px;
+  font-weight:900;
+}
+
+.cafe-basic-card{
+  padding:15px;
+  margin-bottom:10px;
+}
+
+.cafe-basic-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.cafe-basic-title{
+  font-size:13px;
+  font-weight:900;
+}
+
+.cafe-basic-desc{
+  margin-top:4px;
+  color:#7c8797;
+  font-size:9.5px;
+  line-height:1.5;
+}
+
+.cafe-basic-point{
+  color:#ff2c69;
+  font-size:12px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.cafe-choice-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+
+.cafe-choice-btn{
+  width:100%;
+  border:1px solid #edf0f4;
+  border-radius:11px;
+  background:#f7f8fb;
+  color:#647187;
+  padding:10px 7px;
+  font-size:10.5px;
+  font-weight:800;
+}
+
+.cafe-choice-btn.active{
+  border-color:#ff9db9;
+  background:#fff0f5;
+  color:#ff2c69;
+}
+
+.cafe-consult-row{
+  display:grid;
+  grid-template-columns:90px 1fr;
+  gap:9px;
+  align-items:center;
+}
+
+.cafe-consult-input{
+  width:90px;
+  border:0;
+  border-radius:10px;
+  background:#f6f8fb;
+  color:#10254c;
+  padding:10px 8px;
+  font-size:12px;
+  font-weight:800;
+  text-align:center;
+}
+
+.cafe-consult-calc{
+  color:#687386;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.cafe-basic-note{
+  margin-top:10px;
+  padding:10px 11px;
+  border-radius:11px;
+  background:#f7f8fb;
+  color:#7c8797;
+  font-size:9.5px;
+  line-height:1.5;
+}
+
 /* NAV */
 
 .bottom-nav{
@@ -2117,14 +2257,104 @@ button{
 
 <h1 class="page-title">카페활동</h1>
 
-<div class="card info-banner">
-  <div class="info-banner-icon">☕️</div>
-  <div>
-    <div class="info-banner-title">카페활동 메뉴는 다음 단계에서 만들 예정이에요.</div>
-    <div class="info-banner-desc">
-      월별신청의 댓글교류·결혼일기 등은 이미 월별신청 메뉴에서 관리할 수 있어요.
+<div class="cafe-tabs">
+  <button class="cafe-tab active">기본적립</button>
+</div>
+
+<div class="card cafe-basic-summary">
+  <div class="cafe-basic-summary-row">
+    <div>
+      <div class="cafe-basic-summary-label">기본적립 포인트</div>
+      <div class="cafe-basic-summary-point" id="cafeBasicTotalPoint">0P</div>
     </div>
   </div>
+</div>
+
+<div class="card cafe-basic-card">
+  <div class="cafe-basic-head">
+    <div>
+      <div class="cafe-basic-title">가입 시 추천인 작성</div>
+      <div class="cafe-basic-desc">가입할 때 추천인을 작성했다면 30,000P</div>
+    </div>
+    <div class="cafe-basic-point" id="cafeReferralPoint">0P</div>
+  </div>
+
+  <div class="cafe-choice-grid">
+    <button
+      id="cafeReferralYes"
+      class="cafe-choice-btn"
+      onclick="updateCafeReferral('작성O')"
+    >
+      작성 O · 30,000P
+    </button>
+
+    <button
+      id="cafeReferralNo"
+      class="cafe-choice-btn"
+      onclick="updateCafeReferral('작성X')"
+    >
+      작성 X · 0P
+    </button>
+  </div>
+</div>
+
+<div class="card cafe-basic-card">
+  <div class="cafe-basic-head">
+    <div>
+      <div class="cafe-basic-title">웨딩박람회 방문</div>
+      <div class="cafe-basic-desc">방문한 박람회 종류를 선택해 주세요.</div>
+    </div>
+    <div class="cafe-basic-point" id="cafeExpoPoint">0P</div>
+  </div>
+
+  <div class="cafe-choice-grid">
+    <button
+      id="cafeExpoBig"
+      class="cafe-choice-btn"
+      onclick="updateCafeExpo('대박람회')"
+    >
+      대박람회 · 50,000P
+    </button>
+
+    <button
+      id="cafeExpoNormal"
+      class="cafe-choice-btn"
+      onclick="updateCafeExpo('일반박람회')"
+    >
+      일반박람회 · 30,000P
+    </button>
+  </div>
+</div>
+
+<div class="card cafe-basic-card">
+  <div class="cafe-basic-head">
+    <div>
+      <div class="cafe-basic-title">박람회 업체 상담</div>
+      <div class="cafe-basic-desc">상담한 업체 수 × 5,000P로 계산돼요.</div>
+    </div>
+    <div class="cafe-basic-point" id="cafeConsultPoint">0P</div>
+  </div>
+
+  <div class="cafe-consult-row">
+    <input
+      id="cafeConsultCount"
+      class="cafe-consult-input"
+      type="number"
+      min="0"
+      step="1"
+      inputmode="numeric"
+      value="0"
+      onchange="updateCafeConsultCount(this.value)"
+    >
+
+    <div class="cafe-consult-calc" id="cafeConsultCalc">
+      0개 × 5,000P = 0P
+    </div>
+  </div>
+</div>
+
+<div class="cafe-basic-note">
+  기본적립에서 계산된 포인트는 홈의 <strong>카페 활동 포인트 → 일일활동</strong>에 합산돼요.
 </div>
 
 </section>
@@ -2387,6 +2617,14 @@ function loadData(){
       blogRecords:[],
       sharePosts:[],
       introRecords:[],
+      cafeBasic:{
+        referral:"",
+        referralDate:"",
+        expoType:"",
+        expoDate:"",
+        consultCount:0,
+        consultDate:""
+      },
       settings:{
         weddingDate:getTodayString(),
         pointGoal:3000000
@@ -2416,6 +2654,17 @@ function loadData(){
 
     if(!Array.isArray(data.introRecords)){
       data.introRecords = [];
+    }
+
+    if(!data.cafeBasic){
+      data.cafeBasic = {
+        referral:"",
+        referralDate:"",
+        expoType:"",
+        expoDate:"",
+        consultCount:0,
+        consultDate:""
+      };
     }
 
     if(!data.settings){
@@ -2467,6 +2716,14 @@ function loadData(){
       blogRecords:[],
       sharePosts:[],
       introRecords:[],
+      cafeBasic:{
+        referral:"",
+        referralDate:"",
+        expoType:"",
+        expoDate:"",
+        consultCount:0,
+        consultDate:""
+      },
       settings:{
         weddingDate:getTodayString(),
         pointGoal:3000000
@@ -2496,6 +2753,39 @@ function normalizeData(){
   if(!Array.isArray(appData.introRecords)){
     appData.introRecords = [];
   }
+
+  if(!appData.cafeBasic){
+    appData.cafeBasic = {};
+  }
+
+  if(appData.cafeBasic.referral===undefined){
+    appData.cafeBasic.referral = "";
+  }
+
+  if(appData.cafeBasic.referralDate===undefined){
+    appData.cafeBasic.referralDate = "";
+  }
+
+  if(appData.cafeBasic.expoType===undefined){
+    appData.cafeBasic.expoType = "";
+  }
+
+  if(appData.cafeBasic.expoDate===undefined){
+    appData.cafeBasic.expoDate = "";
+  }
+
+  if(appData.cafeBasic.consultCount===undefined){
+    appData.cafeBasic.consultCount = 0;
+  }
+
+  if(appData.cafeBasic.consultDate===undefined){
+    appData.cafeBasic.consultDate = "";
+  }
+
+  appData.cafeBasic.consultCount = Math.max(
+    0,
+    Math.floor(Number(appData.cafeBasic.consultCount) || 0)
+  );
 
   if(!appData.settings){
     appData.settings = {};
@@ -5633,6 +5923,174 @@ function renderIntro(){
 }
 
 
+
+/* =========================
+   CAFE BASIC
+========================= */
+
+function cafeReferralPoint(){
+
+  return appData.cafeBasic.referral==="작성O"
+    ? 30000
+    : 0;
+
+}
+
+
+function cafeExpoPoint(){
+
+  if(appData.cafeBasic.expoType==="대박람회"){
+    return 50000;
+  }
+
+  if(appData.cafeBasic.expoType==="일반박람회"){
+    return 30000;
+  }
+
+  return 0;
+
+}
+
+
+function cafeConsultPoint(){
+
+  const count = Math.max(
+    0,
+    Math.floor(Number(appData.cafeBasic.consultCount) || 0)
+  );
+
+  return count * 5000;
+
+}
+
+
+function totalCafeDailyPoints(){
+
+  return (
+    cafeReferralPoint()
+    +
+    cafeExpoPoint()
+    +
+    cafeConsultPoint()
+  );
+
+}
+
+
+function updateCafeReferral(value){
+
+  appData.cafeBasic.referral = value;
+  appData.cafeBasic.referralDate = getTodayString();
+
+  saveData();
+
+}
+
+
+function updateCafeExpo(value){
+
+  appData.cafeBasic.expoType = value;
+  appData.cafeBasic.expoDate = getTodayString();
+
+  saveData();
+
+}
+
+
+function updateCafeConsultCount(value){
+
+  const count = Math.max(
+    0,
+    Math.floor(Number(value) || 0)
+  );
+
+  appData.cafeBasic.consultCount = count;
+  appData.cafeBasic.consultDate = count > 0
+    ? getTodayString()
+    : "";
+
+  saveData();
+
+}
+
+
+function renderCafe(){
+
+  const referral = appData.cafeBasic.referral;
+  const expoType = appData.cafeBasic.expoType;
+  const consultCount = Math.max(
+    0,
+    Math.floor(Number(appData.cafeBasic.consultCount) || 0)
+  );
+
+  const referralYes = document.getElementById(
+    "cafeReferralYes"
+  );
+
+  const referralNo = document.getElementById(
+    "cafeReferralNo"
+  );
+
+  if(!referralYes || !referralNo){
+    return;
+  }
+
+  referralYes.classList.toggle(
+    "active",
+    referral==="작성O"
+  );
+
+  referralNo.classList.toggle(
+    "active",
+    referral==="작성X"
+  );
+
+  document.getElementById(
+    "cafeExpoBig"
+  ).classList.toggle(
+    "active",
+    expoType==="대박람회"
+  );
+
+  document.getElementById(
+    "cafeExpoNormal"
+  ).classList.toggle(
+    "active",
+    expoType==="일반박람회"
+  );
+
+  document.getElementById(
+    "cafeReferralPoint"
+  ).textContent =
+    `${formatNumber(cafeReferralPoint())}P`;
+
+  document.getElementById(
+    "cafeExpoPoint"
+  ).textContent =
+    `${formatNumber(cafeExpoPoint())}P`;
+
+  document.getElementById(
+    "cafeConsultPoint"
+  ).textContent =
+    `${formatNumber(cafeConsultPoint())}P`;
+
+  document.getElementById(
+    "cafeConsultCount"
+  ).value = consultCount;
+
+  document.getElementById(
+    "cafeConsultCalc"
+  ).textContent =
+    `${consultCount}개 × 5,000P = ${formatNumber(cafeConsultPoint())}P`;
+
+  document.getElementById(
+    "cafeBasicTotalPoint"
+  ).textContent =
+    `${formatNumber(totalCafeDailyPoints())}P`;
+
+}
+
+
 /* =========================
    TOTAL POINT
 ========================= */
@@ -5647,6 +6105,8 @@ function newEarnedPoints(){
     totalBlogEarnedPoints()
     +
     totalShareEarnedPoints()
+    +
+    totalCafeDailyPoints()
   );
 
 }
@@ -5767,7 +6227,8 @@ function renderHome(){
   const cafeMonthlyPoint =
     allMonthlyEarnedPoints();
 
-  const cafeDailyPoint = 0;
+  const cafeDailyPoint =
+    totalCafeDailyPoints();
 
   document.getElementById(
     "homeCafeMonthlyPoint"
@@ -5960,6 +6421,40 @@ function getHistory(){
 
   });
 
+
+  if(cafeReferralPoint()>0){
+
+    history.push({
+      type:"cafe",
+      date:appData.cafeBasic.referralDate || getTodayString(),
+      name:"카페 기본적립 · 가입 시 추천인 작성",
+      point:cafeReferralPoint()
+    });
+
+  }
+
+  if(cafeExpoPoint()>0){
+
+    history.push({
+      type:"cafe",
+      date:appData.cafeBasic.expoDate || getTodayString(),
+      name:`카페 기본적립 · ${appData.cafeBasic.expoType} 방문`,
+      point:cafeExpoPoint()
+    });
+
+  }
+
+  if(cafeConsultPoint()>0){
+
+    history.push({
+      type:"cafe",
+      date:appData.cafeBasic.consultDate || getTodayString(),
+      name:`카페 기본적립 · 박람회 업체 상담 ${appData.cafeBasic.consultCount}개`,
+      point:cafeConsultPoint()
+    });
+
+  }
+
   return history.sort(
     (a,b)=>b.date.localeCompare(a.date)
   );
@@ -6146,6 +6641,14 @@ function importData(event){
         blogRecords:imported.blogRecords || [],
         sharePosts:imported.sharePosts || [],
         introRecords:imported.introRecords || [],
+        cafeBasic:imported.cafeBasic || {
+          referral:"",
+          referralDate:"",
+          expoType:"",
+          expoDate:"",
+          consultCount:0,
+          consultDate:""
+        },
         settings:imported.settings || {
           weddingDate:getTodayString(),
           pointGoal:3000000
@@ -6212,6 +6715,7 @@ function renderAll(){
   renderHome();
   renderIntro();
   renderMonthPage();
+  renderCafe();
   renderBlog();
   renderShare();
   renderHistory();
