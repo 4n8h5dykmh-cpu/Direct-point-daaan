@@ -1914,11 +1914,21 @@ button{
     <div class="category-count" id="homeIntroCount">0건</div>
   </div>
 
-  <div class="card category">
+  <div class="card category cafe-category">
     <div class="icon blue-bg">✏️</div>
     <div class="category-title">블로그 활동 포인트</div>
-    <div class="category-point" id="homeBlogPoint">171,000원</div>
-    <div class="category-count" id="homeBlogCount">28건</div>
+
+    <div class="cafe-point-breakdown">
+      <div class="cafe-point-row">
+        <span>글작성</span>
+        <strong id="homeBlogWritePoint">171,000원</strong>
+      </div>
+
+      <div class="cafe-point-row">
+        <span>정보공유</span>
+        <strong id="homeBlogSharePoint">0원</strong>
+      </div>
+    </div>
   </div>
 
   <div class="card category cafe-category">
@@ -5741,29 +5751,23 @@ function renderHome(){
   ).textContent =
     `오늘은 ${now.getMonth()+1}월 ${now.getDate()}일 | 이번 달 D-${remain}`;
 
-   const blogActivityPoint =
+  const blogWritePoint =
     LEGACY_BLOG_POINT
     +
-    totalBlogEarnedPoints()
-    +
+    totalBlogEarnedPoints();
+
+  const blogSharePoint =
     totalShareEarnedPoints();
 
-  const blogActivityCount =
-    LEGACY_BLOG_COUNT
-    +
-    completedBlogCount()
-    +
-    completedShareCount();
+  document.getElementById(
+    "homeBlogWritePoint"
+  ).textContent =
+    `${formatNumber(blogWritePoint)}원`;
 
   document.getElementById(
-    "homeBlogPoint"
+    "homeBlogSharePoint"
   ).textContent =
-    `${formatNumber(blogActivityPoint)}원`;
-
-  document.getElementById(
-    "homeBlogCount"
-  ).textContent =
-    `${blogActivityCount}건`;
+    `${formatNumber(blogSharePoint)}원`;
 
   const cafeMonthlyPoint =
     allMonthlyEarnedPoints();
