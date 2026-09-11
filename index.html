@@ -200,6 +200,34 @@ button{
   color:#939baa;
 }
 
+.cafe-category{
+  padding-left:8px;
+  padding-right:8px;
+}
+
+.cafe-point-breakdown{
+  margin-top:7px;
+  padding-top:5px;
+  border-top:1px solid #f1ece9;
+}
+
+.cafe-point-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:4px;
+  margin-top:3px;
+  font-size:8.5px;
+  color:#7c8797;
+  white-space:nowrap;
+}
+
+.cafe-point-row strong{
+  color:#10254c;
+  font-size:9px;
+  font-weight:800;
+}
+
 .monthly-summary{
   padding:16px 15px 14px;
 }
@@ -1893,11 +1921,21 @@ button{
     <div class="category-count" id="homeBlogCount">28건</div>
   </div>
 
-  <div class="card category">
+  <div class="card category cafe-category">
     <div class="icon brown-bg">☕️</div>
     <div class="category-title">카페 활동 포인트</div>
-    <div class="category-point" id="homeCafePoint">0원</div>
-    <div class="category-count" id="homeCafeCount">0건</div>
+
+    <div class="cafe-point-breakdown">
+      <div class="cafe-point-row">
+        <span>월별신청</span>
+        <strong id="homeCafeMonthlyPoint">0원</strong>
+      </div>
+
+      <div class="cafe-point-row">
+        <span>일일활동</span>
+        <strong id="homeCafeDailyPoint">0원</strong>
+      </div>
+    </div>
   </div>
 
 </div>
@@ -2615,7 +2653,7 @@ function defaultDateForSelectedMonth(){
   const [
     selectedYear,
     selectedMonthNumber
-  ] = selectedMonth
+  ] = getMonthKey(selectedDate)
     .split("-")
     .map(Number);
 
@@ -2926,7 +2964,7 @@ function diaryValidUrlCount(monthKey){
 
 function addDiaryRecord(){
 
-  const monthKey = selectedMonth;
+  const monthKey = getMonthKey(selectedDate);
 
   openActivities.add("diary");
 
@@ -3328,7 +3366,7 @@ function addRecord(key){
   openActivities.add(key);
 
   const activity = activities[key];
-  const monthKey = selectedMonth;
+  const monthKey = getMonthKey(selectedDate);
 
   const monthRecords = recordsFor(
     key,
@@ -5727,23 +5765,20 @@ function renderHome(){
   ).textContent =
     `${blogActivityCount}건`;
 
-  const cafePoint =
+  const cafeMonthlyPoint =
     allMonthlyEarnedPoints();
 
-  const cafeCompleted =
-    getHistory()
-    .filter(item=>item.type==="month")
-    .length;
+  const cafeDailyPoint = 0;
 
   document.getElementById(
-    "homeCafePoint"
+    "homeCafeMonthlyPoint"
   ).textContent =
-    `${formatNumber(cafePoint)}원`;
+    `${formatNumber(cafeMonthlyPoint)}원`;
 
   document.getElementById(
-    "homeCafeCount"
+    "homeCafeDailyPoint"
   ).textContent =
-    `${cafeCompleted}건`;
+    `${formatNumber(cafeDailyPoint)}원`;
 
   const currentPoint =
     LEGACY_BLOG_POINT
