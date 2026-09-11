@@ -4853,7 +4853,7 @@ function addShareRecord(postId){
 
   openSharePosts.add(postId);
 
-  post.shares.push({
+  post.shares.unshift({
     id:newId(),
     date:getTodayString(),
     email:"",
