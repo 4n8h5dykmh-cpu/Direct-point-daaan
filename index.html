@@ -1525,6 +1525,153 @@ button{
   font-weight:800;
 }
 
+
+/* HOME SETTINGS / INTRO */
+.editable-home-field{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.home-date-input,
+.home-goal-input{
+  border:0;
+  background:transparent;
+  color:#10254c;
+  font-weight:800;
+  padding:0;
+  outline:none;
+}
+
+.home-date-input{
+  font-size:16px;
+  width:132px;
+}
+
+.home-goal-input{
+  font-size:18px;
+  width:100%;
+  min-width:0;
+}
+
+.home-goal-wrap{
+  display:flex;
+  align-items:center;
+  gap:2px;
+}
+
+.home-goal-unit{
+  font-size:18px;
+  font-weight:800;
+}
+
+.clickable-category{
+  cursor:pointer;
+}
+
+.intro-back{
+  border:0;
+  border-radius:11px;
+  background:#f3f6fb;
+  color:#10254c;
+  padding:9px 12px;
+  font-size:10.5px;
+  font-weight:800;
+  margin-bottom:12px;
+}
+
+.intro-summary{
+  padding:16px;
+  margin-bottom:11px;
+}
+
+.intro-summary-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.intro-summary-label{
+  font-size:11px;
+  color:#7c8797;
+}
+
+.intro-summary-point{
+  margin-top:3px;
+  color:#ff2c69;
+  font-size:22px;
+  font-weight:900;
+}
+
+.intro-list{
+  padding:12px;
+}
+
+.intro-head,
+.intro-row{
+  display:grid;
+  grid-template-columns:84px minmax(0,1fr) 72px 52px 24px;
+  gap:5px;
+  align-items:center;
+}
+
+.intro-head{
+  padding:0 1px 7px;
+  color:#8993a1;
+  font-size:8px;
+  text-align:center;
+}
+
+.intro-row{
+  padding:7px 0;
+  border-top:1px solid #f1f1f3;
+}
+
+.intro-date{
+  width:84px;
+  min-width:0;
+  border:0;
+  border-radius:8px;
+  background:#f6f8fb;
+  color:#10254c;
+  padding:7px 2px;
+  font-size:8px;
+}
+
+.intro-id{
+  width:100%;
+  min-width:0;
+  border:0;
+  border-radius:8px;
+  background:#f6f8fb;
+  color:#10254c;
+  padding:8px 6px;
+  font-size:9px;
+}
+
+.intro-contract{
+  width:72px;
+  border:0;
+  border-radius:8px;
+  padding:7px 2px;
+  background:#fff3d7;
+  color:#9a6500;
+  font-size:8px;
+}
+
+.intro-contract.done{
+  background:#ffe7ef;
+  color:#e12d69;
+}
+
+.intro-point{
+  text-align:right;
+  font-size:8px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
 @media(max-width:380px){
 
   .app{
@@ -1599,6 +1746,26 @@ button{
   .email-input{
     font-size:7.5px;
   }
+
+  .intro-head,
+  .intro-row{
+    grid-template-columns:78px minmax(0,1fr) 66px 46px 22px;
+    gap:3px;
+  }
+
+  .intro-date{
+    width:78px;
+    font-size:7.2px;
+  }
+
+  .intro-contract{
+    width:66px;
+    font-size:7.3px;
+  }
+
+  .intro-point{
+    font-size:7.4px;
+  }
 }
 </style>
 </head>
@@ -1615,7 +1782,14 @@ button{
 <div class="card wedding-card">
   <div>
     <div class="label">예식일</div>
-    <div class="wedding-date">2027.09.04 (토)</div>
+    <div class="editable-home-field">
+      <input
+        id="weddingDateInput"
+        class="home-date-input"
+        type="date"
+        onchange="updateWeddingDate(this.value)"
+      >
+    </div>
   </div>
   <div class="dday" id="weddingDday"></div>
 </div>
@@ -1623,7 +1797,18 @@ button{
 <div class="point-grid">
   <div class="card point-card">
     <div class="label">포인트 목표</div>
-    <div class="big-number">3,000,000원</div>
+    <div class="home-goal-wrap">
+      <input
+        id="pointGoalInput"
+        class="home-goal-input"
+        type="number"
+        inputmode="numeric"
+        min="0"
+        step="1000"
+        onchange="updatePointGoal(this.value)"
+      >
+      <span class="home-goal-unit">원</span>
+    </div>
   </div>
 
   <div class="card point-card">
@@ -1634,11 +1819,14 @@ button{
 
 <div class="category-grid">
 
-  <div class="card category">
+  <div
+    class="card category clickable-category"
+    onclick="showPage('introPage')"
+  >
     <div class="icon pink-bg">👥</div>
     <div class="category-title">소개 가입 포인트</div>
-    <div class="category-point">73,000원</div>
-    <div class="category-count">3건</div>
+    <div class="category-point" id="homeIntroPoint">0원</div>
+    <div class="category-count" id="homeIntroCount">0건</div>
   </div>
 
   <div class="card category">
@@ -1710,6 +1898,43 @@ button{
   </button>
 
 </div>
+</section>
+
+
+<!-- INTRO -->
+<section id="introPage" class="page">
+
+<button class="intro-back" onclick="showPage('homePage')">‹ 홈으로</button>
+
+<h1 class="page-title">소개가입</h1>
+
+<div class="card intro-summary">
+  <div class="intro-summary-row">
+    <div>
+      <div class="intro-summary-label">소개가입 포인트</div>
+      <div class="intro-summary-point" id="introTotalPoint">0P</div>
+    </div>
+
+    <button class="share-post-add" onclick="addIntroRecord()">
+      + 소개가입 추가
+    </button>
+  </div>
+</div>
+
+<div class="card intro-list">
+
+  <div class="intro-head">
+    <div>신청날짜</div>
+    <div>소개가입 아이디</div>
+    <div>계약여부</div>
+    <div>포인트</div>
+    <div></div>
+  </div>
+
+  <div id="introRows"></div>
+
+</div>
+
 </section>
 
 
@@ -1949,7 +2174,6 @@ button{
 
 const STORAGE_KEY = "directPointData_v1";
 
-const LEGACY_INTRO_POINT = 73000;
 const LEGACY_BLOG_POINT = 171000;
 const LEGACY_BLOG_COUNT = 28;
 
@@ -2059,7 +2283,12 @@ function loadData(){
       records:[],
       monthlyClaims:{},
       blogRecords:[],
-      sharePosts:[]
+      sharePosts:[],
+      introRecords:[],
+      settings:{
+        weddingDate:getTodayString(),
+        pointGoal:3000000
+      }
     };
   }
 
@@ -2081,6 +2310,28 @@ function loadData(){
 
     if(!Array.isArray(data.sharePosts)){
       data.sharePosts = [];
+    }
+
+    if(!Array.isArray(data.introRecords)){
+      data.introRecords = [];
+    }
+
+    if(!data.settings){
+      data.settings = {};
+    }
+
+    if(!data.settings.weddingDate){
+      data.settings.weddingDate = getTodayString();
+    }
+
+    if(
+      data.settings.pointGoal===undefined
+      ||
+      data.settings.pointGoal===null
+      ||
+      data.settings.pointGoal===""
+    ){
+      data.settings.pointGoal = 3000000;
     }
 
     if(data.diaryClaims){
@@ -2112,7 +2363,12 @@ function loadData(){
       records:[],
       monthlyClaims:{},
       blogRecords:[],
-      sharePosts:[]
+      sharePosts:[],
+      introRecords:[],
+      settings:{
+        weddingDate:getTodayString(),
+        pointGoal:3000000
+      }
     };
 
   }
@@ -2133,6 +2389,28 @@ function normalizeData(){
 
   if(!Array.isArray(appData.sharePosts)){
     appData.sharePosts = [];
+  }
+
+  if(!Array.isArray(appData.introRecords)){
+    appData.introRecords = [];
+  }
+
+  if(!appData.settings){
+    appData.settings = {};
+  }
+
+  if(!appData.settings.weddingDate){
+    appData.settings.weddingDate = getTodayString();
+  }
+
+  if(
+    appData.settings.pointGoal===undefined
+    ||
+    appData.settings.pointGoal===null
+    ||
+    appData.settings.pointGoal===""
+  ){
+    appData.settings.pointGoal = 3000000;
   }
 
   appData.records.forEach(record=>{
@@ -2275,23 +2553,7 @@ function getTodayString(){
 
 function defaultDateForSelectedMonth(){
 
-  const now = new Date();
-
-  if(
-    selectedDate.getFullYear()===now.getFullYear()
-    &&
-    selectedDate.getMonth()===now.getMonth()
-  ){
-    return getTodayString();
-  }
-
-  const y = selectedDate.getFullYear();
-
-  const m = String(
-    selectedDate.getMonth()+1
-  ).padStart(2,"0");
-
-  return `${y}-${m}-01`;
+  return getTodayString();
 
 }
 
@@ -2393,7 +2655,7 @@ function getClaim(activity,monthKey){
 
     appData.monthlyClaims[key] = {
       status:"미신청",
-      date:""
+      date:getTodayString()
     };
 
   }
@@ -2410,7 +2672,7 @@ function resetClaimIfNeeded(activity,monthKey){
   if(claim.status!=="미신청"){
 
     claim.status = "미신청";
-    claim.date = "";
+    claim.date = getTodayString();
 
   }
 
@@ -2579,7 +2841,7 @@ function diaryValidUrlCount(monthKey){
 
 function addDiaryRecord(){
 
-  const monthKey = getMonthKey(selectedDate);
+  const monthKey = getTodayString().slice(0,7);
 
   openActivities.add("diary");
 
@@ -2982,7 +3244,7 @@ function addRecord(key){
   openActivities.add(key);
 
   const activity = activities[key];
-  const monthKey = getMonthKey(selectedDate);
+  const monthKey = getTodayString().slice(0,7);
 
   const monthRecords = recordsFor(
     key,
@@ -5004,6 +5266,229 @@ function escapeAttribute(value){
 }
 
 
+
+/* =========================
+   HOME SETTINGS
+========================= */
+
+function updateWeddingDate(value){
+
+  appData.settings.weddingDate =
+    value || getTodayString();
+
+  saveData();
+
+}
+
+
+function updatePointGoal(value){
+
+  const number = Number(value);
+
+  appData.settings.pointGoal =
+    Number.isFinite(number) && number>=0
+    ? number
+    : 3000000;
+
+  saveData();
+
+}
+
+
+/* =========================
+   INTRO
+========================= */
+
+function introRecordPoint(record){
+
+  return record.contract==="계약"
+    ? 70000
+    : 3000;
+
+}
+
+
+function totalIntroPoints(){
+
+  return appData.introRecords.reduce(
+    (sum,record)=>sum+introRecordPoint(record),
+    0
+  );
+
+}
+
+
+function addIntroRecord(){
+
+  appData.introRecords.unshift({
+    id:newId(),
+    date:getTodayString(),
+    userId:"",
+    contract:"미계약"
+  });
+
+  saveData();
+
+}
+
+
+function updateIntroDate(id,value){
+
+  if(!value){
+    return;
+  }
+
+  const record = appData.introRecords.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  record.date = value;
+
+  saveData();
+
+}
+
+
+function updateIntroId(id,value){
+
+  const record = appData.introRecords.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  record.userId = value.trim();
+
+  saveData();
+
+}
+
+
+function updateIntroContract(id,value){
+
+  const record = appData.introRecords.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  record.contract = value;
+
+  saveData();
+
+}
+
+
+function deleteIntroRecord(id){
+
+  if(!confirm("이 소개가입 기록을 삭제할까?")){
+    return;
+  }
+
+  appData.introRecords = appData.introRecords.filter(
+    r=>r.id!==id
+  );
+
+  saveData();
+
+}
+
+
+function renderIntro(){
+
+  document.getElementById(
+    "introTotalPoint"
+  ).textContent =
+    `${formatNumber(totalIntroPoints())}P`;
+
+  if(appData.introRecords.length===0){
+
+    document.getElementById(
+      "introRows"
+    ).innerHTML = `
+      <div class="empty">
+        아직 등록한 소개가입 내역이 없어요.
+      </div>
+    `;
+
+    return;
+  }
+
+  document.getElementById(
+    "introRows"
+  ).innerHTML =
+    appData.introRecords
+    .slice()
+    .sort((a,b)=>b.date.localeCompare(a.date))
+    .map(record=>{
+
+      const point = introRecordPoint(record);
+
+      return `
+        <div class="intro-row">
+
+          <input
+            type="date"
+            class="intro-date"
+            value="${record.date || getTodayString()}"
+            onchange="updateIntroDate('${record.id}',this.value)"
+          >
+
+          <input
+            type="text"
+            class="intro-id"
+            value="${escapeAttribute(record.userId || "")}"
+            placeholder="아이디 입력"
+            onchange="updateIntroId('${record.id}',this.value)"
+          >
+
+          <select
+            class="intro-contract ${record.contract==="계약" ? "done" : ""}"
+            onchange="updateIntroContract('${record.id}',this.value)"
+          >
+            <option
+              value="미계약"
+              ${record.contract!=="계약" ? "selected" : ""}
+            >
+              미계약
+            </option>
+
+            <option
+              value="계약"
+              ${record.contract==="계약" ? "selected" : ""}
+            >
+              계약
+            </option>
+          </select>
+
+          <div class="intro-point">
+            ${formatNumber(point)}P
+          </div>
+
+          <button
+            class="delete-btn"
+            onclick="deleteIntroRecord('${record.id}')"
+          >
+            ×
+          </button>
+
+        </div>
+      `;
+
+    })
+    .join("");
+
+}
+
+
 /* =========================
    TOTAL POINT
 ========================= */
@@ -5011,6 +5496,8 @@ function escapeAttribute(value){
 function newEarnedPoints(){
 
   return (
+    totalIntroPoints()
+    +
     allMonthlyEarnedPoints()
     +
     totalBlogEarnedPoints()
@@ -5028,6 +5515,26 @@ function newEarnedPoints(){
 function renderHome(){
 
   const now = new Date();
+
+  document.getElementById(
+    "weddingDateInput"
+  ).value =
+    appData.settings.weddingDate || getTodayString();
+
+  document.getElementById(
+    "pointGoalInput"
+  ).value =
+    Number(appData.settings.pointGoal || 3000000);
+
+  document.getElementById(
+    "homeIntroPoint"
+  ).textContent =
+    `${formatNumber(totalIntroPoints())}원`;
+
+  document.getElementById(
+    "homeIntroCount"
+  ).textContent =
+    `${appData.introRecords.length}건`;
 
   const monthKey = getMonthKey(
     now
@@ -5138,8 +5645,6 @@ function renderHome(){
     `${cafeCompleted}건`;
 
   const currentPoint =
-    LEGACY_INTRO_POINT
-    +
     LEGACY_BLOG_POINT
     +
     newEarnedPoints();
@@ -5363,8 +5868,12 @@ function renderHistory(){
 
 function renderWeddingDday(){
 
+  const weddingDate =
+    appData.settings.weddingDate
+    || getTodayString();
+
   const wedding = new Date(
-    "2027-09-04T00:00:00"
+    `${weddingDate}T00:00:00`
   );
 
   const today = new Date();
@@ -5380,7 +5889,9 @@ function renderWeddingDday(){
   document.getElementById(
     "weddingDday"
   ).textContent =
-    diff>=0
+    diff===0
+    ? "D-DAY"
+    : diff>0
     ? `D-${diff}`
     : `D+${Math.abs(diff)}`;
 
@@ -5394,7 +5905,7 @@ function renderWeddingDday(){
 function exportData(){
 
   const backup = {
-    version:5,
+    version:6,
     savedAt:new Date().toISOString(),
     data:appData
   };
@@ -5475,7 +5986,12 @@ function importData(event){
         records:imported.records || [],
         monthlyClaims:imported.monthlyClaims || {},
         blogRecords:imported.blogRecords || [],
-        sharePosts:imported.sharePosts || []
+        sharePosts:imported.sharePosts || [],
+        introRecords:imported.introRecords || [],
+        settings:imported.settings || {
+          weddingDate:getTodayString(),
+          pointGoal:3000000
+        }
       };
 
       if(imported.diaryClaims){
@@ -5536,6 +6052,7 @@ function renderAll(){
 
   renderWeddingDday();
   renderHome();
+  renderIntro();
   renderMonthPage();
   renderBlog();
   renderShare();
