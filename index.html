@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fffafa">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <title>다이렉트 포인트 현황</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      background: #fffafa;
+      color: #10254c;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Apple SD Gothic Neo",
+        "Noto Sans KR",
+        sans-serif;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 520px;
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 30px 18px 105px;
+    }
+
+    h1 {
+      margin: 10px 0 28px;
+      text-align: center;
+      font-size: 31px;
+      font-weight: 800;
+      letter-spacing: -1.2px;
+    }
+
+    .card {
+      background: rgba(255,255,255,.94);
+      border: 1px solid #f2eeee;
+      border-radius: 22px;
+      box-shadow: 0 6px 20px rgba(30,40,70,.045);
+    }
+
+    .wedding-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 22px;
+      margin-bottom: 14px;
+    }
+
+    .label {
+      color: #657185;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .wedding-date {
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: -.7px;
+    }
+
+    .dday {
+      min-width: 105px;
+      padding: 16px 13px;
+      text-align: center;
+      border-radius: 18px;
+      background: #fff0f5;
+      color: #ff2765;
+      font-size: 27px;
+      font-weight: 800;
+    }
+
+    .point-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .point-card {
+      padding: 22px 18px;
+    }
+
+    .big-number {
+      margin-top: 5px;
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      white-space: nowrap;
+    }
+
+    .current {
+      color: #ff2765;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .category {
+      min-height: 150px;
+      padding: 18px 8px 14px;
+      text-align: center;
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 11px;
+      border-radius: 16px;
+      font-size: 25px;
+    }
+
+    .pink {
+      background: #fff0f4;
+    }
+
+    .blue {
+      background: #edf8ff;
+    }
+
+    .brown {
+      background: #fff4ed;
+    }
+
+    .category-title {
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .category-point {
+      margin-top: 8px;
+      font-size: 20px;
+      font-weight: 800;
+      color: #10254c;
+    }
+
+    .category-count {
+      margin-top: 5px;
+      font-size: 13px;
+      color: #8791a1;
+    }
+
+    .monthly {
+      padding: 22px 19px 20px;
+    }
+
+    .monthly-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: flex-start;
+      margin-bottom: 4px;
+    }
+
+    .monthly-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -.6px;
+    }
+
+    .month {
+      font-size: 14px;
+      color: #46536a;
+      white-space: nowrap;
+      padding-top: 3px;
+    }
+
+    .today {
+      margin-bottom: 22px;
+      color: #7b8798;
+      font-size: 13px;
+    }
+
+    .task {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 12px;
+      padding: 15px 0;
+      border-bottom: 1px solid #f2f2f4;
+    }
+
+    .task:last-of-type {
+      border-bottom: 0;
+    }
+
+    .task-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 22px;
+    }
+
+    .task-title-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 9px;
+    }
+
+    .task-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .task-count {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .progress {
+      height: 11px;
+      background: #eceff3;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress > div {
+      height: 100%;
+      border-radius: 999px;
+    }
+
+    .bar-pink {
+      width: 60%;
+      background: linear-gradient(90deg, #ff5e91, #ff7ca7);
+    }
+
+    .bar-blue {
+      width: 60%;
+      background: linear-gradient(90deg, #49b7f5, #61caf8);
+    }
+
+    .bar-green {
+      width: 100%;
+      background: linear-gradient(90deg, #40c985, #5bd99b);
+    }
+
+    .detail-btn {
+      margin-top: 18px;
+      width: 100%;
+      border: 0;
+      border-radius: 18px;
+      padding: 16px;
+      color: #ff2765;
+      background: #fff0f4;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 520px;
+      height: 88px;
+      padding: 8px 6px max(10px, env(safe-area-inset-bottom));
+      background: rgba(255,255,255,.97);
+      border-top: 1px solid #eeeeef;
+      display: grid;
+      grid-template-columns: repeat(6,1fr);
+      z-index: 20;
+    }
+
+    .nav-item {
+      text-decoration: none;
+      color: #657185;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      border-radius: 16px;
+      font-size: 10px;
+      white-space: nowrap;
+    }
+
+    .nav-icon {
+      font-size: 21px;
+      line-height: 1;
+    }
+
+    .nav-item.active {
+      background: #fff0f4;
+      color: #ff2765;
+      font-weight: 800;
+    }
+
+    @media (max-width: 380px) {
+      .app {
+        padding-left: 13px;
+        padding-right: 13px;
+      }
+
+      .big-number {
+        font-size: 23px;
+      }
+
+      .category-title {
+        font-size: 12px;
+      }
+
+      .category-point {
+        font-size: 17px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="app">
+
+    <h1>다이렉트 포인트 현황</h1>
+
+    <section class="card wedding-card">
+      <div>
+        <div class="label">예식일</div>
+        <div class="wedding-date">2027.09.04 (토)</div>
+      </div>
+
+      <div class="dday" id="dday">D-359</div>
+    </section>
+
+    <section class="point-grid">
+
+      <div class="card point-card">
+        <div class="label">포인트 목표</div>
+        <div class="big-number">3,000,000원</div>
+      </div>
+
+      <div class="card point-card">
+        <div class="label">현재 포인트</div>
+        <div class="big-number current">244,000원</div>
+      </div>
+
+    </section>
+
+    <section class="category-grid">
+
+      <div class="card category">
+        <div class="icon pink">👥</div>
+        <div class="category-title">소개 가입 포인트</div>
+        <div class="category-point">73,000원</div>
+        <div class="category-count">3건</div>
+      </div>
+
+      <div class="card category">
+        <div class="icon blue">✏️</div>
+        <div class="category-title">블로그 활동 포인트</div>
+        <div class="category-point">171,000원</div>
+        <div class="category-count">28건</div>
+      </div>
+
+      <div class="card category">
+        <div class="icon brown">☕️</div>
+        <div class="category-title">카페 활동 포인트</div>
+        <div class="category-point">0원</div>
+        <div class="category-count">0건</div>
+      </div>
+
+    </section>
+
+    <section class="card monthly">
+
+      <div class="monthly-head">
+        <div class="monthly-title">놓치면 안되는 이번 달 포인트</div>
+        <div class="month">2026년 9월</div>
+      </div>
+
+      <div class="today">
+        오늘은 9월 11일 (금) &nbsp; | &nbsp; 이번 달 D-19
+      </div>
+
+      <div class="task">
+
+        <div class="task-icon pink">💬</div>
+
+        <div>
+          <div class="task-title-row">
+            <div class="task-title">댓글</div>
+            <div class="task-count">6 / 10</div>
+          </div>
+
+          <div class="progress">
+            <div class="bar-pink"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="task">
+
+        <div class="task-icon blue">📄</div>
+
+        <div>
+          <div class="task-title-row">
+            <div class="task-title">일기</div>
+            <div class="task-count">12 / 20</div>
+          </div>
+
+          <div class="progress">
+            <div class="bar-blue"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="task">
+
+        <div class="task-icon" style="background:#ecfff5;">🍴</div>
+
+        <div>
+          <div class="task-title-row">
+            <div class="task-title">맛집 소개글</div>
+            <div class="task-count">1 / 1</div>
+          </div>
+
+          <div class="progress">
+            <div class="bar-green"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="detail-btn">이번 달 포인트 자세히 보기 ›</button>
+
+    </section>
+
+  </main>
+
+  <nav class="bottom-nav">
+
+    <a class="nav-item active" href="#">
+      <div class="nav-icon">⌂</div>
+      <div>홈</div>
+    </a>
+
+    <a class="nav-item" href="#">
+      <div class="nav-icon">☷</div>
+      <div>적립내역</div>
+    </a>
+
+    <a class="nav-item" href="#">
+      <div class="nav-icon">▣</div>
+      <div>월별신청</div>
+    </a>
+
+    <a class="nav-item" href="#">
+      <div class="nav-icon">☕️</div>
+      <div>카페활동</div>
+    </a>
+
+    <a class="nav-item" href="#">
+      <div class="nav-icon">✎</div>
+      <div>블로그</div>
+    </a>
+
+    <a class="nav-item" href="#">
+      <div class="nav-icon">⌯</div>
+      <div>정보공유</div>
+    </a>
+
+  </nav>
+
+  <script>
+    // 예식일까지 D-day 자동 계산
+    const weddingDate = new Date("2027-09-04T00:00:00");
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+    const diff = weddingDate - today;
+    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+
+    document.getElementById("dday").textContent =
+      days >= 0 ? "D-" + days : "D+" + Math.abs(days);
+  </script>
+
+</body>
+</html>
