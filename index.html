@@ -114,7 +114,36 @@ button{
 .point-card{
   padding:15px 13px;
 }
+.point-progress-card{
+  padding:14px 15px;
+  margin-bottom:11px;
+}
 
+.point-progress-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:9px;
+}
+
+.point-progress-title{
+  font-size:11px;
+  font-weight:800;
+}
+
+.point-progress-percent{
+  color:#ff2c69;
+  font-size:12px;
+  font-weight:900;
+}
+
+.point-progress-text{
+  margin-top:7px;
+  text-align:right;
+  color:#7c8797;
+  font-size:9.5px;
+}
+  
 .big-number{
   font-size:20px;
   font-weight:800;
@@ -1801,10 +1830,9 @@ button{
       <input
         id="pointGoalInput"
         class="home-goal-input"
-        type="number"
+        type="text"
         inputmode="numeric"
-        min="0"
-        step="1000"
+        oninput="formatPointGoalInput(this)"
         onchange="updatePointGoal(this.value)"
       >
       <span class="home-goal-unit">원</span>
@@ -1815,6 +1843,35 @@ button{
     <div class="label">현재 포인트</div>
     <div class="big-number current" id="currentPoint">244,000원</div>
   </div>
+</div>
+
+  <div class="card point-progress-card">
+
+  <div class="point-progress-top">
+    <div class="point-progress-title">
+      목표 달성률
+    </div>
+
+    <div
+      class="point-progress-percent"
+      id="pointProgressPercent"
+    >
+      0%
+    </div>
+  </div>
+
+  <div class="progress">
+    <div
+      class="progress-bar"
+      id="pointProgressBar"
+    ></div>
+  </div>
+
+  <div
+    class="point-progress-text"
+    id="pointProgressText"
+  ></div>
+
 </div>
 
 <div class="category-grid">
@@ -5283,7 +5340,9 @@ function updateWeddingDate(value){
 
 function updatePointGoal(value){
 
-  const number = Number(value);
+  const number = Number(
+    String(value).replace(/[^0-9]/g,"")
+  );
 
   appData.settings.pointGoal =
     Number.isFinite(number) && number>=0
@@ -5291,6 +5350,19 @@ function updatePointGoal(value){
     : 3000000;
 
   saveData();
+
+}
+function formatPointGoalInput(input){
+
+  const number = input.value.replace(/[^0-9]/g,"");
+
+  if(!number){
+    input.value = "";
+    return;
+  }
+
+  input.value =
+    Number(number).toLocaleString("ko-KR");
 
 }
 
@@ -5522,10 +5594,12 @@ function renderHome(){
     appData.settings.weddingDate || getTodayString();
 
   document.getElementById(
-    "pointGoalInput"
-  ).value =
-    Number(appData.settings.pointGoal || 3000000);
-
+  "pointGoalInput"
+).value =
+  formatNumber(
+    Number(appData.settings.pointGoal || 3000000)
+  );
+  
   document.getElementById(
     "homeIntroPoint"
   ).textContent =
@@ -5626,7 +5700,7 @@ function renderHome(){
   ).textContent =
     `${blogActivityCount}건`;
 
-  const cafePoint =
+   const cafePoint =
     allMonthlyEarnedPoints();
 
   const cafeCompleted =
@@ -5649,13 +5723,33 @@ function renderHome(){
     +
     newEarnedPoints();
 
+  const pointGoal =
+    Number(appData.settings.pointGoal || 3000000);
+
+  const progressPercent =
+    pointGoal > 0
+      ? Math.min(
+          (currentPoint / pointGoal) * 100,
+          100
+        )
+      : 0;
+
   document.getElementById(
-    "currentPoint"
+    "pointProgressBar"
+  ).style.width =
+    `${progressPercent}%`;
+
+  document.getElementById(
+    "pointProgressPercent"
   ).textContent =
-    `${formatNumber(currentPoint)}원`;
+    `${progressPercent.toFixed(1)}%`;
+
+  document.getElementById(
+    "pointProgressText"
+  ).textContent =
+    `${formatNumber(currentPoint)}원 / ${formatNumber(pointGoal)}원`;
 
 }
-
 
 /* =========================
    HISTORY
