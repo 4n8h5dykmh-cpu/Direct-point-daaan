@@ -2,33 +2,51 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
+
 <meta name="theme-color" content="#fffafa">
 <meta name="apple-mobile-web-app-capable" content="yes">
 
 <title>다이렉트 포인트</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   -webkit-tap-highlight-color:transparent;
 }
 
-html,body{
+html,
+body{
   margin:0;
   padding:0;
   background:#fffafa;
   color:#10254c;
-  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Apple SD Gothic Neo",
+    "Noto Sans KR",
+    sans-serif;
 }
 
-body{min-height:100vh;}
+body{
+  min-height:100vh;
+}
 
-button,input,select{
+button,
+input,
+select{
   font-family:inherit;
 }
 
-button{cursor:pointer;}
+button{
+  cursor:pointer;
+}
 
 .app{
   width:100%;
@@ -38,8 +56,13 @@ button{cursor:pointer;}
   padding:18px 14px 105px;
 }
 
-.page{display:none;}
-.page.active{display:block;}
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
 
 .page-title{
   margin:6px 0 18px;
@@ -62,7 +85,10 @@ button{cursor:pointer;}
   margin-bottom:4px;
 }
 
-/* HOME */
+
+/* =========================
+   HOME
+========================= */
 
 .wedding-card{
   display:flex;
@@ -78,8 +104,8 @@ button{cursor:pointer;}
 }
 
 .dday{
-  padding:11px 13px;
   min-width:86px;
+  padding:11px 13px;
   text-align:center;
   border-radius:15px;
   background:#fff0f5;
@@ -95,7 +121,9 @@ button{cursor:pointer;}
   margin-bottom:9px;
 }
 
-.point-card{padding:15px 13px;}
+.point-card{
+  padding:15px 13px;
+}
 
 .big-number{
   font-size:20px;
@@ -103,7 +131,9 @@ button{cursor:pointer;}
   white-space:nowrap;
 }
 
-.current{color:#ff2c69;}
+.current{
+  color:#ff2c69;
+}
 
 .category-grid{
   display:grid;
@@ -129,10 +159,21 @@ button{cursor:pointer;}
   font-size:19px;
 }
 
-.pink-bg{background:#fff0f4;}
-.blue-bg{background:#eef8ff;}
-.brown-bg{background:#fff4ed;}
-.green-bg{background:#edfff5;}
+.pink-bg{
+  background:#fff0f4;
+}
+
+.blue-bg{
+  background:#eef8ff;
+}
+
+.brown-bg{
+  background:#fff4ed;
+}
+
+.green-bg{
+  background:#edfff5;
+}
 
 .category-title{
   font-size:10.5px;
@@ -151,7 +192,10 @@ button{cursor:pointer;}
   color:#939baa;
 }
 
-/* HOME MONTH */
+
+/* =========================
+   HOME MONTH
+========================= */
 
 .monthly-summary{
   padding:16px 15px 14px;
@@ -171,6 +215,7 @@ button{cursor:pointer;}
 .month-name{
   font-size:11px;
   color:#778294;
+  white-space:nowrap;
 }
 
 .today-text{
@@ -225,15 +270,21 @@ button{cursor:pointer;}
   height:100%;
   border-radius:999px;
   background:#ff6f9b;
-  width:0%;
+  width:0;
+  transition:.2s;
 }
 
-.blue-bar{background:#58bff5;}
-.green-bar{background:#55cf91;}
+.blue-bar{
+  background:#58bff5;
+}
+
+.green-bar{
+  background:#55cf91;
+}
 
 .detail-btn{
-  margin-top:12px;
   width:100%;
+  margin-top:12px;
   border:0;
   border-radius:13px;
   background:#fff0f4;
@@ -243,7 +294,10 @@ button{cursor:pointer;}
   font-weight:800;
 }
 
-/* MONTH */
+
+/* =========================
+   MONTH SELECT
+========================= */
 
 .month-selector{
   display:flex;
@@ -274,8 +328,58 @@ button{cursor:pointer;}
   border-radius:14px;
   padding:11px 14px;
   font-size:11.5px;
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
+
+
+/* =========================
+   MONTH OVERVIEW
+========================= */
+
+.month-overview{
+  padding:13px;
+  margin-bottom:15px;
+}
+
+.month-overview-title{
+  font-size:12px;
+  font-weight:800;
+  margin-bottom:10px;
+}
+
+.overview-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;
+}
+
+.overview-item{
+  background:#f8f9fb;
+  border-radius:11px;
+  padding:9px 3px;
+  text-align:center;
+}
+
+.overview-label{
+  font-size:9px;
+  color:#8993a1;
+  line-height:1.3;
+}
+
+.overview-value{
+  margin-top:4px;
+  font-size:12px;
+  font-weight:800;
+}
+
+.overview-point{
+  color:#ff2c69;
+}
+
+
+/* =========================
+   ACTIVITY CARD
+========================= */
 
 .section-title{
   margin:18px 2px 9px;
@@ -300,6 +404,7 @@ button{cursor:pointer;}
 
 .activity-main{
   padding:14px;
+  cursor:pointer;
 }
 
 .activity-top{
@@ -308,9 +413,25 @@ button{cursor:pointer;}
   gap:8px;
 }
 
+.activity-name-row{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
 .activity-name{
   font-size:14px;
   font-weight:800;
+}
+
+.fold-arrow{
+  color:#adb4bf;
+  font-size:11px;
+  transition:.2s;
+}
+
+.activity-card.open .fold-arrow{
+  transform:rotate(180deg);
 }
 
 .activity-rule{
@@ -337,30 +458,323 @@ button{cursor:pointer;}
   font-weight:700;
 }
 
-.small-progress{margin-top:10px;}
+.small-progress{
+  margin-top:10px;
+}
 
 .activity-detail{
   display:none;
+  padding:12px;
   border-top:1px solid #f0f0f2;
   background:#fffdfd;
-  padding:12px;
 }
 
 .activity-card.open .activity-detail{
   display:block;
 }
 
-.table-head,
-.record-row{
+
+/* =========================
+   COMMENT CALENDAR
+========================= */
+
+.calendar-help{
+  margin-bottom:11px;
+  padding:10px 11px;
+  border-radius:11px;
+  background:#f7f8fb;
+  color:#747f90;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.calendar{
+  width:100%;
+}
+
+.calendar-week{
   display:grid;
-  grid-template-columns:82px 1fr 53px 26px;
+  grid-template-columns:repeat(7,1fr);
+  gap:4px;
+  margin-bottom:5px;
+}
+
+.week-day{
+  text-align:center;
+  font-size:9px;
+  color:#919aa8;
+}
+
+.week-day:first-child{
+  color:#ff739a;
+}
+
+.calendar-days{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:4px;
+}
+
+.calendar-empty{
+  aspect-ratio:1/1;
+}
+
+.calendar-day{
+  position:relative;
+  aspect-ratio:1/1;
+  border:0;
+  border-radius:50%;
+  background:transparent;
+  color:#253858;
+  font-size:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.calendar-day.today{
+  background:#f3f5f8;
+  font-weight:800;
+}
+
+.calendar-day.selected{
+  background:#ff6f9b;
+  color:#fff;
+  font-weight:800;
+}
+
+.calendar-day.selected::after{
+  content:"✓";
+  position:absolute;
+  right:2px;
+  bottom:0;
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:#fff;
+  color:#ff4b82;
+  font-size:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 1px 4px rgba(0,0,0,.12);
+}
+
+.comment-result{
+  margin-top:12px;
+  padding:12px;
+  border-radius:13px;
+  background:#fff5f8;
+}
+
+.comment-result-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.comment-result-count{
+  font-size:12px;
+  font-weight:800;
+}
+
+.comment-result-point{
+  color:#ff2c69;
+  font-size:13px;
+  font-weight:800;
+}
+
+.comment-max-text{
+  margin-top:4px;
+  color:#8e97a5;
+  font-size:9.5px;
+}
+
+
+/* =========================
+   DIARY LIST
+========================= */
+
+.diary-header,
+.diary-row{
+  display:grid;
+  grid-template-columns:86px 1fr 25px;
   gap:6px;
   align-items:center;
 }
 
-.table-head{
+.diary-header{
   padding:0 2px 6px;
+  color:#8993a1;
+  font-size:9px;
+}
+
+.diary-row{
+  padding:7px 0;
+  border-top:1px solid #f1f1f3;
+}
+
+.diary-date{
+  width:86px;
+  min-width:0;
+  border:0;
+  border-radius:8px;
+  background:#f6f8fb;
+  color:#10254c;
+  padding:7px 2px;
+  font-size:8.5px;
+  outline:none;
+}
+
+.url-number{
+  width:100%;
+  min-width:0;
+  border:0;
+  border-radius:8px;
+  background:#f6f8fb;
+  color:#10254c;
+  padding:8px;
+  font-size:10px;
+  outline:none;
+}
+
+.url-number::placeholder{
+  color:#b1b7c0;
+}
+
+.diary-progress-info{
+  margin-top:10px;
+  padding:11px;
+  border-radius:11px;
+  background:#f7f8fb;
+}
+
+.diary-progress-main{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.diary-progress-count{
+  font-size:11px;
+  font-weight:800;
+}
+
+.diary-progress-message{
   font-size:9.5px;
+  color:#7c8797;
+}
+
+.diary-warning{
+  margin-top:5px;
+  font-size:9.5px;
+  color:#e48b00;
+}
+
+.diary-complete{
+  color:#ff477d;
+  font-weight:700;
+}
+
+
+/* =========================
+   BATCH CLAIM
+========================= */
+
+.batch-claim{
+  margin-top:12px;
+  padding:12px;
+  border-radius:14px;
+  background:#f7f8fb;
+}
+
+.batch-title{
+  font-size:11.5px;
+  font-weight:800;
+}
+
+.batch-desc{
+  margin-top:3px;
+  color:#7d8796;
+  font-size:9.5px;
+  line-height:1.5;
+}
+
+.batch-fields{
+  display:grid;
+  grid-template-columns:1fr 94px;
+  gap:7px;
+  margin-top:10px;
+}
+
+.batch-field-label{
+  margin-bottom:4px;
+  color:#8b94a1;
+  font-size:8.5px;
+}
+
+.claim-date{
+  width:100%;
+  min-width:0;
+  border:0;
+  border-radius:9px;
+  background:#fff;
+  padding:8px 4px;
+  color:#10254c;
+  font-size:9px;
+  outline:none;
+}
+
+.claim-select{
+  width:94px;
+  border:0;
+  border-radius:9px;
+  padding:8px 4px;
+  font-size:9.5px;
+  outline:none;
+}
+
+.claim-select:disabled,
+.claim-date:disabled{
+  opacity:.45;
+}
+
+.claim-bottom{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:9px;
+  padding-top:9px;
+  border-top:1px solid #e8ebef;
+}
+
+.claim-status-text{
+  font-size:9.5px;
+  color:#727e90;
+}
+
+.claim-point{
+  color:#ff2c69;
+  font-size:12px;
+  font-weight:800;
+}
+
+
+/* =========================
+   NORMAL RECORD LIST
+========================= */
+
+.table-head,
+.record-row{
+  display:grid;
+  grid-template-columns:86px 78px 1fr 25px;
+  gap:5px;
+  align-items:center;
+}
+
+.table-head{
+  padding:0 1px 6px;
+  font-size:9px;
   color:#8993a1;
 }
 
@@ -369,27 +783,25 @@ button{cursor:pointer;}
   border-top:1px solid #f1f1f3;
 }
 
-/* 날짜 직접 변경 */
-
 .record-date-input{
-  width:100%;
+  width:86px;
   min-width:0;
   border:0;
-  border-radius:9px;
+  border-radius:8px;
   background:#f6f8fb;
   color:#10254c;
-  padding:7px 3px;
-  font-size:9px;
+  padding:7px 2px;
+  font-size:8.5px;
   outline:none;
 }
 
 .status-select{
-  width:100%;
+  width:78px;
   min-width:0;
   border:0;
-  border-radius:9px;
-  padding:7px 4px;
-  font-size:10px;
+  border-radius:8px;
+  padding:7px 2px;
+  font-size:8.5px;
   outline:none;
 }
 
@@ -408,24 +820,32 @@ button{cursor:pointer;}
   color:#e12d69;
 }
 
+.status-none{
+  background:#eef0f3;
+  color:#687386;
+}
+
 .record-point{
   text-align:right;
-  font-size:9.5px;
+  font-size:9px;
   font-weight:700;
+  white-space:nowrap;
 }
 
 .delete-btn{
-  width:25px;
-  height:25px;
+  width:24px;
+  height:24px;
+  padding:0;
   border:0;
+  border-radius:7px;
   background:#f6f6f7;
   color:#a1a8b2;
-  border-radius:8px;
+  font-size:14px;
 }
 
 .add-btn{
-  margin-top:10px;
   width:100%;
+  margin-top:10px;
   padding:9px;
   border:1px dashed #ff9db9;
   border-radius:11px;
@@ -442,48 +862,10 @@ button{cursor:pointer;}
   font-size:10.5px;
 }
 
-/* 결혼일기 */
 
-.diary-claim{
-  margin-top:10px;
-  padding:12px;
-  border-radius:13px;
-  background:#f7f8fb;
-}
-
-.diary-message{
-  font-size:11px;
-  font-weight:700;
-  line-height:1.5;
-}
-
-.diary-ready{
-  color:#ff477d;
-}
-
-.diary-claim-row{
-  margin-top:9px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px;
-}
-
-.diary-claim-row select{
-  flex:1;
-  border:0;
-  border-radius:9px;
-  padding:8px;
-  font-size:10px;
-}
-
-.diary-point{
-  font-size:11px;
-  font-weight:800;
-  color:#ff2c69;
-}
-
-/* HISTORY */
+/* =========================
+   HISTORY
+========================= */
 
 .history-total{
   padding:18px;
@@ -509,7 +891,7 @@ button{cursor:pointer;}
 .history-head,
 .history-row{
   display:grid;
-  grid-template-columns:75px 1fr 80px;
+  grid-template-columns:72px 1fr 80px;
   gap:8px;
   align-items:center;
 }
@@ -527,19 +909,19 @@ button{cursor:pointer;}
 }
 
 .history-date{
-  font-size:11px;
+  font-size:10.5px;
   color:#687386;
 }
 
 .history-name{
-  font-size:12px;
+  font-size:11.5px;
   font-weight:700;
 }
 
 .history-point{
   text-align:right;
-  font-size:12px;
   color:#ff2c69;
+  font-size:11.5px;
   font-weight:800;
 }
 
@@ -550,7 +932,10 @@ button{cursor:pointer;}
   font-size:11px;
 }
 
-/* BACKUP */
+
+/* =========================
+   BACKUP
+========================= */
 
 .backup-box{
   margin-top:14px;
@@ -564,9 +949,9 @@ button{cursor:pointer;}
 
 .backup-desc{
   margin-top:4px;
+  color:#7d8796;
   font-size:10.5px;
   line-height:1.5;
-  color:#7d8796;
 }
 
 .backup-buttons{
@@ -591,9 +976,14 @@ button{cursor:pointer;}
   color:#ff477d;
 }
 
-#importFile{display:none;}
+#importFile{
+  display:none;
+}
 
-/* NAV */
+
+/* =========================
+   NAV
+========================= */
 
 .bottom-nav{
   position:fixed;
@@ -625,7 +1015,9 @@ button{cursor:pointer;}
   white-space:nowrap;
 }
 
-.nav-icon{font-size:17px;}
+.nav-icon{
+  font-size:17px;
+}
 
 .nav-item.active{
   background:#fff0f4;
@@ -633,20 +1025,49 @@ button{cursor:pointer;}
   font-weight:800;
 }
 
+
 @media(max-width:380px){
+
   .app{
     padding-left:10px;
     padding-right:10px;
   }
 
-  .page-title{font-size:22px;}
-  .big-number{font-size:18px;}
+  .page-title{
+    font-size:22px;
+  }
+
+  .big-number{
+    font-size:18px;
+  }
 
   .table-head,
   .record-row{
-    grid-template-columns:76px 1fr 48px 24px;
+    grid-template-columns:80px 72px 1fr 24px;
   }
+
+  .record-date-input{
+    width:80px;
+    font-size:8px;
+  }
+
+  .status-select{
+    width:72px;
+    font-size:8px;
+  }
+
+  .diary-header,
+  .diary-row{
+    grid-template-columns:80px 1fr 24px;
+  }
+
+  .diary-date{
+    width:80px;
+    font-size:8px;
+  }
+
 }
+
 </style>
 </head>
 
@@ -654,105 +1075,274 @@ button{cursor:pointer;}
 
 <div class="app">
 
-<!-- 홈 -->
-<section id="homePage" class="page active">
 
-<h1 class="page-title">다이렉트 포인트 현황</h1>
+<!-- =========================
+     HOME
+========================= -->
+
+<section
+  id="homePage"
+  class="page active"
+>
+
+<h1 class="page-title">
+  다이렉트 포인트 현황
+</h1>
+
 
 <div class="card wedding-card">
+
   <div>
-    <div class="label">예식일</div>
-    <div class="wedding-date">2027.09.04 (토)</div>
+
+    <div class="label">
+      예식일
+    </div>
+
+    <div class="wedding-date">
+      2027.09.04 (토)
+    </div>
+
   </div>
-  <div class="dday" id="weddingDday"></div>
+
+  <div
+    class="dday"
+    id="weddingDday"
+  ></div>
+
 </div>
+
 
 <div class="point-grid">
-  <div class="card point-card">
-    <div class="label">포인트 목표</div>
-    <div class="big-number">3,000,000원</div>
-  </div>
 
   <div class="card point-card">
-    <div class="label">현재 포인트</div>
-    <div class="big-number current" id="currentPoint">244,000원</div>
+
+    <div class="label">
+      포인트 목표
+    </div>
+
+    <div class="big-number">
+      3,000,000원
+    </div>
+
   </div>
+
+
+  <div class="card point-card">
+
+    <div class="label">
+      현재 포인트
+    </div>
+
+    <div
+      class="big-number current"
+      id="currentPoint"
+    >
+      244,000원
+    </div>
+
+  </div>
+
 </div>
+
 
 <div class="category-grid">
 
   <div class="card category">
-    <div class="icon pink-bg">👥</div>
-    <div class="category-title">소개 가입 포인트</div>
-    <div class="category-point">73,000원</div>
-    <div class="category-count">3건</div>
+
+    <div class="icon pink-bg">
+      👥
+    </div>
+
+    <div class="category-title">
+      소개 가입 포인트
+    </div>
+
+    <div class="category-point">
+      73,000원
+    </div>
+
+    <div class="category-count">
+      3건
+    </div>
+
   </div>
 
-  <div class="card category">
-    <div class="icon blue-bg">✏️</div>
-    <div class="category-title">블로그 활동 포인트</div>
-    <div class="category-point">171,000원</div>
-    <div class="category-count">28건</div>
-  </div>
 
   <div class="card category">
-    <div class="icon brown-bg">☕️</div>
-    <div class="category-title">카페 활동 포인트</div>
-    <div class="category-point" id="cafePoint">0원</div>
-    <div class="category-count" id="cafeCount">0건</div>
+
+    <div class="icon blue-bg">
+      ✏️
+    </div>
+
+    <div class="category-title">
+      블로그 활동 포인트
+    </div>
+
+    <div class="category-point">
+      171,000원
+    </div>
+
+    <div class="category-count">
+      28건
+    </div>
+
+  </div>
+
+
+  <div class="card category">
+
+    <div class="icon brown-bg">
+      ☕️
+    </div>
+
+    <div class="category-title">
+      카페 활동 포인트
+    </div>
+
+    <div class="category-point">
+      0원
+    </div>
+
+    <div class="category-count">
+      0건
+    </div>
+
   </div>
 
 </div>
 
+
 <div class="card monthly-summary">
 
   <div class="monthly-head">
-    <div class="monthly-title">놓치면 안되는 이번 달 포인트</div>
-    <div class="month-name" id="homeMonthName"></div>
+
+    <div class="monthly-title">
+      놓치면 안되는 이번 달 포인트
+    </div>
+
+    <div
+      class="month-name"
+      id="homeMonthName"
+    ></div>
+
   </div>
 
-  <div class="today-text" id="homeTodayText"></div>
+
+  <div
+    class="today-text"
+    id="homeTodayText"
+  ></div>
+
 
   <div class="summary-task">
-    <div class="task-icon pink-bg">💬</div>
-    <div>
-      <div class="task-head">
-        <div class="task-name">댓글</div>
-        <div class="task-count" id="homeCommentCount"></div>
-      </div>
-      <div class="progress">
-        <div class="progress-bar" id="homeCommentBar"></div>
-      </div>
+
+    <div class="task-icon pink-bg">
+      💬
     </div>
+
+    <div>
+
+      <div class="task-head">
+
+        <div class="task-name">
+          댓글
+        </div>
+
+        <div
+          class="task-count"
+          id="homeCommentCount"
+        ></div>
+
+      </div>
+
+      <div class="progress">
+
+        <div
+          class="progress-bar"
+          id="homeCommentBar"
+        ></div>
+
+      </div>
+
+    </div>
+
   </div>
+
 
   <div class="summary-task">
-    <div class="task-icon blue-bg">📄</div>
-    <div>
-      <div class="task-head">
-        <div class="task-name">일기</div>
-        <div class="task-count" id="homeDiaryCount"></div>
-      </div>
-      <div class="progress">
-        <div class="progress-bar blue-bar" id="homeDiaryBar"></div>
-      </div>
+
+    <div class="task-icon blue-bg">
+      📄
     </div>
+
+    <div>
+
+      <div class="task-head">
+
+        <div class="task-name">
+          일기
+        </div>
+
+        <div
+          class="task-count"
+          id="homeDiaryCount"
+        ></div>
+
+      </div>
+
+      <div class="progress">
+
+        <div
+          class="progress-bar blue-bar"
+          id="homeDiaryBar"
+        ></div>
+
+      </div>
+
+    </div>
+
   </div>
+
 
   <div class="summary-task">
-    <div class="task-icon green-bg">🍴</div>
-    <div>
-      <div class="task-head">
-        <div class="task-name">맛집 소개글</div>
-        <div class="task-count" id="homeFoodCount"></div>
-      </div>
-      <div class="progress">
-        <div class="progress-bar green-bar" id="homeFoodBar"></div>
-      </div>
+
+    <div class="task-icon green-bg">
+      🍴
     </div>
+
+    <div>
+
+      <div class="task-head">
+
+        <div class="task-name">
+          맛집 소개글
+        </div>
+
+        <div
+          class="task-count"
+          id="homeFoodCount"
+        ></div>
+
+      </div>
+
+      <div class="progress">
+
+        <div
+          class="progress-bar green-bar"
+          id="homeFoodBar"
+        ></div>
+
+      </div>
+
+    </div>
+
   </div>
 
-  <button class="detail-btn" onclick="showPage('monthPage')">
+
+  <button
+    class="detail-btn"
+    onclick="showPage('monthPage')"
+  >
     이번 달 포인트 자세히 보기 ›
   </button>
 
@@ -761,65 +1351,225 @@ button{cursor:pointer;}
 </section>
 
 
-<!-- 적립내역 -->
-<section id="historyPage" class="page">
+<!-- =========================
+     HISTORY
+========================= -->
 
-<h1 class="page-title">적립내역</h1>
+<section
+  id="historyPage"
+  class="page"
+>
+
+<h1 class="page-title">
+  적립내역
+</h1>
+
 
 <div class="card history-total">
-  <div class="history-total-label">월별신청 적립완료 포인트</div>
-  <div class="history-total-number" id="historyTotal">0P</div>
+
+  <div class="history-total-label">
+    월별신청 적립완료 포인트
+  </div>
+
+  <div
+    class="history-total-number"
+    id="historyTotal"
+  >
+    0P
+  </div>
+
 </div>
+
 
 <div class="card history-list">
 
   <div class="history-head">
-    <div>날짜</div>
-    <div>항목</div>
-    <div style="text-align:right">포인트</div>
+
+    <div>
+      날짜
+    </div>
+
+    <div>
+      항목
+    </div>
+
+    <div style="text-align:right">
+      포인트
+    </div>
+
   </div>
 
   <div id="historyRows"></div>
 
 </div>
 
+
 <div class="card backup-box">
 
-  <div class="backup-title">내 데이터 백업</div>
+  <div class="backup-title">
+    내 데이터 백업
+  </div>
 
   <div class="backup-desc">
-    기록은 이 휴대폰에 저장돼요. 휴대폰 변경이나 브라우저 데이터 삭제에 대비해 백업 파일을 보관할 수 있어요.
+    기록은 현재 휴대폰 브라우저에 저장돼요.
+    휴대폰 변경이나 Safari 데이터 삭제에 대비해
+    가끔 백업 파일을 저장해두는 것을 추천해요.
   </div>
 
   <div class="backup-buttons">
-    <button class="backup-btn" onclick="exportData()">백업 저장</button>
-    <button class="backup-btn restore-btn" onclick="document.getElementById('importFile').click()">백업 불러오기</button>
+
+    <button
+      class="backup-btn"
+      onclick="exportData()"
+    >
+      백업 저장
+    </button>
+
+    <button
+      class="backup-btn restore-btn"
+      onclick="document.getElementById('importFile').click()"
+    >
+      백업 불러오기
+    </button>
+
   </div>
 
-  <input id="importFile" type="file" accept=".json,application/json" onchange="importData(event)">
+  <input
+    id="importFile"
+    type="file"
+    accept=".json,application/json"
+    onchange="importData(event)"
+  >
 
 </div>
 
 </section>
 
 
-<!-- 월별신청 -->
-<section id="monthPage" class="page">
+<!-- =========================
+     MONTH
+========================= -->
 
-<h1 class="page-title">월별신청</h1>
+<section
+  id="monthPage"
+  class="page"
+>
+
+<h1 class="page-title">
+  월별신청
+</h1>
+
 
 <div class="month-selector">
-  <button onclick="changeMonth(-1)">‹</button>
-  <div class="selected-month" id="selectedMonthText"></div>
-  <button onclick="changeMonth(1)">›</button>
+
+  <button onclick="changeMonth(-1)">
+    ‹
+  </button>
+
+  <div
+    class="selected-month"
+    id="selectedMonthText"
+  ></div>
+
+  <button onclick="changeMonth(1)">
+    ›
+  </button>
+
 </div>
 
-<div class="month-status" id="monthStatusText"></div>
 
-<div class="section-title">이번 달 활동</div>
+<div
+  class="month-status"
+  id="monthStatusText"
+></div>
+
+
+<div class="card month-overview">
+
+  <div class="month-overview-title">
+    이번 달 진행 현황
+  </div>
+
+  <div class="overview-grid">
+
+    <div class="overview-item">
+
+      <div class="overview-label">
+        작성
+      </div>
+
+      <div
+        class="overview-value"
+        id="overviewWritten"
+      >
+        0건
+      </div>
+
+    </div>
+
+
+    <div class="overview-item">
+
+      <div class="overview-label">
+        적립신청
+      </div>
+
+      <div
+        class="overview-value"
+        id="overviewRequested"
+      >
+        0건
+      </div>
+
+    </div>
+
+
+    <div class="overview-item">
+
+      <div class="overview-label">
+        적립완료
+      </div>
+
+      <div
+        class="overview-value"
+        id="overviewCompleted"
+      >
+        0건
+      </div>
+
+    </div>
+
+
+    <div class="overview-item">
+
+      <div class="overview-label">
+        확정포인트
+      </div>
+
+      <div
+        class="overview-value overview-point"
+        id="overviewPoint"
+      >
+        0P
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="section-title">
+  이번 달 활동
+</div>
+
 <div id="monthlyActivities"></div>
 
-<div class="section-title">횟수제한</div>
+
+<div class="section-title">
+  횟수제한
+</div>
 
 <div class="limit-info">
   전체 기간동안 최대 횟수가 정해진 활동이에요.
@@ -832,36 +1582,108 @@ button{cursor:pointer;}
 </div>
 
 
+<!-- =========================
+     NAV
+========================= -->
+
 <nav class="bottom-nav">
 
-<button class="nav-item active" data-page="homePage" onclick="showPage('homePage')">
-  <div class="nav-icon">⌂</div>
-  <div>홈</div>
+<button
+  class="nav-item active"
+  data-page="homePage"
+  onclick="showPage('homePage')"
+>
+
+  <div class="nav-icon">
+    ⌂
+  </div>
+
+  <div>
+    홈
+  </div>
+
 </button>
 
-<button class="nav-item" data-page="historyPage" onclick="showPage('historyPage')">
-  <div class="nav-icon">☷</div>
-  <div>적립내역</div>
+
+<button
+  class="nav-item"
+  data-page="historyPage"
+  onclick="showPage('historyPage')"
+>
+
+  <div class="nav-icon">
+    ☷
+  </div>
+
+  <div>
+    적립내역
+  </div>
+
 </button>
 
-<button class="nav-item" data-page="monthPage" onclick="showPage('monthPage')">
-  <div class="nav-icon">▣</div>
-  <div>월별신청</div>
+
+<button
+  class="nav-item"
+  data-page="monthPage"
+  onclick="showPage('monthPage')"
+>
+
+  <div class="nav-icon">
+    ▣
+  </div>
+
+  <div>
+    월별신청
+  </div>
+
 </button>
 
-<button class="nav-item" onclick="comingSoon()">
-  <div class="nav-icon">☕️</div>
-  <div>카페활동</div>
+
+<button
+  class="nav-item"
+  onclick="comingSoon()"
+>
+
+  <div class="nav-icon">
+    ☕️
+  </div>
+
+  <div>
+    카페활동
+  </div>
+
 </button>
 
-<button class="nav-item" onclick="comingSoon()">
-  <div class="nav-icon">✎</div>
-  <div>블로그</div>
+
+<button
+  class="nav-item"
+  onclick="comingSoon()"
+>
+
+  <div class="nav-icon">
+    ✎
+  </div>
+
+  <div>
+    블로그
+  </div>
+
 </button>
 
-<button class="nav-item" onclick="comingSoon()">
-  <div class="nav-icon">⌯</div>
-  <div>정보공유</div>
+
+<button
+  class="nav-item"
+  onclick="comingSoon()"
+>
+
+  <div class="nav-icon">
+    ⌯
+  </div>
+
+  <div>
+    정보공유
+  </div>
+
 </button>
 
 </nav>
@@ -869,26 +1691,41 @@ button{cursor:pointer;}
 
 <script>
 
-const STORAGE_KEY="directPointData_v1";
+/* =========================
+   BASIC
+========================= */
 
-/*
-  아직 블로그/소개가입 입력화면을 만들기 전이라
-  기존 화면의 244,000원은 그대로 유지한다.
-  월별신청에서 새로 적립완료된 금액은 여기에 추가된다.
-*/
-const BASE_POINT=244000;
+const STORAGE_KEY =
+  "directPointData_v1";
 
-let selectedDate=new Date();
+
+const BASE_POINT =
+  244000;
+
+
+let selectedDate =
+  new Date();
+
 selectedDate.setDate(1);
 
-const activities={
+
+/*
+  펼친 카드는
+  데이터가 변경돼도 유지
+*/
+const openActivities =
+  new Set();
+
+
+const activities = {
 
   comment:{
     name:"댓글교류",
     rule:"1회당 1,000P · 월 최대 10회",
     monthlyMax:10,
     totalMax:null,
-    point:1000
+    point:1000,
+    batch:true
   },
 
   food:{
@@ -905,7 +1742,7 @@ const activities={
     monthlyMax:20,
     totalMax:null,
     point:5000,
-    diary:true
+    batch:true
   },
 
   discussion:{
@@ -935,23 +1772,101 @@ const activities={
 };
 
 
+/* =========================
+   STORAGE
+========================= */
+
 function loadData(){
 
-  const saved=localStorage.getItem(STORAGE_KEY);
+  const saved =
+    localStorage.getItem(
+      STORAGE_KEY
+    );
+
 
   if(!saved){
+
     return{
       records:[],
-      diaryClaims:{}
+      monthlyClaims:{}
     };
+
   }
+
 
   try{
 
-    const data=JSON.parse(saved);
+    const data =
+      JSON.parse(saved);
 
-    if(!data.records) data.records=[];
-    if(!data.diaryClaims) data.diaryClaims={};
+
+    if(
+      !Array.isArray(
+        data.records
+      )
+    ){
+
+      data.records = [];
+
+    }
+
+
+    if(
+      !data.monthlyClaims
+    ){
+
+      data.monthlyClaims = {};
+
+    }
+
+
+    /*
+      이전 버전의
+      diaryClaims가 있으면
+      새로운 월별신청 구조로 이동
+    */
+
+    if(data.diaryClaims){
+
+      Object.keys(
+        data.diaryClaims
+      ).forEach(monthKey=>{
+
+        const oldStatus =
+          data.diaryClaims[
+            monthKey
+          ];
+
+
+        const claimKey =
+          `diary:${monthKey}`;
+
+
+        if(
+          !data.monthlyClaims[
+            claimKey
+          ]
+        ){
+
+          data.monthlyClaims[
+            claimKey
+          ] = {
+
+            status:
+              oldStatus==="작성완료"
+              ? "미신청"
+              : oldStatus,
+
+            date:""
+
+          };
+
+        }
+
+      });
+
+    }
+
 
     return data;
 
@@ -959,69 +1874,218 @@ function loadData(){
 
     return{
       records:[],
-      diaryClaims:{}
+      monthlyClaims:{}
     };
+
   }
+
 }
 
-let appData=loadData();
+
+let appData =
+  loadData();
+
+
+normalizeData();
+
+
+function normalizeData(){
+
+  /*
+    기존 결혼일기 기록에는
+    urlNo 필드가 없으므로 추가
+  */
+
+  appData.records.forEach(
+    record=>{
+
+      if(
+        record.activity==="diary"
+        &&
+        record.urlNo===undefined
+      ){
+
+        record.urlNo = "";
+
+      }
+
+    }
+  );
+
+
+  /*
+    댓글은 달력 방식이라
+    같은 날짜가 여러 건 있으면
+    한 날짜당 1건으로 정리
+  */
+
+  const seen =
+    new Set();
+
+
+  appData.records =
+    appData.records.filter(
+      record=>{
+
+        if(
+          record.activity!=="comment"
+        ){
+
+          return true;
+
+        }
+
+
+        const key =
+          `${record.month}|${record.date}`;
+
+
+        if(
+          seen.has(key)
+        ){
+
+          return false;
+
+        }
+
+
+        seen.add(key);
+
+        return true;
+
+      }
+    );
+
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(appData)
+  );
+
+}
 
 
 function saveData(){
-  localStorage.setItem(STORAGE_KEY,JSON.stringify(appData));
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(appData)
+  );
+
+
   renderAll();
+
 }
 
 
+/* =========================
+   HELPERS
+========================= */
+
 function formatNumber(num){
-  return Number(num).toLocaleString("ko-KR");
+
+  return Number(num)
+    .toLocaleString("ko-KR");
+
 }
 
 
 function getMonthKey(date){
 
-  const y=date.getFullYear();
-  const m=String(date.getMonth()+1).padStart(2,"0");
+  const y =
+    date.getFullYear();
+
+
+  const m =
+    String(
+      date.getMonth()+1
+    )
+    .padStart(2,"0");
+
 
   return `${y}-${m}`;
+
 }
 
 
 function getTodayString(){
 
-  const d=new Date();
+  const d =
+    new Date();
 
-  const y=d.getFullYear();
-  const m=String(d.getMonth()+1).padStart(2,"0");
-  const day=String(d.getDate()).padStart(2,"0");
+
+  const y =
+    d.getFullYear();
+
+
+  const m =
+    String(
+      d.getMonth()+1
+    )
+    .padStart(2,"0");
+
+
+  const day =
+    String(
+      d.getDate()
+    )
+    .padStart(2,"0");
+
 
   return `${y}-${m}-${day}`;
+
 }
 
 
 function defaultDateForSelectedMonth(){
 
-  const now=new Date();
+  const now =
+    new Date();
+
 
   if(
-    selectedDate.getFullYear()===now.getFullYear() &&
-    selectedDate.getMonth()===now.getMonth()
+    selectedDate.getFullYear()
+      === now.getFullYear()
+
+    &&
+
+    selectedDate.getMonth()
+      === now.getMonth()
   ){
+
     return getTodayString();
+
   }
 
-  const y=selectedDate.getFullYear();
-  const m=String(selectedDate.getMonth()+1).padStart(2,"0");
+
+  const y =
+    selectedDate.getFullYear();
+
+
+  const m =
+    String(
+      selectedDate.getMonth()+1
+    )
+    .padStart(2,"0");
+
 
   return `${y}-${m}-01`;
+
 }
 
 
-function recordsFor(key,monthKey){
+function recordsFor(
+  key,
+  monthKey
+){
 
   return appData.records.filter(
-    r=>r.activity===key && r.month===monthKey
+    r=>
+      r.activity===key
+      &&
+      r.month===monthKey
   );
+
 }
 
 
@@ -1030,150 +2094,1196 @@ function allRecordsFor(key){
   return appData.records.filter(
     r=>r.activity===key
   );
+
 }
 
 
-function completedFor(key,monthKey){
+function completedFor(
+  key,
+  monthKey
+){
 
-  return recordsFor(key,monthKey)
-    .filter(r=>r.status==="적립완료");
+  return recordsFor(
+    key,
+    monthKey
+  )
+  .filter(
+    r=>r.status==="적립완료"
+  );
+
 }
 
 
 function statusClass(status){
 
-  if(status==="작성완료") return "status-written";
-  if(status==="적립신청") return "status-request";
-
-  return "status-done";
-}
-
-
-function getDiaryClaim(monthKey){
-
-  if(!appData.diaryClaims[monthKey]){
-    appData.diaryClaims[monthKey]="작성완료";
+  if(status==="작성완료"){
+    return "status-written";
   }
 
-  return appData.diaryClaims[monthKey];
+
+  if(status==="적립신청"){
+    return "status-request";
+  }
+
+
+  if(status==="적립완료"){
+    return "status-done";
+  }
+
+
+  return "status-none";
+
 }
 
 
-function earnedPointsFor(key,monthKey){
+/* =========================
+   MONTHLY CLAIM
+========================= */
 
-  const activity=activities[key];
+function claimKey(
+  activity,
+  monthKey
+){
 
-  if(activity.diary){
+  return `${activity}:${monthKey}`;
 
-    const count=recordsFor(key,monthKey).length;
+}
+
+
+function getClaim(
+  activity,
+  monthKey
+){
+
+  const key =
+    claimKey(
+      activity,
+      monthKey
+    );
+
+
+  if(
+    !appData.monthlyClaims[
+      key
+    ]
+  ){
+
+    appData.monthlyClaims[
+      key
+    ] = {
+
+      status:"미신청",
+      date:""
+
+    };
+
+  }
+
+
+  return appData.monthlyClaims[
+    key
+  ];
+
+}
+
+
+function resetClaimIfNeeded(
+  activity,
+  monthKey
+){
+
+  const claim =
+    getClaim(
+      activity,
+      monthKey
+    );
+
+
+  if(
+    claim.status!=="미신청"
+  ){
+
+    claim.status =
+      "미신청";
+
+
+    claim.date =
+      "";
+
+  }
+
+}
+
+
+/* =========================
+   COMMENT
+========================= */
+
+function commentRecords(
+  monthKey
+){
+
+  return recordsFor(
+    "comment",
+    monthKey
+  );
+
+}
+
+
+function commentCount(
+  monthKey
+){
+
+  return commentRecords(
+    monthKey
+  ).length;
+
+}
+
+
+function toggleCommentDate(
+  dateString
+){
+
+  const monthKey =
+    dateString.slice(0,7);
+
+
+  openActivities.add(
+    "comment"
+  );
+
+
+  const found =
+    appData.records.find(
+      r=>
+        r.activity==="comment"
+        &&
+        r.date===dateString
+    );
+
+
+  if(found){
+
+    appData.records =
+      appData.records.filter(
+        r=>
+          !(
+            r.activity==="comment"
+            &&
+            r.date===dateString
+          )
+      );
+
+
+    resetClaimIfNeeded(
+      "comment",
+      monthKey
+    );
+
+
+    saveData();
+
+    return;
+
+  }
+
+
+  const count =
+    commentCount(
+      monthKey
+    );
+
+
+  if(count>=10){
+
+    alert(
+      "댓글교류는 한 달에 최대 10회까지 체크할 수 있어."
+    );
+
+    return;
+
+  }
+
+
+  appData.records.push({
+
+    id:
+      Date.now().toString()
+      +
+      Math.random()
+      .toString(16)
+      .slice(2),
+
+    activity:"comment",
+
+    month:monthKey,
+
+    date:dateString,
+
+    status:"작성완료"
+
+  });
+
+
+  resetClaimIfNeeded(
+    "comment",
+    monthKey
+  );
+
+
+  saveData();
+
+}
+
+
+function createCommentCalendar(
+  monthKey
+){
+
+  const parts =
+    monthKey.split("-");
+
+
+  const year =
+    Number(parts[0]);
+
+
+  const month =
+    Number(parts[1]);
+
+
+  const firstDay =
+    new Date(
+      year,
+      month-1,
+      1
+    ).getDay();
+
+
+  const lastDate =
+    new Date(
+      year,
+      month,
+      0
+    ).getDate();
+
+
+  const selected =
+    new Set(
+
+      commentRecords(
+        monthKey
+      )
+      .map(
+        r=>r.date
+      )
+
+    );
+
+
+  let days = "";
+
+
+  for(
+    let i=0;
+    i<firstDay;
+    i++
+  ){
+
+    days +=
+      `<div class="calendar-empty"></div>`;
+
+  }
+
+
+  const today =
+    getTodayString();
+
+
+  for(
+    let day=1;
+    day<=lastDate;
+    day++
+  ){
+
+    const dayText =
+      String(day)
+      .padStart(2,"0");
+
+
+    const dateString =
+      `${monthKey}-${dayText}`;
+
+
+    const isSelected =
+      selected.has(
+        dateString
+      );
+
+
+    const isToday =
+      today===dateString;
+
+
+    days += `
+
+      <button
+        class="
+          calendar-day
+          ${isSelected ? "selected" : ""}
+          ${isToday ? "today" : ""}
+        "
+        onclick="toggleCommentDate('${dateString}')"
+      >
+        ${day}
+      </button>
+
+    `;
+
+  }
+
+
+  return `
+
+    <div class="calendar-help">
+      댓글교류한 날짜를 눌러 체크해요.
+      다시 누르면 체크가 해제돼요.
+    </div>
+
+
+    <div class="calendar">
+
+      <div class="calendar-week">
+
+        <div class="week-day">
+          일
+        </div>
+
+        <div class="week-day">
+          월
+        </div>
+
+        <div class="week-day">
+          화
+        </div>
+
+        <div class="week-day">
+          수
+        </div>
+
+        <div class="week-day">
+          목
+        </div>
+
+        <div class="week-day">
+          금
+        </div>
+
+        <div class="week-day">
+          토
+        </div>
+
+      </div>
+
+
+      <div class="calendar-days">
+
+        ${days}
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================
+   DIARY
+========================= */
+
+function diaryValidUrlCount(
+  monthKey
+){
+
+  return recordsFor(
+    "diary",
+    monthKey
+  )
+  .filter(
+    r=>
+      String(
+        r.urlNo || ""
+      ).trim()!==""
+  )
+  .length;
+
+}
+
+
+function addDiaryRecord(){
+
+  const monthKey =
+    getMonthKey(
+      selectedDate
+    );
+
+
+  openActivities.add(
+    "diary"
+  );
+
+
+  const records =
+    recordsFor(
+      "diary",
+      monthKey
+    );
+
+
+  if(
+    records.length>=20
+  ){
+
+    alert(
+      "결혼일기는 한 달에 최대 20개까지 기록할 수 있어."
+    );
+
+    return;
+
+  }
+
+
+  appData.records.push({
+
+    id:
+      Date.now().toString()
+      +
+      Math.random()
+      .toString(16)
+      .slice(2),
+
+    activity:"diary",
+
+    month:monthKey,
+
+    date:
+      defaultDateForSelectedMonth(),
+
+    urlNo:"",
+
+    status:"작성완료"
+
+  });
+
+
+  resetClaimIfNeeded(
+    "diary",
+    monthKey
+  );
+
+
+  saveData();
+
+}
+
+
+function updateDiaryDate(
+  id,
+  value
+){
+
+  if(!value){
+    return;
+  }
+
+
+  const record =
+    appData.records.find(
+      r=>r.id===id
+    );
+
+
+  if(!record){
+    return;
+  }
+
+
+  openActivities.add(
+    "diary"
+  );
+
+
+  const oldMonth =
+    record.month;
+
+
+  const newMonth =
+    value.slice(0,7);
+
+
+  if(
+    oldMonth!==newMonth
+  ){
+
+    const targetCount =
+      recordsFor(
+        "diary",
+        newMonth
+      )
+      .filter(
+        r=>r.id!==id
+      )
+      .length;
+
 
     if(
-      count>=20 &&
-      getDiaryClaim(monthKey)==="적립완료"
+      targetCount>=20
     ){
-      return 5000;
+
+      alert(
+        "변경하려는 달에는 결혼일기가 이미 20개 있어."
+      );
+
+      renderAll();
+
+      return;
+
     }
 
-    return 0;
   }
 
-  return completedFor(key,monthKey).length * activity.point;
+
+  record.date =
+    value;
+
+
+  record.month =
+    newMonth;
+
+
+  resetClaimIfNeeded(
+    "diary",
+    oldMonth
+  );
+
+
+  resetClaimIfNeeded(
+    "diary",
+    newMonth
+  );
+
+
+  saveData();
+
+}
+
+
+function updateDiaryUrl(
+  id,
+  value
+){
+
+  const record =
+    appData.records.find(
+      r=>r.id===id
+    );
+
+
+  if(!record){
+    return;
+  }
+
+
+  openActivities.add(
+    "diary"
+  );
+
+
+  record.urlNo =
+    value.trim();
+
+
+  resetClaimIfNeeded(
+    "diary",
+    record.month
+  );
+
+
+  saveData();
+
+}
+
+
+function deleteDiaryRecord(
+  id
+){
+
+  const record =
+    appData.records.find(
+      r=>r.id===id
+    );
+
+
+  if(!record){
+    return;
+  }
+
+
+  openActivities.add(
+    "diary"
+  );
+
+
+  if(
+    !confirm(
+      "이 결혼일기 기록을 삭제할까?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  const monthKey =
+    record.month;
+
+
+  appData.records =
+    appData.records.filter(
+      r=>r.id!==id
+    );
+
+
+  resetClaimIfNeeded(
+    "diary",
+    monthKey
+  );
+
+
+  saveData();
+
+}
+
+
+/* =========================
+   BATCH CLAIM STATUS
+========================= */
+
+function batchEligible(
+  activity,
+  monthKey
+){
+
+  if(
+    activity==="comment"
+  ){
+
+    return (
+      commentCount(
+        monthKey
+      )>0
+    );
+
+  }
+
+
+  if(
+    activity==="diary"
+  ){
+
+    const records =
+      recordsFor(
+        "diary",
+        monthKey
+      );
+
+
+    return (
+      records.length===20
+      &&
+      diaryValidUrlCount(
+        monthKey
+      )===20
+    );
+
+  }
+
+
+  return false;
+
+}
+
+
+function updateClaimDate(
+  activity,
+  monthKey,
+  value
+){
+
+  openActivities.add(
+    activity
+  );
+
+
+  const claim =
+    getClaim(
+      activity,
+      monthKey
+    );
+
+
+  claim.date =
+    value;
+
+
+  saveData();
+
+}
+
+
+function updateBatchStatus(
+  activity,
+  monthKey,
+  value
+){
+
+  openActivities.add(
+    activity
+  );
+
+
+  const claim =
+    getClaim(
+      activity,
+      monthKey
+    );
+
+
+  if(
+    value!=="미신청"
+  ){
+
+    if(
+      !batchEligible(
+        activity,
+        monthKey
+      )
+    ){
+
+      if(
+        activity==="diary"
+      ){
+
+        alert(
+          "결혼일기 20개와 URL 번호 20개를 모두 입력한 뒤 신청할 수 있어."
+        );
+
+      }else{
+
+        alert(
+          "댓글교류 날짜를 먼저 체크해줘."
+        );
+
+      }
+
+
+      renderAll();
+
+      return;
+
+    }
+
+
+    if(
+      !claim.date
+    ){
+
+      alert(
+        "신청일을 먼저 선택해줘."
+      );
+
+
+      renderAll();
+
+      return;
+
+    }
+
+  }
+
+
+  claim.status =
+    value;
+
+
+  saveData();
+
+}
+
+
+/* =========================
+   POINT CALCULATION
+========================= */
+
+function earnedPointsFor(
+  key,
+  monthKey
+){
+
+  const activity =
+    activities[key];
+
+
+  if(
+    key==="comment"
+  ){
+
+    const claim =
+      getClaim(
+        "comment",
+        monthKey
+      );
+
+
+    if(
+      claim.status
+        ==="적립완료"
+    ){
+
+      return (
+        commentCount(
+          monthKey
+        )
+        *
+        1000
+      );
+
+    }
+
+
+    return 0;
+
+  }
+
+
+  if(
+    key==="diary"
+  ){
+
+    const claim =
+      getClaim(
+        "diary",
+        monthKey
+      );
+
+
+    if(
+      claim.status
+        ==="적립완료"
+      &&
+      batchEligible(
+        "diary",
+        monthKey
+      )
+    ){
+
+      return 5000;
+
+    }
+
+
+    return 0;
+
+  }
+
+
+  return (
+    completedFor(
+      key,
+      monthKey
+    ).length
+    *
+    activity.point
+  );
+
 }
 
 
 function allEarnedPoints(){
 
-  let total=0;
+  let total = 0;
 
-  appData.records.forEach(record=>{
 
-    const activity=activities[record.activity];
+  /*
+    일반 개별 적립
+  */
 
-    if(
-      !activity ||
-      activity.diary ||
-      record.status!=="적립완료"
-    ){
-      return;
+  appData.records.forEach(
+    record=>{
+
+      const activity =
+        activities[
+          record.activity
+        ];
+
+
+      if(
+        !activity
+        ||
+        activity.batch
+        ||
+        record.status!=="적립완료"
+      ){
+
+        return;
+
+      }
+
+
+      total +=
+        activity.point;
+
     }
-
-    total+=activity.point;
-  });
+  );
 
 
-  Object.keys(appData.diaryClaims).forEach(monthKey=>{
+  /*
+    댓글/결혼일기
+    월별 일괄 적립
+  */
 
-    if(
-      appData.diaryClaims[monthKey]==="적립완료" &&
-      recordsFor("diary",monthKey).length>=20
-    ){
-      total+=5000;
+  const months =
+    new Set();
+
+
+  appData.records.forEach(
+    record=>{
+
+      if(
+        record.activity==="comment"
+        ||
+        record.activity==="diary"
+      ){
+
+        months.add(
+          record.month
+        );
+
+      }
+
     }
+  );
 
-  });
+
+  months.forEach(
+    monthKey=>{
+
+      total +=
+        earnedPointsFor(
+          "comment",
+          monthKey
+        );
+
+
+      total +=
+        earnedPointsFor(
+          "diary",
+          monthKey
+        );
+
+    }
+  );
+
 
   return total;
+
 }
 
 
-function showPage(pageId){
+/* =========================
+   PAGE
+========================= */
 
-  document.querySelectorAll(".page")
-    .forEach(page=>page.classList.remove("active"));
+function showPage(
+  pageId
+){
 
-  document.getElementById(pageId)
-    .classList.add("active");
+  document
+    .querySelectorAll(
+      ".page"
+    )
+    .forEach(
+      page=>
+        page.classList.remove(
+          "active"
+        )
+    );
 
-  document.querySelectorAll(".nav-item")
-    .forEach(btn=>btn.classList.remove("active"));
 
-  const nav=document.querySelector(
-    `.nav-item[data-page="${pageId}"]`
-  );
+  document
+    .getElementById(
+      pageId
+    )
+    .classList.add(
+      "active"
+    );
 
-  if(nav) nav.classList.add("active");
+
+  document
+    .querySelectorAll(
+      ".nav-item"
+    )
+    .forEach(
+      btn=>
+        btn.classList.remove(
+          "active"
+        )
+    );
+
+
+  const nav =
+    document.querySelector(
+      `.nav-item[data-page="${pageId}"]`
+    );
+
+
+  if(nav){
+
+    nav.classList.add(
+      "active"
+    );
+
+  }
+
 
   renderAll();
 
-  window.scrollTo({top:0,behavior:"smooth"});
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
 }
 
 
 function comingSoon(){
-  alert("이 메뉴는 다음 단계에서 만들게!");
-}
 
-
-function changeMonth(direction){
-
-  selectedDate.setMonth(
-    selectedDate.getMonth()+direction
+  alert(
+    "이 메뉴는 다음 단계에서 만들게!"
   );
 
-  renderMonthPage();
 }
 
 
-function addRecord(key){
+/* =========================
+   MONTH CHANGE
+========================= */
 
-  const activity=activities[key];
-  const monthKey=getMonthKey(selectedDate);
+function changeMonth(
+  direction
+){
 
-  const monthRecords=recordsFor(key,monthKey);
+  selectedDate.setMonth(
+    selectedDate.getMonth()
+    +
+    direction
+  );
 
-  if(monthRecords.length>=activity.monthlyMax){
+
+  renderMonthPage();
+
+}
+
+
+/* =========================
+   OPEN / CLOSE
+========================= */
+
+function toggleActivity(
+  key
+){
+
+  if(
+    openActivities.has(
+      key
+    )
+  ){
+
+    openActivities.delete(
+      key
+    );
+
+  }else{
+
+    openActivities.add(
+      key
+    );
+
+  }
+
+
+  renderMonthPage();
+
+}
+
+
+/* =========================
+   NORMAL RECORDS
+========================= */
+
+function addRecord(
+  key
+){
+
+  openActivities.add(
+    key
+  );
+
+
+  const activity =
+    activities[key];
+
+
+  const monthKey =
+    getMonthKey(
+      selectedDate
+    );
+
+
+  const monthRecords =
+    recordsFor(
+      key,
+      monthKey
+    );
+
+
+  if(
+    monthRecords.length
+      >= activity.monthlyMax
+  ){
 
     alert(
       `${activity.name}은(는) 이번 달 최대 ${activity.monthlyMax}회까지 작성할 수 있어.`
     );
 
     return;
+
   }
 
 
   if(
-    activity.totalMax &&
-    allRecordsFor(key).length>=activity.totalMax
+    activity.totalMax
+    &&
+    allRecordsFor(
+      key
+    ).length
+      >=activity.totalMax
   ){
 
     alert(
@@ -1181,327 +3291,492 @@ function addRecord(key){
     );
 
     return;
+
   }
 
 
   appData.records.push({
 
     id:
-      Date.now().toString()+
-      Math.random().toString(16).slice(2),
+      Date.now().toString()
+      +
+      Math.random()
+      .toString(16)
+      .slice(2),
 
     activity:key,
 
     month:monthKey,
 
-    date:defaultDateForSelectedMonth(),
+    date:
+      defaultDateForSelectedMonth(),
 
     status:"작성완료"
 
   });
 
+
   saveData();
+
 }
 
 
-function updateRecordDate(id,value){
+function updateRecordDate(
+  id,
+  value
+){
 
-  if(!value) return;
+  if(!value){
+    return;
+  }
 
-  const record=appData.records.find(
-    r=>r.id===id
+
+  const record =
+    appData.records.find(
+      r=>r.id===id
+    );
+
+
+  if(!record){
+    return;
+  }
+
+
+  openActivities.add(
+    record.activity
   );
 
-  if(!record) return;
 
-  const oldMonth=record.month;
+  const oldMonth =
+    record.month;
 
-  const d=new Date(value+"T00:00:00");
-  const newMonth=getMonthKey(d);
 
-  const activity=activities[record.activity];
+  const newMonth =
+    value.slice(0,7);
 
-  if(newMonth!==oldMonth){
 
-    const destinationCount=
-      recordsFor(record.activity,newMonth)
-      .filter(r=>r.id!==id)
+  const activity =
+    activities[
+      record.activity
+    ];
+
+
+  if(
+    oldMonth!==newMonth
+  ){
+
+    const destinationCount =
+      recordsFor(
+        record.activity,
+        newMonth
+      )
+      .filter(
+        r=>r.id!==id
+      )
       .length;
 
-    if(destinationCount>=activity.monthlyMax){
+
+    if(
+      destinationCount
+        >=activity.monthlyMax
+    ){
 
       alert(
         `변경하려는 달에는 ${activity.name} 기록이 이미 최대 횟수까지 있어.`
       );
 
+
       renderAll();
+
       return;
+
     }
+
   }
 
-  record.date=value;
-  record.month=newMonth;
+
+  record.date =
+    value;
+
+
+  record.month =
+    newMonth;
+
 
   saveData();
+
 }
 
 
-function updateStatus(id,value){
+function updateStatus(
+  id,
+  value
+){
 
-  const record=appData.records.find(
-    r=>r.id===id
+  const record =
+    appData.records.find(
+      r=>r.id===id
+    );
+
+
+  if(!record){
+    return;
+  }
+
+
+  openActivities.add(
+    record.activity
   );
 
-  if(!record) return;
 
-  record.status=value;
+  record.status =
+    value;
+
 
   saveData();
+
 }
 
 
-function updateDiaryClaim(monthKey,value){
+function deleteRecord(
+  id
+){
 
-  if(recordsFor("diary",monthKey).length<20){
+  const record =
+    appData.records.find(
+      r=>r.id===id
+    );
 
-    alert("결혼일기를 20회 작성한 뒤 신청할 수 있어.");
-    renderAll();
-    return;
+
+  if(record){
+
+    openActivities.add(
+      record.activity
+    );
+
   }
 
-  appData.diaryClaims[monthKey]=value;
 
-  saveData();
-}
+  if(
+    !confirm(
+      "이 작성 내역을 삭제할까?"
+    )
+  ){
 
-
-function deleteRecord(id){
-
-  if(!confirm("이 작성 내역을 삭제할까?")){
     return;
+
   }
 
-  appData.records=
+
+  appData.records =
     appData.records.filter(
       r=>r.id!==id
     );
 
+
   saveData();
+
 }
 
 
-function toggleActivity(key){
+/* =========================
+   BATCH CLAIM HTML
+========================= */
 
-  const card=document.getElementById(
-    `activity-${key}`
-  );
+function createBatchClaim(
+  activity,
+  monthKey
+){
 
-  if(card){
-    card.classList.toggle("open");
+  const claim =
+    getClaim(
+      activity,
+      monthKey
+    );
+
+
+  const eligible =
+    batchEligible(
+      activity,
+      monthKey
+    );
+
+
+  let potentialPoint = 0;
+
+
+  if(
+    activity==="comment"
+  ){
+
+    potentialPoint =
+      commentCount(
+        monthKey
+      )
+      *
+      1000;
+
   }
-}
 
 
-function createDiaryClaim(monthKey,count){
+  if(
+    activity==="diary"
+  ){
 
-  if(count<20){
+    potentialPoint =
+      eligible
+      ? 5000
+      : 0;
 
-    return `
-      <div class="diary-claim">
-        <div class="diary-message">
-          ${count} / 20 작성 중 · 20회 작성 시 5,000P를 신청할 수 있어요.
-        </div>
-      </div>
-    `;
   }
 
 
-  const status=getDiaryClaim(monthKey);
+  const confirmedPoint =
+    claim.status==="적립완료"
+    ?
+      potentialPoint
+    :
+      0;
 
-  const point=
-    status==="적립완료"
-    ? "5,000P"
-    : "-";
+
+  let desc = "";
+
+
+  if(
+    activity==="comment"
+  ){
+
+    desc =
+      "작성한 댓글교류 횟수를 월말 또는 다음 달에 한 번에 신청해요.";
+
+  }else{
+
+    if(eligible){
+
+      desc =
+        "20개 작성과 URL 번호 입력이 모두 완료됐어요. 이제 한 번에 신청할 수 있어요.";
+
+    }else{
+
+      desc =
+        "결혼일기 20개와 URL 번호 20개를 모두 입력하면 신청할 수 있어요.";
+
+    }
+
+  }
 
 
   return `
-    <div class="diary-claim">
 
-      <div class="diary-message diary-ready">
-        ✓ 20회 작성 완료 · 5,000P 신청 가능
+    <div class="batch-claim">
+
+      <div class="batch-title">
+        월별 적립신청
       </div>
 
-      <div class="diary-claim-row">
 
-        <select
-          class="${statusClass(status)}"
-          onchange="updateDiaryClaim('${monthKey}',this.value)"
-        >
-          <option value="작성완료" ${status==="작성완료"?"selected":""}>
-            작성완료
-          </option>
+      <div class="batch-desc">
+        ${desc}
+      </div>
 
-          <option value="적립신청" ${status==="적립신청"?"selected":""}>
-            적립신청
-          </option>
 
-          <option value="적립완료" ${status==="적립완료"?"selected":""}>
-            적립완료
-          </option>
-        </select>
+      <div class="batch-fields">
 
-        <div class="diary-point">${point}</div>
+        <div>
+
+          <div class="batch-field-label">
+            신청일
+          </div>
+
+          <input
+            type="date"
+            class="claim-date"
+            value="${claim.date || ""}"
+            onchange="updateClaimDate('${activity}','${monthKey}',this.value)"
+            ${eligible ? "" : "disabled"}
+          >
+
+        </div>
+
+
+        <div>
+
+          <div class="batch-field-label">
+            관리
+          </div>
+
+          <select
+            class="claim-select ${statusClass(claim.status)}"
+            onchange="updateBatchStatus('${activity}','${monthKey}',this.value)"
+            ${eligible ? "" : "disabled"}
+          >
+
+            <option
+              value="미신청"
+              ${claim.status==="미신청" ? "selected" : ""}
+            >
+              미신청
+            </option>
+
+            <option
+              value="적립신청"
+              ${claim.status==="적립신청" ? "selected" : ""}
+            >
+              적립신청
+            </option>
+
+            <option
+              value="적립완료"
+              ${claim.status==="적립완료" ? "selected" : ""}
+            >
+              적립완료
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <div class="claim-bottom">
+
+        <div class="claim-status-text">
+
+          ${
+            claim.status==="적립완료"
+            ?
+            "적립 완료"
+            :
+            (
+              claim.status==="적립신청"
+              ?
+              "적립 신청 중"
+              :
+              "아직 적립되지 않았어요"
+            )
+          }
+
+        </div>
+
+
+        <div class="claim-point">
+
+          ${
+            claim.status==="적립완료"
+            ?
+            `${formatNumber(confirmedPoint)}P`
+            :
+            (
+              potentialPoint>0
+              ?
+              `신청 ${formatNumber(potentialPoint)}P`
+              :
+              "-"
+            )
+          }
+
+        </div>
 
       </div>
 
     </div>
+
   `;
+
 }
 
 
-function createActivityCard(key){
+/* =========================
+   COMMENT CARD
+========================= */
 
-  const activity=activities[key];
-  const monthKey=getMonthKey(selectedDate);
-  const records=recordsFor(key,monthKey);
+function createCommentCard(){
 
-  const earned=earnedPointsFor(key,monthKey);
-
-  const percentage=Math.min(
-    100,
-    (records.length/activity.monthlyMax)*100
-  );
+  const key =
+    "comment";
 
 
-  let rows="";
+  const activity =
+    activities[key];
 
 
-  if(records.length===0){
-
-    rows=`
-      <div class="empty">
-        아직 작성한 내역이 없어요.
-      </div>
-    `;
-
-  }else{
-
-    rows=records
-      .slice()
-      .sort((a,b)=>b.date.localeCompare(a.date))
-      .map(record=>{
-
-        let pointText="-";
-
-        if(
-          !activity.diary &&
-          record.status==="적립완료"
-        ){
-          pointText=
-            `${formatNumber(activity.point)}P`;
-        }
-
-
-        return `
-
-          <div class="record-row">
-
-            <input
-              type="date"
-              class="record-date-input"
-              value="${record.date}"
-              onchange="updateRecordDate('${record.id}',this.value)"
-            >
-
-            <select
-              class="status-select ${statusClass(record.status)}"
-              onchange="updateStatus('${record.id}',this.value)"
-              ${activity.diary ? "disabled" : ""}
-            >
-
-              <option value="작성완료" ${record.status==="작성완료"?"selected":""}>
-                작성완료
-              </option>
-
-              <option value="적립신청" ${record.status==="적립신청"?"selected":""}>
-                적립신청
-              </option>
-
-              <option value="적립완료" ${record.status==="적립완료"?"selected":""}>
-                적립완료
-              </option>
-
-            </select>
-
-            <div class="record-point">
-              ${activity.diary ? "-" : pointText}
-            </div>
-
-            <button
-              class="delete-btn"
-              onclick="deleteRecord('${record.id}')"
-            >
-              ×
-            </button>
-
-          </div>
-        `;
-
-      }).join("");
-  }
-
-
-  let totalText="";
-
-  if(activity.totalMax){
-
-    totalText=`
-      <div class="activity-rule">
-        전체 ${allRecordsFor(key).length} / ${activity.totalMax}회
-      </div>
-    `;
-  }
-
-
-  let diaryClaim="";
-
-  if(activity.diary){
-    diaryClaim=createDiaryClaim(
-      monthKey,
-      records.length
+  const monthKey =
+    getMonthKey(
+      selectedDate
     );
-  }
+
+
+  const count =
+    commentCount(
+      monthKey
+    );
+
+
+  const earned =
+    earnedPointsFor(
+      key,
+      monthKey
+    );
+
+
+  const percentage =
+    Math.min(
+      100,
+      (count/10)*100
+    );
+
+
+  const openClass =
+    openActivities.has(
+      key
+    )
+    ?
+    "open"
+    :
+    "";
 
 
   return `
 
-    <div class="card activity-card" id="activity-${key}">
+    <div
+      class="card activity-card ${openClass}"
+      id="activity-comment"
+    >
 
       <div
         class="activity-main"
-        onclick="toggleActivity('${key}')"
+        onclick="toggleActivity('comment')"
       >
 
         <div class="activity-top">
 
           <div>
 
-            <div class="activity-name">
-              ${activity.name}
+            <div class="activity-name-row">
+
+              <div class="activity-name">
+                댓글교류
+              </div>
+
+              <div class="fold-arrow">
+                ▼
+              </div>
+
             </div>
+
 
             <div class="activity-rule">
-              ${activity.rule}
+              1회당 1,000P · 월 최대 10회
             </div>
 
-            ${totalText}
-
           </div>
+
 
           <div class="activity-right">
 
             <div class="activity-count">
-              ${records.length} / ${activity.monthlyMax}
+              ${count} / 10
             </div>
 
             <div class="activity-points">
@@ -1512,11 +3787,580 @@ function createActivityCard(key){
 
         </div>
 
+
         <div class="progress small-progress">
+
           <div
             class="progress-bar"
             style="width:${percentage}%"
           ></div>
+
+        </div>
+
+      </div>
+
+
+      <div class="activity-detail">
+
+        ${createCommentCalendar(monthKey)}
+
+
+        <div class="comment-result">
+
+          <div class="comment-result-top">
+
+            <div class="comment-result-count">
+              현재 ${count} / 10회
+            </div>
+
+            <div class="comment-result-point">
+              신청 가능 ${formatNumber(count*1000)}P
+            </div>
+
+          </div>
+
+          <div class="comment-max-text">
+            최대 10회 · 10,000P
+          </div>
+
+        </div>
+
+
+        ${createBatchClaim(
+          "comment",
+          monthKey
+        )}
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================
+   DIARY CARD
+========================= */
+
+function createDiaryCard(){
+
+  const monthKey =
+    getMonthKey(
+      selectedDate
+    );
+
+
+  const records =
+    recordsFor(
+      "diary",
+      monthKey
+    )
+    .slice()
+    .sort(
+      (a,b)=>
+        a.date.localeCompare(
+          b.date
+        )
+    );
+
+
+  const count =
+    records.length;
+
+
+  const urlCount =
+    diaryValidUrlCount(
+      monthKey
+    );
+
+
+  const earned =
+    earnedPointsFor(
+      "diary",
+      monthKey
+    );
+
+
+  const percentage =
+    Math.min(
+      100,
+      (count/20)*100
+    );
+
+
+  let rows = "";
+
+
+  if(
+    count===0
+  ){
+
+    rows = `
+
+      <div class="empty">
+        아직 작성한 결혼일기가 없어요.
+      </div>
+
+    `;
+
+  }else{
+
+    rows =
+      records
+      .map(
+        record=>`
+
+          <div class="diary-row">
+
+            <input
+              type="date"
+              class="diary-date"
+              value="${record.date}"
+              onchange="updateDiaryDate('${record.id}',this.value)"
+            >
+
+
+            <input
+              type="text"
+              inputmode="numeric"
+              class="url-number"
+              value="${record.urlNo || ""}"
+              placeholder="URL 번호"
+              onchange="updateDiaryUrl('${record.id}',this.value)"
+            >
+
+
+            <button
+              class="delete-btn"
+              onclick="deleteDiaryRecord('${record.id}')"
+            >
+              ×
+            </button>
+
+          </div>
+
+        `
+      )
+      .join("");
+
+  }
+
+
+  let progressMessage = "";
+
+
+  if(
+    count<20
+  ){
+
+    progressMessage =
+      `${20-count}개 더 작성하면 신청 가능`;
+
+  }else if(
+    urlCount<20
+  ){
+
+    progressMessage =
+      `URL 번호 ${20-urlCount}개 더 입력하면 신청 가능`;
+
+  }else{
+
+    progressMessage =
+      "20개 작성 완료 · 신청 가능";
+
+  }
+
+
+  const openClass =
+    openActivities.has(
+      "diary"
+    )
+    ?
+    "open"
+    :
+    "";
+
+
+  return `
+
+    <div
+      class="card activity-card ${openClass}"
+      id="activity-diary"
+    >
+
+      <div
+        class="activity-main"
+        onclick="toggleActivity('diary')"
+      >
+
+        <div class="activity-top">
+
+          <div>
+
+            <div class="activity-name-row">
+
+              <div class="activity-name">
+                결혼일기
+              </div>
+
+              <div class="fold-arrow">
+                ▼
+              </div>
+
+            </div>
+
+
+            <div class="activity-rule">
+              월 20회 작성 시 5,000P
+            </div>
+
+          </div>
+
+
+          <div class="activity-right">
+
+            <div class="activity-count">
+              ${count} / 20
+            </div>
+
+            <div class="activity-points">
+              ${formatNumber(earned)}P
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="progress small-progress">
+
+          <div
+            class="progress-bar blue-bar"
+            style="width:${percentage}%"
+          ></div>
+
+        </div>
+
+      </div>
+
+
+      <div class="activity-detail">
+
+        <div class="diary-header">
+
+          <div>
+            작성일
+          </div>
+
+          <div>
+            URL 번호
+          </div>
+
+          <div></div>
+
+        </div>
+
+
+        ${rows}
+
+
+        <button
+          class="add-btn"
+          onclick="addDiaryRecord()"
+        >
+          + 결혼일기 추가
+        </button>
+
+
+        <div class="diary-progress-info">
+
+          <div class="diary-progress-main">
+
+            <div class="diary-progress-count">
+              ${count} / 20 작성
+            </div>
+
+            <div class="diary-progress-message">
+              URL ${urlCount} / 20
+            </div>
+
+          </div>
+
+
+          <div
+            class="
+              ${
+                count===20
+                &&
+                urlCount===20
+                ?
+                "diary-complete"
+                :
+                "diary-warning"
+              }
+            "
+          >
+            ${progressMessage}
+          </div>
+
+        </div>
+
+
+        ${createBatchClaim(
+          "diary",
+          monthKey
+        )}
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================
+   NORMAL ACTIVITY CARD
+========================= */
+
+function createNormalActivityCard(
+  key
+){
+
+  const activity =
+    activities[key];
+
+
+  const monthKey =
+    getMonthKey(
+      selectedDate
+    );
+
+
+  const records =
+    recordsFor(
+      key,
+      monthKey
+    );
+
+
+  const earned =
+    earnedPointsFor(
+      key,
+      monthKey
+    );
+
+
+  const percentage =
+    Math.min(
+      100,
+      (
+        records.length
+        /
+        activity.monthlyMax
+      )
+      *
+      100
+    );
+
+
+  let rows = "";
+
+
+  if(
+    records.length===0
+  ){
+
+    rows = `
+
+      <div class="empty">
+        아직 작성한 내역이 없어요.
+      </div>
+
+    `;
+
+  }else{
+
+    rows =
+      records
+      .slice()
+      .sort(
+        (a,b)=>
+          b.date.localeCompare(
+            a.date
+          )
+      )
+      .map(
+        record=>{
+
+          const pointText =
+            record.status==="적립완료"
+            ?
+            `${formatNumber(activity.point)}P`
+            :
+            "-";
+
+
+          return `
+
+            <div class="record-row">
+
+              <input
+                type="date"
+                class="record-date-input"
+                value="${record.date}"
+                onchange="updateRecordDate('${record.id}',this.value)"
+              >
+
+
+              <select
+                class="status-select ${statusClass(record.status)}"
+                onchange="updateStatus('${record.id}',this.value)"
+              >
+
+                <option
+                  value="작성완료"
+                  ${record.status==="작성완료" ? "selected" : ""}
+                >
+                  작성완료
+                </option>
+
+                <option
+                  value="적립신청"
+                  ${record.status==="적립신청" ? "selected" : ""}
+                >
+                  적립신청
+                </option>
+
+                <option
+                  value="적립완료"
+                  ${record.status==="적립완료" ? "selected" : ""}
+                >
+                  적립완료
+                </option>
+
+              </select>
+
+
+              <div class="record-point">
+                ${pointText}
+              </div>
+
+
+              <button
+                class="delete-btn"
+                onclick="deleteRecord('${record.id}')"
+              >
+                ×
+              </button>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+  }
+
+
+  let totalText = "";
+
+
+  if(
+    activity.totalMax
+  ){
+
+    totalText = `
+
+      <div class="activity-rule">
+        전체
+        ${allRecordsFor(key).length}
+        /
+        ${activity.totalMax}회
+      </div>
+
+    `;
+
+  }
+
+
+  const openClass =
+    openActivities.has(
+      key
+    )
+    ?
+    "open"
+    :
+    "";
+
+
+  return `
+
+    <div
+      class="card activity-card ${openClass}"
+      id="activity-${key}"
+    >
+
+      <div
+        class="activity-main"
+        onclick="toggleActivity('${key}')"
+      >
+
+        <div class="activity-top">
+
+          <div>
+
+            <div class="activity-name-row">
+
+              <div class="activity-name">
+                ${activity.name}
+              </div>
+
+              <div class="fold-arrow">
+                ▼
+              </div>
+
+            </div>
+
+
+            <div class="activity-rule">
+              ${activity.rule}
+            </div>
+
+            ${totalText}
+
+          </div>
+
+
+          <div class="activity-right">
+
+            <div class="activity-count">
+              ${records.length}
+              /
+              ${activity.monthlyMax}
+            </div>
+
+            <div class="activity-points">
+              ${formatNumber(earned)}P
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="progress small-progress">
+
+          <div
+            class="progress-bar"
+            style="width:${percentage}%"
+          ></div>
+
         </div>
 
       </div>
@@ -1525,13 +4369,26 @@ function createActivityCard(key){
       <div class="activity-detail">
 
         <div class="table-head">
-          <div>작성일</div>
-          <div>관리</div>
-          <div style="text-align:right">비고</div>
+
+          <div>
+            작성일
+          </div>
+
+          <div>
+            관리
+          </div>
+
+          <div style="text-align:right">
+            비고
+          </div>
+
           <div></div>
+
         </div>
 
+
         ${rows}
+
 
         <button
           class="add-btn"
@@ -1540,381 +4397,991 @@ function createActivityCard(key){
           + 작성 추가
         </button>
 
-        ${diaryClaim}
-
       </div>
 
     </div>
+
   `;
+
 }
 
+
+/* =========================
+   MONTH OVERVIEW
+========================= */
+
+function renderMonthOverview(){
+
+  const monthKey =
+    getMonthKey(
+      selectedDate
+    );
+
+
+  const monthRecords =
+    appData.records.filter(
+      r=>r.month===monthKey
+    );
+
+
+  /*
+    개별 신청 건
+  */
+
+  let requested =
+    monthRecords.filter(
+      r=>
+        r.activity!=="comment"
+        &&
+        r.activity!=="diary"
+        &&
+        r.status==="적립신청"
+    ).length;
+
+
+  let completed =
+    monthRecords.filter(
+      r=>
+        r.activity!=="comment"
+        &&
+        r.activity!=="diary"
+        &&
+        r.status==="적립완료"
+    ).length;
+
+
+  /*
+    댓글 / 결혼일기는
+    월별 신청 1건으로 계산
+  */
+
+  ["comment","diary"]
+  .forEach(
+    key=>{
+
+      const claim =
+        getClaim(
+          key,
+          monthKey
+        );
+
+
+      if(
+        claim.status==="적립신청"
+      ){
+
+        requested += 1;
+
+      }
+
+
+      if(
+        claim.status==="적립완료"
+      ){
+
+        completed += 1;
+
+      }
+
+    }
+  );
+
+
+  let point = 0;
+
+
+  Object.keys(
+    activities
+  )
+  .forEach(
+    key=>{
+
+      point +=
+        earnedPointsFor(
+          key,
+          monthKey
+        );
+
+    }
+  );
+
+
+  document
+    .getElementById(
+      "overviewWritten"
+    )
+    .textContent =
+      `${monthRecords.length}건`;
+
+
+  document
+    .getElementById(
+      "overviewRequested"
+    )
+    .textContent =
+      `${requested}건`;
+
+
+  document
+    .getElementById(
+      "overviewCompleted"
+    )
+    .textContent =
+      `${completed}건`;
+
+
+  document
+    .getElementById(
+      "overviewPoint"
+    )
+    .textContent =
+      `${formatNumber(point)}P`;
+
+}
+
+
+/* =========================
+   MONTH PAGE
+========================= */
 
 function renderMonthPage(){
 
-  const year=selectedDate.getFullYear();
-  const month=selectedDate.getMonth()+1;
-
-  document.getElementById(
-    "selectedMonthText"
-  ).textContent=`${year}년 ${month}월`;
+  const year =
+    selectedDate.getFullYear();
 
 
-  const now=new Date();
+  const month =
+    selectedDate.getMonth()+1;
+
+
+  document
+    .getElementById(
+      "selectedMonthText"
+    )
+    .textContent =
+      `${year}년 ${month}월`;
+
+
+  const now =
+    new Date();
+
 
   if(
-    year===now.getFullYear() &&
+    year===now.getFullYear()
+    &&
     month===now.getMonth()+1
   ){
 
-    const lastDay=
-      new Date(year,month,0).getDate();
+    const lastDay =
+      new Date(
+        year,
+        month,
+        0
+      ).getDate();
 
-    const remaining=
-      lastDay-now.getDate();
 
-    document.getElementById(
-      "monthStatusText"
-    ).textContent=
-      `오늘은 ${month}월 ${now.getDate()}일 | 이번 달 D-${remaining}`;
+    const remaining =
+      lastDay
+      -
+      now.getDate();
+
+
+    document
+      .getElementById(
+        "monthStatusText"
+      )
+      .textContent =
+        `오늘은 ${month}월 ${now.getDate()}일 | 이번 달 D-${remaining}`;
 
   }else{
 
-    document.getElementById(
-      "monthStatusText"
-    ).textContent=
-      `${year}년 ${month}월 활동 내역`;
+    document
+      .getElementById(
+        "monthStatusText"
+      )
+      .textContent =
+        `${year}년 ${month}월 활동 내역`;
+
   }
 
 
-  document.getElementById(
-    "monthlyActivities"
-  ).innerHTML=
-    createActivityCard("comment")+
-    createActivityCard("food")+
-    createActivityCard("diary");
+  document
+    .getElementById(
+      "monthlyActivities"
+    )
+    .innerHTML =
+
+      createCommentCard()
+
+      +
+
+      createNormalActivityCard(
+        "food"
+      )
+
+      +
+
+      createDiaryCard();
 
 
-  document.getElementById(
-    "limitedActivities"
-  ).innerHTML=
-    createActivityCard("discussion")+
-    createActivityCard("likes")+
-    createActivityCard("instagram");
+  document
+    .getElementById(
+      "limitedActivities"
+    )
+    .innerHTML =
+
+      createNormalActivityCard(
+        "discussion"
+      )
+
+      +
+
+      createNormalActivityCard(
+        "likes"
+      )
+
+      +
+
+      createNormalActivityCard(
+        "instagram"
+      );
+
+
+  renderMonthOverview();
+
 }
 
 
+/* =========================
+   HOME
+========================= */
+
 function renderHome(){
 
-  const now=new Date();
-  const monthKey=getMonthKey(now);
-
-  const commentCount=
-    recordsFor("comment",monthKey).length;
-
-  const diaryCount=
-    recordsFor("diary",monthKey).length;
-
-  const foodCount=
-    recordsFor("food",monthKey).length;
+  const now =
+    new Date();
 
 
-  document.getElementById(
-    "homeCommentCount"
-  ).textContent=`${commentCount} / 10`;
-
-  document.getElementById(
-    "homeDiaryCount"
-  ).textContent=`${diaryCount} / 20`;
-
-  document.getElementById(
-    "homeFoodCount"
-  ).textContent=`${foodCount} / 1`;
+  const monthKey =
+    getMonthKey(
+      now
+    );
 
 
-  document.getElementById(
-    "homeCommentBar"
-  ).style.width=
-    `${Math.min(100,(commentCount/10)*100)}%`;
-
-  document.getElementById(
-    "homeDiaryBar"
-  ).style.width=
-    `${Math.min(100,(diaryCount/20)*100)}%`;
-
-  document.getElementById(
-    "homeFoodBar"
-  ).style.width=
-    `${Math.min(100,foodCount*100)}%`;
+  const commentCountValue =
+    commentCount(
+      monthKey
+    );
 
 
-  document.getElementById(
-    "homeMonthName"
-  ).textContent=
-    `${now.getFullYear()}년 ${now.getMonth()+1}월`;
+  const diaryCount =
+    recordsFor(
+      "diary",
+      monthKey
+    ).length;
 
 
-  const lastDay=
+  const foodCount =
+    recordsFor(
+      "food",
+      monthKey
+    ).length;
+
+
+  document
+    .getElementById(
+      "homeCommentCount"
+    )
+    .textContent =
+      `${commentCountValue} / 10`;
+
+
+  document
+    .getElementById(
+      "homeDiaryCount"
+    )
+    .textContent =
+      `${diaryCount} / 20`;
+
+
+  document
+    .getElementById(
+      "homeFoodCount"
+    )
+    .textContent =
+      `${foodCount} / 1`;
+
+
+  document
+    .getElementById(
+      "homeCommentBar"
+    )
+    .style.width =
+      `${
+        Math.min(
+          100,
+          (commentCountValue/10)*100
+        )
+      }%`;
+
+
+  document
+    .getElementById(
+      "homeDiaryBar"
+    )
+    .style.width =
+      `${
+        Math.min(
+          100,
+          (diaryCount/20)*100
+        )
+      }%`;
+
+
+  document
+    .getElementById(
+      "homeFoodBar"
+    )
+    .style.width =
+      `${
+        Math.min(
+          100,
+          foodCount*100
+        )
+      }%`;
+
+
+  document
+    .getElementById(
+      "homeMonthName"
+    )
+    .textContent =
+      `${now.getFullYear()}년 ${now.getMonth()+1}월`;
+
+
+  const lastDay =
     new Date(
       now.getFullYear(),
       now.getMonth()+1,
       0
     ).getDate();
 
-  const remain=
-    lastDay-now.getDate();
 
-  document.getElementById(
-    "homeTodayText"
-  ).textContent=
-    `오늘은 ${now.getMonth()+1}월 ${now.getDate()}일 | 이번 달 D-${remain}`;
+  const remain =
+    lastDay
+    -
+    now.getDate();
 
 
-  const added=allEarnedPoints();
+  document
+    .getElementById(
+      "homeTodayText"
+    )
+    .textContent =
+      `오늘은 ${now.getMonth()+1}월 ${now.getDate()}일 | 이번 달 D-${remain}`;
 
-  document.getElementById(
-    "currentPoint"
-  ).textContent=
-    `${formatNumber(BASE_POINT+added)}원`;
+
+  document
+    .getElementById(
+      "currentPoint"
+    )
+    .textContent =
+      `${
+        formatNumber(
+          BASE_POINT
+          +
+          allEarnedPoints()
+        )
+      }원`;
+
 }
 
 
+/* =========================
+   HISTORY
+========================= */
+
 function getHistory(){
 
-  const history=[];
+  const history = [];
 
 
-  appData.records.forEach(record=>{
+  /*
+    일반 개별 적립
+  */
 
-    const activity=activities[record.activity];
+  appData.records
+  .forEach(
+    record=>{
 
-    if(
-      !activity ||
-      activity.diary ||
-      record.status!=="적립완료"
-    ){
-      return;
-    }
+      const activity =
+        activities[
+          record.activity
+        ];
 
-    history.push({
-
-      date:record.date,
-      name:activity.name,
-      point:activity.point
-
-    });
-  });
-
-
-  Object.keys(appData.diaryClaims)
-    .forEach(monthKey=>{
 
       if(
-        appData.diaryClaims[monthKey]==="적립완료" &&
-        recordsFor("diary",monthKey).length>=20
+        !activity
+        ||
+        activity.batch
+        ||
+        record.status!=="적립완료"
       ){
 
-        const diaryRecords=
-          recordsFor("diary",monthKey)
-          .slice()
-          .sort((a,b)=>b.date.localeCompare(a.date));
+        return;
+
+      }
+
+
+      history.push({
+
+        date:
+          record.date,
+
+        name:
+          activity.name,
+
+        point:
+          activity.point
+
+      });
+
+    }
+  );
+
+
+  /*
+    월별 일괄 적립
+  */
+
+  Object.keys(
+    appData.monthlyClaims
+  )
+  .forEach(
+    key=>{
+
+      const claim =
+        appData.monthlyClaims[
+          key
+        ];
+
+
+      if(
+        claim.status!=="적립완료"
+      ){
+
+        return;
+
+      }
+
+
+      const splitIndex =
+        key.indexOf(":");
+
+
+      if(
+        splitIndex===-1
+      ){
+
+        return;
+
+      }
+
+
+      const activity =
+        key.slice(
+          0,
+          splitIndex
+        );
+
+
+      const monthKey =
+        key.slice(
+          splitIndex+1
+        );
+
+
+      const monthNumber =
+        Number(
+          monthKey.split("-")[1]
+        );
+
+
+      if(
+        activity==="comment"
+      ){
+
+        const count =
+          commentCount(
+            monthKey
+          );
+
+
+        if(count===0){
+          return;
+        }
+
 
         history.push({
 
           date:
-            diaryRecords.length
-            ? diaryRecords[0].date
-            : `${monthKey}-01`,
+            claim.date
+            ||
+            `${monthKey}-01`,
 
-          name:"결혼일기 20회",
-          point:5000
+          name:
+            `${monthNumber}월 댓글교류 ${count}회`,
+
+          point:
+            count*1000
 
         });
+
       }
 
-    });
+
+      if(
+        activity==="diary"
+      ){
+
+        if(
+          !batchEligible(
+            "diary",
+            monthKey
+          )
+        ){
+
+          return;
+
+        }
+
+
+        history.push({
+
+          date:
+            claim.date
+            ||
+            `${monthKey}-01`,
+
+          name:
+            `${monthNumber}월 결혼일기 20회`,
+
+          point:
+            5000
+
+        });
+
+      }
+
+    }
+  );
 
 
   return history.sort(
-    (a,b)=>b.date.localeCompare(a.date)
+    (a,b)=>
+      b.date.localeCompare(
+        a.date
+      )
   );
+
 }
 
 
 function renderHistory(){
 
-  const history=getHistory();
+  const history =
+    getHistory();
 
-  const total=history.reduce(
-    (sum,item)=>sum+item.point,
+
+  const total =
+    history.reduce(
+      (
+        sum,
+        item
+      )=>
+        sum+item.point,
+      0
+    );
+
+
+  document
+    .getElementById(
+      "historyTotal"
+    )
+    .textContent =
+      `${formatNumber(total)}P`;
+
+
+  if(
+    history.length===0
+  ){
+
+    document
+      .getElementById(
+        "historyRows"
+      )
+      .innerHTML = `
+
+        <div class="history-empty">
+          아직 적립완료된 내역이 없어요.
+        </div>
+
+      `;
+
+
+    return;
+
+  }
+
+
+  document
+    .getElementById(
+      "historyRows"
+    )
+    .innerHTML =
+
+      history
+      .map(
+        item=>`
+
+          <div class="history-row">
+
+            <div class="history-date">
+              ${item.date.slice(5).replace("-",".")}
+            </div>
+
+            <div class="history-name">
+              ${item.name}
+            </div>
+
+            <div class="history-point">
+              +${formatNumber(item.point)}P
+            </div>
+
+          </div>
+
+        `
+      )
+      .join("");
+
+}
+
+
+/* =========================
+   WEDDING D-DAY
+========================= */
+
+function renderWeddingDday(){
+
+  const wedding =
+    new Date(
+      "2027-09-04T00:00:00"
+    );
+
+
+  const today =
+    new Date();
+
+
+  today.setHours(
+    0,
+    0,
+    0,
     0
   );
 
 
-  document.getElementById(
-    "historyTotal"
-  ).textContent=
-    `${formatNumber(total)}P`;
+  const diff =
+    Math.ceil(
+
+      (
+        wedding
+        -
+        today
+      )
+
+      /
+
+      (
+        1000
+        *
+        60
+        *
+        60
+        *
+        24
+      )
+
+    );
 
 
-  if(history.length===0){
+  document
+    .getElementById(
+      "weddingDday"
+    )
+    .textContent =
 
-    document.getElementById(
-      "historyRows"
-    ).innerHTML=`
-      <div class="history-empty">
-        아직 적립완료된 내역이 없어요.
-      </div>
-    `;
+      diff>=0
+      ?
+      `D-${diff}`
+      :
+      `D+${Math.abs(diff)}`;
 
-    return;
-  }
-
-
-  document.getElementById(
-    "historyRows"
-  ).innerHTML=
-    history.map(item=>`
-
-      <div class="history-row">
-
-        <div class="history-date">
-          ${item.date.slice(5).replace("-",".")}
-        </div>
-
-        <div class="history-name">
-          ${item.name}
-        </div>
-
-        <div class="history-point">
-          +${formatNumber(item.point)}P
-        </div>
-
-      </div>
-
-    `).join("");
 }
 
 
-function renderWeddingDday(){
-
-  const wedding=
-    new Date("2027-09-04T00:00:00");
-
-  const today=new Date();
-  today.setHours(0,0,0,0);
-
-  const diff=Math.ceil(
-    (wedding-today)/(1000*60*60*24)
-  );
-
-  document.getElementById(
-    "weddingDday"
-  ).textContent=
-    diff>=0
-    ? `D-${diff}`
-    : `D+${Math.abs(diff)}`;
-}
-
-
-/* 백업 */
+/* =========================
+   BACKUP
+========================= */
 
 function exportData(){
 
-  const backup={
-    version:1,
-    savedAt:new Date().toISOString(),
-    data:appData
+  const backup = {
+
+    version:3,
+
+    savedAt:
+      new Date()
+      .toISOString(),
+
+    data:
+      appData
+
   };
 
-  const blob=new Blob(
-    [JSON.stringify(backup,null,2)],
-    {type:"application/json"}
-  );
 
-  const url=URL.createObjectURL(blob);
+  const blob =
+    new Blob(
 
-  const a=document.createElement("a");
+      [
+        JSON.stringify(
+          backup,
+          null,
+          2
+        )
+      ],
 
-  a.href=url;
-  a.download=
+      {
+        type:
+          "application/json"
+      }
+
+    );
+
+
+  const url =
+    URL.createObjectURL(
+      blob
+    );
+
+
+  const a =
+    document.createElement(
+      "a"
+    );
+
+
+  a.href =
+    url;
+
+
+  a.download =
     `다이렉트포인트_백업_${getTodayString()}.json`;
 
-  document.body.appendChild(a);
+
+  document.body.appendChild(
+    a
+  );
+
+
   a.click();
+
+
   a.remove();
 
+
   setTimeout(
-    ()=>URL.revokeObjectURL(url),
+    ()=>{
+      URL.revokeObjectURL(
+        url
+      );
+    },
     1000
   );
+
 }
 
 
 function importData(event){
 
-  const file=event.target.files[0];
+  const file =
+    event.target.files[0];
 
-  if(!file) return;
 
-  const reader=new FileReader();
+  if(!file){
+    return;
+  }
 
-  reader.onload=function(e){
 
-    try{
+  const reader =
+    new FileReader();
 
-      const parsed=
-        JSON.parse(e.target.result);
 
-      const imported=
-        parsed.data || parsed;
+  reader.onload =
+    function(e){
 
-      if(!Array.isArray(imported.records)){
-        throw new Error();
+      try{
+
+        const parsed =
+          JSON.parse(
+            e.target.result
+          );
+
+
+        const imported =
+          parsed.data
+          ||
+          parsed;
+
+
+        if(
+          !Array.isArray(
+            imported.records
+          )
+        ){
+
+          throw new Error();
+
+        }
+
+
+        if(
+          !confirm(
+            "현재 기록을 백업 파일의 기록으로 바꿀까?"
+          )
+        ){
+
+          event.target.value =
+            "";
+
+          return;
+
+        }
+
+
+        appData = {
+
+          records:
+            imported.records
+            ||
+            [],
+
+          monthlyClaims:
+            imported.monthlyClaims
+            ||
+            {}
+
+        };
+
+
+        /*
+          예전 백업파일도 불러올 수 있도록
+          diaryClaims 변환
+        */
+
+        if(
+          imported.diaryClaims
+        ){
+
+          Object.keys(
+            imported.diaryClaims
+          )
+          .forEach(
+            monthKey=>{
+
+              const status =
+                imported.diaryClaims[
+                  monthKey
+                ];
+
+
+              appData.monthlyClaims[
+                `diary:${monthKey}`
+              ] = {
+
+                status:
+                  status==="작성완료"
+                  ?
+                  "미신청"
+                  :
+                  status,
+
+                date:""
+
+              };
+
+            }
+          );
+
+        }
+
+
+        normalizeData();
+
+
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(
+            appData
+          )
+        );
+
+
+        renderAll();
+
+
+        alert(
+          "백업 데이터를 불러왔어."
+        );
+
+      }catch{
+
+        alert(
+          "이 파일은 사용할 수 있는 백업 파일이 아니야."
+        );
+
       }
 
-      if(
-        !confirm(
-          "현재 기록을 백업 파일의 기록으로 바꿀까?"
-        )
-      ){
-        event.target.value="";
-        return;
-      }
 
-      appData={
-        records:imported.records || [],
-        diaryClaims:imported.diaryClaims || {}
-      };
+      event.target.value =
+        "";
 
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(appData)
-      );
+    };
 
-      renderAll();
 
-      alert("백업 데이터를 불러왔어.");
+  reader.readAsText(
+    file
+  );
 
-    }catch{
-
-      alert(
-        "이 파일은 사용할 수 있는 백업 파일이 아니야."
-      );
-    }
-
-    event.target.value="";
-  };
-
-  reader.readAsText(file);
 }
 
+
+/* =========================
+   RENDER
+========================= */
 
 function renderAll(){
+
   renderWeddingDday();
+
   renderHome();
+
   renderMonthPage();
+
   renderHistory();
+
 }
+
 
 renderAll();
 
