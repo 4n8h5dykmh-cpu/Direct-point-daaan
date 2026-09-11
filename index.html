@@ -2,398 +2,1615 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#fff7fa">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fffafa">
 <meta name="apple-mobile-web-app-capable" content="yes">
+
 <title>다이렉트 포인트</title>
 
 <style>
-:root{
-  --pink:#ff5d91;
-  --pink2:#fff0f5;
-  --line:#eee3e7;
-  --text:#29252a;
-  --muted:#8d858b;
-  --bg:#faf8f9;
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
-*{box-sizing:border-box}
+html,body{
+  margin:0;
+  padding:0;
+  background:#fffafa;
+  color:#10254c;
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+}
 
 body{
-  margin:0;
-  background:var(--bg);
-  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
-  color:var(--text);
+  min-height:100vh;
 }
 
-button,input,select{font:inherit}
-button{cursor:pointer}
+button,input,select{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
+}
 
 .app{
+  width:100%;
   max-width:520px;
-  margin:auto;
+  margin:0 auto;
   min-height:100vh;
-  background:#fff;
-  padding-bottom:92px;
-}
-
-header{
-  padding:22px 18px 12px;
-  background:linear-gradient(180deg,#fff4f8,#fff);
-}
-
-h1{
-  font-size:23px;
-  margin:0 0 5px;
-}
-
-.sub{
-  font-size:13px;
-  color:var(--muted);
+  padding:18px 12px 105px;
 }
 
 .page{
   display:none;
-  padding:14px;
 }
 
 .page.active{
   display:block;
 }
 
+.page-title{
+  margin:6px 0 18px;
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
 .card{
-  border:1px solid var(--line);
-  border-radius:18px;
   background:#fff;
-  padding:15px;
-  margin-bottom:12px;
-  box-shadow:0 3px 12px rgba(0,0,0,.025);
+  border:1px solid #f0ecee;
+  border-radius:18px;
+  box-shadow:0 4px 14px rgba(30,40,70,.04);
 }
 
-.row{
-  display:flex;
-  align-items:center;
-  gap:9px;
+.label{
+  font-size:12px;
+  color:#7c8797;
+  margin-bottom:4px;
 }
 
-.between{
-  justify-content:space-between;
+.pink{
+  color:#ff2c69;
 }
 
 .muted{
-  color:var(--muted);
+  color:#8490a0;
+}
+
+/* HOME */
+
+.wedding-card{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:17px 18px;
+  margin-bottom:10px;
+}
+
+.wedding-date{
+  font-size:18px;
+  font-weight:800;
+}
+
+.dday{
+  min-width:86px;
+  padding:11px 13px;
+  text-align:center;
+  border-radius:15px;
+  background:#fff0f5;
+  color:#ff2c69;
+  font-size:20px;
+  font-weight:800;
+}
+
+.point-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-bottom:9px;
+}
+
+.point-card{
+  padding:15px 13px;
+}
+
+.big-number{
+  font-size:20px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.current{
+  color:#ff2c69;
+}
+
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-bottom:11px;
+}
+
+.category{
+  min-height:116px;
+  padding:13px 5px 11px;
+  text-align:center;
+}
+
+.icon{
+  width:37px;
+  height:37px;
+  margin:0 auto 8px;
+  border-radius:13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:19px;
+}
+
+.pink-bg{background:#fff0f4;}
+.blue-bg{background:#eef8ff;}
+.brown-bg{background:#fff4ed;}
+.green-bg{background:#edfff5;}
+
+.category-title{
+  font-size:10.5px;
+  font-weight:700;
+}
+
+.category-point{
+  margin-top:6px;
+  font-size:14px;
+  font-weight:800;
+}
+
+.category-count{
+  margin-top:3px;
+  font-size:10px;
+  color:#939baa;
+}
+
+.monthly-summary{
+  padding:16px 15px 14px;
+}
+
+.monthly-head{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.monthly-title{
+  font-size:16px;
+  font-weight:800;
+}
+
+.month-name{
+  font-size:11px;
+  color:#778294;
+  white-space:nowrap;
+}
+
+.today-text{
+  margin-top:3px;
+  margin-bottom:12px;
+  font-size:10.5px;
+  color:#8a94a3;
+}
+
+.summary-task{
+  display:grid;
+  grid-template-columns:35px 1fr;
+  gap:9px;
+  padding:9px 0;
+  border-bottom:1px solid #f0f1f3;
+}
+
+.task-icon{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.task-head{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:6px;
+}
+
+.task-name{
+  font-size:12.5px;
+  font-weight:700;
+}
+
+.task-count{
+  font-size:11.5px;
+  font-weight:700;
+}
+
+.progress{
+  width:100%;
+  height:7px;
+  background:#edf0f3;
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.progress-bar{
+  height:100%;
+  border-radius:999px;
+  background:#ff6f9b;
+  width:0;
+}
+
+.blue-bar{background:#58bff5;}
+.green-bar{background:#55cf91;}
+.purple-bar{background:#b16cf3;}
+
+.detail-btn{
+  width:100%;
+  margin-top:12px;
+  border:0;
+  border-radius:13px;
+  background:#fff0f4;
+  color:#ff2c69;
+  padding:11px;
+  font-size:11.5px;
+  font-weight:800;
+}
+
+/* MONTH */
+
+.month-selector{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:8px;
+}
+
+.month-selector button{
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:12px;
+  background:#fff;
+  color:#10254c;
+  font-size:18px;
+  box-shadow:0 2px 10px rgba(20,30,60,.05);
+}
+
+.selected-month{
+  font-size:17px;
+  font-weight:800;
+}
+
+.month-status{
+  background:#10254c;
+  color:#fff;
+  border-radius:14px;
+  padding:11px 14px;
+  font-size:11.5px;
+  margin-bottom:10px;
+}
+
+.month-overview{
+  padding:13px;
+  margin-bottom:15px;
+}
+
+.month-overview-title{
   font-size:12px;
+  font-weight:800;
+  margin-bottom:10px;
 }
 
-.strong{
-  font-weight:750;
+.overview-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;
 }
 
-.big{
+.overview-item{
+  background:#f8f9fb;
+  border-radius:11px;
+  padding:9px 3px;
+  text-align:center;
+}
+
+.overview-label{
+  font-size:9px;
+  color:#8993a1;
+}
+
+.overview-value{
+  margin-top:4px;
+  font-size:12px;
+  font-weight:800;
+}
+
+.overview-point{
+  color:#ff2c69;
+}
+
+.section-title{
+  margin:18px 2px 9px;
+  font-size:15px;
+  font-weight:800;
+}
+
+.limit-info{
+  padding:12px 14px;
+  border-radius:14px;
+  background:#f3f6fb;
+  color:#657286;
+  font-size:10.5px;
+  line-height:1.5;
+  margin-bottom:9px;
+}
+
+.activity-card{
+  margin-bottom:10px;
+  overflow:hidden;
+}
+
+.activity-main{
+  padding:14px;
+  cursor:pointer;
+}
+
+.activity-top{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.activity-name-row{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.activity-name{
+  font-size:14px;
+  font-weight:800;
+}
+
+.fold-arrow{
+  color:#adb4bf;
+  font-size:11px;
+  transition:.2s;
+}
+
+.activity-card.open .fold-arrow,
+.blog-category-card.open > .blog-category-head .fold-arrow,
+.share-post-card.open > .share-post-head .fold-arrow{
+  transform:rotate(180deg);
+}
+
+.activity-rule{
+  margin-top:4px;
+  color:#7c8797;
+  font-size:10.5px;
+  line-height:1.5;
+}
+
+.activity-right{
+  text-align:right;
+  white-space:nowrap;
+}
+
+.activity-count{
+  font-size:12px;
+  font-weight:800;
+}
+
+.activity-points{
+  margin-top:4px;
+  color:#ff2c69;
+  font-size:11px;
+  font-weight:700;
+}
+
+.small-progress{
+  margin-top:10px;
+}
+
+.activity-detail{
+  display:none;
+  padding:12px;
+  border-top:1px solid #f0f0f2;
+  background:#fffdfd;
+}
+
+.activity-card.open .activity-detail{
+  display:block;
+}
+
+/* CALENDAR */
+
+.calendar-help{
+  margin-bottom:11px;
+  padding:10px 11px;
+  border-radius:11px;
+  background:#f7f8fb;
+  color:#747f90;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.calendar-week{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:4px;
+  margin-bottom:5px;
+}
+
+.week-day{
+  text-align:center;
+  font-size:9px;
+  color:#919aa8;
+}
+
+.week-day:first-child{
+  color:#ff739a;
+}
+
+.calendar-days{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:4px;
+}
+
+.calendar-empty{
+  aspect-ratio:1/1;
+}
+
+.calendar-day{
+  position:relative;
+  aspect-ratio:1/1;
+  border:0;
+  border-radius:50%;
+  background:transparent;
+  color:#253858;
+  font-size:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.calendar-day.today{
+  background:#f3f5f8;
+  font-weight:800;
+}
+
+.calendar-day.selected{
+  background:#ff6f9b;
+  color:#fff;
+  font-weight:800;
+}
+
+.calendar-day.selected::after{
+  content:"✓";
+  position:absolute;
+  right:2px;
+  bottom:0;
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:#fff;
+  color:#ff4b82;
+  font-size:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.comment-result{
+  margin-top:12px;
+  padding:12px;
+  border-radius:13px;
+  background:#fff5f8;
+}
+
+.comment-result-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.comment-result-count{
+  font-size:12px;
+  font-weight:800;
+}
+
+.comment-result-point{
+  color:#ff2c69;
+  font-size:13px;
+  font-weight:800;
+}
+
+.comment-max-text{
+  margin-top:4px;
+  color:#8e97a5;
+  font-size:9.5px;
+}
+
+/* DIARY */
+
+.diary-header,
+.diary-row{
+  display:grid;
+  grid-template-columns:86px 1fr 25px;
+  gap:6px;
+  align-items:center;
+}
+
+.diary-header{
+  padding:0 2px 6px;
+  color:#8993a1;
+  font-size:9px;
+}
+
+.diary-row{
+  padding:7px 0;
+  border-top:1px solid #f1f1f3;
+}
+
+.diary-date{
+  width:86px;
+  min-width:0;
+  border:0;
+  border-radius:8px;
+  background:#f6f8fb;
+  color:#10254c;
+  padding:7px 2px;
+  font-size:8.5px;
+}
+
+.url-number{
+  width:100%;
+  min-width:0;
+  border:0;
+  border-radius:8px;
+  background:#f6f8fb;
+  color:#10254c;
+  padding:8px;
+  font-size:10px;
+}
+
+.diary-progress-info{
+  margin-top:10px;
+  padding:11px;
+  border-radius:11px;
+  background:#f7f8fb;
+}
+
+.diary-progress-main{
+  display:flex;
+  justify-content:space-between;
+}
+
+.diary-progress-count{
+  font-size:11px;
+  font-weight:800;
+}
+
+.diary-progress-message{
+  font-size:9.5px;
+  color:#7c8797;
+}
+
+.diary-warning{
+  margin-top:5px;
+  font-size:9.5px;
+  color:#e48b00;
+}
+
+.diary-complete{
+  margin-top:5px;
+  color:#ff477d;
+  font-size:9.5px;
+  font-weight:700;
+}
+
+/* CLAIM */
+
+.batch-claim{
+  margin-top:12px;
+  padding:12px;
+  border-radius:14px;
+  background:#f7f8fb;
+}
+
+.batch-title{
+  font-size:11.5px;
+  font-weight:800;
+}
+
+.batch-desc{
+  margin-top:3px;
+  color:#7d8796;
+  font-size:9.5px;
+  line-height:1.5;
+}
+
+.batch-fields{
+  display:grid;
+  grid-template-columns:1fr 94px;
+  gap:7px;
+  margin-top:10px;
+}
+
+.batch-field-label{
+  margin-bottom:4px;
+  color:#8b94a1;
+  font-size:8.5px;
+}
+
+.claim-date,
+.claim-select{
+  width:100%;
+  border:0;
+  border-radius:9px;
+  background:#fff;
+  padding:8px 4px;
+  color:#10254c;
+  font-size:9px;
+}
+
+.claim-date:disabled,
+.claim-select:disabled{
+  opacity:.45;
+}
+
+.claim-bottom{
+  display:flex;
+  justify-content:space-between;
+  margin-top:9px;
+  padding-top:9px;
+  border-top:1px solid #e8ebef;
+}
+
+.claim-status-text{
+  font-size:9.5px;
+  color:#727e90;
+}
+
+.claim-point{
+  color:#ff2c69;
+  font-size:12px;
+  font-weight:800;
+}
+
+/* NORMAL RECORD */
+
+.table-head,
+.record-row{
+  display:grid;
+  grid-template-columns:86px 78px 1fr 25px;
+  gap:5px;
+  align-items:center;
+}
+
+.table-head{
+  padding:0 1px 6px;
+  font-size:9px;
+  color:#8993a1;
+}
+
+.record-row{
+  padding:7px 0;
+  border-top:1px solid #f1f1f3;
+}
+
+.record-date-input{
+  width:86px;
+  min-width:0;
+  border:0;
+  border-radius:8px;
+  background:#f6f8fb;
+  color:#10254c;
+  padding:7px 2px;
+  font-size:8.5px;
+}
+
+.status-select{
+  width:78px;
+  min-width:0;
+  border:0;
+  border-radius:8px;
+  padding:7px 2px;
+  font-size:8.5px;
+}
+
+.status-written{
+  background:#eaf5ff !important;
+  color:#237bb0 !important;
+}
+
+.status-request{
+  background:#fff3d7 !important;
+  color:#b27300 !important;
+}
+
+.status-done{
+  background:#ffe7ef !important;
+  color:#e12d69 !important;
+}
+
+.status-none{
+  background:#eef0f3 !important;
+  color:#687386 !important;
+}
+
+.record-point{
+  text-align:right;
+  font-size:9px;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+.delete-btn{
+  width:24px;
+  height:24px;
+  padding:0;
+  border:0;
+  border-radius:7px;
+  background:#f6f6f7;
+  color:#a1a8b2;
+  font-size:14px;
+}
+
+.add-btn{
+  width:100%;
+  margin-top:10px;
+  padding:9px;
+  border:1px dashed #ff9db9;
+  border-radius:11px;
+  background:#fff7fa;
+  color:#ff477d;
+  font-size:11px;
+  font-weight:800;
+}
+
+.empty{
+  padding:12px 0;
+  text-align:center;
+  color:#a0a8b4;
+  font-size:10.5px;
+}
+
+/* HISTORY */
+
+.history-total{
+  padding:18px;
+  margin-bottom:12px;
+}
+
+.history-total-label{
+  color:#7c8797;
+  font-size:11px;
+}
+
+.history-total-number{
+  margin-top:4px;
+  color:#ff2c69;
   font-size:25px;
   font-weight:800;
 }
 
-.pink{
-  color:var(--pink);
-}
-
-.btn{
-  border:0;
-  border-radius:12px;
-  padding:10px 13px;
-  background:var(--pink);
-  color:#fff;
-  font-weight:700;
-}
-
-.btn.light{
-  background:var(--pink2);
-  color:var(--pink);
-}
-
-.btn.gray{
-  background:#f3f1f2;
-  color:#555;
-}
-
-input,select{
-  width:100%;
-  border:1px solid #e7dfe2;
-  border-radius:11px;
-  padding:10px;
-  background:#fff;
-  min-width:0;
-}
-
-label{
-  display:block;
-  font-size:12px;
-  color:var(--muted);
-  margin-bottom:5px;
-}
-
-.grid2{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
-}
-
-.progress{
-  height:9px;
-  background:#f2edef;
-  border-radius:99px;
+.history-list{
   overflow:hidden;
 }
 
-.progress>i{
-  display:block;
-  height:100%;
-  background:var(--pink);
-  border-radius:99px;
-}
-
-nav{
-  position:fixed;
-  z-index:20;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(520px,100%);
-  height:76px;
-  background:rgba(255,255,255,.97);
-  border-top:1px solid var(--line);
+.history-head,
+.history-row{
   display:grid;
-  grid-template-columns:repeat(6,1fr);
-  padding-bottom:env(safe-area-inset-bottom);
-}
-
-nav button{
-  border:0;
-  background:none;
-  font-size:10px;
-  color:#837a80;
-  padding:8px 2px;
-}
-
-nav button span{
-  display:block;
-  font-size:19px;
-  margin-bottom:3px;
-}
-
-nav button.active{
-  color:var(--pink);
-  font-weight:800;
-}
-
-.tabs{
-  display:flex;
-  gap:7px;
-  margin-bottom:12px;
-}
-
-.tab{
-  flex:1;
-  border:1px solid var(--line);
-  background:#fff;
-  border-radius:12px;
-  padding:9px;
-  font-weight:700;
-  color:#777;
-}
-
-.tab.active{
-  background:var(--pink);
-  color:#fff;
-  border-color:var(--pink);
-}
-
-.section-title{
-  font-size:18px;
-  font-weight:800;
-  margin:4px 2px 12px;
-}
-
-.cat-head,
-.post-summary{
-  display:grid;
+  grid-template-columns:72px 1fr 80px;
+  gap:8px;
   align-items:center;
-  gap:7px;
 }
 
-.cat-head{
-  grid-template-columns:1fr auto auto;
+.history-head{
+  padding:11px 14px;
+  color:#8c95a3;
+  background:#fafafa;
+  font-size:10px;
 }
 
-.post-summary{
-  grid-template-columns:62px minmax(0,1fr) 66px 30px 24px;
+.history-row{
+  padding:14px;
+  border-top:1px solid #f1f1f3;
 }
 
-.clickable{
+.history-date{
+  font-size:10px;
+  color:#687386;
+}
+
+.history-name{
+  font-size:11px;
+  font-weight:700;
+}
+
+.history-point{
+  text-align:right;
+  color:#ff2c69;
+  font-size:11px;
+  font-weight:800;
+}
+
+.history-empty{
+  padding:40px 15px;
+  text-align:center;
+  color:#9aa3af;
+  font-size:11px;
+}
+
+/* BACKUP */
+
+.backup-box{
+  margin-top:14px;
+  padding:15px;
+}
+
+.backup-title{
+  font-size:13px;
+  font-weight:800;
+}
+
+.backup-desc{
+  margin-top:4px;
+  color:#7d8796;
+  font-size:10.5px;
+  line-height:1.5;
+}
+
+.backup-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:11px;
+}
+
+.backup-btn{
+  border:0;
+  border-radius:11px;
+  padding:10px 5px;
+  background:#f3f6fb;
+  color:#10254c;
+  font-size:10.5px;
+  font-weight:700;
+}
+
+.restore-btn{
+  background:#fff0f4;
+  color:#ff477d;
+}
+
+#importFile{
+  display:none;
+}
+
+/* BLOG */
+
+.info-banner{
+  padding:14px;
+  margin-bottom:14px;
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  background:#f3f7ff;
+}
+
+.info-banner-icon{
+  width:37px;
+  height:37px;
+  border-radius:11px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  font-size:18px;
+}
+
+.info-banner-title{
+  font-size:11px;
+  font-weight:800;
+  line-height:1.45;
+}
+
+.info-banner-desc{
+  margin-top:4px;
+  font-size:10px;
+  color:#647187;
+  line-height:1.5;
+}
+
+.blog-tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  margin-bottom:0;
+}
+
+.blog-tab{
+  border:0;
+  padding:14px 5px;
+  background:#f7f8fb;
+  color:#60708a;
+  font-size:12px;
+  font-weight:800;
+}
+
+.blog-tab:first-child{
+  border-radius:15px 0 0 0;
+}
+
+.blog-tab:last-child{
+  border-radius:0 15px 0 0;
+}
+
+.blog-tab.active{
+  background:#fff0f5;
+  color:#ff2c69;
+  box-shadow:inset 0 -2px #ff2c69;
+}
+
+.blog-tab-info{
+  padding:11px 13px;
+  margin-bottom:11px;
+  border-radius:0 0 14px 14px;
+  background:#fff2f6;
+  color:#875269;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.blog-category-card{
+  margin-bottom:10px;
+  overflow:hidden;
+}
+
+.blog-category-head{
+  padding:13px;
   cursor:pointer;
 }
 
-.title-ellipsis{
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-  font-size:13px;
-  font-weight:650;
+.blog-category-top{
+  display:grid;
+  grid-template-columns:42px 1fr auto;
+  gap:9px;
+  align-items:center;
 }
 
-.point-cell{
-  text-align:right;
-  font-size:12px;
-  font-weight:750;
+.blog-category-icon{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#fff0f5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:19px;
 }
 
-.link-icon{
-  text-decoration:none;
-  text-align:center;
-  font-size:16px;
-}
-
-.expand{
-  margin-top:10px;
-  padding-top:12px;
-  border-top:1px dashed var(--line);
-}
-
-.record{
-  padding:10px 0;
-  border-top:1px solid #f3edef;
-}
-
-.record:first-child{
-  border-top:0;
-}
-
-.url-line{
+.blog-category-name-line{
   display:flex;
   align-items:center;
   gap:8px;
 }
 
-.url-link{
-  min-width:0;
+.blog-category-name{
+  font-size:14px;
+  font-weight:900;
+}
+
+.blog-count-badge{
+  padding:4px 8px;
+  border-radius:9px;
+  background:#f2f5f8;
+  font-size:10px;
+  font-weight:800;
+}
+
+.blog-cat-progress-row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:7px;
+}
+
+.blog-cat-progress{
   flex:1;
-  color:#2875d0;
+  height:7px;
+  background:#edf0f4;
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.blog-cat-progress > div{
+  height:100%;
+  background:#ff6f9b;
+  border-radius:999px;
+}
+
+.blog-percent{
+  font-size:9px;
+  color:#50617b;
+  font-weight:700;
+}
+
+.blog-category-point{
+  text-align:right;
+  min-width:75px;
+}
+
+.blog-category-point strong{
+  display:block;
+  color:#ff2c69;
+  font-size:15px;
+}
+
+.blog-category-point span{
+  display:block;
+  margin-top:2px;
+  color:#758095;
+  font-size:8.5px;
+}
+
+.blog-category-detail{
+  display:none;
+  padding:12px;
+  border-top:1px solid #f0f1f3;
+}
+
+.blog-category-card.open .blog-category-detail{
+  display:block;
+}
+
+.blog-detail-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:9px;
+}
+
+.blog-detail-title{
+  font-size:13px;
+  font-weight:900;
+}
+
+.mini-add-btn{
+  border:0;
+  border-radius:10px;
+  padding:8px 11px;
+  background:#fff0f5;
+  color:#ff2c69;
+  font-size:10px;
+  font-weight:800;
+}
+
+/* 변경된 블로그 글 목록 */
+
+.blog-post{
+  border-top:1px solid #f0f1f3;
+}
+
+.blog-post:first-of-type{
+  border-top:0;
+}
+
+.blog-post-summary{
+  display:grid;
+  grid-template-columns:82px minmax(0,1fr) 54px 28px 20px;
+  gap:5px;
+  align-items:center;
+  padding:8px 0;
+  cursor:pointer;
+}
+
+.blog-summary-date{
+  width:82px;
+  min-width:0;
+  border:0;
+  border-radius:7px;
+  background:#f5f7fa;
+  padding:7px 2px;
+  font-size:8px;
+  color:#10254c;
+}
+
+.blog-summary-title{
+  width:100%;
+  min-width:0;
+  border:0;
+  border-radius:7px;
+  background:#f5f7fa;
+  padding:8px 6px;
+  font-size:9px;
+  font-weight:700;
+  color:#10254c;
+}
+
+.blog-summary-point{
+  text-align:right;
+  font-size:8.5px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.blog-link-icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:27px;
+  height:27px;
+  border-radius:8px;
+  background:#eef6ff;
+  text-decoration:none;
+  font-size:12px;
+}
+
+.blog-post-arrow{
+  font-size:9px;
+  color:#adb4bf;
+  text-align:center;
+  transition:.2s;
+}
+
+.blog-post.open .blog-post-arrow{
+  transform:rotate(180deg);
+}
+
+.blog-post-detail{
+  display:none;
+  padding:10px;
+  margin-bottom:8px;
+  border-radius:11px;
+  background:#f8f9fb;
+}
+
+.blog-post.open .blog-post-detail{
+  display:block;
+}
+
+.blog-post-controls{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+
+.blog-control-label{
+  margin-bottom:4px;
+  font-size:8.5px;
+  color:#8993a1;
+}
+
+.blog-detail-select{
+  width:100%;
+  border:0;
+  border-radius:8px;
+  padding:8px 5px;
+  font-size:9px;
+}
+
+.blog-url-box{
+  margin-top:9px;
+}
+
+.blog-url-edit{
+  display:grid;
+  grid-template-columns:1fr 45px;
+  gap:6px;
+}
+
+.blog-url-input{
+  width:100%;
+  min-width:0;
+  border:0;
+  border-radius:8px;
+  background:#fff;
+  padding:8px;
+  font-size:9px;
+  color:#10254c;
+}
+
+.blog-url-view{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 45px;
+  gap:6px;
+  align-items:center;
+}
+
+.blog-url-link{
+  min-width:0;
+  display:block;
+  padding:8px;
+  border-radius:8px;
+  background:#fff;
+  color:#2978cc;
+  font-size:9px;
+  text-decoration:underline;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.blog-edit-btn{
+  height:31px;
+  border:0;
+  border-radius:8px;
+  background:#eef1f5;
+  color:#516077;
+  font-size:9px;
+  font-weight:800;
+}
+
+.blog-post-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:9px;
+  padding-top:8px;
+  border-top:1px solid #e8eaee;
+}
+
+.blog-post-point-guide{
+  color:#7b8798;
+  font-size:8.5px;
+}
+
+.blog-delete-text{
+  border:0;
+  background:transparent;
+  color:#e05872;
+  font-size:9px;
+  font-weight:800;
+}
+
+.blog-category-footer{
+  margin-top:9px;
+  padding:9px;
+  border-radius:10px;
+  background:#f7f8fb;
+  text-align:center;
+  font-size:10px;
+}
+
+.blog-category-footer strong{
+  color:#ff2c69;
+}
+
+/* INFO SHARE */
+
+.share-top-summary{
+  padding:14px;
+  margin-bottom:12px;
+}
+
+.share-summary-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.share-summary-title{
+  font-size:12px;
+  color:#7c8797;
+}
+
+.share-summary-point{
+  margin-top:3px;
+  color:#ff2c69;
+  font-size:22px;
+  font-weight:900;
+}
+
+.share-post-add{
+  border:0;
+  border-radius:11px;
+  background:#fff0f5;
+  color:#ff2c69;
+  font-size:10px;
+  font-weight:800;
+  padding:10px 13px;
+}
+
+.share-post-card{
+  margin-bottom:10px;
+  overflow:hidden;
+}
+
+.share-post-head{
+  padding:13px;
+  cursor:pointer;
+}
+
+.share-post-head-top{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  align-items:flex-start;
+}
+
+.share-post-left{
+  flex:1;
+  min-width:0;
+}
+
+.share-post-date{
+  color:#8390a1;
+  font-size:9px;
+}
+
+.share-post-title{
+  margin-top:3px;
+  font-size:13px;
+  font-weight:900;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.share-post-meta{
+  margin-top:5px;
+  font-size:9px;
+  color:#778397;
+}
+
+.share-post-meta strong{
+  color:#ff2c69;
+}
+
+.share-head-url{
+  display:inline-block;
+  max-width:100%;
+  margin-top:6px;
+  color:#2978cc;
+  font-size:9px;
   text-decoration:underline;
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
-  font-size:13px;
 }
 
-.smallbtn{
-  border:0;
-  border-radius:9px;
-  padding:7px 9px;
-  font-size:12px;
-  font-weight:700;
-  background:#f3f1f2;
-  color:#555;
-  white-space:nowrap;
+.share-post-detail{
+  display:none;
+  padding:12px;
+  border-top:1px solid #f0f1f3;
 }
 
-.share-header-grid{
+.share-post-card.open .share-post-detail{
+  display:block;
+}
+
+/* 작성일 폭 축소 */
+.share-post-fields{
   display:grid;
-  grid-template-columns:118px minmax(0,1fr);
-  gap:8px;
+  grid-template-columns:82px minmax(0,1fr) 25px;
+  gap:6px;
   align-items:end;
+  padding-bottom:10px;
 }
 
-.share-header-grid input[type=date]{
-  padding-left:7px;
-  padding-right:5px;
-  font-size:12px;
+.field-label{
+  margin-bottom:4px;
+  font-size:8.5px;
+  color:#8993a1;
+}
+
+.share-post-input{
+  width:100%;
+  min-width:0;
+  border:0;
+  border-radius:8px;
+  background:#f6f8fb;
+  padding:8px 6px;
+  font-size:9px;
+  color:#10254c;
+}
+
+.share-post-fields input[type="date"]{
+  padding-left:2px;
+  padding-right:1px;
+  font-size:7.7px;
+}
+
+/* 정보공유 원본 게시물 URL */
+.share-post-url-box{
+  padding:10px 0 11px;
+  border-bottom:1px solid #eee;
+}
+
+.share-post-url-edit{
+  width:100%;
+  border:0;
+  border-radius:8px;
+  background:#f6f8fb;
+  padding:8px 7px;
+  color:#10254c;
+  font-size:9px;
+}
+
+.share-table-head,
+.share-row{
+  display:grid;
+  grid-template-columns:76px 1fr 77px 48px 24px;
+  gap:4px;
+  align-items:center;
+}
+
+.share-table-head{
+  margin-top:11px;
+  padding:7px 2px;
+  border-radius:8px;
+  background:#f8f9fb;
+  font-size:8px;
+  color:#8590a0;
+  text-align:center;
 }
 
 .share-row{
-  display:grid;
-  grid-template-columns:105px minmax(0,1fr);
-  gap:8px;
-  margin-bottom:8px;
+  padding:7px 0;
+  border-bottom:1px solid #f0f1f3;
 }
 
-.share-actions{
-  display:grid;
-  grid-template-columns:1fr 84px;
-  gap:8px;
+.share-date-input{
+  width:76px;
+  border:0;
+  border-radius:7px;
+  background:#f5f7fa;
+  padding:7px 1px;
+  font-size:7.5px;
+  color:#10254c;
 }
 
-.badge{
-  font-size:11px;
-  padding:4px 7px;
-  border-radius:99px;
-  background:var(--pink2);
-  color:var(--pink);
+.email-input{
+  width:100%;
+  min-width:0;
+  border:0;
+  border-radius:7px;
+  background:#f5f7fa;
+  padding:7px 5px;
+  font-size:8px;
+  color:#10254c;
+}
+
+.share-status{
+  width:77px;
+  border:0;
+  border-radius:7px;
+  padding:7px 1px;
+  font-size:7.7px;
+}
+
+.share-point{
+  font-size:8px;
+  font-weight:800;
+  text-align:right;
+}
+
+/* NAV */
+
+.bottom-nav{
+  position:fixed;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:520px;
+  height:74px;
+  padding:5px 3px max(8px,env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.98);
+  border-top:1px solid #ededee;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  z-index:100;
+}
+
+.nav-item{
+  border:0;
+  background:transparent;
+  color:#687386;
+  border-radius:12px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:3px;
+  font-size:9px;
   white-space:nowrap;
 }
 
-.history{
-  display:grid;
-  grid-template-columns:78px 1fr auto;
-  gap:8px;
-  padding:11px 0;
-  border-bottom:1px solid #f2ecef;
-  font-size:13px;
+.nav-icon{
+  font-size:17px;
 }
 
-.empty{
-  text-align:center;
-  color:#aaa;
-  padding:24px 8px;
-}
-
-.calendar{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:5px;
-}
-
-.day{
-  aspect-ratio:1;
-  border:0;
-  border-radius:50%;
-  background:#f7f4f5;
-}
-
-.day.on{
-  background:var(--pink);
-  color:#fff;
+.nav-item.active{
+  background:#fff0f4;
+  color:#ff2c69;
   font-weight:800;
 }
 
-.month-head{
-  display:flex;
-  gap:8px;
-  align-items:center;
-  margin-bottom:12px;
-}
+@media(max-width:380px){
 
-.month-head input{
-  max-width:170px;
-}
+  .app{
+    padding-left:8px;
+    padding-right:8px;
+  }
 
-.note{
-  font-size:12px;
-  line-height:1.55;
-  color:#777;
-  background:#faf6f8;
-  padding:10px;
-  border-radius:11px;
-}
+  .page-title{
+    font-size:22px;
+  }
 
-@media(max-width:390px){
-  .post-summary{
-    grid-template-columns:55px minmax(0,1fr) 57px 27px 20px;
+  .big-number{
+    font-size:18px;
+  }
+
+  .table-head,
+  .record-row{
+    grid-template-columns:80px 72px 1fr 24px;
+  }
+
+  .record-date-input{
+    width:80px;
+  }
+
+  .status-select{
+    width:72px;
+  }
+
+  .diary-header,
+  .diary-row{
+    grid-template-columns:80px 1fr 24px;
+  }
+
+  .diary-date{
+    width:80px;
+  }
+
+  .blog-post-summary{
+    grid-template-columns:76px minmax(0,1fr) 48px 27px 18px;
     gap:4px;
   }
 
-  .share-header-grid{
-    grid-template-columns:108px minmax(0,1fr);
+  .blog-summary-date{
+    width:76px;
+    font-size:7.3px;
+  }
+
+  .blog-summary-title{
+    font-size:8.5px;
+  }
+
+  .share-post-fields{
+    grid-template-columns:78px minmax(0,1fr) 24px;
+  }
+
+  .share-table-head,
+  .share-row{
+    grid-template-columns:70px 1fr 70px 43px 22px;
+    gap:3px;
+  }
+
+  .share-date-input{
+    width:70px;
+    font-size:7px;
+  }
+
+  .share-status{
+    width:70px;
+    font-size:7px;
+  }
+
+  .email-input{
+    font-size:7.5px;
   }
 }
 </style>
@@ -403,59 +1620,450 @@ nav button.active{
 
 <div class="app">
 
-<header>
-  <h1>다이렉트 포인트 💗</h1>
-  <div class="sub">결혼준비 포인트를 한 곳에서 관리해요</div>
-</header>
+<!-- HOME -->
+<section id="homePage" class="page active">
 
-<main>
-  <section id="homePage" class="page active"></section>
-  <section id="historyPage" class="page"></section>
-  <section id="monthPage" class="page"></section>
-  <section id="cafePage" class="page"></section>
-  <section id="blogPage" class="page"></section>
-  <section id="sharePage" class="page"></section>
-</main>
+<h1 class="page-title">다이렉트 포인트 현황</h1>
 
-<nav>
-  <button data-page="homePage" class="active"><span>🏠</span>홈</button>
-  <button data-page="historyPage"><span>🧾</span>적립내역</button>
-  <button data-page="monthPage"><span>📅</span>월별신청</button>
-  <button data-page="cafePage"><span>💬</span>카페활동</button>
-  <button data-page="blogPage"><span>📝</span>블로그</button>
-  <button data-page="sharePage"><span>✉️</span>정보공유</button>
-</nav>
+<div class="card wedding-card">
+  <div>
+    <div class="label">예식일</div>
+    <div class="wedding-date">2027.09.04 (토)</div>
+  </div>
+  <div class="dday" id="weddingDday"></div>
+</div>
+
+<div class="point-grid">
+  <div class="card point-card">
+    <div class="label">포인트 목표</div>
+    <div class="big-number">3,000,000원</div>
+  </div>
+
+  <div class="card point-card">
+    <div class="label">현재 포인트</div>
+    <div class="big-number current" id="currentPoint">244,000원</div>
+  </div>
+</div>
+
+<div class="category-grid">
+
+  <div class="card category">
+    <div class="icon pink-bg">👥</div>
+    <div class="category-title">소개 가입 포인트</div>
+    <div class="category-point">73,000원</div>
+    <div class="category-count">3건</div>
+  </div>
+
+  <div class="card category">
+    <div class="icon blue-bg">✏️</div>
+    <div class="category-title">블로그 활동 포인트</div>
+    <div class="category-point" id="homeBlogPoint">171,000원</div>
+    <div class="category-count" id="homeBlogCount">28건</div>
+  </div>
+
+  <div class="card category">
+    <div class="icon brown-bg">☕️</div>
+    <div class="category-title">카페 활동 포인트</div>
+    <div class="category-point" id="homeCafePoint">0원</div>
+    <div class="category-count" id="homeCafeCount">0건</div>
+  </div>
 
 </div>
 
+<div class="card monthly-summary">
+
+  <div class="monthly-head">
+    <div class="monthly-title">놓치면 안되는 이번 달 포인트</div>
+    <div class="month-name" id="homeMonthName"></div>
+  </div>
+
+  <div class="today-text" id="homeTodayText"></div>
+
+  <div class="summary-task">
+    <div class="task-icon pink-bg">💬</div>
+    <div>
+      <div class="task-head">
+        <div class="task-name">댓글</div>
+        <div class="task-count" id="homeCommentCount"></div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar" id="homeCommentBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-task">
+    <div class="task-icon blue-bg">📄</div>
+    <div>
+      <div class="task-head">
+        <div class="task-name">일기</div>
+        <div class="task-count" id="homeDiaryCount"></div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar blue-bar" id="homeDiaryBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-task">
+    <div class="task-icon green-bg">🍴</div>
+    <div>
+      <div class="task-head">
+        <div class="task-name">맛집 소개글</div>
+        <div class="task-count" id="homeFoodCount"></div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar green-bar" id="homeFoodBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <button class="detail-btn" onclick="showPage('monthPage')">
+    이번 달 포인트 자세히 보기 ›
+  </button>
+
+</div>
+</section>
+
+
+<!-- HISTORY -->
+<section id="historyPage" class="page">
+
+<h1 class="page-title">적립내역</h1>
+
+<div class="card history-total">
+  <div class="history-total-label">앱에서 새로 기록한 적립완료 포인트</div>
+  <div class="history-total-number" id="historyTotal">0P</div>
+</div>
+
+<div class="card history-list">
+  <div class="history-head">
+    <div>날짜</div>
+    <div>항목</div>
+    <div style="text-align:right">포인트</div>
+  </div>
+
+  <div id="historyRows"></div>
+</div>
+
+<div class="card backup-box">
+  <div class="backup-title">내 데이터 백업</div>
+  <div class="backup-desc">
+    기록은 현재 휴대폰 브라우저에 저장돼요.
+    휴대폰 변경이나 Safari 데이터 삭제에 대비해 가끔 백업 파일을 저장해두세요.
+  </div>
+
+  <div class="backup-buttons">
+    <button class="backup-btn" onclick="exportData()">백업 저장</button>
+    <button class="backup-btn restore-btn" onclick="document.getElementById('importFile').click()">백업 불러오기</button>
+  </div>
+
+  <input
+    id="importFile"
+    type="file"
+    accept=".json,application/json"
+    onchange="importData(event)"
+  >
+</div>
+</section>
+
+
+<!-- MONTH -->
+<section id="monthPage" class="page">
+
+<h1 class="page-title">월별신청</h1>
+
+<div class="month-selector">
+  <button onclick="changeMonth(-1)">‹</button>
+  <div class="selected-month" id="selectedMonthText"></div>
+  <button onclick="changeMonth(1)">›</button>
+</div>
+
+<div class="month-status" id="monthStatusText"></div>
+
+<div class="card month-overview">
+
+  <div class="month-overview-title">이번 달 진행 현황</div>
+
+  <div class="overview-grid">
+    <div class="overview-item">
+      <div class="overview-label">작성</div>
+      <div class="overview-value" id="overviewWritten">0건</div>
+    </div>
+
+    <div class="overview-item">
+      <div class="overview-label">적립신청</div>
+      <div class="overview-value" id="overviewRequested">0건</div>
+    </div>
+
+    <div class="overview-item">
+      <div class="overview-label">적립완료</div>
+      <div class="overview-value" id="overviewCompleted">0건</div>
+    </div>
+
+    <div class="overview-item">
+      <div class="overview-label">확정포인트</div>
+      <div class="overview-value overview-point" id="overviewPoint">0P</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="section-title">이번 달 활동</div>
+<div id="monthlyActivities"></div>
+
+<div class="section-title">횟수제한</div>
+
+<div class="limit-info">
+  전체 기간동안 최대 횟수가 정해진 활동이에요.
+</div>
+
+<div id="limitedActivities"></div>
+
+</section>
+
+
+<!-- CAFE -->
+<section id="cafePage" class="page">
+
+<h1 class="page-title">카페활동</h1>
+
+<div class="card info-banner">
+  <div class="info-banner-icon">☕️</div>
+  <div>
+    <div class="info-banner-title">카페활동 메뉴는 다음 단계에서 만들 예정이에요.</div>
+    <div class="info-banner-desc">
+      월별신청의 댓글교류·결혼일기 등은 이미 월별신청 메뉴에서 관리할 수 있어요.
+    </div>
+  </div>
+</div>
+
+</section>
+
+
+<!-- BLOG -->
+<section id="blogPage" class="page">
+
+<h1 class="page-title">블로그</h1>
+
+<div class="card info-banner">
+  <div class="info-banner-icon">📄</div>
+  <div>
+    <div class="info-banner-title">
+      블로그 글 작성 시 건당 포인트가 적립되는 공간입니다.
+    </div>
+    <div class="info-banner-desc">
+      일반 2,000P · 우수 5,000P · 서포터즈 50,000P
+    </div>
+  </div>
+</div>
+
+<div class="blog-tabs">
+  <button
+    id="blogTab20"
+    class="blog-tab active"
+    onclick="setBlogTab(20)"
+  >
+    20개 작성 가능 (5)
+  </button>
+
+  <button
+    id="blogTab10"
+    class="blog-tab"
+    onclick="setBlogTab(10)"
+  >
+    10개 작성 가능 (10)
+  </button>
+</div>
+
+<div class="blog-tab-info" id="blogTabInfo"></div>
+
+<div id="blogCategories"></div>
+
+</section>
+
+
+<!-- SHARE -->
+<section id="sharePage" class="page">
+
+<h1 class="page-title">정보공유</h1>
+
+<div class="card info-banner">
+  <div class="info-banner-icon">✉️</div>
+  <div>
+    <div class="info-banner-title">
+      블로그 댓글로 자료를 요청한 분께 이메일로 공유한 내역을 관리해요.
+    </div>
+    <div class="info-banner-desc">
+      이메일 1건 적립완료 시 1,000P · 이메일 주소는 입력한 그대로 표시돼요.
+    </div>
+  </div>
+</div>
+
+<div class="card share-top-summary">
+  <div class="share-summary-row">
+
+    <div>
+      <div class="share-summary-title">정보공유 적립완료 포인트</div>
+      <div class="share-summary-point" id="shareTotalPoint">0P</div>
+    </div>
+
+    <button class="share-post-add" onclick="addSharePost()">
+      + 글 추가
+    </button>
+
+  </div>
+</div>
+
+<div id="sharePosts"></div>
+
+</section>
+
+</div>
+
+
+<!-- NAV -->
+<nav class="bottom-nav">
+
+<button
+  class="nav-item active"
+  data-page="homePage"
+  onclick="showPage('homePage')"
+>
+  <div class="nav-icon">⌂</div>
+  <div>홈</div>
+</button>
+
+<button
+  class="nav-item"
+  data-page="historyPage"
+  onclick="showPage('historyPage')"
+>
+  <div class="nav-icon">☷</div>
+  <div>적립내역</div>
+</button>
+
+<button
+  class="nav-item"
+  data-page="monthPage"
+  onclick="showPage('monthPage')"
+>
+  <div class="nav-icon">▣</div>
+  <div>월별신청</div>
+</button>
+
+<button
+  class="nav-item"
+  data-page="cafePage"
+  onclick="showPage('cafePage')"
+>
+  <div class="nav-icon">☕️</div>
+  <div>카페활동</div>
+</button>
+
+<button
+  class="nav-item"
+  data-page="blogPage"
+  onclick="showPage('blogPage')"
+>
+  <div class="nav-icon">✎</div>
+  <div>블로그</div>
+</button>
+
+<button
+  class="nav-item"
+  data-page="sharePage"
+  onclick="showPage('sharePage')"
+>
+  <div class="nav-icon">⌯</div>
+  <div>정보공유</div>
+</button>
+
+</nav>
+
+
 <script>
 
-const STORAGE_KEY="directPointData_v1";
+/* =========================
+   BASIC DATA
+========================= */
 
-const LEGACY_INTRO_POINT=73000;
-const LEGACY_BLOG_POINT=171000;
-const LEGACY_BLOG_COUNT=28;
+const STORAGE_KEY = "directPointData_v1";
 
-const GOAL=3000000;
+const LEGACY_INTRO_POINT = 73000;
+const LEGACY_BLOG_POINT = 171000;
+const LEGACY_BLOG_COUNT = 28;
 
-const WEDDING_DATE=
-new Date("2027-09-04T00:00:00");
+let selectedDate = new Date();
+selectedDate.setDate(1);
 
-let appData={
-  records:[],
-  monthlyClaims:{},
-  blogRecords:[],
-  sharePosts:[]
+let blogTab = 20;
+
+const openActivities = new Set();
+const openBlogCategories = new Set();
+
+/* 추가 */
+const openBlogRecords = new Set();
+const editingBlogUrls = new Set();
+
+const openSharePosts = new Set();
+
+const activities = {
+
+  comment:{
+    name:"댓글교류",
+    rule:"1회당 1,000P · 월 최대 10회",
+    monthlyMax:10,
+    totalMax:null,
+    point:1000,
+    batch:true
+  },
+
+  food:{
+    name:"맛집소개",
+    rule:"1건당 1,000P · 월 최대 1회",
+    monthlyMax:1,
+    totalMax:null,
+    point:1000
+  },
+
+  diary:{
+    name:"결혼일기",
+    rule:"월 20회 작성 시 5,000P",
+    monthlyMax:20,
+    totalMax:null,
+    point:5000,
+    batch:true
+  },
+
+  discussion:{
+    name:"결혼준비토론",
+    rule:"1회당 10,000P · 월 1회 · 최대 10회",
+    monthlyMax:1,
+    totalMax:10,
+    point:10000
+  },
+
+  likes:{
+    name:"좋아요 30개",
+    rule:"1회당 1,000P · 월 2회 · 최대 20회",
+    monthlyMax:2,
+    totalMax:20,
+    point:1000
+  },
+
+  instagram:{
+    name:"인스타그램",
+    rule:"포스팅 1건당 1,000P · 월 2회 · 최대 20회",
+    monthlyMax:2,
+    totalMax:20,
+    point:1000
+  }
+
 };
 
-let blogTab=20;
+const blogCategories = [
 
-let openBlogCategories=new Set();
-let openBlogRecords=new Set();
-let editingBlogUrls=new Set();
-let openSharePosts=new Set();
-
-const BLOG_CATS=[
   {id:"hall",name:"웨딩홀",max:20,icon:"💍"},
   {id:"studio",name:"스튜디오",max:20,icon:"📷"},
   {id:"dress",name:"드레스",max:20,icon:"👗"},
@@ -472,100 +2080,170 @@ const BLOG_CATS=[
   {id:"dvd",name:"DVD",max:10,icon:"🎥"},
   {id:"music",name:"축하연주",max:10,icon:"🎵"},
   {id:"appliance",name:"가전",max:10,icon:"🏠"}
+
 ];
 
-const GRADE_POINTS={
-  일반:2000,
-  우수:5000,
-  서포터즈:50000
+const gradePoints = {
+  "일반":2000,
+  "우수":5000,
+  "서포터즈":50000
 };
 
-const MONTH_TYPES={
 
-  restaurant:{
-    name:"맛집소개",
-    point:1000,
-    monthlyMax:1
-  },
+/* =========================
+   STORAGE
+========================= */
 
-  discussion:{
-    name:"결혼준비토론",
-    point:10000,
-    monthlyMax:1,
-    totalMax:10
-  },
+function loadData(){
 
-  like:{
-    name:"좋아요 30개",
-    point:1000,
-    monthlyMax:2,
-    totalMax:20
-  },
+  const saved = localStorage.getItem(STORAGE_KEY);
 
-  instagram:{
-    name:"인스타그램",
-    point:1000,
-    monthlyMax:2,
-    totalMax:20
+  if(!saved){
+    return{
+      records:[],
+      monthlyClaims:{},
+      blogRecords:[],
+      sharePosts:[]
+    };
   }
 
-};
+  try{
 
-function today(){
-  return new Date()
-  .toISOString()
-  .slice(0,10);
-}
+    const data = JSON.parse(saved);
 
-function monthNow(){
-  return today().slice(0,7);
-}
+    if(!Array.isArray(data.records)){
+      data.records = [];
+    }
 
-function uid(){
-  return Date.now().toString(36)
-  +Math.random().toString(36).slice(2,8);
-}
+    if(!data.monthlyClaims){
+      data.monthlyClaims = {};
+    }
 
-function won(n){
-  return Number(n||0)
-  .toLocaleString("ko-KR")+"P";
-}
+    if(!Array.isArray(data.blogRecords)){
+      data.blogRecords = [];
+    }
 
-function esc(s){
+    if(!Array.isArray(data.sharePosts)){
+      data.sharePosts = [];
+    }
 
-  return String(s??"")
-  .replace(
-    /[&<>"']/g,
-    m=>({
-      "&":"&amp;",
-      "<":"&lt;",
-      ">":"&gt;",
-      '"':"&quot;",
-      "'":"&#39;"
-    }[m])
-  );
+    if(data.diaryClaims){
 
-}
+      Object.keys(data.diaryClaims).forEach(monthKey=>{
 
-function attr(s){
-  return esc(s);
-}
+        const oldStatus = data.diaryClaims[monthKey];
 
-function safeUrl(u){
+        const key = `diary:${monthKey}`;
 
-  u=String(u||"").trim();
+        if(!data.monthlyClaims[key]){
 
-  if(!u) return "";
+          data.monthlyClaims[key] = {
+            status:oldStatus==="작성완료" ? "미신청" : oldStatus,
+            date:""
+          };
 
-  if(!/^https?:\/\//i.test(u)){
-    u="https://"+u;
+        }
+
+      });
+
+    }
+
+    return data;
+
+  }catch{
+
+    return{
+      records:[],
+      monthlyClaims:{},
+      blogRecords:[],
+      sharePosts:[]
+    };
+
   }
 
-  return u;
-
 }
 
-function save(){
+
+let appData = loadData();
+
+normalizeData();
+
+
+function normalizeData(){
+
+  if(!Array.isArray(appData.blogRecords)){
+    appData.blogRecords = [];
+  }
+
+  if(!Array.isArray(appData.sharePosts)){
+    appData.sharePosts = [];
+  }
+
+  appData.records.forEach(record=>{
+
+    if(
+      record.activity==="diary"
+      &&
+      record.urlNo===undefined
+    ){
+      record.urlNo = "";
+    }
+
+  });
+
+  const seen = new Set();
+
+  appData.records = appData.records.filter(record=>{
+
+    if(record.activity!=="comment"){
+      return true;
+    }
+
+    const key = `${record.month}|${record.date}`;
+
+    if(seen.has(key)){
+      return false;
+    }
+
+    seen.add(key);
+
+    return true;
+
+  });
+
+  /* 기존 블로그 기록 보정 */
+  appData.blogRecords.forEach(record=>{
+
+    if(record.title===undefined){
+      record.title = "";
+    }
+
+    if(record.url===undefined){
+      record.url = "";
+    }
+
+    if(!record.grade){
+      record.grade = "일반";
+    }
+
+    if(!record.status){
+      record.status = "작성완료";
+    }
+
+  });
+
+  /* 정보공유 데이터 보정 */
+  appData.sharePosts.forEach(post=>{
+
+    if(!Array.isArray(post.shares)){
+      post.shares = [];
+    }
+
+    if(post.url===undefined){
+      post.url = "";
+    }
+
+  });
 
   localStorage.setItem(
     STORAGE_KEY,
@@ -574,544 +2252,195 @@ function save(){
 
 }
 
-function load(){
 
-  try{
+function saveData(){
 
-    const x=
-    JSON.parse(
-      localStorage.getItem(STORAGE_KEY)
-      ||"null"
-    );
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(appData)
+  );
 
-    if(x) appData=x;
-
-  }catch(e){}
-
-  normalize();
+  renderAll();
 
 }
 
-function normalize(){
 
-  appData.records=
-  Array.isArray(appData.records)
-  ?appData.records:[];
+/* =========================
+   HELPERS
+========================= */
 
-  appData.monthlyClaims=
-  appData.monthlyClaims
-  &&typeof appData.monthlyClaims==="object"
-  ?appData.monthlyClaims:{};
+function newId(){
 
-  appData.blogRecords=
-  Array.isArray(appData.blogRecords)
-  ?appData.blogRecords:[];
-
-  appData.sharePosts=
-  Array.isArray(appData.sharePosts)
-  ?appData.sharePosts:[];
-
-  appData.records.forEach(r=>{
-
-    if(
-      r.type==="diary"
-      &&r.urlNo==null
-    ){
-      r.urlNo="";
-    }
-
-  });
-
-  appData.blogRecords.forEach(r=>{
-
-    if(r.title==null){
-      r.title="새 블로그 글";
-    }
-
-    if(r.url==null){
-      r.url="";
-    }
-
-    if(!r.grade){
-      r.grade="일반";
-    }
-
-    if(!r.status){
-      r.status="작성완료";
-    }
-
-  });
-
-  appData.sharePosts.forEach(p=>{
-
-    if(p.url==null){
-      p.url="";
-    }
-
-    p.shares=
-    Array.isArray(p.shares)
-    ?p.shares:[];
-
-  });
-
-  save();
-
-}
-
-function completedBlogPoints(){
-
-  return appData.blogRecords
-  .filter(r=>r.status==="적립완료")
-  .reduce(
-    (a,r)=>a+(GRADE_POINTS[r.grade]||0),
-    0
+  return (
+    Date.now().toString()
+    +
+    Math.random().toString(16).slice(2)
   );
 
 }
 
-function completedSharePoints(){
 
-  return appData.sharePosts
-  .reduce(
-    (a,p)=>
-      a+
-      p.shares
-      .filter(s=>s.status==="적립완료")
-      .length*1000,
-    0
+function formatNumber(num){
+
+  return Number(num || 0).toLocaleString("ko-KR");
+
+}
+
+
+function getMonthKey(date){
+
+  const y = date.getFullYear();
+
+  const m = String(
+    date.getMonth()+1
+  ).padStart(2,"0");
+
+  return `${y}-${m}`;
+
+}
+
+
+function getTodayString(){
+
+  const d = new Date();
+
+  const y = d.getFullYear();
+
+  const m = String(
+    d.getMonth()+1
+  ).padStart(2,"0");
+
+  const day = String(
+    d.getDate()
+  ).padStart(2,"0");
+
+  return `${y}-${m}-${day}`;
+
+}
+
+
+function defaultDateForSelectedMonth(){
+
+  const now = new Date();
+
+  if(
+    selectedDate.getFullYear()===now.getFullYear()
+    &&
+    selectedDate.getMonth()===now.getMonth()
+  ){
+    return getTodayString();
+  }
+
+  const y = selectedDate.getFullYear();
+
+  const m = String(
+    selectedDate.getMonth()+1
+  ).padStart(2,"0");
+
+  return `${y}-${m}-01`;
+
+}
+
+
+function recordsFor(key,monthKey){
+
+  return appData.records.filter(
+    r=>r.activity===key && r.month===monthKey
   );
 
 }
 
-function monthlyEarned(){
 
-  let n=
+function allRecordsFor(key){
 
-  appData.records
-  .filter(
-    r=>
-    MONTH_TYPES[r.type]
-    &&r.status==="적립완료"
-  )
-  .reduce(
-    (a,r)=>
-    a+(MONTH_TYPES[r.type].point||0),
-    0
+  return appData.records.filter(
+    r=>r.activity===key
   );
 
-  Object.values(
-    appData.monthlyClaims
-  ).forEach(c=>{
-
-    if(c.status==="적립완료"){
-      n+=c.point||0;
-    }
-
-  });
-
-  return n;
-
 }
 
-function totalPoints(){
 
-  return
-  LEGACY_INTRO_POINT+
-  LEGACY_BLOG_POINT+
-  monthlyEarned()+
-  completedBlogPoints()+
-  completedSharePoints();
+function completedFor(key,monthKey){
 
-}
-
-function getHistory(){
-
-  let h=[];
-
-  appData.records
-  .filter(
-    r=>
-    MONTH_TYPES[r.type]
-    &&r.status==="적립완료"
-  )
-  .forEach(r=>{
-
-    h.push({
-
-      date:r.date,
-
-      name:
-      MONTH_TYPES[r.type].name,
-
-      point:
-      MONTH_TYPES[r.type].point,
-
-      type:"month"
-
-    });
-
-  });
-
-  Object.values(
-    appData.monthlyClaims
-  )
-  .filter(
-    c=>c.status==="적립완료"
-  )
-  .forEach(c=>{
-
-    h.push({
-
-      date:
-      c.applyDate
-      ||c.month+"-28",
-
-      name:c.name,
-
-      point:c.point||0,
-
-      type:"month"
-
-    });
-
-  });
-
-  appData.blogRecords
-  .filter(
+  return recordsFor(key,monthKey).filter(
     r=>r.status==="적립완료"
-  )
-  .forEach(r=>{
-
-    let c=
-    BLOG_CATS.find(
-      x=>x.id===r.category
-    );
-
-    h.push({
-
-      date:r.date,
-
-      name:
-      `블로그 · ${c?.name||""} · ${r.title||"제목 없음"}`,
-
-      point:
-      GRADE_POINTS[r.grade]||0,
-
-      type:"blog"
-
-    });
-
-  });
-
-  appData.sharePosts
-  .forEach(p=>
-
-    p.shares
-    .filter(
-      s=>s.status==="적립완료"
-    )
-    .forEach(s=>{
-
-      h.push({
-
-        date:s.date,
-
-        name:
-        `정보공유 · ${p.title||"제목 없음"}`,
-
-        point:1000,
-
-        type:"share"
-
-      });
-
-    })
-
-  );
-
-  return h.sort(
-    (a,b)=>
-    (b.date||"")
-    .localeCompare(a.date||"")
   );
 
 }
 
-function renderHome(){
 
-  let d=
-  Math.ceil(
-    (
-      WEDDING_DATE-
-      new Date()
-    )/86400000
-  );
+function statusClass(status){
 
-  let total=totalPoints();
+  if(status==="작성완료" || status==="전송완료"){
+    return "status-written";
+  }
 
-  let pct=
-  Math.min(
-    100,
-    total/GOAL*100
-  );
+  if(status==="적립신청"){
+    return "status-request";
+  }
 
-  let blogP=
+  if(status==="적립완료"){
+    return "status-done";
+  }
 
-  LEGACY_BLOG_POINT+
-  completedBlogPoints()+
-  completedSharePoints();
-
-  let blogC=
-
-  LEGACY_BLOG_COUNT+
-
-  appData.blogRecords
-  .filter(
-    r=>r.status==="적립완료"
-  ).length+
-
-  appData.sharePosts
-  .reduce(
-    (a,p)=>
-    a+
-    p.shares
-    .filter(
-      s=>s.status==="적립완료"
-    )
-    .length,
-    0
-  );
-
-  document
-  .getElementById("homePage")
-  .innerHTML=`
-
-  <div class="card">
-
-    <div class="muted">
-      2027.09.04 결혼식까지
-    </div>
-
-    <div class="big pink">
-      D-${Math.max(0,d)}
-    </div>
-
-  </div>
-
-
-  <div class="card">
-
-    <div class="row between">
-
-      <div>
-
-        <div class="muted">
-          현재 총 포인트
-        </div>
-
-        <div class="big">
-          ${won(total)}
-        </div>
-
-      </div>
-
-      <div class="badge">
-        목표 ${GOAL.toLocaleString()}P
-      </div>
-
-    </div>
-
-    <div
-      class="progress"
-      style="margin-top:12px"
-    >
-
-      <i
-        style="width:${pct}%"
-      ></i>
-
-    </div>
-
-    <div
-      class="muted"
-      style="margin-top:6px"
-    >
-
-      ${pct.toFixed(1)}% 달성
-
-    </div>
-
-  </div>
-
-
-  <div class="grid2">
-
-    <div class="card">
-
-      <div class="muted">
-        월별신청 적립
-      </div>
-
-      <div class="strong">
-        ${won(monthlyEarned())}
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="muted">
-        블로그·정보공유
-      </div>
-
-      <div class="strong">
-        ${won(blogP)}
-      </div>
-
-      <div class="muted">
-        ${blogC}건
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="card">
-
-    <div class="row between">
-
-      <b>
-        데이터 백업
-      </b>
-
-      <div>
-
-        <button
-          class="smallbtn"
-          onclick="exportBackup()"
-        >
-          내보내기
-        </button>
-
-        <button
-          class="smallbtn"
-          onclick="
-          document
-          .getElementById('backupInput')
-          .click()
-          "
-        >
-          가져오기
-        </button>
-
-      </div>
-
-    </div>
-
-    <input
-      id="backupInput"
-      type="file"
-      accept=".json,application/json"
-      hidden
-      onchange="importBackup(this)"
-    >
-
-    <div
-      class="note"
-      style="margin-top:10px"
-    >
-
-      입력 내용은 이 브라우저에 저장돼요.
-      가끔 백업 파일을 보관해두는 것을 추천해요.
-
-    </div>
-
-  </div>
-
-  `;
+  return "status-none";
 
 }
 
-function renderHistory(){
 
-  let h=getHistory();
+function gradeClass(grade){
 
-  let sum=
-  h.reduce(
-    (a,x)=>a+x.point,
-    0
-  );
+  if(grade==="일반"){
+    return "grade-normal";
+  }
 
-  document
-  .getElementById("historyPage")
-  .innerHTML=`
+  if(grade==="우수"){
+    return "grade-good";
+  }
 
-  <div class="section-title">
-    적립내역
-  </div>
-
-  <div class="card">
-
-    <div class="muted">
-      새로 기록한 적립완료 포인트
-    </div>
-
-    <div class="big">
-      ${won(sum)}
-    </div>
-
-  </div>
-
-  <div class="card">
-
-    ${
-      h.length
-      ?
-      h.map(x=>`
-
-        <div class="history">
-
-          <span>
-            ${esc(x.date||"-")}
-          </span>
-
-          <span>
-            ${esc(x.name)}
-          </span>
-
-          <b>
-            ${won(x.point)}
-          </b>
-
-        </div>
-
-      `).join("")
-
-      :
-
-      `
-      <div class="empty">
-        아직 적립완료 내역이 없어요.
-      </div>
-      `
-    }
-
-  </div>
-
-  `;
+  return "grade-supporter";
 
 }
 
-function getClaim(key,def){
+
+/* URL에 https://가 없으면 자동 추가 */
+function safeUrl(value){
+
+  let url = String(value || "").trim();
+
+  if(!url){
+    return "";
+  }
+
+  if(!/^https?:\/\//i.test(url)){
+    url = "https://" + url;
+  }
+
+  return url;
+
+}
+
+
+/* =========================
+   MONTH CLAIM
+========================= */
+
+function claimKey(activity,monthKey){
+
+  return `${activity}:${monthKey}`;
+
+}
+
+
+function getClaim(activity,monthKey){
+
+  const key = claimKey(activity,monthKey);
 
   if(!appData.monthlyClaims[key]){
 
-    appData.monthlyClaims[key]={
-      ...def,
+    appData.monthlyClaims[key] = {
       status:"미신청",
-      applyDate:""
+      date:""
     };
 
   }
@@ -1120,1953 +2449,3097 @@ function getClaim(key,def){
 
 }
 
-function monthRecords(type,m){
 
-  return appData.records.filter(
-    r=>
-    r.type===type
-    &&
-    (r.date||"").slice(0,7)===m
-  );
+function resetClaimIfNeeded(activity,monthKey){
+
+  const claim = getClaim(activity,monthKey);
+
+  if(claim.status!=="미신청"){
+
+    claim.status = "미신청";
+    claim.date = "";
+
+  }
 
 }
 
-function renderMonth(){
 
-  let m=
-  document
-  .getElementById("monthPicker")
-  ?.value
-  ||monthNow();
+/* =========================
+   COMMENT
+========================= */
 
-  let comments=
-  monthRecords("comment",m);
+function commentRecords(monthKey){
 
-  let diaries=
-  monthRecords("diary",m);
-
-  let cc=
-  getClaim(
-    "comment:"+m,
-    {
-      month:m,
-      name:"댓글교류",
-      point:comments.length*1000
-    }
-  );
-
-  cc.point=
-  comments.length*1000;
-
-  let dc=
-  getClaim(
-    "diary:"+m,
-    {
-      month:m,
-      name:"결혼일기",
-      point:5000
-    }
-  );
-
-  dc.point=5000;
-
-  let days=
-  new Date(
-    +m.slice(0,4),
-    +m.slice(5,7),
-    0
-  ).getDate();
-
-  let selected=
-  new Set(
-    comments.map(
-      r=>+r.date.slice(8,10)
-    )
-  );
-
-  let cal=
-  Array
-  .from(
-    {length:days},
-    (_,i)=>`
-
-      <button
-        class="day ${
-          selected.has(i+1)
-          ?"on":""
-        }"
-        onclick="
-        toggleComment(
-          '${m}',
-          ${i+1}
-        )
-        "
-      >
-        ${i+1}
-      </button>
-
-    `
-  )
-  .join("");
-
-  let others=
-
-  Object.entries(
-    MONTH_TYPES
-  )
-  .map(([type,x])=>{
-
-    let rows=
-    monthRecords(type,m);
-
-    return `
-
-    <div class="card">
-
-      <div class="row between">
-
-        <b>
-          ${x.name}
-        </b>
-
-        <span class="badge">
-          ${won(x.point)}
-          · 월 ${x.monthlyMax}회
-        </span>
-
-      </div>
-
-      ${
-        rows
-        .map(
-          r=>individualRow(r,type)
-        )
-        .join("")
-      }
-
-      <button
-        class="btn light"
-        style="
-        margin-top:10px;
-        width:100%
-        "
-        onclick="
-        addIndividual(
-          '${type}',
-          '${m}'
-        )
-        "
-      >
-        + 추가
-      </button>
-
-    </div>
-
-    `;
-
-  })
-  .join("");
-
-  document
-  .getElementById("monthPage")
-  .innerHTML=`
-
-  <div class="section-title">
-    월별신청
-  </div>
-
-  <div class="month-head">
-
-    <label style="margin:0">
-      조회 월
-    </label>
-
-    <input
-      id="monthPicker"
-      type="month"
-      value="${m}"
-      onchange="renderMonth()"
-    >
-
-  </div>
-
-
-  <div class="card">
-
-    <div class="row between">
-
-      <b>
-        댓글교류
-      </b>
-
-      <span class="badge">
-        ${comments.length}/10
-        ·
-        ${won(comments.length*1000)}
-      </span>
-
-    </div>
-
-    <div
-      class="calendar"
-      style="margin-top:12px"
-    >
-
-      ${cal}
-
-    </div>
-
-    ${
-      claimBox(
-        "comment:"+m,
-        cc,
-        comments.length>0
-      )
-    }
-
-  </div>
-
-
-  <div class="card">
-
-    <div class="row between">
-
-      <b>
-        결혼일기
-      </b>
-
-      <span class="badge">
-        ${diaries.length}/20
-      </span>
-
-    </div>
-
-    ${
-      diaries
-      .map(r=>`
-
-        <div class="record">
-
-          <div class="grid2">
-
-            <input
-              type="date"
-              value="${r.date}"
-              onchange="
-              updRec(
-                '${r.id}',
-                'date',
-                this.value
-              )
-              "
-            >
-
-            <input
-              inputmode="numeric"
-              placeholder="URL 번호"
-              value="${attr(r.urlNo||"")}"
-              onchange="
-              updRec(
-                '${r.id}',
-                'urlNo',
-                this.value
-              )
-              "
-            >
-
-          </div>
-
-          <button
-            class="smallbtn"
-            style="margin-top:7px"
-            onclick="
-            delRec('${r.id}')
-            "
-          >
-            삭제
-          </button>
-
-        </div>
-
-      `)
-      .join("")
-    }
-
-    <button
-      class="btn light"
-      style="
-      margin-top:10px;
-      width:100%
-      "
-      onclick="
-      addDiary('${m}')
-      "
-      ${
-        diaries.length>=20
-        ?"disabled":""
-      }
-    >
-      + 결혼일기 추가
-    </button>
-
-    ${
-      claimBox(
-        "diary:"+m,
-        dc,
-        diaries.length===20
-        &&
-        diaries.every(
-          r=>
-          String(r.urlNo||"")
-          .trim()
-        )
-      )
-    }
-
-  </div>
-
-  ${others}
-
-  `;
-
-  save();
+  return recordsFor("comment",monthKey);
 
 }
 
-function claimBox(
-  key,
-  c,
-  enabled
-){
 
-  return `
+function commentCount(monthKey){
 
-  <div class="expand">
-
-    <div class="grid2">
-
-      <div>
-
-        <label>
-          신청일
-        </label>
-
-        <input
-          type="date"
-          value="${c.applyDate||""}"
-          onchange="
-          updateClaim(
-            '${key}',
-            'applyDate',
-            this.value
-          )
-          "
-        >
-
-      </div>
-
-      <div>
-
-        <label>
-          관리
-        </label>
-
-        <select
-          onchange="
-          updateClaim(
-            '${key}',
-            'status',
-            this.value
-          )
-          "
-          ${
-            enabled
-            ?"":"disabled"
-          }
-        >
-
-          ${
-            [
-              "미신청",
-              "적립신청",
-              "적립완료"
-            ]
-            .map(
-              s=>`
-              <option
-                ${
-                  c.status===s
-                  ?"selected":""
-                }
-              >
-                ${s}
-              </option>
-              `
-            )
-            .join("")
-          }
-
-        </select>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  `;
+  return commentRecords(monthKey).length;
 
 }
 
-function individualRow(
-  r,
-  type
-){
 
-  return `
+function toggleCommentDate(dateString){
 
-  <div class="record">
+  const monthKey = dateString.slice(0,7);
 
-    <div class="grid2">
+  openActivities.add("comment");
 
-      <div>
-
-        <label>
-          작성일
-        </label>
-
-        <input
-          type="date"
-          value="${r.date}"
-          onchange="
-          updRec(
-            '${r.id}',
-            'date',
-            this.value
-          )
-          "
-        >
-
-      </div>
-
-      <div>
-
-        <label>
-          관리
-        </label>
-
-        <select
-          onchange="
-          updRec(
-            '${r.id}',
-            'status',
-            this.value
-          )
-          "
-        >
-
-          ${
-            [
-              "작성완료",
-              "적립신청",
-              "적립완료"
-            ]
-            .map(
-              s=>`
-              <option
-                ${
-                  r.status===s
-                  ?"selected":""
-                }
-              >
-                ${s}
-              </option>
-              `
-            )
-            .join("")
-          }
-
-        </select>
-
-      </div>
-
-    </div>
-
-    <div
-      class="row between"
-      style="margin-top:7px"
-    >
-
-      <b>
-        ${won(MONTH_TYPES[type].point)}
-      </b>
-
-      <button
-        class="smallbtn"
-        onclick="
-        delRec('${r.id}')
-        "
-      >
-        삭제
-      </button>
-
-    </div>
-
-  </div>
-
-  `;
-
-}
-
-function toggleComment(
-  m,
-  d
-){
-
-  let date=
-  m+"-"+String(d).padStart(2,"0");
-
-  let found=
-  appData.records.find(
-    r=>
-    r.type==="comment"
-    &&
-    r.date===date
+  const found = appData.records.find(
+    r=>r.activity==="comment" && r.date===dateString
   );
 
   if(found){
 
-    appData.records=
-    appData.records.filter(
-      r=>r.id!==found.id
+    appData.records = appData.records.filter(
+      r=>!(
+        r.activity==="comment"
+        &&
+        r.date===dateString
+      )
     );
 
-  }else if(
-    monthRecords(
-      "comment",
-      m
-    ).length<10
-  ){
+    resetClaimIfNeeded("comment",monthKey);
 
-    appData.records.push({
-      id:uid(),
-      type:"comment",
-      date
-    });
+    saveData();
 
+    return;
   }
 
-  resetClaim(
-    "comment:"+m
-  );
+  if(commentCount(monthKey)>=10){
 
-  save();
-  renderAll();
+    alert("댓글교류는 한 달에 최대 10회까지 체크할 수 있어.");
 
-}
-
-function addDiary(m){
-
-  if(
-    monthRecords(
-      "diary",
-      m
-    ).length>=20
-  ) return;
-
-  appData.records.push({
-
-    id:uid(),
-
-    type:"diary",
-
-    date:m+"-01",
-
-    urlNo:""
-
-  });
-
-  resetClaim(
-    "diary:"+m
-  );
-
-  save();
-  renderAll();
-
-}
-
-function addIndividual(
-  type,
-  m
-){
-
-  let cfg=
-  MONTH_TYPES[type];
-
-  let rows=
-  monthRecords(
-    type,
-    m
-  );
-
-  if(
-    rows.length>=cfg.monthlyMax
-  ){
-
-    return alert(
-      "이번 달 최대 횟수까지 추가했어요."
-    );
-
-  }
-
-  if(
-    cfg.totalMax
-    &&
-    appData.records
-    .filter(
-      r=>r.type===type
-    )
-    .length>=cfg.totalMax
-  ){
-
-    return alert(
-      "전체 최대 횟수까지 추가했어요."
-    );
-
+    return;
   }
 
   appData.records.push({
-
-    id:uid(),
-
-    type,
-
-    date:m+"-01",
-
+    id:newId(),
+    activity:"comment",
+    month:monthKey,
+    date:dateString,
     status:"작성완료"
-
   });
 
-  save();
-  renderAll();
+  resetClaimIfNeeded("comment",monthKey);
+
+  saveData();
 
 }
 
-function updRec(
-  id,
-  k,
-  v
-){
 
-  let r=
-  appData.records.find(
-    x=>x.id===id
+function createCommentCalendar(monthKey){
+
+  const [yearText,monthText] = monthKey.split("-");
+
+  const year = Number(yearText);
+  const month = Number(monthText);
+
+  const firstDay = new Date(
+    year,
+    month-1,
+    1
+  ).getDay();
+
+  const lastDate = new Date(
+    year,
+    month,
+    0
+  ).getDate();
+
+  const selected = new Set(
+    commentRecords(monthKey).map(r=>r.date)
   );
 
-  if(!r) return;
+  let days = "";
 
-  r[k]=v;
+  for(let i=0;i<firstDay;i++){
+    days += `<div class="calendar-empty"></div>`;
+  }
 
-  if(
-    r.type==="diary"
-  ){
+  const today = getTodayString();
 
-    resetClaim(
-      "diary:"+
-      (r.date||monthNow())
-      .slice(0,7)
+  for(let day=1;day<=lastDate;day++){
+
+    const dayText = String(day).padStart(2,"0");
+
+    const dateString = `${monthKey}-${dayText}`;
+
+    days += `
+      <button
+        class="
+          calendar-day
+          ${selected.has(dateString) ? "selected" : ""}
+          ${today===dateString ? "today" : ""}
+        "
+        onclick="toggleCommentDate('${dateString}')"
+      >
+        ${day}
+      </button>
+    `;
+
+  }
+
+  return `
+    <div class="calendar-help">
+      댓글교류한 날짜를 눌러 체크해요.
+      다시 누르면 체크가 해제돼요.
+    </div>
+
+    <div class="calendar">
+
+      <div class="calendar-week">
+        <div class="week-day">일</div>
+        <div class="week-day">월</div>
+        <div class="week-day">화</div>
+        <div class="week-day">수</div>
+        <div class="week-day">목</div>
+        <div class="week-day">금</div>
+        <div class="week-day">토</div>
+      </div>
+
+      <div class="calendar-days">
+        ${days}
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+/* =========================
+   DIARY
+========================= */
+
+function diaryValidUrlCount(monthKey){
+
+  return recordsFor("diary",monthKey).filter(
+    r=>String(r.urlNo || "").trim()!==""
+  ).length;
+
+}
+
+
+function addDiaryRecord(){
+
+  const monthKey = getMonthKey(selectedDate);
+
+  openActivities.add("diary");
+
+  if(recordsFor("diary",monthKey).length>=20){
+
+    alert("결혼일기는 한 달에 최대 20개까지 기록할 수 있어.");
+
+    return;
+  }
+
+  appData.records.push({
+    id:newId(),
+    activity:"diary",
+    month:monthKey,
+    date:defaultDateForSelectedMonth(),
+    urlNo:"",
+    status:"작성완료"
+  });
+
+  resetClaimIfNeeded("diary",monthKey);
+
+  saveData();
+
+}
+
+
+function updateDiaryDate(id,value){
+
+  if(!value){
+    return;
+  }
+
+  const record = appData.records.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openActivities.add("diary");
+
+  const oldMonth = record.month;
+  const newMonth = value.slice(0,7);
+
+  if(oldMonth!==newMonth){
+
+    const targetCount = recordsFor(
+      "diary",
+      newMonth
+    ).filter(r=>r.id!==id).length;
+
+    if(targetCount>=20){
+
+      alert("변경하려는 달에는 결혼일기가 이미 20개 있어.");
+
+      renderAll();
+
+      return;
+    }
+
+  }
+
+  record.date = value;
+  record.month = newMonth;
+
+  resetClaimIfNeeded("diary",oldMonth);
+  resetClaimIfNeeded("diary",newMonth);
+
+  saveData();
+
+}
+
+
+function updateDiaryUrl(id,value){
+
+  const record = appData.records.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openActivities.add("diary");
+
+  record.urlNo = value.trim();
+
+  resetClaimIfNeeded(
+    "diary",
+    record.month
+  );
+
+  saveData();
+
+}
+
+
+function deleteDiaryRecord(id){
+
+  const record = appData.records.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openActivities.add("diary");
+
+  if(!confirm("이 결혼일기 기록을 삭제할까?")){
+    return;
+  }
+
+  const monthKey = record.month;
+
+  appData.records = appData.records.filter(
+    r=>r.id!==id
+  );
+
+  resetClaimIfNeeded("diary",monthKey);
+
+  saveData();
+
+}
+
+
+/* =========================
+   BATCH CLAIM
+========================= */
+
+function batchEligible(activity,monthKey){
+
+  if(activity==="comment"){
+
+    return commentCount(monthKey)>0;
+
+  }
+
+  if(activity==="diary"){
+
+    const records = recordsFor(
+      "diary",
+      monthKey
+    );
+
+    return (
+      records.length===20
+      &&
+      diaryValidUrlCount(monthKey)===20
     );
 
   }
 
-  save();
-  renderAll();
+  return false;
 
 }
 
-function delRec(id){
 
-  let r=
-  appData.records.find(
-    x=>x.id===id
+function updateClaimDate(activity,monthKey,value){
+
+  openActivities.add(activity);
+
+  const claim = getClaim(
+    activity,
+    monthKey
   );
 
-  if(!r) return;
+  claim.date = value;
 
-  appData.records=
-  appData.records.filter(
-    x=>x.id!==id
-  );
-
-  save();
-  renderAll();
+  saveData();
 
 }
 
-function resetClaim(key){
 
-  let c=
-  appData.monthlyClaims[key];
+function updateBatchStatus(activity,monthKey,value){
 
-  if(
-    c
-    &&
-    c.status!=="미신청"
-  ){
+  openActivities.add(activity);
 
-    c.status="미신청";
-    c.applyDate="";
+  const claim = getClaim(
+    activity,
+    monthKey
+  );
+
+  if(value!=="미신청"){
+
+    if(!batchEligible(activity,monthKey)){
+
+      if(activity==="diary"){
+
+        alert("결혼일기 20개와 URL 번호 20개를 모두 입력한 뒤 신청할 수 있어.");
+
+      }else{
+
+        alert("댓글교류 날짜를 먼저 체크해줘.");
+
+      }
+
+      renderAll();
+
+      return;
+    }
+
+    if(!claim.date){
+
+      alert("신청일을 먼저 선택해줘.");
+
+      renderAll();
+
+      return;
+    }
 
   }
 
+  claim.status = value;
+
+  saveData();
+
 }
 
-function updateClaim(
-  key,
-  k,
-  v
-){
 
-  let c=
-  appData.monthlyClaims[key];
+/* =========================
+   MONTH POINT
+========================= */
 
-  if(!c) return;
+function earnedPointsFor(key,monthKey){
+
+  const activity = activities[key];
+
+  if(key==="comment"){
+
+    const claim = getClaim(
+      "comment",
+      monthKey
+    );
+
+    if(claim.status==="적립완료"){
+      return commentCount(monthKey)*1000;
+    }
+
+    return 0;
+
+  }
+
+  if(key==="diary"){
+
+    const claim = getClaim(
+      "diary",
+      monthKey
+    );
+
+    if(
+      claim.status==="적립완료"
+      &&
+      batchEligible("diary",monthKey)
+    ){
+      return 5000;
+    }
+
+    return 0;
+
+  }
+
+  return (
+    completedFor(key,monthKey).length
+    *
+    activity.point
+  );
+
+}
+
+
+function allMonthlyEarnedPoints(){
+
+  let total = 0;
+
+  appData.records.forEach(record=>{
+
+    const activity = activities[
+      record.activity
+    ];
+
+    if(
+      !activity
+      ||
+      activity.batch
+      ||
+      record.status!=="적립완료"
+    ){
+      return;
+    }
+
+    total += activity.point;
+
+  });
+
+  const months = new Set();
+
+  appData.records.forEach(record=>{
+
+    if(
+      record.activity==="comment"
+      ||
+      record.activity==="diary"
+    ){
+      months.add(record.month);
+    }
+
+  });
+
+  months.forEach(monthKey=>{
+
+    total += earnedPointsFor(
+      "comment",
+      monthKey
+    );
+
+    total += earnedPointsFor(
+      "diary",
+      monthKey
+    );
+
+  });
+
+  return total;
+
+}
+
+
+/* =========================
+   PAGE
+========================= */
+
+function showPage(pageId){
+
+  document.querySelectorAll(".page").forEach(
+    page=>page.classList.remove("active")
+  );
+
+  document.getElementById(
+    pageId
+  ).classList.add("active");
+
+  document.querySelectorAll(".nav-item").forEach(
+    btn=>btn.classList.remove("active")
+  );
+
+  const nav = document.querySelector(
+    `.nav-item[data-page="${pageId}"]`
+  );
+
+  if(nav){
+    nav.classList.add("active");
+  }
+
+  renderAll();
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================
+   MONTH UI
+========================= */
+
+function changeMonth(direction){
+
+  selectedDate.setMonth(
+    selectedDate.getMonth()+direction
+  );
+
+  renderMonthPage();
+
+}
+
+
+function toggleActivity(key){
+
+  if(openActivities.has(key)){
+    openActivities.delete(key);
+  }else{
+    openActivities.add(key);
+  }
+
+  renderMonthPage();
+
+}
+
+
+/* =========================
+   NORMAL MONTH RECORD
+========================= */
+
+function addRecord(key){
+
+  openActivities.add(key);
+
+  const activity = activities[key];
+  const monthKey = getMonthKey(selectedDate);
+
+  const monthRecords = recordsFor(
+    key,
+    monthKey
+  );
+
+  if(monthRecords.length>=activity.monthlyMax){
+
+    alert(
+      `${activity.name}은(는) 이번 달 최대 ${activity.monthlyMax}회까지 작성할 수 있어.`
+    );
+
+    return;
+  }
 
   if(
-    k==="status"
+    activity.totalMax
     &&
-    v!=="미신청"
-    &&
-    !c.applyDate
+    allRecordsFor(key).length>=activity.totalMax
   ){
 
     alert(
-      "신청일을 먼저 선택해 주세요."
+      `${activity.name}은(는) 전체 기간 최대 ${activity.totalMax}회까지 가능해.`
     );
 
-    return renderAll();
-
+    return;
   }
 
-  c[k]=v;
+  appData.records.push({
+    id:newId(),
+    activity:key,
+    month:monthKey,
+    date:defaultDateForSelectedMonth(),
+    status:"작성완료"
+  });
 
-  save();
-  renderAll();
+  saveData();
 
 }
 
-/* =========================
-   블로그
-========================= */
 
-function renderBlog(){
+function updateRecordDate(id,value){
 
-  let cats=
-  BLOG_CATS.filter(
-    c=>c.max===blogTab
+  if(!value){
+    return;
+  }
+
+  const record = appData.records.find(
+    r=>r.id===id
   );
 
-  let html=
-  cats.map(c=>{
+  if(!record){
+    return;
+  }
 
-    let rs=
-    appData.blogRecords.filter(
-      r=>r.category===c.id
-    );
+  openActivities.add(record.activity);
 
-    let done=
-    rs.filter(
-      r=>r.status==="적립완료"
-    );
+  const oldMonth = record.month;
+  const newMonth = value.slice(0,7);
 
-    let pts=
-    done.reduce(
-      (a,r)=>
-      a+(GRADE_POINTS[r.grade]||0),
-      0
-    );
+  const activity = activities[
+    record.activity
+  ];
 
-    let open=
-    openBlogCategories.has(c.id);
+  if(oldMonth!==newMonth){
 
-    return `
+    const destinationCount = recordsFor(
+      record.activity,
+      newMonth
+    )
+    .filter(r=>r.id!==id)
+    .length;
 
-    <div class="card">
+    if(destinationCount>=activity.monthlyMax){
 
-      <div
-        class="cat-head clickable"
-        onclick="
-        toggleBlogCat('${c.id}')
-        "
-      >
+      alert(
+        `변경하려는 달에는 ${activity.name} 기록이 이미 최대 횟수까지 있어.`
+      );
 
-        <div>
+      renderAll();
 
-          <b>
-            ${c.icon} ${c.name}
-          </b>
-
-          <div class="muted">
-
-            적립완료
-            ${done.length}건
-            ·
-            ${won(pts)}
-
-          </div>
-
-        </div>
-
-        <span class="badge">
-          ${rs.length}/${c.max}
-        </span>
-
-        <span>
-          ${open?"▲":"▼"}
-        </span>
-
-      </div>
-
-      ${
-        open
-        ?
-        `
-
-        <div class="expand">
-
-          ${
-            rs.length
-            ?
-            rs.map(blogRow).join("")
-            :
-            `
-            <div class="empty">
-              작성한 글이 없어요.
-            </div>
-            `
-          }
-
-          <button
-            class="btn light"
-            style="
-            width:100%;
-            margin-top:8px
-            "
-            onclick="
-            event.stopPropagation();
-            addBlog('${c.id}')
-            "
-            ${
-              rs.length>=c.max
-              ?"disabled":""
-            }
-          >
-            + 글 추가
-          </button>
-
-        </div>
-
-        `
-        :""
-      }
-
-    </div>
-
-    `;
-
-  })
-  .join("");
-
-  document
-  .getElementById("blogPage")
-  .innerHTML=`
-
-  <div class="section-title">
-    블로그
-  </div>
-
-  <div class="tabs">
-
-    <button
-      class="tab ${
-        blogTab===20
-        ?"active":""
-      }"
-      onclick="
-      blogTab=20;
-      renderBlog()
-      "
-    >
-      20개 작성 가능 (5)
-    </button>
-
-    <button
-      class="tab ${
-        blogTab===10
-        ?"active":""
-      }"
-      onclick="
-      blogTab=10;
-      renderBlog()
-      "
-    >
-      10개 작성 가능 (10)
-    </button>
-
-  </div>
-
-  ${html}
-
-  `;
-
-}
-
-function blogRow(r){
-
-  let open=
-  openBlogRecords.has(r.id);
-
-  let editing=
-  editingBlogUrls.has(r.id);
-
-  let p=
-  r.status==="적립완료"
-  ?
-  (GRADE_POINTS[r.grade]||0)
-  :
-  0;
-
-  let u=
-  safeUrl(r.url);
-
-  return `
-
-  <div class="record">
-
-    <div class="post-summary">
-
-      <input
-        type="date"
-        value="${r.date}"
-        style="
-        font-size:10px;
-        padding:7px 3px
-        "
-        onclick="
-        event.stopPropagation()
-        "
-        onchange="
-        updateBlog(
-          '${r.id}',
-          'date',
-          this.value
-        )
-        "
-      >
-
-      <input
-        class="title-ellipsis"
-        value="${attr(r.title||"")}"
-        placeholder="글 제목"
-        onclick="
-        event.stopPropagation()
-        "
-        onchange="
-        updateBlog(
-          '${r.id}',
-          'title',
-          this.value
-        )
-        "
-      >
-
-      <div class="point-cell">
-
-        ${
-          p
-          ?won(p)
-          :"-"
-        }
-
-      </div>
-
-      ${
-        u
-        ?
-        `
-        <a
-          class="link-icon"
-          href="${attr(u)}"
-          target="_blank"
-          rel="noopener"
-          onclick="
-          event.stopPropagation()
-          "
-        >
-          🔗
-        </a>
-        `
-        :
-        `<span></span>`
-      }
-
-      <span
-        class="clickable"
-        onclick="
-        toggleBlogRecord('${r.id}')
-        "
-      >
-        ${open?"▲":"▼"}
-      </span>
-
-    </div>
-
-    ${
-      open
-      ?
-      `
-
-      <div class="expand">
-
-        <div class="grid2">
-
-          <div>
-
-            <label>
-              등급
-            </label>
-
-            <select
-              onchange="
-              updateBlog(
-                '${r.id}',
-                'grade',
-                this.value
-              )
-              "
-            >
-
-              ${
-                Object.keys(
-                  GRADE_POINTS
-                )
-                .map(
-                  x=>`
-                  <option
-                    ${
-                      r.grade===x
-                      ?"selected":""
-                    }
-                  >
-                    ${x}
-                  </option>
-                  `
-                )
-                .join("")
-              }
-
-            </select>
-
-          </div>
-
-          <div>
-
-            <label>
-              관리
-            </label>
-
-            <select
-              onchange="
-              updateBlog(
-                '${r.id}',
-                'status',
-                this.value
-              )
-              "
-            >
-
-              ${
-                [
-                  "작성완료",
-                  "적립신청",
-                  "적립완료"
-                ]
-                .map(
-                  x=>`
-                  <option
-                    ${
-                      r.status===x
-                      ?"selected":""
-                    }
-                  >
-                    ${x}
-                  </option>
-                  `
-                )
-                .join("")
-              }
-
-            </select>
-
-          </div>
-
-        </div>
-
-
-        <div
-          style="margin-top:10px"
-        >
-
-          <label>
-            게시물 링크
-          </label>
-
-          ${
-            editing||!u
-            ?
-            `
-
-            <div class="url-line">
-
-              <input
-                placeholder="https://blog.naver.com/..."
-                value="${attr(r.url||"")}"
-                onchange="
-                updateBlogUrl(
-                  '${r.id}',
-                  this.value
-                )
-                "
-              >
-
-              <button
-                class="smallbtn"
-                onclick="
-                finishBlogUrl('${r.id}')
-                "
-              >
-                저장
-              </button>
-
-            </div>
-
-            `
-            :
-            `
-
-            <div class="url-line">
-
-              <a
-                class="url-link"
-                href="${attr(u)}"
-                target="_blank"
-                rel="noopener"
-              >
-                ${esc(r.url)}
-              </a>
-
-              <button
-                class="smallbtn"
-                onclick="
-                editBlogUrl('${r.id}')
-                "
-              >
-                수정
-              </button>
-
-            </div>
-
-            `
-          }
-
-        </div>
-
-
-        <div
-          class="row between"
-          style="margin-top:12px"
-        >
-
-          <span class="muted">
-            적립완료 시
-            ${won(
-              GRADE_POINTS[r.grade]||0
-            )}
-          </span>
-
-          <button
-            class="smallbtn"
-            style="color:#d84a4a"
-            onclick="
-            deleteBlog('${r.id}')
-            "
-          >
-            삭제
-          </button>
-
-        </div>
-
-      </div>
-
-      `
-      :""
+      return;
     }
 
-  </div>
+  }
 
+  record.date = value;
+  record.month = newMonth;
+
+  saveData();
+
+}
+
+
+function updateStatus(id,value){
+
+  const record = appData.records.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openActivities.add(record.activity);
+
+  record.status = value;
+
+  saveData();
+
+}
+
+
+function deleteRecord(id){
+
+  const record = appData.records.find(
+    r=>r.id===id
+  );
+
+  if(record){
+    openActivities.add(record.activity);
+  }
+
+  if(!confirm("이 작성 내역을 삭제할까?")){
+    return;
+  }
+
+  appData.records = appData.records.filter(
+    r=>r.id!==id
+  );
+
+  saveData();
+
+}
+
+
+/* =========================
+   CLAIM HTML
+========================= */
+
+function createBatchClaim(activity,monthKey){
+
+  const claim = getClaim(
+    activity,
+    monthKey
+  );
+
+  const eligible = batchEligible(
+    activity,
+    monthKey
+  );
+
+  let potentialPoint = 0;
+
+  if(activity==="comment"){
+    potentialPoint = commentCount(monthKey)*1000;
+  }
+
+  if(activity==="diary"){
+    potentialPoint = eligible ? 5000 : 0;
+  }
+
+  let desc = "";
+
+  if(activity==="comment"){
+
+    desc = "작성한 댓글교류 횟수를 월말 또는 다음 달에 한 번에 신청해요.";
+
+  }else if(eligible){
+
+    desc = "20개 작성과 URL 번호 입력이 모두 완료됐어요. 이제 한 번에 신청할 수 있어요.";
+
+  }else{
+
+    desc = "결혼일기 20개와 URL 번호 20개를 모두 입력하면 신청할 수 있어요.";
+
+  }
+
+  return `
+    <div class="batch-claim">
+
+      <div class="batch-title">월별 적립신청</div>
+
+      <div class="batch-desc">
+        ${desc}
+      </div>
+
+      <div class="batch-fields">
+
+        <div>
+          <div class="batch-field-label">신청일</div>
+          <input
+            type="date"
+            class="claim-date"
+            value="${claim.date || ""}"
+            onchange="updateClaimDate('${activity}','${monthKey}',this.value)"
+            ${eligible ? "" : "disabled"}
+          >
+        </div>
+
+        <div>
+          <div class="batch-field-label">관리</div>
+
+          <select
+            class="claim-select ${statusClass(claim.status)}"
+            onchange="updateBatchStatus('${activity}','${monthKey}',this.value)"
+            ${eligible ? "" : "disabled"}
+          >
+
+            <option value="미신청" ${claim.status==="미신청" ? "selected" : ""}>
+              미신청
+            </option>
+
+            <option value="적립신청" ${claim.status==="적립신청" ? "selected" : ""}>
+              적립신청
+            </option>
+
+            <option value="적립완료" ${claim.status==="적립완료" ? "selected" : ""}>
+              적립완료
+            </option>
+
+          </select>
+        </div>
+
+      </div>
+
+      <div class="claim-bottom">
+
+        <div class="claim-status-text">
+          ${
+            claim.status==="적립완료"
+            ? "적립 완료"
+            : claim.status==="적립신청"
+            ? "적립 신청 중"
+            : "아직 적립되지 않았어요"
+          }
+        </div>
+
+        <div class="claim-point">
+          ${
+            claim.status==="적립완료"
+            ? `${formatNumber(potentialPoint)}P`
+            : potentialPoint>0
+            ? `신청 ${formatNumber(potentialPoint)}P`
+            : "-"
+          }
+        </div>
+
+      </div>
+
+    </div>
   `;
 
 }
 
-function toggleBlogCat(id){
 
-  if(
-    openBlogCategories.has(id)
-  ){
+/* =========================
+   COMMENT CARD
+========================= */
 
-    openBlogCategories.delete(id);
+function createCommentCard(){
 
-  }else{
+  const monthKey = getMonthKey(selectedDate);
 
-    openBlogCategories.add(id);
+  const count = commentCount(monthKey);
 
-  }
+  const earned = earnedPointsFor("comment",monthKey);
 
-  renderBlog();
+  const percentage = Math.min(100,count/10*100);
+
+  return `
+    <div class="card activity-card ${openActivities.has("comment") ? "open" : ""}">
+
+      <div class="activity-main" onclick="toggleActivity('comment')">
+
+        <div class="activity-top">
+
+          <div>
+
+            <div class="activity-name-row">
+              <div class="activity-name">댓글교류</div>
+              <div class="fold-arrow">▼</div>
+            </div>
+
+            <div class="activity-rule">
+              1회당 1,000P · 월 최대 10회
+            </div>
+
+          </div>
+
+          <div class="activity-right">
+            <div class="activity-count">${count} / 10</div>
+            <div class="activity-points">${formatNumber(earned)}P</div>
+          </div>
+
+        </div>
+
+        <div class="progress small-progress">
+          <div class="progress-bar" style="width:${percentage}%"></div>
+        </div>
+
+      </div>
+
+      <div class="activity-detail">
+
+        ${createCommentCalendar(monthKey)}
+
+        <div class="comment-result">
+          <div class="comment-result-top">
+            <div class="comment-result-count">
+              현재 ${count} / 10회
+            </div>
+
+            <div class="comment-result-point">
+              신청 가능 ${formatNumber(count*1000)}P
+            </div>
+          </div>
+
+          <div class="comment-max-text">
+            최대 10회 · 10,000P
+          </div>
+        </div>
+
+        ${createBatchClaim("comment",monthKey)}
+
+      </div>
+
+    </div>
+  `;
 
 }
 
-function toggleBlogRecord(id){
 
-  if(
-    openBlogRecords.has(id)
-  ){
+/* =========================
+   DIARY CARD
+========================= */
 
-    openBlogRecords.delete(id);
+function createDiaryCard(){
+
+  const monthKey = getMonthKey(selectedDate);
+
+  const records = recordsFor(
+    "diary",
+    monthKey
+  )
+  .slice()
+  .sort((a,b)=>a.date.localeCompare(b.date));
+
+  const count = records.length;
+
+  const urlCount = diaryValidUrlCount(monthKey);
+
+  const earned = earnedPointsFor("diary",monthKey);
+
+  const percentage = Math.min(100,count/20*100);
+
+  let rows = "";
+
+  if(count===0){
+
+    rows = `
+      <div class="empty">
+        아직 작성한 결혼일기가 없어요.
+      </div>
+    `;
 
   }else{
 
-    openBlogRecords.add(id);
+    rows = records.map(record=>`
+
+      <div class="diary-row">
+
+        <input
+          type="date"
+          class="diary-date"
+          value="${record.date}"
+          onchange="updateDiaryDate('${record.id}',this.value)"
+        >
+
+        <input
+          type="text"
+          inputmode="numeric"
+          class="url-number"
+          value="${record.urlNo || ""}"
+          placeholder="URL 번호"
+          onchange="updateDiaryUrl('${record.id}',this.value)"
+        >
+
+        <button
+          class="delete-btn"
+          onclick="deleteDiaryRecord('${record.id}')"
+        >
+          ×
+        </button>
+
+      </div>
+
+    `).join("");
 
   }
 
-  renderBlog();
+  let progressMessage = "";
+
+  if(count<20){
+
+    progressMessage = `${20-count}개 더 작성하면 신청 가능`;
+
+  }else if(urlCount<20){
+
+    progressMessage = `URL 번호 ${20-urlCount}개 더 입력하면 신청 가능`;
+
+  }else{
+
+    progressMessage = "20개 작성 완료 · 신청 가능";
+
+  }
+
+  return `
+    <div class="card activity-card ${openActivities.has("diary") ? "open" : ""}">
+
+      <div class="activity-main" onclick="toggleActivity('diary')">
+
+        <div class="activity-top">
+
+          <div>
+
+            <div class="activity-name-row">
+              <div class="activity-name">결혼일기</div>
+              <div class="fold-arrow">▼</div>
+            </div>
+
+            <div class="activity-rule">
+              월 20회 작성 시 5,000P
+            </div>
+
+          </div>
+
+          <div class="activity-right">
+            <div class="activity-count">${count} / 20</div>
+            <div class="activity-points">${formatNumber(earned)}P</div>
+          </div>
+
+        </div>
+
+        <div class="progress small-progress">
+          <div
+            class="progress-bar blue-bar"
+            style="width:${percentage}%"
+          ></div>
+        </div>
+
+      </div>
+
+      <div class="activity-detail">
+
+        <div class="diary-header">
+          <div>작성일</div>
+          <div>URL 번호</div>
+          <div></div>
+        </div>
+
+        ${rows}
+
+        <button
+          class="add-btn"
+          onclick="addDiaryRecord()"
+        >
+          + 결혼일기 추가
+        </button>
+
+        <div class="diary-progress-info">
+
+          <div class="diary-progress-main">
+            <div class="diary-progress-count">
+              ${count} / 20 작성
+            </div>
+
+            <div class="diary-progress-message">
+              URL ${urlCount} / 20
+            </div>
+          </div>
+
+          <div
+            class="${
+              count===20 && urlCount===20
+              ? "diary-complete"
+              : "diary-warning"
+            }"
+          >
+            ${progressMessage}
+          </div>
+
+        </div>
+
+        ${createBatchClaim("diary",monthKey)}
+
+      </div>
+
+    </div>
+  `;
 
 }
 
-function addBlog(cat){
 
-  let c=
-  BLOG_CATS.find(
-    x=>x.id===cat
+/* =========================
+   NORMAL MONTH CARD
+========================= */
+
+function createNormalActivityCard(key){
+
+  const activity = activities[key];
+
+  const monthKey = getMonthKey(selectedDate);
+
+  const records = recordsFor(key,monthKey);
+
+  const earned = earnedPointsFor(key,monthKey);
+
+  const percentage = Math.min(
+    100,
+    records.length/activity.monthlyMax*100
   );
 
-  let rs=
-  appData.blogRecords.filter(
-    r=>r.category===cat
+  let rows = "";
+
+  if(records.length===0){
+
+    rows = `
+      <div class="empty">
+        아직 작성한 내역이 없어요.
+      </div>
+    `;
+
+  }else{
+
+    rows = records
+    .slice()
+    .sort((a,b)=>b.date.localeCompare(a.date))
+    .map(record=>{
+
+      const pointText =
+        record.status==="적립완료"
+        ? `${formatNumber(activity.point)}P`
+        : "-";
+
+      return `
+        <div class="record-row">
+
+          <input
+            type="date"
+            class="record-date-input"
+            value="${record.date}"
+            onchange="updateRecordDate('${record.id}',this.value)"
+          >
+
+          <select
+            class="status-select ${statusClass(record.status)}"
+            onchange="updateStatus('${record.id}',this.value)"
+          >
+
+            <option value="작성완료" ${record.status==="작성완료" ? "selected" : ""}>
+              작성완료
+            </option>
+
+            <option value="적립신청" ${record.status==="적립신청" ? "selected" : ""}>
+              적립신청
+            </option>
+
+            <option value="적립완료" ${record.status==="적립완료" ? "selected" : ""}>
+              적립완료
+            </option>
+
+          </select>
+
+          <div class="record-point">
+            ${pointText}
+          </div>
+
+          <button
+            class="delete-btn"
+            onclick="deleteRecord('${record.id}')"
+          >
+            ×
+          </button>
+
+        </div>
+      `;
+
+    })
+    .join("");
+
+  }
+
+  const totalText = activity.totalMax
+  ? `
+      <div class="activity-rule">
+        전체 ${allRecordsFor(key).length} / ${activity.totalMax}회
+      </div>
+    `
+  : "";
+
+  return `
+    <div class="card activity-card ${openActivities.has(key) ? "open" : ""}">
+
+      <div class="activity-main" onclick="toggleActivity('${key}')">
+
+        <div class="activity-top">
+
+          <div>
+
+            <div class="activity-name-row">
+              <div class="activity-name">${activity.name}</div>
+              <div class="fold-arrow">▼</div>
+            </div>
+
+            <div class="activity-rule">
+              ${activity.rule}
+            </div>
+
+            ${totalText}
+
+          </div>
+
+          <div class="activity-right">
+            <div class="activity-count">
+              ${records.length} / ${activity.monthlyMax}
+            </div>
+
+            <div class="activity-points">
+              ${formatNumber(earned)}P
+            </div>
+          </div>
+
+        </div>
+
+        <div class="progress small-progress">
+          <div
+            class="progress-bar"
+            style="width:${percentage}%"
+          ></div>
+        </div>
+
+      </div>
+
+      <div class="activity-detail">
+
+        <div class="table-head">
+          <div>작성일</div>
+          <div>관리</div>
+          <div style="text-align:right">비고</div>
+          <div></div>
+        </div>
+
+        ${rows}
+
+        <button
+          class="add-btn"
+          onclick="addRecord('${key}')"
+        >
+          + 작성 추가
+        </button>
+
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+/* =========================
+   MONTH RENDER
+========================= */
+
+function renderMonthOverview(){
+
+  const monthKey = getMonthKey(selectedDate);
+
+  const monthRecords = appData.records.filter(
+    r=>r.month===monthKey
   );
 
-  if(
-    rs.length>=c.max
-  ) return;
+  let requested = monthRecords.filter(
+    r=>
+      r.activity!=="comment"
+      &&
+      r.activity!=="diary"
+      &&
+      r.status==="적립신청"
+  ).length;
 
-  let id=uid();
+  let completed = monthRecords.filter(
+    r=>
+      r.activity!=="comment"
+      &&
+      r.activity!=="diary"
+      &&
+      r.status==="적립완료"
+  ).length;
 
-  appData.blogRecords.push({
+  ["comment","diary"].forEach(key=>{
 
-    id,
+    const claim = getClaim(key,monthKey);
 
-    category:cat,
+    if(claim.status==="적립신청"){
+      requested++;
+    }
 
-    date:today(),
-
-    title:"새 블로그 글",
-
-    url:"",
-
-    grade:"일반",
-
-    status:"작성완료"
+    if(claim.status==="적립완료"){
+      completed++;
+    }
 
   });
 
-  openBlogCategories.add(cat);
-  openBlogRecords.add(id);
-  editingBlogUrls.add(id);
+  let point = 0;
 
-  save();
-  renderAll();
+  Object.keys(activities).forEach(key=>{
 
-}
+    point += earnedPointsFor(key,monthKey);
 
-function updateBlog(
-  id,
-  k,
-  v
-){
+  });
 
-  let r=
-  appData.blogRecords.find(
-    x=>x.id===id
-  );
+  document.getElementById(
+    "overviewWritten"
+  ).textContent = `${monthRecords.length}건`;
 
-  if(!r) return;
+  document.getElementById(
+    "overviewRequested"
+  ).textContent = `${requested}건`;
 
-  r[k]=v;
+  document.getElementById(
+    "overviewCompleted"
+  ).textContent = `${completed}건`;
 
-  save();
-  renderAll();
+  document.getElementById(
+    "overviewPoint"
+  ).textContent = `${formatNumber(point)}P`;
 
 }
 
-function updateBlogUrl(
-  id,
-  v
-){
 
-  let r=
-  appData.blogRecords.find(
-    x=>x.id===id
-  );
+function renderMonthPage(){
 
-  if(!r) return;
+  const year = selectedDate.getFullYear();
+  const month = selectedDate.getMonth()+1;
 
-  r.url=v;
+  document.getElementById(
+    "selectedMonthText"
+  ).textContent = `${year}년 ${month}월`;
 
-  save();
+  const now = new Date();
+
+  if(
+    year===now.getFullYear()
+    &&
+    month===now.getMonth()+1
+  ){
+
+    const lastDay = new Date(
+      year,
+      month,
+      0
+    ).getDate();
+
+    const remaining = lastDay-now.getDate();
+
+    document.getElementById(
+      "monthStatusText"
+    ).textContent =
+      `오늘은 ${month}월 ${now.getDate()}일 | 이번 달 D-${remaining}`;
+
+  }else{
+
+    document.getElementById(
+      "monthStatusText"
+    ).textContent =
+      `${year}년 ${month}월 활동 내역`;
+
+  }
+
+  document.getElementById(
+    "monthlyActivities"
+  ).innerHTML =
+    createCommentCard()
+    +
+    createNormalActivityCard("food")
+    +
+    createDiaryCard();
+
+  document.getElementById(
+    "limitedActivities"
+  ).innerHTML =
+    createNormalActivityCard("discussion")
+    +
+    createNormalActivityCard("likes")
+    +
+    createNormalActivityCard("instagram");
+
+  renderMonthOverview();
 
 }
 
-function editBlogUrl(id){
 
-  editingBlogUrls.add(id);
+/* =========================
+   BLOG
+========================= */
+
+function setBlogTab(max){
+
+  blogTab = max;
 
   renderBlog();
 
 }
 
-function finishBlogUrl(id){
 
-  editingBlogUrls.delete(id);
+function blogRecordsForCategory(categoryId){
 
-  save();
-  renderAll();
+  return appData.blogRecords.filter(
+    r=>r.category===categoryId
+  );
 
 }
 
-function deleteBlog(id){
 
-  if(
-    !confirm(
-      "이 블로그 글을 삭제할까요?"
-    )
-  ) return;
+function blogRecordPoint(record){
 
-  appData.blogRecords=
-  appData.blogRecords.filter(
+  if(record.status!=="적립완료"){
+    return 0;
+  }
+
+  return gradePoints[
+    record.grade
+  ] || 0;
+
+}
+
+
+function blogCategoryPoint(categoryId){
+
+  return blogRecordsForCategory(
+    categoryId
+  ).reduce(
+    (sum,record)=>sum+blogRecordPoint(record),
+    0
+  );
+
+}
+
+
+function totalBlogEarnedPoints(){
+
+  return appData.blogRecords.reduce(
+    (sum,record)=>sum+blogRecordPoint(record),
+    0
+  );
+
+}
+
+
+function completedBlogCount(){
+
+  return appData.blogRecords.filter(
+    r=>r.status==="적립완료"
+  ).length;
+
+}
+
+
+function toggleBlogCategory(categoryId){
+
+  if(openBlogCategories.has(categoryId)){
+    openBlogCategories.delete(categoryId);
+  }else{
+    openBlogCategories.add(categoryId);
+  }
+
+  renderBlog();
+
+}
+
+
+/* 개별 블로그 글 펼침 */
+function toggleBlogRecord(id){
+
+  if(openBlogRecords.has(id)){
+    openBlogRecords.delete(id);
+  }else{
+    openBlogRecords.add(id);
+  }
+
+  renderBlog();
+
+}
+
+
+function addBlogRecord(categoryId){
+
+  const category = blogCategories.find(
+    c=>c.id===categoryId
+  );
+
+  if(!category){
+    return;
+  }
+
+  const current = blogRecordsForCategory(
+    categoryId
+  );
+
+  if(current.length>=category.max){
+
+    alert(
+      `${category.name}은(는) 최대 ${category.max}개까지 작성할 수 있어.`
+    );
+
+    return;
+  }
+
+  openBlogCategories.add(categoryId);
+
+  const id = newId();
+
+  appData.blogRecords.push({
+    id,
+    category:categoryId,
+    date:getTodayString(),
+    title:"",
+    url:"",
+    grade:"일반",
+    status:"작성완료"
+  });
+
+  openBlogRecords.add(id);
+  editingBlogUrls.add(id);
+
+  saveData();
+
+}
+
+
+function updateBlogDate(id,value){
+
+  if(!value){
+    return;
+  }
+
+  const record = appData.blogRecords.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openBlogCategories.add(record.category);
+
+  record.date = value;
+
+  saveData();
+
+}
+
+
+function updateBlogTitle(id,value){
+
+  const record = appData.blogRecords.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openBlogCategories.add(record.category);
+
+  record.title = value;
+
+  saveData();
+
+}
+
+
+function updateBlogGrade(id,value){
+
+  const record = appData.blogRecords.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openBlogCategories.add(record.category);
+  openBlogRecords.add(id);
+
+  record.grade = value;
+
+  saveData();
+
+}
+
+
+function updateBlogStatus(id,value){
+
+  const record = appData.blogRecords.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openBlogCategories.add(record.category);
+  openBlogRecords.add(id);
+
+  record.status = value;
+
+  saveData();
+
+}
+
+
+function updateBlogUrl(id,value){
+
+  const record = appData.blogRecords.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openBlogCategories.add(record.category);
+  openBlogRecords.add(id);
+
+  record.url = value.trim();
+
+  /* 입력 중에는 전체 렌더링하지 않음 */
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(appData)
+  );
+
+}
+
+
+function startEditBlogUrl(id){
+
+  editingBlogUrls.add(id);
+  openBlogRecords.add(id);
+
+  renderBlog();
+
+}
+
+
+function finishEditBlogUrl(id){
+
+  editingBlogUrls.delete(id);
+
+  saveData();
+
+}
+
+
+function deleteBlogRecord(id){
+
+  const record = appData.blogRecords.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openBlogCategories.add(record.category);
+
+  if(!confirm("이 블로그 기록을 삭제할까?")){
+    return;
+  }
+
+  appData.blogRecords = appData.blogRecords.filter(
     r=>r.id!==id
   );
 
   openBlogRecords.delete(id);
   editingBlogUrls.delete(id);
 
-  save();
-  renderAll();
+  saveData();
 
 }
 
-/* =========================
-   정보공유
-========================= */
 
-function renderShare(){
+function createBlogRecordRow(record){
 
-  let posts=
-  appData.sharePosts;
+  const pointValue = blogRecordPoint(record);
 
-  document
-  .getElementById("sharePage")
-  .innerHTML=`
+  const isOpen = openBlogRecords.has(
+    record.id
+  );
 
-  <div
-    class="row between"
-    style="margin-bottom:12px"
-  >
+  const isEditingUrl = editingBlogUrls.has(
+    record.id
+  );
 
-    <div
-      class="section-title"
-      style="margin:0"
-    >
-      정보공유
-    </div>
+  const targetUrl = safeUrl(
+    record.url
+  );
 
-    <button
-      class="btn"
-      onclick="addSharePost()"
-    >
-      + 글 추가
-    </button>
+  let urlArea = "";
 
-  </div>
+  if(
+    isEditingUrl
+    ||
+    !targetUrl
+  ){
 
-  ${
-    posts.length
-    ?
-    posts.map(sharePost).join("")
-    :
-    `
-    <div class="card empty">
-      아직 정보공유 글이 없어요.
-    </div>
-    `
+    urlArea = `
+      <div class="blog-url-edit">
+
+        <input
+          type="text"
+          class="blog-url-input"
+          value="${escapeAttribute(record.url || "")}"
+          placeholder="https://blog.naver.com/..."
+          onclick="event.stopPropagation()"
+          onchange="updateBlogUrl('${record.id}',this.value)"
+        >
+
+        <button
+          class="blog-edit-btn"
+          onclick="event.stopPropagation();finishEditBlogUrl('${record.id}')"
+        >
+          저장
+        </button>
+
+      </div>
+    `;
+
+  }else{
+
+    urlArea = `
+      <div class="blog-url-view">
+
+        <a
+          class="blog-url-link"
+          href="${escapeAttribute(targetUrl)}"
+          target="_blank"
+          rel="noopener"
+          onclick="event.stopPropagation()"
+        >
+          ${escapeHtml(record.url)}
+        </a>
+
+        <button
+          class="blog-edit-btn"
+          onclick="event.stopPropagation();startEditBlogUrl('${record.id}')"
+        >
+          수정
+        </button>
+
+      </div>
+    `;
+
   }
 
-  `;
-
-}
-
-function sharePost(p){
-
-  let open=
-  openSharePosts.has(p.id);
-
-  let pts=
-  p.shares
-  .filter(
-    s=>s.status==="적립완료"
-  )
-  .length*1000;
-
-  let u=
-  safeUrl(p.url);
-
   return `
+    <div class="blog-post ${isOpen ? "open" : ""}">
 
-  <div class="card">
-
-    <div class="share-header-grid">
-
-      <div>
-
-        <label>
-          작성일
-        </label>
+      <div
+        class="blog-post-summary"
+        onclick="toggleBlogRecord('${record.id}')"
+      >
 
         <input
           type="date"
-          value="${p.date}"
-          onchange="
-          updateSharePost(
-            '${p.id}',
-            'date',
-            this.value
-          )
-          "
+          class="blog-summary-date"
+          value="${record.date}"
+          onclick="event.stopPropagation()"
+          onchange="updateBlogDate('${record.id}',this.value)"
         >
-
-      </div>
-
-      <div>
-
-        <label>
-          글 제목
-        </label>
 
         <input
-          value="${attr(p.title||"")}"
-          placeholder="작성한 글 제목"
-          onchange="
-          updateSharePost(
-            '${p.id}',
-            'title',
-            this.value
-          )
-          "
+          type="text"
+          class="blog-summary-title"
+          value="${escapeAttribute(record.title || "")}"
+          placeholder="글 제목"
+          onclick="event.stopPropagation()"
+          onchange="updateBlogTitle('${record.id}',this.value)"
         >
 
-      </div>
-
-    </div>
-
-
-    <div
-      class="row between"
-      style="margin-top:10px"
-    >
-
-      <div
-        class="row"
-        style="min-width:0"
-      >
+        <div class="blog-summary-point">
+          ${
+            pointValue>0
+            ? `${formatNumber(pointValue)}P`
+            : "-"
+          }
+        </div>
 
         ${
-          u
+          targetUrl
           ?
           `
-
           <a
-            class="url-link"
-            href="${attr(u)}"
+            class="blog-link-icon"
+            href="${escapeAttribute(targetUrl)}"
             target="_blank"
             rel="noopener"
+            onclick="event.stopPropagation()"
           >
-            ${esc(p.url)}
+            🔗
           </a>
-
           `
           :
-          `
-
-          <span class="muted">
-            게시물 링크 없음
-          </span>
-
-          `
+          `<div></div>`
         }
 
-      </div>
-
-
-      <div class="row">
-
-        <span class="badge">
-
-          ${p.shares.length}건
-          ·
-          ${won(pts)}
-
-        </span>
-
-        <button
-          class="smallbtn"
-          onclick="
-          toggleSharePost('${p.id}')
-          "
-        >
-          ${open?"▲":"▼"}
-        </button>
+        <div class="blog-post-arrow">
+          ▼
+        </div>
 
       </div>
 
-    </div>
+      <div class="blog-post-detail">
 
+        <div class="blog-post-controls">
 
-    ${
-      open
-      ?
-      `
+          <div>
 
-      <div class="expand">
+            <div class="blog-control-label">
+              등급
+            </div>
 
-        <div>
+            <select
+              class="blog-detail-select ${gradeClass(record.grade)}"
+              onchange="updateBlogGrade('${record.id}',this.value)"
+            >
 
-          <label>
-            게시물 URL
-          </label>
+              <option
+                value="일반"
+                ${record.grade==="일반" ? "selected" : ""}
+              >
+                일반
+              </option>
 
-          <input
-            placeholder="https://..."
-            value="${attr(p.url||"")}"
-            onchange="
-            updateSharePost(
-              '${p.id}',
-              'url',
-              this.value
-            )
-            "
-          >
+              <option
+                value="우수"
+                ${record.grade==="우수" ? "selected" : ""}
+              >
+                우수
+              </option>
+
+              <option
+                value="서포터즈"
+                ${record.grade==="서포터즈" ? "selected" : ""}
+              >
+                서포터즈
+              </option>
+
+            </select>
+
+          </div>
+
+          <div>
+
+            <div class="blog-control-label">
+              관리
+            </div>
+
+            <select
+              class="blog-detail-select ${statusClass(record.status)}"
+              onchange="updateBlogStatus('${record.id}',this.value)"
+            >
+
+              <option
+                value="작성완료"
+                ${record.status==="작성완료" ? "selected" : ""}
+              >
+                작성완료
+              </option>
+
+              <option
+                value="적립신청"
+                ${record.status==="적립신청" ? "selected" : ""}
+              >
+                적립신청
+              </option>
+
+              <option
+                value="적립완료"
+                ${record.status==="적립완료" ? "selected" : ""}
+              >
+                적립완료
+              </option>
+
+            </select>
+
+          </div>
 
         </div>
 
+        <div class="blog-url-box">
 
-        <div
-          style="margin-top:12px"
-        >
+          <div class="blog-control-label">
+            게시물 링크
+          </div>
 
-          ${
-            p.shares
-            .map(
-              s=>shareRow(p,s)
-            )
-            .join("")
-          }
+          ${urlArea}
 
         </div>
 
+        <div class="blog-post-bottom">
 
-        <button
-          class="btn light"
-          style="
-          width:100%;
-          margin-top:8px
-          "
-          onclick="
-          addShare('${p.id}')
-          "
-        >
-          + 공유 추가
-        </button>
-
-
-        <div
-          style="
-          text-align:right;
-          margin-top:10px
-          "
-        >
+          <div class="blog-post-point-guide">
+            적립완료 시
+            ${formatNumber(gradePoints[record.grade] || 0)}P
+          </div>
 
           <button
-            class="smallbtn"
-            style="color:#d84a4a"
-            onclick="
-            deleteSharePost('${p.id}')
-            "
+            class="blog-delete-text"
+            onclick="deleteBlogRecord('${record.id}')"
           >
-            글 삭제
+            삭제
           </button>
 
         </div>
 
       </div>
 
-      `
-      :""
-    }
-
-  </div>
-
+    </div>
   `;
 
 }
 
-function shareRow(
-  p,
-  s
-){
+
+function createBlogCategoryCard(category){
+
+  const records = blogRecordsForCategory(
+    category.id
+  )
+  .slice()
+  .sort(
+    (a,b)=>b.date.localeCompare(a.date)
+  );
+
+  const point = blogCategoryPoint(
+    category.id
+  );
+
+  const completed = records.filter(
+    r=>r.status==="적립완료"
+  ).length;
+
+  const percentage = Math.min(
+    100,
+    records.length/category.max*100
+  );
+
+  let rows = "";
+
+  if(records.length===0){
+
+    rows = `
+      <div class="empty">
+        아직 작성한 글이 없어요.
+      </div>
+    `;
+
+  }else{
+
+    rows = records
+      .map(createBlogRecordRow)
+      .join("");
+
+  }
 
   return `
+    <div class="card blog-category-card ${openBlogCategories.has(category.id) ? "open" : ""}">
 
-  <div class="record">
-
-    <div class="share-row">
-
-      <div>
-
-        <label>
-          공유일
-        </label>
-
-        <input
-          type="date"
-          value="${s.date}"
-          onchange="
-          updateShare(
-            '${p.id}',
-            '${s.id}',
-            'date',
-            this.value
-          )
-          "
-        >
-
-      </div>
-
-      <div>
-
-        <label>
-          이메일
-        </label>
-
-        <input
-          type="email"
-          value="${attr(s.email||"")}"
-          placeholder="example@email.com"
-          onchange="
-          updateShare(
-            '${p.id}',
-            '${s.id}',
-            'email',
-            this.value
-          )
-          "
-        >
-
-      </div>
-
-    </div>
-
-
-    <div class="share-actions">
-
-      <select
-        onchange="
-        updateShare(
-          '${p.id}',
-          '${s.id}',
-          'status',
-          this.value
-        )
-        "
+      <div
+        class="blog-category-head"
+        onclick="toggleBlogCategory('${category.id}')"
       >
 
-        ${
-          [
-            "전송완료",
-            "적립신청",
-            "적립완료"
-          ]
-          .map(
-            x=>`
-            <option
-              ${
-                s.status===x
-                ?"selected":""
-              }
+        <div class="blog-category-top">
+
+          <div class="blog-category-icon">
+            ${category.icon}
+          </div>
+
+          <div>
+
+            <div class="blog-category-name-line">
+              <div class="blog-category-name">
+                ${category.name}
+              </div>
+
+              <div class="blog-count-badge">
+                ${records.length} / ${category.max}
+              </div>
+            </div>
+
+            <div class="blog-cat-progress-row">
+
+              <div class="blog-cat-progress">
+                <div style="width:${percentage}%"></div>
+              </div>
+
+              <div class="blog-percent">
+                ${Math.round(percentage)}%
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="blog-category-point">
+
+            <strong>
+              ${formatNumber(point)}P
+            </strong>
+
+            <span>
+              적립완료 기준
+            </span>
+
+            <div
+              class="fold-arrow"
+              style="margin-top:5px;"
             >
-              ${x}
-            </option>
-            `
-          )
-          .join("")
-        }
+              ▼
+            </div>
 
-      </select>
+          </div>
 
-      <button
-        class="smallbtn"
-        onclick="
-        deleteShare(
-          '${p.id}',
-          '${s.id}'
-        )
-        "
-      >
-        삭제
-      </button>
+        </div>
+
+      </div>
+
+      <div class="blog-category-detail">
+
+        <div class="blog-detail-top">
+
+          <div class="blog-detail-title">
+            작성한 글 (${records.length})
+          </div>
+
+          <button
+            class="mini-add-btn"
+            onclick="event.stopPropagation();addBlogRecord('${category.id}')"
+          >
+            + 글 추가
+          </button>
+
+        </div>
+
+        ${rows}
+
+        <div class="blog-category-footer">
+          적립완료
+          <strong>${completed}건</strong>
+          &nbsp; | &nbsp;
+          <strong>${formatNumber(point)}P</strong>
+        </div>
+
+      </div>
 
     </div>
-
-
-    <div
-      class="muted"
-      style="margin-top:6px"
-    >
-      적립완료 시 1,000P
-    </div>
-
-  </div>
-
   `;
 
 }
+
+
+function renderBlog(){
+
+  document.getElementById(
+    "blogTab20"
+  ).classList.toggle(
+    "active",
+    blogTab===20
+  );
+
+  document.getElementById(
+    "blogTab10"
+  ).classList.toggle(
+    "active",
+    blogTab===10
+  );
+
+  document.getElementById(
+    "blogTabInfo"
+  ).textContent =
+    blogTab===20
+    ? "대분류별로 최대 20개까지 작성할 수 있어요. 항목을 눌러 작성 내역을 확인해보세요."
+    : "대분류별로 최대 10개까지 작성할 수 있어요. 항목을 눌러 작성 내역을 확인해보세요.";
+
+  const categories = blogCategories.filter(
+    c=>c.max===blogTab
+  );
+
+  document.getElementById(
+    "blogCategories"
+  ).innerHTML =
+    categories
+    .map(createBlogCategoryCard)
+    .join("");
+
+}
+
+
+/* =========================
+   INFORMATION SHARE
+========================= */
+
+function totalShareEarnedPoints(){
+
+  let total = 0;
+
+  appData.sharePosts.forEach(post=>{
+
+    post.shares.forEach(share=>{
+
+      if(share.status==="적립완료"){
+        total += 1000;
+      }
+
+    });
+
+  });
+
+  return total;
+
+}
+
+
+function completedShareCount(){
+
+  let count = 0;
+
+  appData.sharePosts.forEach(post=>{
+
+    post.shares.forEach(share=>{
+
+      if(share.status==="적립완료"){
+        count++;
+      }
+
+    });
+
+  });
+
+  return count;
+
+}
+
 
 function addSharePost(){
 
-  let id=uid();
+  const id = newId();
 
   appData.sharePosts.unshift({
-
     id,
-
-    date:today(),
-
+    date:getTodayString(),
     title:"새 정보공유 글",
-
     url:"",
-
     shares:[]
-
   });
 
   openSharePosts.add(id);
 
-  save();
-  renderAll();
+  saveData();
 
 }
 
+
 function toggleSharePost(id){
 
-  if(
-    openSharePosts.has(id)
-  ){
-
+  if(openSharePosts.has(id)){
     openSharePosts.delete(id);
-
   }else{
-
     openSharePosts.add(id);
-
   }
 
   renderShare();
 
 }
 
-function updateSharePost(
-  id,
-  k,
-  v
-){
 
-  let p=
-  appData.sharePosts.find(
-    x=>x.id===id
+function updateSharePostDate(id,value){
+
+  if(!value){
+    return;
+  }
+
+  const post = appData.sharePosts.find(
+    p=>p.id===id
   );
 
-  if(!p) return;
+  if(!post){
+    return;
+  }
 
-  p[k]=v;
+  openSharePosts.add(id);
 
-  save();
-  renderAll();
+  post.date = value;
+
+  saveData();
 
 }
 
+
+function updateSharePostTitle(id,value){
+
+  const post = appData.sharePosts.find(
+    p=>p.id===id
+  );
+
+  if(!post){
+    return;
+  }
+
+  openSharePosts.add(id);
+
+  post.title = value.trim() || "제목 없음";
+
+  saveData();
+
+}
+
+
+/* 정보공유 URL */
+function updateSharePostUrl(id,value){
+
+  const post = appData.sharePosts.find(
+    p=>p.id===id
+  );
+
+  if(!post){
+    return;
+  }
+
+  openSharePosts.add(id);
+
+  post.url = value.trim();
+
+  saveData();
+
+}
+
+
 function deleteSharePost(id){
 
-  if(
-    !confirm(
-      "이 정보공유 글과 공유 내역을 모두 삭제할까요?"
-    )
-  ) return;
+  if(!confirm("이 정보공유 글과 안에 있는 공유 내역을 모두 삭제할까?")){
+    return;
+  }
 
-  appData.sharePosts=
-  appData.sharePosts.filter(
+  appData.sharePosts = appData.sharePosts.filter(
     p=>p.id!==id
   );
 
   openSharePosts.delete(id);
 
-  save();
-  renderAll();
+  saveData();
 
 }
 
-function addShare(pid){
 
-  let p=
-  appData.sharePosts.find(
-    x=>x.id===pid
+function addShareRecord(postId){
+
+  const post = appData.sharePosts.find(
+    p=>p.id===postId
   );
 
-  if(!p) return;
+  if(!post){
+    return;
+  }
 
-  p.shares.push({
+  openSharePosts.add(postId);
 
-    id:uid(),
-
-    date:today(),
-
+  post.shares.push({
+    id:newId(),
+    date:getTodayString(),
     email:"",
-
     status:"전송완료"
-
   });
 
-  save();
-  renderAll();
+  saveData();
 
 }
 
-function updateShare(
-  pid,
-  sid,
-  k,
-  v
-){
 
-  let p=
-  appData.sharePosts.find(
-    x=>x.id===pid
+function updateShareDate(postId,shareId,value){
+
+  if(!value){
+    return;
+  }
+
+  const post = appData.sharePosts.find(
+    p=>p.id===postId
   );
 
-  let s=
-  p?.shares.find(
-    x=>x.id===sid
+  if(!post){
+    return;
+  }
+
+  const share = post.shares.find(
+    s=>s.id===shareId
   );
 
-  if(!s) return;
+  if(!share){
+    return;
+  }
 
-  s[k]=v;
+  openSharePosts.add(postId);
 
-  save();
-  renderAll();
+  share.date = value;
+
+  saveData();
 
 }
 
-function deleteShare(
-  pid,
-  sid
-){
 
-  let p=
-  appData.sharePosts.find(
-    x=>x.id===pid
+function updateShareEmail(postId,shareId,value){
+
+  const post = appData.sharePosts.find(
+    p=>p.id===postId
   );
 
-  if(!p) return;
+  if(!post){
+    return;
+  }
 
-  p.shares=
-  p.shares.filter(
-    s=>s.id!==sid
+  const share = post.shares.find(
+    s=>s.id===shareId
   );
 
-  save();
-  renderAll();
+  if(!share){
+    return;
+  }
+
+  openSharePosts.add(postId);
+
+  share.email = value.trim();
+
+  saveData();
 
 }
 
-/* =========================
-   카페
-========================= */
 
-function renderCafe(){
+function updateShareStatus(postId,shareId,value){
 
-  document
-  .getElementById("cafePage")
-  .innerHTML=`
+  const post = appData.sharePosts.find(
+    p=>p.id===postId
+  );
 
-  <div class="section-title">
-    카페활동
-  </div>
+  if(!post){
+    return;
+  }
 
-  <div class="card">
+  const share = post.shares.find(
+    s=>s.id===shareId
+  );
 
-    <div class="empty">
+  if(!share){
+    return;
+  }
 
-      카페활동 상세 메뉴는
-      다음 단계에서 만들 수 있어요.
+  openSharePosts.add(postId);
 
-      <br><br>
+  share.status = value;
 
-      댓글교류와 결혼일기는
-      현재 월별신청에서 관리됩니다.
+  saveData();
+
+}
+
+
+function deleteShareRecord(postId,shareId){
+
+  const post = appData.sharePosts.find(
+    p=>p.id===postId
+  );
+
+  if(!post){
+    return;
+  }
+
+  openSharePosts.add(postId);
+
+  if(!confirm("이 공유 내역을 삭제할까?")){
+    return;
+  }
+
+  post.shares = post.shares.filter(
+    s=>s.id!==shareId
+  );
+
+  saveData();
+
+}
+
+
+function createSharePostCard(post){
+
+  const totalShares = post.shares.length;
+
+  const completedShares = post.shares.filter(
+    s=>s.status==="적립완료"
+  ).length;
+
+  const point = completedShares*1000;
+
+  const targetUrl = safeUrl(
+    post.url
+  );
+
+  let rows = "";
+
+  if(totalShares===0){
+
+    rows = `
+      <div class="empty">
+        아직 이메일 공유 내역이 없어요.
+      </div>
+    `;
+
+  }else{
+
+    const sortedShares = post.shares
+    .slice()
+    .sort(
+      (a,b)=>b.date.localeCompare(a.date)
+    );
+
+    rows = sortedShares.map(share=>`
+
+      <div class="share-row">
+
+        <input
+          type="date"
+          class="share-date-input"
+          value="${share.date}"
+          onchange="updateShareDate('${post.id}','${share.id}',this.value)"
+        >
+
+        <input
+          type="email"
+          class="email-input"
+          value="${escapeAttribute(share.email || "")}"
+          placeholder="이메일 주소"
+          onchange="updateShareEmail('${post.id}','${share.id}',this.value)"
+        >
+
+        <select
+          class="share-status ${statusClass(share.status)}"
+          onchange="updateShareStatus('${post.id}','${share.id}',this.value)"
+        >
+
+          <option
+            value="전송완료"
+            ${share.status==="전송완료" ? "selected" : ""}
+          >
+            전송완료
+          </option>
+
+          <option
+            value="적립신청"
+            ${share.status==="적립신청" ? "selected" : ""}
+          >
+            적립신청
+          </option>
+
+          <option
+            value="적립완료"
+            ${share.status==="적립완료" ? "selected" : ""}
+          >
+            적립완료
+          </option>
+
+        </select>
+
+        <div class="share-point">
+          ${
+            share.status==="적립완료"
+            ? "1,000P"
+            : "-"
+          }
+        </div>
+
+        <button
+          class="delete-btn"
+          onclick="deleteShareRecord('${post.id}','${share.id}')"
+        >
+          ×
+        </button>
+
+      </div>
+
+    `).join("");
+
+  }
+
+  return `
+    <div class="card share-post-card ${openSharePosts.has(post.id) ? "open" : ""}">
+
+      <div
+        class="share-post-head"
+        onclick="toggleSharePost('${post.id}')"
+      >
+
+        <div class="share-post-head-top">
+
+          <div class="share-post-left">
+
+            <div class="share-post-date">
+              ${post.date}
+            </div>
+
+            <div class="share-post-title">
+              ${escapeHtml(post.title || "제목 없음")}
+            </div>
+
+            <div class="share-post-meta">
+              공유 ${totalShares}건 ·
+              적립완료
+              <strong>${completedShares}건</strong>
+              ·
+              <strong>${formatNumber(point)}P</strong>
+            </div>
+
+            ${
+              targetUrl
+              ?
+              `
+              <a
+                class="share-head-url"
+                href="${escapeAttribute(targetUrl)}"
+                target="_blank"
+                rel="noopener"
+                onclick="event.stopPropagation()"
+              >
+                🔗 ${escapeHtml(post.url)}
+              </a>
+              `
+              :
+              ""
+            }
+
+          </div>
+
+          <div class="fold-arrow">
+            ▼
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="share-post-detail">
+
+        <div class="share-post-fields">
+
+          <div>
+            <div class="field-label">작성일</div>
+
+            <input
+              type="date"
+              class="share-post-input"
+              value="${post.date}"
+              onchange="updateSharePostDate('${post.id}',this.value)"
+            >
+          </div>
+
+          <div>
+            <div class="field-label">글 제목</div>
+
+            <input
+              type="text"
+              class="share-post-input"
+              value="${escapeAttribute(post.title || "")}"
+              placeholder="정보공유 글 제목"
+              onchange="updateSharePostTitle('${post.id}',this.value)"
+            >
+          </div>
+
+          <button
+            class="delete-btn"
+            onclick="deleteSharePost('${post.id}')"
+          >
+            ×
+          </button>
+
+        </div>
+
+        <div class="share-post-url-box">
+
+          <div class="field-label">
+            게시물 URL
+          </div>
+
+          <input
+            type="text"
+            class="share-post-url-edit"
+            value="${escapeAttribute(post.url || "")}"
+            placeholder="https://blog.naver.com/..."
+            onchange="updateSharePostUrl('${post.id}',this.value)"
+          >
+
+          ${
+            targetUrl
+            ?
+            `
+            <a
+              class="share-head-url"
+              style="margin-top:7px;"
+              href="${escapeAttribute(targetUrl)}"
+              target="_blank"
+              rel="noopener"
+            >
+              🔗 ${escapeHtml(post.url)}
+            </a>
+            `
+            :
+            ""
+          }
+
+        </div>
+
+        <div class="share-table-head">
+          <div>공유일</div>
+          <div>이메일</div>
+          <div>관리</div>
+          <div>포인트</div>
+          <div></div>
+        </div>
+
+        ${rows}
+
+        <button
+          class="add-btn"
+          onclick="addShareRecord('${post.id}')"
+        >
+          + 공유 추가
+        </button>
+
+      </div>
 
     </div>
-
-  </div>
-
   `;
 
 }
 
+
+function renderShare(){
+
+  document.getElementById(
+    "shareTotalPoint"
+  ).textContent =
+    `${formatNumber(totalShareEarnedPoints())}P`;
+
+  if(appData.sharePosts.length===0){
+
+    document.getElementById(
+      "sharePosts"
+    ).innerHTML = `
+      <div class="card empty" style="padding:30px 15px;">
+        아직 등록한 정보공유 글이 없어요.<br>
+        위의 + 글 추가를 눌러 시작해보세요.
+      </div>
+    `;
+
+    return;
+  }
+
+  document.getElementById(
+    "sharePosts"
+  ).innerHTML =
+    appData.sharePosts
+    .slice()
+    .sort(
+      (a,b)=>b.date.localeCompare(a.date)
+    )
+    .map(createSharePostCard)
+    .join("");
+
+}
+
+
 /* =========================
-   백업
+   ESCAPE
 ========================= */
 
-function exportBackup(){
+function escapeHtml(value){
 
-  let blob=
-  new Blob(
+  return String(value || "")
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
+
+}
+
+
+function escapeAttribute(value){
+
+  return escapeHtml(value);
+
+}
+
+
+/* =========================
+   TOTAL POINT
+========================= */
+
+function newEarnedPoints(){
+
+  return (
+    allMonthlyEarnedPoints()
+    +
+    totalBlogEarnedPoints()
+    +
+    totalShareEarnedPoints()
+  );
+
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+function renderHome(){
+
+  const now = new Date();
+
+  const monthKey = getMonthKey(
+    now
+  );
+
+  const commentValue = commentCount(
+    monthKey
+  );
+
+  const diaryCount = recordsFor(
+    "diary",
+    monthKey
+  ).length;
+
+  const foodCount = recordsFor(
+    "food",
+    monthKey
+  ).length;
+
+  document.getElementById(
+    "homeCommentCount"
+  ).textContent =
+    `${commentValue} / 10`;
+
+  document.getElementById(
+    "homeDiaryCount"
+  ).textContent =
+    `${diaryCount} / 20`;
+
+  document.getElementById(
+    "homeFoodCount"
+  ).textContent =
+    `${foodCount} / 1`;
+
+  document.getElementById(
+    "homeCommentBar"
+  ).style.width =
+    `${Math.min(100,commentValue/10*100)}%`;
+
+  document.getElementById(
+    "homeDiaryBar"
+  ).style.width =
+    `${Math.min(100,diaryCount/20*100)}%`;
+
+  document.getElementById(
+    "homeFoodBar"
+  ).style.width =
+    `${Math.min(100,foodCount*100)}%`;
+
+  document.getElementById(
+    "homeMonthName"
+  ).textContent =
+    `${now.getFullYear()}년 ${now.getMonth()+1}월`;
+
+  const lastDay = new Date(
+    now.getFullYear(),
+    now.getMonth()+1,
+    0
+  ).getDate();
+
+  const remain = lastDay-now.getDate();
+
+  document.getElementById(
+    "homeTodayText"
+  ).textContent =
+    `오늘은 ${now.getMonth()+1}월 ${now.getDate()}일 | 이번 달 D-${remain}`;
+
+  const blogActivityPoint =
+    LEGACY_BLOG_POINT
+    +
+    totalBlogEarnedPoints()
+    +
+    totalShareEarnedPoints();
+
+  const blogActivityCount =
+    LEGACY_BLOG_COUNT
+    +
+    completedBlogCount()
+    +
+    completedShareCount();
+
+  document.getElementById(
+    "homeBlogPoint"
+  ).textContent =
+    `${formatNumber(blogActivityPoint)}원`;
+
+  document.getElementById(
+    "homeBlogCount"
+  ).textContent =
+    `${blogActivityCount}건`;
+
+  const cafePoint =
+    allMonthlyEarnedPoints();
+
+  const cafeCompleted =
+    getHistory()
+    .filter(item=>item.type==="month")
+    .length;
+
+  document.getElementById(
+    "homeCafePoint"
+  ).textContent =
+    `${formatNumber(cafePoint)}원`;
+
+  document.getElementById(
+    "homeCafeCount"
+  ).textContent =
+    `${cafeCompleted}건`;
+
+  const currentPoint =
+    LEGACY_INTRO_POINT
+    +
+    LEGACY_BLOG_POINT
+    +
+    newEarnedPoints();
+
+  document.getElementById(
+    "currentPoint"
+  ).textContent =
+    `${formatNumber(currentPoint)}원`;
+
+}
+
+
+/* =========================
+   HISTORY
+========================= */
+
+function getHistory(){
+
+  const history = [];
+
+  appData.records.forEach(record=>{
+
+    const activity = activities[
+      record.activity
+    ];
+
+    if(
+      !activity
+      ||
+      activity.batch
+      ||
+      record.status!=="적립완료"
+    ){
+      return;
+    }
+
+    history.push({
+      type:"month",
+      date:record.date,
+      name:activity.name,
+      point:activity.point
+    });
+
+  });
+
+  Object.keys(
+    appData.monthlyClaims
+  ).forEach(key=>{
+
+    const claim = appData.monthlyClaims[
+      key
+    ];
+
+    if(claim.status!=="적립완료"){
+      return;
+    }
+
+    const splitIndex = key.indexOf(":");
+
+    if(splitIndex===-1){
+      return;
+    }
+
+    const activity = key.slice(
+      0,
+      splitIndex
+    );
+
+    const monthKey = key.slice(
+      splitIndex+1
+    );
+
+    const monthNumber = Number(
+      monthKey.split("-")[1]
+    );
+
+    if(activity==="comment"){
+
+      const count = commentCount(
+        monthKey
+      );
+
+      if(count===0){
+        return;
+      }
+
+      history.push({
+        type:"month",
+        date:claim.date || `${monthKey}-01`,
+        name:`${monthNumber}월 댓글교류 ${count}회`,
+        point:count*1000
+      });
+
+    }
+
+    if(activity==="diary"){
+
+      if(!batchEligible("diary",monthKey)){
+        return;
+      }
+
+      history.push({
+        type:"month",
+        date:claim.date || `${monthKey}-01`,
+        name:`${monthNumber}월 결혼일기 20회`,
+        point:5000
+      });
+
+    }
+
+  });
+
+  appData.blogRecords.forEach(record=>{
+
+    if(record.status!=="적립완료"){
+      return;
+    }
+
+    const category = blogCategories.find(
+      c=>c.id===record.category
+    );
+
+    if(!category){
+      return;
+    }
+
+    history.push({
+      type:"blog",
+      date:record.date,
+      name:
+        record.title
+        ? `블로그 · ${record.title}`
+        : `블로그 · ${category.name} · ${record.grade}`,
+      point:gradePoints[record.grade] || 0
+    });
+
+  });
+
+  appData.sharePosts.forEach(post=>{
+
+    post.shares.forEach(share=>{
+
+      if(share.status!=="적립완료"){
+        return;
+      }
+
+      history.push({
+        type:"share",
+        date:share.date,
+        name:`정보공유 · ${post.title || "제목 없음"}`,
+        point:1000
+      });
+
+    });
+
+  });
+
+  return history.sort(
+    (a,b)=>b.date.localeCompare(a.date)
+  );
+
+}
+
+
+function renderHistory(){
+
+  const history = getHistory();
+
+  const total = history.reduce(
+    (sum,item)=>sum+item.point,
+    0
+  );
+
+  document.getElementById(
+    "historyTotal"
+  ).textContent =
+    `${formatNumber(total)}P`;
+
+  if(history.length===0){
+
+    document.getElementById(
+      "historyRows"
+    ).innerHTML = `
+      <div class="history-empty">
+        아직 적립완료된 내역이 없어요.
+      </div>
+    `;
+
+    return;
+  }
+
+  document.getElementById(
+    "historyRows"
+  ).innerHTML =
+    history.map(item=>`
+
+      <div class="history-row">
+
+        <div class="history-date">
+          ${item.date.slice(5).replace("-",".")}
+        </div>
+
+        <div class="history-name">
+          ${escapeHtml(item.name)}
+        </div>
+
+        <div class="history-point">
+          +${formatNumber(item.point)}P
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+/* =========================
+   WEDDING
+========================= */
+
+function renderWeddingDday(){
+
+  const wedding = new Date(
+    "2027-09-04T00:00:00"
+  );
+
+  const today = new Date();
+
+  today.setHours(0,0,0,0);
+
+  const diff = Math.ceil(
+    (wedding-today)
+    /
+    (1000*60*60*24)
+  );
+
+  document.getElementById(
+    "weddingDday"
+  ).textContent =
+    diff>=0
+    ? `D-${diff}`
+    : `D+${Math.abs(diff)}`;
+
+}
+
+
+/* =========================
+   BACKUP
+========================= */
+
+function exportData(){
+
+  const backup = {
+    version:5,
+    savedAt:new Date().toISOString(),
+    data:appData
+  };
+
+  const blob = new Blob(
     [
       JSON.stringify(
-        {
-          version:5,
-          exportedAt:
-          new Date().toISOString(),
-          data:appData
-        },
+        backup,
         null,
         2
       )
@@ -3076,116 +5549,137 @@ function exportBackup(){
     }
   );
 
-  let a=
-  document.createElement("a");
+  const url = URL.createObjectURL(
+    blob
+  );
 
-  a.href=
-  URL.createObjectURL(blob);
+  const a = document.createElement(
+    "a"
+  );
 
-  a.download=
-  `다이렉트포인트_백업_${today()}.json`;
+  a.href = url;
+
+  a.download =
+    `다이렉트포인트_백업_${getTodayString()}.json`;
+
+  document.body.appendChild(a);
 
   a.click();
 
-  URL.revokeObjectURL(
-    a.href
+  a.remove();
+
+  setTimeout(
+    ()=>URL.revokeObjectURL(url),
+    1000
   );
 
 }
 
-function importBackup(input){
 
-  let f=
-  input.files?.[0];
+function importData(event){
 
-  if(!f) return;
+  const file = event.target.files[0];
 
-  let r=
-  new FileReader();
+  if(!file){
+    return;
+  }
 
-  r.onload=()=>{
+  const reader = new FileReader();
+
+  reader.onload = function(e){
 
     try{
 
-      let x=
-      JSON.parse(r.result);
+      const parsed = JSON.parse(
+        e.target.result
+      );
 
-      appData=
-      x.data||x;
+      const imported =
+        parsed.data || parsed;
 
-      normalize();
+      if(!Array.isArray(imported.records)){
+        throw new Error();
+      }
+
+      if(!confirm("현재 기록을 백업 파일의 기록으로 바꿀까?")){
+
+        event.target.value = "";
+
+        return;
+      }
+
+      appData = {
+        records:imported.records || [],
+        monthlyClaims:imported.monthlyClaims || {},
+        blogRecords:imported.blogRecords || [],
+        sharePosts:imported.sharePosts || []
+      };
+
+      if(imported.diaryClaims){
+
+        Object.keys(
+          imported.diaryClaims
+        ).forEach(monthKey=>{
+
+          const status = imported.diaryClaims[
+            monthKey
+          ];
+
+          appData.monthlyClaims[
+            `diary:${monthKey}`
+          ] = {
+            status:
+              status==="작성완료"
+              ? "미신청"
+              : status,
+            date:""
+          };
+
+        });
+
+      }
+
+      normalizeData();
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(appData)
+      );
+
       renderAll();
 
-      alert(
-        "백업을 불러왔어요."
-      );
+      alert("백업 데이터를 불러왔어.");
 
-    }catch(e){
+    }catch{
 
-      alert(
-        "백업 파일을 확인해 주세요."
-      );
+      alert("이 파일은 사용할 수 있는 백업 파일이 아니야.");
 
     }
 
+    event.target.value = "";
+
   };
 
-  r.readAsText(f);
-
-  input.value="";
+  reader.readAsText(file);
 
 }
 
+
 /* =========================
-   전체 렌더
+   RENDER
 ========================= */
 
 function renderAll(){
 
+  renderWeddingDday();
   renderHome();
-  renderHistory();
-  renderMonth();
-  renderCafe();
+  renderMonthPage();
   renderBlog();
   renderShare();
+  renderHistory();
 
 }
 
-document
-.querySelectorAll("nav button")
-.forEach(b=>{
-
-  b.onclick=()=>{
-
-    document
-    .querySelectorAll(".page")
-    .forEach(
-      p=>
-      p.classList.remove("active")
-    );
-
-    document
-    .querySelectorAll("nav button")
-    .forEach(
-      x=>
-      x.classList.remove("active")
-    );
-
-    document
-    .getElementById(
-      b.dataset.page
-    )
-    .classList.add("active");
-
-    b.classList.add("active");
-
-    renderAll();
-
-  };
-
-});
-
-load();
 renderAll();
 
 </script>
