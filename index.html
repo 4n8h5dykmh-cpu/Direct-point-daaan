@@ -3699,7 +3699,14 @@ function createDiaryCard(){
       </div>
 
       <div class="activity-detail">
-
+      
+        <button
+          class="add-btn"
+          onclick="addDiaryRecord()"
+        >
+          + 결혼일기 추가
+        </button>
+        
         <div class="diary-header">
           <div>작성일</div>
           <div>URL 번호</div>
@@ -3707,13 +3714,6 @@ function createDiaryCard(){
         </div>
 
         ${rows}
-
-        <button
-          class="add-btn"
-          onclick="addDiaryRecord()"
-        >
-          + 결혼일기 추가
-        </button>
 
         <div class="diary-progress-info">
 
