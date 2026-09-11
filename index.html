@@ -1,370 +1,544 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#fffafa" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fffafa">
 
-  <title>다이렉트 포인트 현황</title>
+<title>다이렉트 포인트</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
+<style>
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: #fffafa;
-      color: #10254c;
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Apple SD Gothic Neo",
-        "Noto Sans KR",
-        sans-serif;
-    }
+html,body{
+  margin:0;
+  padding:0;
+  background:#fffafa;
+  color:#10254c;
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+}
 
-    body {
-      min-height: 100vh;
-    }
+body{
+  min-height:100vh;
+}
 
-    .app {
-      width: 100%;
-      max-width: 520px;
-      min-height: 100vh;
-      margin: 0 auto;
-      padding: 18px 14px 88px;
-    }
+button,
+select,
+input{
+  font-family:inherit;
+}
 
-    h1 {
-      margin: 6px 0 18px;
-      text-align: center;
-      font-size: 24px;
-      font-weight: 800;
-      letter-spacing: -0.9px;
-    }
+.app{
+  width:100%;
+  max-width:520px;
+  margin:0 auto;
+  min-height:100vh;
+  padding:18px 14px 92px;
+}
 
-    .card {
-      background: rgba(255, 255, 255, 0.96);
-      border: 1px solid #f1eded;
-      border-radius: 18px;
-      box-shadow: 0 4px 14px rgba(30, 40, 70, 0.04);
-    }
+.page{
+  display:none;
+}
 
-    .label {
-      color: #7a8595;
-      font-size: 12px;
-      margin-bottom: 4px;
-    }
+.page.active{
+  display:block;
+}
 
-    /* 예식일 */
-    .wedding-card {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 17px 18px;
-      margin-bottom: 10px;
-    }
+.page-title{
+  margin:6px 0 18px;
+  text-align:center;
+  font-size:24px;
+  font-weight:800;
+  letter-spacing:-1px;
+}
 
-    .wedding-date {
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: -0.6px;
-    }
+.card{
+  background:#fff;
+  border:1px solid #f0ecee;
+  border-radius:18px;
+  box-shadow:0 4px 14px rgba(30,40,70,.04);
+}
 
-    .dday {
-      min-width: 88px;
-      padding: 12px 10px;
-      text-align: center;
-      border-radius: 15px;
-      background: #fff0f5;
-      color: #ff2c69;
-      font-size: 21px;
-      font-weight: 800;
-    }
+.label{
+  font-size:12px;
+  color:#7c8797;
+  margin-bottom:4px;
+}
 
-    /* 목표 / 현재 */
-    .point-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 9px;
-      margin-bottom: 9px;
-    }
+/* HOME */
 
-    .point-card {
-      padding: 16px 14px;
-    }
+.wedding-card{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:17px 18px;
+  margin-bottom:10px;
+}
 
-    .big-number {
-      margin-top: 3px;
-      font-size: 21px;
-      font-weight: 800;
-      letter-spacing: -0.8px;
-      white-space: nowrap;
-    }
+.wedding-date{
+  font-size:18px;
+  font-weight:800;
+}
 
-    .current {
-      color: #ff2c69;
-    }
+.dday{
+  padding:11px 13px;
+  min-width:86px;
+  text-align:center;
+  border-radius:15px;
+  background:#fff0f5;
+  color:#ff2c69;
+  font-size:20px;
+  font-weight:800;
+}
 
-    /* 분야별 포인트 */
-    .category-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 11px;
-    }
+.point-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-bottom:9px;
+}
 
-    .category {
-      min-height: 120px;
-      padding: 14px 6px 12px;
-      text-align: center;
-    }
+.point-card{
+  padding:15px 13px;
+}
 
-    .icon {
-      width: 38px;
-      height: 38px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 8px;
-      border-radius: 13px;
-      font-size: 20px;
-    }
+.big-number{
+  font-size:20px;
+  font-weight:800;
+  white-space:nowrap;
+}
 
-    .pink {
-      background: #fff0f4;
-    }
+.current{
+  color:#ff2c69;
+}
 
-    .blue {
-      background: #eef8ff;
-    }
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-bottom:11px;
+}
 
-    .brown {
-      background: #fff4ed;
-    }
+.category{
+  min-height:116px;
+  padding:13px 6px 11px;
+  text-align:center;
+}
 
-    .category-title {
-      font-size: 11px;
-      font-weight: 700;
-      line-height: 1.35;
-    }
+.icon{
+  width:37px;
+  height:37px;
+  margin:0 auto 8px;
+  border-radius:13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:19px;
+}
 
-    .category-point {
-      margin-top: 6px;
-      font-size: 16px;
-      font-weight: 800;
-    }
+.pink-bg{background:#fff0f4;}
+.blue-bg{background:#eef8ff;}
+.brown-bg{background:#fff4ed;}
+.green-bg{background:#edfff5;}
 
-    .category-count {
-      margin-top: 3px;
-      font-size: 11px;
-      color: #929cab;
-    }
+.category-title{
+  font-size:10.5px;
+  font-weight:700;
+}
 
-    /* 이번 달 포인트 */
-    .monthly {
-      padding: 17px 15px 15px;
-    }
+.category-point{
+  margin-top:6px;
+  font-size:15px;
+  font-weight:800;
+}
 
-    .monthly-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 8px;
-      margin-bottom: 3px;
-    }
+.category-count{
+  margin-top:3px;
+  font-size:10.5px;
+  color:#939baa;
+}
 
-    .monthly-title {
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing: -0.4px;
-    }
+/* MONTH SUMMARY */
 
-    .month {
-      font-size: 12px;
-      color: #647084;
-      white-space: nowrap;
-      padding-top: 2px;
-    }
+.monthly-summary{
+  padding:16px 15px 14px;
+}
 
-    .today {
-      margin-bottom: 14px;
-      color: #8993a2;
-      font-size: 11px;
-    }
+.monthly-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:8px;
+}
 
-    .task {
-      display: grid;
-      grid-template-columns: 36px 1fr;
-      gap: 9px;
-      padding: 10px 0;
-      border-bottom: 1px solid #f2f2f4;
-    }
+.monthly-title{
+  font-size:16px;
+  font-weight:800;
+}
 
-    .task:last-of-type {
-      border-bottom: 0;
-    }
+.month-name{
+  font-size:11px;
+  color:#778294;
+}
 
-    .task-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 18px;
-    }
+.today-text{
+  margin-top:3px;
+  margin-bottom:12px;
+  font-size:10.5px;
+  color:#8a94a3;
+}
 
-    .task-title-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 7px;
-    }
+.summary-task{
+  display:grid;
+  grid-template-columns:35px 1fr;
+  gap:9px;
+  padding:9px 0;
+  border-bottom:1px solid #f0f1f3;
+}
 
-    .task-title {
-      font-size: 13px;
-      font-weight: 700;
-    }
+.summary-task:last-child{
+  border-bottom:0;
+}
 
-    .task-count {
-      font-size: 12px;
-      font-weight: 700;
-    }
+.task-icon{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 
-    .progress {
-      height: 8px;
-      background: #eceff3;
-      border-radius: 999px;
-      overflow: hidden;
-    }
+.task-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:6px;
+}
 
-    .progress > div {
-      height: 100%;
-      border-radius: 999px;
-    }
+.task-name{
+  font-size:12.5px;
+  font-weight:700;
+}
 
-    .bar-pink {
-      width: 60%;
-      background: linear-gradient(90deg, #ff5e91, #ff7ca7);
-    }
+.task-count{
+  font-size:11.5px;
+  font-weight:700;
+}
 
-    .bar-blue {
-      width: 60%;
-      background: linear-gradient(90deg, #49b7f5, #61caf8);
-    }
+.progress{
+  width:100%;
+  height:7px;
+  background:#edf0f3;
+  border-radius:999px;
+  overflow:hidden;
+}
 
-    .bar-green {
-      width: 100%;
-      background: linear-gradient(90deg, #40c985, #5bd99b);
-    }
+.progress-bar{
+  height:100%;
+  border-radius:999px;
+  background:#ff6f9b;
+  width:0%;
+  transition:.2s;
+}
 
-    .detail-btn {
-      margin-top: 13px;
-      width: 100%;
-      border: 0;
-      border-radius: 14px;
-      padding: 12px;
-      color: #ff2c69;
-      background: #fff0f4;
-      font-size: 12px;
-      font-weight: 800;
-    }
+.blue-bar{
+  background:#58bff5;
+}
 
-    /* 하단 메뉴 */
-    .bottom-nav {
-      position: fixed;
-      left: 50%;
-      bottom: 0;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 520px;
-      height: 74px;
-      padding: 6px 4px max(8px, env(safe-area-inset-bottom));
-      background: rgba(255, 255, 255, 0.98);
-      border-top: 1px solid #eeeeef;
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      z-index: 20;
-    }
+.green-bar{
+  background:#55cf91;
+}
 
-    .nav-item {
-      text-decoration: none;
-      color: #687386;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 3px;
-      border-radius: 13px;
-      font-size: 9px;
-      white-space: nowrap;
-    }
+.detail-btn{
+  margin-top:12px;
+  width:100%;
+  border:0;
+  border-radius:13px;
+  background:#fff0f4;
+  color:#ff2c69;
+  padding:11px;
+  font-size:11.5px;
+  font-weight:800;
+}
 
-    .nav-icon {
-      font-size: 18px;
-      line-height: 1;
-    }
+/* MONTH PAGE */
 
-    .nav-item.active {
-      background: #fff0f4;
-      color: #ff2c69;
-      font-weight: 800;
-    }
+.month-selector{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:8px;
+}
 
-    /* 작은 아이폰 대응 */
-    @media (max-width: 380px) {
-      .app {
-        padding-left: 10px;
-        padding-right: 10px;
-      }
+.month-selector button{
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:12px;
+  background:#fff;
+  color:#10254c;
+  font-size:18px;
+  box-shadow:0 2px 10px rgba(20,30,60,.05);
+}
 
-      h1 {
-        font-size: 22px;
-      }
+.selected-month{
+  font-size:17px;
+  font-weight:800;
+}
 
-      .big-number {
-        font-size: 19px;
-      }
+.month-status{
+  background:#10254c;
+  color:#fff;
+  border-radius:14px;
+  padding:11px 14px;
+  font-size:11.5px;
+  margin-bottom:12px;
+}
 
-      .category-title {
-        font-size: 10px;
-      }
+.section-title{
+  margin:18px 2px 9px;
+  font-size:15px;
+  font-weight:800;
+}
 
-      .category-point {
-        font-size: 15px;
-      }
+.activity-card{
+  margin-bottom:10px;
+  overflow:hidden;
+}
 
-      .monthly-title {
-        font-size: 15px;
-      }
-    }
-  </style>
+.activity-main{
+  padding:14px;
+  cursor:pointer;
+}
+
+.activity-top{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.activity-name{
+  font-size:14px;
+  font-weight:800;
+}
+
+.activity-rule{
+  margin-top:4px;
+  color:#7c8797;
+  font-size:10.5px;
+  line-height:1.5;
+}
+
+.activity-right{
+  text-align:right;
+  white-space:nowrap;
+}
+
+.activity-count{
+  font-size:12px;
+  font-weight:800;
+}
+
+.activity-points{
+  margin-top:4px;
+  color:#ff2c69;
+  font-size:11px;
+  font-weight:700;
+}
+
+.small-progress{
+  margin-top:10px;
+}
+
+.activity-detail{
+  display:none;
+  border-top:1px solid #f0f0f2;
+  background:#fffdfd;
+  padding:12px;
+}
+
+.activity-card.open .activity-detail{
+  display:block;
+}
+
+.table-head,
+.record-row{
+  display:grid;
+  grid-template-columns:74px 1fr 55px 26px;
+  gap:6px;
+  align-items:center;
+}
+
+.table-head{
+  padding:0 2px 6px;
+  font-size:9.5px;
+  color:#8993a1;
+}
+
+.record-row{
+  padding:7px 0;
+  border-top:1px solid #f1f1f3;
+}
+
+.record-date{
+  font-size:10.5px;
+}
+
+.status-select{
+  width:100%;
+  border:0;
+  border-radius:9px;
+  padding:7px 5px;
+  font-size:10px;
+  outline:none;
+}
+
+.status-written{
+  background:#eaf5ff;
+  color:#237bb0;
+}
+
+.status-request{
+  background:#fff3d7;
+  color:#b27300;
+}
+
+.status-done{
+  background:#ffe7ef;
+  color:#e12d69;
+}
+
+.record-point{
+  text-align:right;
+  font-size:10px;
+  font-weight:700;
+}
+
+.delete-btn{
+  width:25px;
+  height:25px;
+  border:0;
+  background:#f6f6f7;
+  color:#a1a8b2;
+  border-radius:8px;
+}
+
+.add-btn{
+  margin-top:10px;
+  width:100%;
+  padding:9px;
+  border:1px dashed #ff9db9;
+  border-radius:11px;
+  background:#fff7fa;
+  color:#ff477d;
+  font-size:11px;
+  font-weight:800;
+}
+
+.empty{
+  padding:12px 0;
+  text-align:center;
+  color:#a0a8b4;
+  font-size:10.5px;
+}
+
+.limit-info{
+  padding:12px 14px;
+  border-radius:14px;
+  background:#f3f6fb;
+  color:#657286;
+  font-size:10.5px;
+  line-height:1.5;
+  margin-bottom:9px;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+  position:fixed;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:520px;
+  height:74px;
+  padding:5px 3px max(8px,env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.98);
+  border-top:1px solid #ededee;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  z-index:100;
+}
+
+.nav-item{
+  border:0;
+  background:transparent;
+  color:#687386;
+  border-radius:12px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:3px;
+  font-size:9px;
+  white-space:nowrap;
+}
+
+.nav-icon{
+  font-size:17px;
+}
+
+.nav-item.active{
+  background:#fff0f4;
+  color:#ff2c69;
+  font-weight:800;
+}
+
+@media(max-width:380px){
+  .app{
+    padding-left:10px;
+    padding-right:10px;
+  }
+
+  .page-title{
+    font-size:22px;
+  }
+
+  .big-number{
+    font-size:18px;
+  }
+
+  .table-head,
+  .record-row{
+    grid-template-columns:67px 1fr 48px 24px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <main class="app">
+<div class="app">
 
-    <h1>다이렉트 포인트 현황</h1>
+  <!-- HOME -->
+  <section id="homePage" class="page active">
 
-    <section class="card wedding-card">
+    <h1 class="page-title">다이렉트 포인트 현황</h1>
+
+    <div class="card wedding-card">
       <div>
         <div class="label">예식일</div>
         <div class="wedding-date">2027.09.04 (토)</div>
       </div>
 
-      <div class="dday" id="dday">D-359</div>
-    </section>
+      <div class="dday" id="weddingDday">D-</div>
+    </div>
 
-    <section class="point-grid">
-
+    <div class="point-grid">
       <div class="card point-card">
         <div class="label">포인트 목표</div>
         <div class="big-number">3,000,000원</div>
@@ -374,165 +548,868 @@
         <div class="label">현재 포인트</div>
         <div class="big-number current">244,000원</div>
       </div>
+    </div>
 
-    </section>
-
-    <section class="category-grid">
+    <div class="category-grid">
 
       <div class="card category">
-        <div class="icon pink">👥</div>
+        <div class="icon pink-bg">👥</div>
         <div class="category-title">소개 가입 포인트</div>
         <div class="category-point">73,000원</div>
         <div class="category-count">3건</div>
       </div>
 
       <div class="card category">
-        <div class="icon blue">✏️</div>
+        <div class="icon blue-bg">✏️</div>
         <div class="category-title">블로그 활동 포인트</div>
         <div class="category-point">171,000원</div>
         <div class="category-count">28건</div>
       </div>
 
       <div class="card category">
-        <div class="icon brown">☕️</div>
+        <div class="icon brown-bg">☕️</div>
         <div class="category-title">카페 활동 포인트</div>
         <div class="category-point">0원</div>
         <div class="category-count">0건</div>
       </div>
 
-    </section>
+    </div>
 
-    <section class="card monthly">
+    <div class="card monthly-summary">
 
       <div class="monthly-head">
         <div class="monthly-title">놓치면 안되는 이번 달 포인트</div>
-        <div class="month">2026년 9월</div>
+        <div class="month-name" id="homeMonthName"></div>
       </div>
 
-      <div class="today" id="todayText">
-        오늘은 9월 11일 | 이번 달 D-19
-      </div>
+      <div class="today-text" id="homeTodayText"></div>
 
-      <div class="task">
-
-        <div class="task-icon pink">💬</div>
+      <div class="summary-task">
+        <div class="task-icon pink-bg">💬</div>
 
         <div>
-          <div class="task-title-row">
-            <div class="task-title">댓글</div>
-            <div class="task-count">6 / 10</div>
+          <div class="task-head">
+            <div class="task-name">댓글</div>
+            <div class="task-count" id="homeCommentCount">0 / 10</div>
           </div>
 
           <div class="progress">
-            <div class="bar-pink"></div>
+            <div class="progress-bar" id="homeCommentBar"></div>
           </div>
+        </div>
+      </div>
+
+      <div class="summary-task">
+        <div class="task-icon blue-bg">📄</div>
+
+        <div>
+          <div class="task-head">
+            <div class="task-name">일기</div>
+            <div class="task-count" id="homeDiaryCount">0 / 20</div>
+          </div>
+
+          <div class="progress">
+            <div class="progress-bar blue-bar" id="homeDiaryBar"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary-task">
+        <div class="task-icon green-bg">🍴</div>
+
+        <div>
+          <div class="task-head">
+            <div class="task-name">맛집 소개글</div>
+            <div class="task-count" id="homeFoodCount">0 / 1</div>
+          </div>
+
+          <div class="progress">
+            <div class="progress-bar green-bar" id="homeFoodBar"></div>
+          </div>
+        </div>
+      </div>
+
+      <button class="detail-btn" onclick="showPage('monthPage')">
+        이번 달 포인트 자세히 보기 ›
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- MONTH -->
+  <section id="monthPage" class="page">
+
+    <h1 class="page-title">월별신청</h1>
+
+    <div class="month-selector">
+      <button onclick="changeMonth(-1)">‹</button>
+      <div class="selected-month" id="selectedMonthText"></div>
+      <button onclick="changeMonth(1)">›</button>
+    </div>
+
+    <div class="month-status" id="monthStatusText"></div>
+
+    <div class="section-title">이번 달 활동</div>
+
+    <div id="monthlyActivities"></div>
+
+    <div class="section-title">횟수제한</div>
+
+    <div class="limit-info">
+      전체 기간동안 최대 횟수가 정해진 활동이에요.
+    </div>
+
+    <div id="limitedActivities"></div>
+
+  </section>
+
+</div>
+
+
+<nav class="bottom-nav">
+
+  <button class="nav-item active" data-page="homePage" onclick="showPage('homePage')">
+    <div class="nav-icon">⌂</div>
+    <div>홈</div>
+  </button>
+
+  <button class="nav-item" onclick="comingSoon()">
+    <div class="nav-icon">☷</div>
+    <div>적립내역</div>
+  </button>
+
+  <button class="nav-item" data-page="monthPage" onclick="showPage('monthPage')">
+    <div class="nav-icon">▣</div>
+    <div>월별신청</div>
+  </button>
+
+  <button class="nav-item" onclick="comingSoon()">
+    <div class="nav-icon">☕️</div>
+    <div>카페활동</div>
+  </button>
+
+  <button class="nav-item" onclick="comingSoon()">
+    <div class="nav-icon">✎</div>
+    <div>블로그</div>
+  </button>
+
+  <button class="nav-item" onclick="comingSoon()">
+    <div class="nav-icon">⌯</div>
+    <div>정보공유</div>
+  </button>
+
+</nav>
+
+
+<script>
+
+const STORAGE_KEY = "directPointData_v1";
+
+let selectedDate = new Date();
+selectedDate.setDate(1);
+
+const activities = {
+
+  comment:{
+    name:"댓글교류",
+    rule:"1회당 1,000P · 월 최대 10회",
+    monthlyMax:10,
+    totalMax:null,
+    point:1000,
+    type:"normal"
+  },
+
+  food:{
+    name:"맛집소개",
+    rule:"1건당 1,000P · 월 최대 1회",
+    monthlyMax:1,
+    totalMax:null,
+    point:1000,
+    type:"normal"
+  },
+
+  diary:{
+    name:"결혼일기",
+    rule:"월 20회 작성 시 5,000P",
+    monthlyMax:20,
+    totalMax:null,
+    point:5000,
+    type:"diary"
+  },
+
+  discussion:{
+    name:"결혼준비토론",
+    rule:"1회당 10,000P · 월 1회 · 최대 10회",
+    monthlyMax:1,
+    totalMax:10,
+    point:10000,
+    type:"normal"
+  },
+
+  likes:{
+    name:"좋아요 30개",
+    rule:"1회당 1,000P · 월 2회 · 최대 20회",
+    monthlyMax:2,
+    totalMax:20,
+    point:1000,
+    type:"normal"
+  },
+
+  instagram:{
+    name:"인스타그램",
+    rule:"포스팅 1건당 1,000P · 월 2회 · 최대 20회",
+    monthlyMax:2,
+    totalMax:20,
+    point:1000,
+    type:"normal"
+  }
+
+};
+
+
+function loadData(){
+
+  const saved = localStorage.getItem(STORAGE_KEY);
+
+  if(!saved){
+    return {records:[]};
+  }
+
+  try{
+    return JSON.parse(saved);
+  }catch{
+    return {records:[]};
+  }
+}
+
+
+let appData = loadData();
+
+
+function saveData(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(appData)
+  );
+
+  renderAll();
+}
+
+
+function getMonthKey(date){
+
+  const y = date.getFullYear();
+  const m = String(date.getMonth()+1).padStart(2,"0");
+
+  return `${y}-${m}`;
+}
+
+
+function getTodayString(){
+
+  const d = new Date();
+
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,"0");
+  const day = String(d.getDate()).padStart(2,"0");
+
+  return `${y}-${m}-${day}`;
+}
+
+
+function recordsFor(activityKey, monthKey){
+
+  return appData.records.filter(
+    r => r.activity === activityKey &&
+         r.month === monthKey
+  );
+}
+
+
+function allRecordsFor(activityKey){
+
+  return appData.records.filter(
+    r => r.activity === activityKey
+  );
+}
+
+
+function completedRecords(activityKey, monthKey){
+
+  return recordsFor(activityKey,monthKey)
+    .filter(r => r.status === "적립완료");
+}
+
+
+function pointsFor(activityKey, monthKey){
+
+  const activity = activities[activityKey];
+
+  if(activity.type === "diary"){
+
+    const written =
+      recordsFor(activityKey,monthKey).length;
+
+    const completed =
+      completedRecords(activityKey,monthKey).length;
+
+    if(written >= 20 && completed >= 20){
+      return 5000;
+    }
+
+    return 0;
+  }
+
+  return completedRecords(activityKey,monthKey).length
+    * activity.point;
+}
+
+
+function formatNumber(num){
+
+  return Number(num).toLocaleString("ko-KR");
+}
+
+
+function statusClass(status){
+
+  if(status === "작성완료"){
+    return "status-written";
+  }
+
+  if(status === "적립신청"){
+    return "status-request";
+  }
+
+  return "status-done";
+}
+
+
+function showPage(pageId){
+
+  document.querySelectorAll(".page")
+    .forEach(page => page.classList.remove("active"));
+
+  document.getElementById(pageId)
+    .classList.add("active");
+
+  document.querySelectorAll(".nav-item")
+    .forEach(btn => btn.classList.remove("active"));
+
+  const nav = document.querySelector(
+    `.nav-item[data-page="${pageId}"]`
+  );
+
+  if(nav){
+    nav.classList.add("active");
+  }
+
+  if(pageId === "monthPage"){
+    renderMonthPage();
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+function comingSoon(){
+
+  alert("이 메뉴는 다음 단계에서 만들게!");
+}
+
+
+function changeMonth(direction){
+
+  selectedDate.setMonth(
+    selectedDate.getMonth() + direction
+  );
+
+  renderMonthPage();
+}
+
+
+function addRecord(activityKey){
+
+  const monthKey = getMonthKey(selectedDate);
+  const activity = activities[activityKey];
+
+  const monthRecords =
+    recordsFor(activityKey,monthKey);
+
+  if(
+    activity.monthlyMax &&
+    monthRecords.length >= activity.monthlyMax
+  ){
+
+    alert(
+      `${activity.name}은(는) 이번 달 최대 ${activity.monthlyMax}회까지 작성할 수 있어.`
+    );
+
+    return;
+  }
+
+
+  if(activity.totalMax){
+
+    const total =
+      allRecordsFor(activityKey).length;
+
+    if(total >= activity.totalMax){
+
+      alert(
+        `${activity.name}은(는) 전체 기간 최대 ${activity.totalMax}회까지 가능해.`
+      );
+
+      return;
+    }
+  }
+
+
+  appData.records.push({
+
+    id:
+      Date.now().toString() +
+      Math.random().toString(16).slice(2),
+
+    activity:activityKey,
+
+    month:monthKey,
+
+    date:getTodayString(),
+
+    status:"작성완료"
+
+  });
+
+  saveData();
+}
+
+
+function deleteRecord(id){
+
+  const ok = confirm(
+    "이 작성 내역을 삭제할까?"
+  );
+
+  if(!ok){
+    return;
+  }
+
+  appData.records =
+    appData.records.filter(
+      r => r.id !== id
+    );
+
+  saveData();
+}
+
+
+function updateStatus(id,value){
+
+  const record =
+    appData.records.find(
+      r => r.id === id
+    );
+
+  if(!record){
+    return;
+  }
+
+  record.status = value;
+
+  saveData();
+}
+
+
+function toggleActivity(key){
+
+  const card =
+    document.getElementById(
+      `activity-${key}`
+    );
+
+  if(card){
+    card.classList.toggle("open");
+  }
+}
+
+
+function createActivityCard(key){
+
+  const activity = activities[key];
+
+  const monthKey =
+    getMonthKey(selectedDate);
+
+  const records =
+    recordsFor(key,monthKey);
+
+  const earned =
+    pointsFor(key,monthKey);
+
+  const percentage =
+    Math.min(
+      100,
+      (records.length /
+        activity.monthlyMax) * 100
+    );
+
+  let rows = "";
+
+  if(records.length === 0){
+
+    rows =
+      `<div class="empty">
+        아직 작성한 내역이 없어요.
+      </div>`;
+
+  }else{
+
+    rows = records.map(record => {
+
+      let pointText = "-";
+
+      if(record.status === "적립완료"){
+
+        if(activity.type === "diary"){
+
+          pointText =
+            records.length >= 20 &&
+            completedRecords(key,monthKey).length >= 20
+            ? "5,000P"
+            : "-";
+
+        }else{
+
+          pointText =
+            `${formatNumber(activity.point)}P`;
+        }
+      }
+
+
+      return `
+
+        <div class="record-row">
+
+          <div class="record-date">
+            ${record.date.slice(5).replace("-",".")}
+          </div>
+
+          <select
+            class="status-select ${statusClass(record.status)}"
+            onchange="updateStatus('${record.id}',this.value)"
+          >
+
+            <option
+              value="작성완료"
+              ${record.status === "작성완료" ? "selected" : ""}
+            >
+              작성완료
+            </option>
+
+            <option
+              value="적립신청"
+              ${record.status === "적립신청" ? "selected" : ""}
+            >
+              적립신청
+            </option>
+
+            <option
+              value="적립완료"
+              ${record.status === "적립완료" ? "selected" : ""}
+            >
+              적립완료
+            </option>
+
+          </select>
+
+          <div class="record-point">
+            ${pointText}
+          </div>
+
+          <button
+            class="delete-btn"
+            onclick="deleteRecord('${record.id}')"
+          >
+            ×
+          </button>
+
+        </div>
+      `;
+
+    }).join("");
+
+  }
+
+
+  let totalText = "";
+
+  if(activity.totalMax){
+
+    totalText =
+      `<div class="activity-rule">
+        전체 ${allRecordsFor(key).length} / ${activity.totalMax}회
+      </div>`;
+  }
+
+
+  return `
+
+  <div class="card activity-card" id="activity-${key}">
+
+    <div
+      class="activity-main"
+      onclick="toggleActivity('${key}')"
+    >
+
+      <div class="activity-top">
+
+        <div>
+
+          <div class="activity-name">
+            ${activity.name}
+          </div>
+
+          <div class="activity-rule">
+            ${activity.rule}
+          </div>
+
+          ${totalText}
+
+        </div>
+
+        <div class="activity-right">
+
+          <div class="activity-count">
+            ${records.length} / ${activity.monthlyMax}
+          </div>
+
+          <div class="activity-points">
+            ${formatNumber(earned)}P
+          </div>
+
         </div>
 
       </div>
 
-      <div class="task">
-
-        <div class="task-icon blue">📄</div>
-
-        <div>
-          <div class="task-title-row">
-            <div class="task-title">일기</div>
-            <div class="task-count">12 / 20</div>
-          </div>
-
-          <div class="progress">
-            <div class="bar-blue"></div>
-          </div>
-        </div>
-
+      <div class="progress small-progress">
+        <div
+          class="progress-bar"
+          style="width:${percentage}%"
+        ></div>
       </div>
 
-      <div class="task">
+    </div>
 
-        <div class="task-icon" style="background:#ecfff5;">🍴</div>
 
-        <div>
-          <div class="task-title-row">
-            <div class="task-title">맛집 소개글</div>
-            <div class="task-count">1 / 1</div>
-          </div>
+    <div class="activity-detail">
 
-          <div class="progress">
-            <div class="bar-green"></div>
-          </div>
-        </div>
-
+      <div class="table-head">
+        <div>작성일</div>
+        <div>관리</div>
+        <div style="text-align:right;">비고</div>
+        <div></div>
       </div>
 
-      <button class="detail-btn">이번 달 포인트 자세히 보기 ›</button>
+      ${rows}
 
-    </section>
+      <button
+        class="add-btn"
+        onclick="addRecord('${key}')"
+      >
+        + 작성 추가
+      </button>
 
-  </main>
+    </div>
 
-  <nav class="bottom-nav">
+  </div>
 
-    <a class="nav-item active" href="#">
-      <div class="nav-icon">⌂</div>
-      <div>홈</div>
-    </a>
+  `;
+}
 
-    <a class="nav-item" href="#">
-      <div class="nav-icon">☷</div>
-      <div>적립내역</div>
-    </a>
 
-    <a class="nav-item" href="#">
-      <div class="nav-icon">▣</div>
-      <div>월별신청</div>
-    </a>
+function renderMonthPage(){
 
-    <a class="nav-item" href="#">
-      <div class="nav-icon">☕️</div>
-      <div>카페활동</div>
-    </a>
+  const year =
+    selectedDate.getFullYear();
 
-    <a class="nav-item" href="#">
-      <div class="nav-icon">✎</div>
-      <div>블로그</div>
-    </a>
+  const month =
+    selectedDate.getMonth()+1;
 
-    <a class="nav-item" href="#">
-      <div class="nav-icon">⌯</div>
-      <div>정보공유</div>
-    </a>
+  document.getElementById(
+    "selectedMonthText"
+  ).textContent =
+    `${year}년 ${month}월`;
 
-  </nav>
 
-  <script>
-    // 예식일까지 D-day 자동 계산
-    const weddingDate = new Date("2027-09-04T00:00:00");
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+  const now = new Date();
 
-    const diff = weddingDate - today;
-    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+  if(
+    year === now.getFullYear() &&
+    month === now.getMonth()+1
+  ){
 
-    document.getElementById("dday").textContent =
-      days >= 0 ? "D-" + days : "D+" + Math.abs(days);
+    const lastDay =
+      new Date(
+        year,
+        month,
+        0
+      ).getDate();
 
-    // 오늘 날짜 + 이번 달 남은 날짜 자동 계산
-    const now = new Date();
+    const remaining =
+      lastDay - now.getDate();
 
-    const month = now.getMonth() + 1;
-    const date = now.getDate();
+    document.getElementById(
+      "monthStatusText"
+    ).textContent =
+      `오늘은 ${month}월 ${now.getDate()}일 | 이번 달 D-${remaining}`;
 
-    const lastDay = new Date(
+  }else{
+
+    document.getElementById(
+      "monthStatusText"
+    ).textContent =
+      `${year}년 ${month}월 활동 내역`;
+
+  }
+
+
+  document.getElementById(
+    "monthlyActivities"
+  ).innerHTML =
+    createActivityCard("comment") +
+    createActivityCard("food") +
+    createActivityCard("diary");
+
+
+  document.getElementById(
+    "limitedActivities"
+  ).innerHTML =
+    createActivityCard("discussion") +
+    createActivityCard("likes") +
+    createActivityCard("instagram");
+
+}
+
+
+function renderHome(){
+
+  const now = new Date();
+
+  const monthKey =
+    getMonthKey(now);
+
+
+  const commentCount =
+    recordsFor("comment",monthKey).length;
+
+  const diaryCount =
+    recordsFor("diary",monthKey).length;
+
+  const foodCount =
+    recordsFor("food",monthKey).length;
+
+
+  document.getElementById(
+    "homeCommentCount"
+  ).textContent =
+    `${commentCount} / 10`;
+
+  document.getElementById(
+    "homeDiaryCount"
+  ).textContent =
+    `${diaryCount} / 20`;
+
+  document.getElementById(
+    "homeFoodCount"
+  ).textContent =
+    `${foodCount} / 1`;
+
+
+  document.getElementById(
+    "homeCommentBar"
+  ).style.width =
+    `${Math.min(100,(commentCount/10)*100)}%`;
+
+  document.getElementById(
+    "homeDiaryBar"
+  ).style.width =
+    `${Math.min(100,(diaryCount/20)*100)}%`;
+
+  document.getElementById(
+    "homeFoodBar"
+  ).style.width =
+    `${Math.min(100,(foodCount/1)*100)}%`;
+
+
+  document.getElementById(
+    "homeMonthName"
+  ).textContent =
+    `${now.getFullYear()}년 ${now.getMonth()+1}월`;
+
+
+  const lastDay =
+    new Date(
       now.getFullYear(),
-      now.getMonth() + 1,
+      now.getMonth()+1,
       0
     ).getDate();
 
-    const remainDays = lastDay - date;
+  const remain =
+    lastDay-now.getDate();
 
-    document.getElementById("todayText").textContent =
-      `오늘은 ${month}월 ${date}일 | 이번 달 D-${remainDays}`;
-  </script>
+  document.getElementById(
+    "homeTodayText"
+  ).textContent =
+    `오늘은 ${now.getMonth()+1}월 ${now.getDate()}일 | 이번 달 D-${remain}`;
+
+}
+
+
+function renderWeddingDday(){
+
+  const wedding =
+    new Date("2027-09-04T00:00:00");
+
+  const today =
+    new Date();
+
+  today.setHours(0,0,0,0);
+
+  const diff =
+    Math.ceil(
+      (wedding-today) /
+      (1000*60*60*24)
+    );
+
+  document.getElementById(
+    "weddingDday"
+  ).textContent =
+    diff >= 0
+    ? `D-${diff}`
+    : `D+${Math.abs(diff)}`;
+
+}
+
+
+function renderAll(){
+
+  renderWeddingDday();
+  renderHome();
+  renderMonthPage();
+
+}
+
+
+renderAll();
+
+</script>
 
 </body>
 </html>
