@@ -297,45 +297,6 @@ button{
   margin-bottom:10px;
 }
 
-.month-overview{
-  padding:13px;
-  margin-bottom:15px;
-}
-
-.month-overview-title{
-  font-size:12px;
-  font-weight:800;
-  margin-bottom:10px;
-}
-
-.overview-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:6px;
-}
-
-.overview-item{
-  background:#f8f9fb;
-  border-radius:11px;
-  padding:9px 3px;
-  text-align:center;
-}
-
-.overview-label{
-  font-size:9px;
-  color:#8993a1;
-}
-
-.overview-value{
-  margin-top:4px;
-  font-size:12px;
-  font-weight:800;
-}
-
-.overview-point{
-  color:#ff2c69;
-}
-
 .section-title{
   margin:18px 2px 9px;
   font-size:15px;
@@ -638,12 +599,15 @@ button{
   line-height:1.5;
 }
 
+/* 수정: 신청일 칸 폭 축소 */
 .batch-fields{
   display:grid;
-  grid-template-columns:110px 94px;
+  grid-template-columns:100px 94px;
   gap:7px;
   margin-top:10px;
   justify-content:start;
+  width:max-content;
+  max-width:100%;
 }
 
 .batch-field-label{
@@ -664,7 +628,12 @@ button{
 }
 
 .claim-date{
-  max-width:110px;
+  width:100px;
+  min-width:0;
+  max-width:100px;
+  padding-left:2px;
+  padding-right:2px;
+  font-size:8px;
 }
 
 .claim-date:disabled,
@@ -1101,7 +1070,7 @@ button{
   font-weight:800;
 }
 
-/* 변경된 블로그 글 목록 */
+/* BLOG POST */
 
 .blog-post{
   border-top:1px solid #f0f1f3;
@@ -1203,6 +1172,21 @@ button{
   border-radius:8px;
   padding:8px 5px;
   font-size:9px;
+}
+
+.grade-normal{
+  background:#eaf5ff;
+  color:#237bb0;
+}
+
+.grade-good{
+  background:#fff4d8;
+  color:#bf7b00;
+}
+
+.grade-supporter{
+  background:#f1e8ff;
+  color:#7f42c4;
 }
 
 .blog-url-box{
@@ -1395,7 +1379,6 @@ button{
   display:block;
 }
 
-/* 작성일 폭 축소 */
 .share-post-fields{
   display:grid;
   grid-template-columns:82px minmax(0,1fr) 25px;
@@ -1427,7 +1410,6 @@ button{
   font-size:7.7px;
 }
 
-/* 정보공유 원본 게시물 URL */
 .share-post-url-box{
   padding:10px 0 11px;
   border-bottom:1px solid #eee;
@@ -1786,7 +1768,6 @@ button{
 
 <div class="month-status" id="monthStatusText"></div>
 
-
 <div class="section-title">이번 달 활동</div>
 <div id="monthlyActivities"></div>
 
@@ -1979,11 +1960,8 @@ let blogTab = 20;
 
 const openActivities = new Set();
 const openBlogCategories = new Set();
-
-/* 추가 */
 const openBlogRecords = new Set();
 const editingBlogUrls = new Set();
-
 const openSharePosts = new Set();
 
 const activities = {
@@ -2189,7 +2167,6 @@ function normalizeData(){
 
   });
 
-  /* 기존 블로그 기록 보정 */
   appData.blogRecords.forEach(record=>{
 
     if(record.title===undefined){
@@ -2210,7 +2187,6 @@ function normalizeData(){
 
   });
 
-  /* 정보공유 데이터 보정 */
   appData.sharePosts.forEach(post=>{
 
     if(!Array.isArray(post.shares)){
@@ -2381,7 +2357,6 @@ function gradeClass(grade){
 }
 
 
-/* URL에 https://가 없으면 자동 추가 */
 function safeUrl(value){
 
   let url = String(value || "").trim();
@@ -3682,73 +3657,6 @@ function createNormalActivityCard(key){
    MONTH RENDER
 ========================= */
 
-function renderMonthOverview(){
-
-  const monthKey = getMonthKey(selectedDate);
-
-  const monthRecords = appData.records.filter(
-    r=>r.month===monthKey
-  );
-
-  let requested = monthRecords.filter(
-    r=>
-      r.activity!=="comment"
-      &&
-      r.activity!=="diary"
-      &&
-      r.status==="적립신청"
-  ).length;
-
-  let completed = monthRecords.filter(
-    r=>
-      r.activity!=="comment"
-      &&
-      r.activity!=="diary"
-      &&
-      r.status==="적립완료"
-  ).length;
-
-  ["comment","diary"].forEach(key=>{
-
-    const claim = getClaim(key,monthKey);
-
-    if(claim.status==="적립신청"){
-      requested++;
-    }
-
-    if(claim.status==="적립완료"){
-      completed++;
-    }
-
-  });
-
-  let point = 0;
-
-  Object.keys(activities).forEach(key=>{
-
-    point += earnedPointsFor(key,monthKey);
-
-  });
-
-  document.getElementById(
-    "overviewWritten"
-  ).textContent = `${monthRecords.length}건`;
-
-  document.getElementById(
-    "overviewRequested"
-  ).textContent = `${requested}건`;
-
-  document.getElementById(
-    "overviewCompleted"
-  ).textContent = `${completed}건`;
-
-  document.getElementById(
-    "overviewPoint"
-  ).textContent = `${formatNumber(point)}P`;
-
-}
-
-
 function renderMonthPage(){
 
   const year = selectedDate.getFullYear();
@@ -3888,7 +3796,6 @@ function toggleBlogCategory(categoryId){
 }
 
 
-/* 개별 블로그 글 펼침 */
 function toggleBlogRecord(id){
 
   if(openBlogRecords.has(id)){
@@ -4044,7 +3951,6 @@ function updateBlogUrl(id,value){
 
   record.url = value.trim();
 
-  /* 입력 중에는 전체 렌더링하지 않음 */
   localStorage.setItem(
     STORAGE_KEY,
     JSON.stringify(appData)
@@ -4637,7 +4543,6 @@ function updateSharePostTitle(id,value){
 }
 
 
-/* 정보공유 URL */
 function updateSharePostUrl(id,value){
 
   const post = appData.sharePosts.find(
@@ -4936,6 +4841,24 @@ function createSharePostCard(post){
               <strong>${formatNumber(point)}P</strong>
             </div>
 
+            ${
+              targetUrl
+              ?
+              `
+              <a
+                class="share-head-url"
+                href="${escapeAttribute(targetUrl)}"
+                target="_blank"
+                rel="noopener"
+                onclick="event.stopPropagation()"
+              >
+                🔗 ${escapeHtml(post.url)}
+              </a>
+              `
+              :
+              ""
+            }
+
           </div>
 
           <div class="fold-arrow">
@@ -4995,24 +4918,6 @@ function createSharePostCard(post){
             placeholder="https://blog.naver.com/..."
             onchange="updateSharePostUrl('${post.id}',this.value)"
           >
-
-          ${
-            targetUrl
-            ?
-            `
-            <a
-              class="share-head-url"
-              style="margin-top:7px;"
-              href="${escapeAttribute(targetUrl)}"
-              target="_blank"
-              rel="noopener"
-            >
-              🔗 ${escapeHtml(post.url)}
-            </a>
-            `
-            :
-            ""
-          }
 
         </div>
 
