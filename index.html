@@ -1,0 +1,7616 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fffafa">
+<meta name="apple-mobile-web-app-capable" content="yes">
+  
+<title>다이렉트 포인트</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  background:#fffafa;
+  color:#10254c;
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+}
+
+body{
+  min-height:100vh;
+}
+
+button,input,select{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  width:100%;
+  max-width:520px;
+  margin:0 auto;
+  min-height:100vh;
+  padding:18px 12px 105px;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.page-title{
+  margin:6px 0 18px;
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #f0ecee;
+  border-radius:18px;
+  box-shadow:0 4px 14px rgba(30,40,70,.04);
+}
+
+.label{
+  font-size:12px;
+  color:#7c8797;
+  margin-bottom:4px;
+}
+
+.pink{
+  color:#ff2c69;
+}
+
+.muted{
+  color:#8490a0;
+}
+
+/* HOME */
+
+.wedding-card{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:17px 18px;
+  margin-bottom:10px;
+}
+
+.wedding-date{
+  font-size:18px;
+  font-weight:800;
+}
+
+.dday{
+  min-width:86px;
+  padding:11px 13px;
+  text-align:center;
+  border-radius:15px;
+  background:#fff0f5;
+  color:#ff2c69;
+  font-size:20px;
+  font-weight:800;
+}
+
+.point-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-bottom:9px;
+}
+
+.point-card{
+  padding:15px 13px;
+}
+.point-progress-card{
+  padding:14px 15px;
+  margin-bottom:11px;
+}
+
+.point-progress-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:9px;
+}
+
+.point-progress-title{
+  font-size:11px;
+  font-weight:800;
+}
+
+.point-progress-percent{
+  color:#ff2c69;
+  font-size:12px;
+  font-weight:900;
+}
+
+.point-progress-text{
+  margin-top:7px;
+  text-align:right;
+  color:#7c8797;
+  font-size:9.5px;
+}
+  
+.big-number{
+  font-size:20px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.current{
+  color:#ff2c69;
+}
+
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-bottom:11px;
+}
+
+.category{
+  min-height:116px;
+  padding:13px 5px 11px;
+  text-align:center;
+}
+
+.icon{
+  width:37px;
+  height:37px;
+  margin:0 auto 8px;
+  border-radius:13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:19px;
+}
+
+.pink-bg{background:#fff0f4;}
+.blue-bg{background:#eef8ff;}
+.brown-bg{background:#fff4ed;}
+.green-bg{background:#edfff5;}
+
+.category-title{
+  font-size:10.5px;
+  font-weight:700;
+}
+
+.category-point{
+  margin-top:6px;
+  font-size:14px;
+  font-weight:800;
+}
+
+.category-count{
+  margin-top:3px;
+  font-size:10px;
+  color:#939baa;
+}
+
+.cafe-category{
+  padding-left:8px;
+  padding-right:8px;
+}
+
+.cafe-point-breakdown{
+  margin-top:7px;
+  padding-top:5px;
+  border-top:1px solid #f1ece9;
+}
+
+.cafe-point-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:4px;
+  margin-top:3px;
+  font-size:8.5px;
+  color:#7c8797;
+  white-space:nowrap;
+}
+
+.cafe-point-row strong{
+  color:#10254c;
+  font-size:9px;
+  font-weight:800;
+}
+
+.monthly-summary{
+  padding:16px 15px 14px;
+}
+
+.monthly-head{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.monthly-title{
+  font-size:16px;
+  font-weight:800;
+}
+
+.month-name{
+  font-size:11px;
+  color:#778294;
+  white-space:nowrap;
+}
+
+.today-text{
+  margin-top:3px;
+  margin-bottom:12px;
+  font-size:10.5px;
+  color:#8a94a3;
+}
+
+.summary-task{
+  display:grid;
+  grid-template-columns:35px 1fr;
+  gap:9px;
+  padding:9px 0;
+  border-bottom:1px solid #f0f1f3;
+}
+
+.task-icon{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.task-head{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:6px;
+}
+
+.task-name{
+  font-size:12.5px;
+  font-weight:700;
+}
+
+.task-count{
+  font-size:11.5px;
+  font-weight:700;
+}
+
+.progress{
+  width:100%;
+  height:7px;
+  background:#edf0f3;
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.progress-bar{
+  height:100%;
+  border-radius:999px;
+  background:#ff6f9b;
+  width:0;
+}
+
+.blue-bar{background:#58bff5;}
+.green-bar{background:#55cf91;}
+.purple-bar{background:#b16cf3;}
+
+.detail-btn{
+  width:100%;
+  margin-top:12px;
+  border:0;
+  border-radius:13px;
+  background:#fff0f4;
+  color:#ff2c69;
+  padding:11px;
+  font-size:11.5px;
+  font-weight:800;
+}
+
+/* MONTH */
+
+.month-selector{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:8px;
+}
+
+.month-selector button{
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:12px;
+  background:#fff;
+  color:#10254c;
+  font-size:18px;
+  box-shadow:0 2px 10px rgba(20,30,60,.05);
+}
+
+.selected-month{
+  font-size:17px;
+  font-weight:800;
+}
+
+.month-status{
+  background:#10254c;
+  color:#fff;
+  border-radius:14px;
+  padding:11px 14px;
+  font-size:11.5px;
+  margin-bottom:10px;
+}
+
+.section-title{
+  margin:18px 2px 9px;
+  font-size:15px;
+  font-weight:800;
+}
+
+.limit-info{
+  padding:12px 14px;
+  border-radius:14px;
+  background:#f3f6fb;
+  color:#657286;
+  font-size:10.5px;
+  line-height:1.5;
+  margin-bottom:9px;
+}
+
+.activity-card{
+  margin-bottom:10px;
+  overflow:hidden;
+}
+
+.activity-main{
+  padding:14px;
+  cursor:pointer;
+}
+
+.activity-top{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.activity-name-row{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.activity-name{
+  font-size:14px;
+  font-weight:800;
+}
+
+.fold-arrow{
+  color:#adb4bf;
+  font-size:11px;
+  transition:.2s;
+}
+
+.activity-card.open .fold-arrow,
+.blog-category-card.open > .blog-category-head .fold-arrow,
+.share-post-card.open > .share-post-head .fold-arrow{
+  transform:rotate(180deg);
+}
+
+.activity-rule{
+  margin-top:4px;
+  color:#7c8797;
+  font-size:10.5px;
+  line-height:1.5;
+}
+
+.activity-right{
+  text-align:right;
+  white-space:nowrap;
+}
+
+.activity-count{
+  font-size:12px;
+  font-weight:800;
+}
+
+.activity-points{
+  margin-top:4px;
+  color:#ff2c69;
+  font-size:11px;
+  font-weight:700;
+}
+
+.small-progress{
+  margin-top:10px;
+}
+
+.activity-detail{
+  display:none;
+  padding:12px;
+  border-top:1px solid #f0f0f2;
+  background:#fffdfd;
+}
+
+.activity-card.open .activity-detail{
+  display:block;
+}
+
+/* CALENDAR */
+
+.calendar-help{
+  margin-bottom:11px;
+  padding:10px 11px;
+  border-radius:11px;
+  background:#f7f8fb;
+  color:#747f90;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.calendar-week{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:4px;
+  margin-bottom:5px;
+}
+
+.week-day{
+  text-align:center;
+  font-size:9px;
+  color:#919aa8;
+}
+
+.week-day:first-child{
+  color:#ff739a;
+}
+
+.calendar-days{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:4px;
+}
+
+.calendar-empty{
+  aspect-ratio:1/1;
+}
+
+.calendar-day{
+  position:relative;
+  aspect-ratio:1/1;
+  border:0;
+  border-radius:50%;
+  background:transparent;
+  color:#253858;
+  font-size:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.calendar-day.today{
+  background:#f3f5f8;
+  font-weight:800;
+}
+
+.calendar-day.selected{
+  background:#ff6f9b;
+  color:#fff;
+  font-weight:800;
+}
+
+.calendar-day.selected::after{
+  content:"✓";
+  position:absolute;
+  right:2px;
+  bottom:0;
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:#fff;
+  color:#ff4b82;
+  font-size:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.comment-result{
+  margin-top:12px;
+  padding:12px;
+  border-radius:13px;
+  background:#fff5f8;
+}
+
+.comment-result-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.comment-result-count{
+  font-size:12px;
+  font-weight:800;
+}
+
+.comment-result-point{
+  color:#ff2c69;
+  font-size:13px;
+  font-weight:800;
+}
+
+.comment-max-text{
+  margin-top:4px;
+  color:#8e97a5;
+  font-size:9.5px;
+}
+
+/* DIARY */
+
+.diary-header,
+.diary-row{
+  display:grid;
+  grid-template-columns:86px 1fr 25px;
+  gap:6px;
+  align-items:center;
+}
+
+.diary-header{
+  padding:0 2px 6px;
+  color:#8993a1;
+  font-size:9px;
+}
+
+.diary-row{
+  padding:7px 0;
+  border-top:1px solid #f1f1f3;
+}
+
+.diary-date{
+  width:86px;
+  min-width:0;
+  border:0;
+  border-radius:8px;
+  background:#f6f8fb;
+  color:#10254c;
+  padding:7px 2px;
+  font-size:8.5px;
+}
+
+.url-number{
+  width:100%;
+  min-width:0;
+  border:0;
+  border-radius:8px;
+  background:#f6f8fb;
+  color:#10254c;
+  padding:8px;
+  font-size:10px;
+}
+
+.diary-progress-info{
+  margin-top:10px;
+  padding:11px;
+  border-radius:11px;
+  background:#f7f8fb;
+}
+
+.diary-progress-main{
+  display:flex;
+  justify-content:space-between;
+}
+
+.diary-progress-count{
+  font-size:11px;
+  font-weight:800;
+}
+
+.diary-progress-message{
+  font-size:9.5px;
+  color:#7c8797;
+}
+
+.diary-warning{
+  margin-top:5px;
+  font-size:9.5px;
+  color:#e48b00;
+}
+
+.diary-complete{
+  margin-top:5px;
+  color:#ff477d;
+  font-size:9.5px;
+  font-weight:700;
+}
+
+/* CLAIM */
+
+.batch-claim{
+  margin-top:12px;
+  padding:12px;
+  border-radius:14px;
+  background:#f7f8fb;
+}
+
+.batch-title{
+  font-size:11.5px;
+  font-weight:800;
+}
+
+.batch-desc{
+  margin-top:3px;
+  color:#7d8796;
+  font-size:9.5px;
+  line-height:1.5;
+}
+
+/* 수정: 신청일 칸 폭 축소 */
+.batch-fields{
+  display:grid;
+  grid-template-columns:100px 94px;
+  gap:7px;
+  margin-top:10px;
+  justify-content:start;
+  width:max-content;
+  max-width:100%;
+}
+
+.batch-field-label{
+  margin-bottom:4px;
+  color:#8b94a1;
+  font-size:8.5px;
+}
+
+.claim-date,
+.claim-select{
+  width:100%;
+  border:0;
+  border-radius:9px;
+  background:#fff;
+  padding:8px 4px;
+  color:#10254c;
+  font-size:9px;
+}
+
+.claim-date{
+  width:100px;
+  min-width:0;
+  max-width:100px;
+  padding-left:2px;
+  padding-right:2px;
+  font-size:8px;
+}
+
+.claim-date:disabled,
+.claim-select:disabled{
+  opacity:.45;
+}
+
+.claim-bottom{
+  display:flex;
+  justify-content:space-between;
+  margin-top:9px;
+  padding-top:9px;
+  border-top:1px solid #e8ebef;
+}
+
+.claim-status-text{
+  font-size:9.5px;
+  color:#727e90;
+}
+
+.claim-point{
+  color:#ff2c69;
+  font-size:12px;
+  font-weight:800;
+}
+
+/* NORMAL RECORD */
+
+.table-head,
+.record-row{
+  display:grid;
+  grid-template-columns:86px 78px 1fr 25px;
+  gap:5px;
+  align-items:center;
+}
+
+.table-head{
+  padding:0 1px 6px;
+  font-size:9px;
+  color:#8993a1;
+}
+
+.record-row{
+  padding:7px 0;
+  border-top:1px solid #f1f1f3;
+}
+
+.record-date-input{
+  width:86px;
+  min-width:0;
+  border:0;
+  border-radius:8px;
+  background:#f6f8fb;
+  color:#10254c;
+  padding:7px 2px;
+  font-size:8.5px;
+}
+
+.status-select{
+  width:78px;
+  min-width:0;
+  border:0;
+  border-radius:8px;
+  padding:7px 2px;
+  font-size:8.5px;
+}
+
+.status-written{
+  background:#eaf5ff !important;
+  color:#237bb0 !important;
+}
+
+.status-request{
+  background:#fff3d7 !important;
+  color:#b27300 !important;
+}
+
+.status-done{
+  background:#ffe7ef !important;
+  color:#e12d69 !important;
+}
+
+.status-none{
+  background:#eef0f3 !important;
+  color:#687386 !important;
+}
+
+.record-point{
+  text-align:right;
+  font-size:9px;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+.delete-btn{
+  width:24px;
+  height:24px;
+  padding:0;
+  border:0;
+  border-radius:7px;
+  background:#f6f6f7;
+  color:#a1a8b2;
+  font-size:14px;
+}
+
+.add-btn{
+  width:100%;
+  margin-top:10px;
+  padding:9px;
+  border:1px dashed #ff9db9;
+  border-radius:11px;
+  background:#fff7fa;
+  color:#ff477d;
+  font-size:11px;
+  font-weight:800;
+}
+
+.empty{
+  padding:12px 0;
+  text-align:center;
+  color:#a0a8b4;
+  font-size:10.5px;
+}
+
+/* HISTORY */
+
+.history-total{
+  padding:18px;
+  margin-bottom:12px;
+}
+
+.history-total-label{
+  color:#7c8797;
+  font-size:11px;
+}
+
+.history-total-number{
+  margin-top:4px;
+  color:#ff2c69;
+  font-size:25px;
+  font-weight:800;
+}
+
+.history-list{
+  overflow:hidden;
+}
+
+.history-head,
+.history-row{
+  display:grid;
+  grid-template-columns:72px 1fr 80px;
+  gap:8px;
+  align-items:center;
+}
+
+.history-head{
+  padding:11px 14px;
+  color:#8c95a3;
+  background:#fafafa;
+  font-size:10px;
+}
+
+.history-row{
+  padding:14px;
+  border-top:1px solid #f1f1f3;
+}
+
+.history-date{
+  font-size:10px;
+  color:#687386;
+}
+
+.history-name{
+  font-size:11px;
+  font-weight:700;
+}
+
+.history-point{
+  text-align:right;
+  color:#ff2c69;
+  font-size:11px;
+  font-weight:800;
+}
+
+.history-empty{
+  padding:40px 15px;
+  text-align:center;
+  color:#9aa3af;
+  font-size:11px;
+}
+
+/* BACKUP */
+
+.backup-box{
+  margin-top:14px;
+  padding:15px;
+}
+
+.backup-title{
+  font-size:13px;
+  font-weight:800;
+}
+
+.backup-desc{
+  margin-top:4px;
+  color:#7d8796;
+  font-size:10.5px;
+  line-height:1.5;
+}
+
+.backup-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:11px;
+}
+
+.backup-btn{
+  border:0;
+  border-radius:11px;
+  padding:10px 5px;
+  background:#f3f6fb;
+  color:#10254c;
+  font-size:10.5px;
+  font-weight:700;
+}
+
+.restore-btn{
+  background:#fff0f4;
+  color:#ff477d;
+}
+
+#importFile{
+  display:none;
+}
+
+/* BLOG */
+
+.info-banner{
+  padding:14px;
+  margin-bottom:14px;
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  background:#f3f7ff;
+}
+
+.info-banner-icon{
+  width:37px;
+  height:37px;
+  border-radius:11px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  font-size:18px;
+}
+
+.info-banner-title{
+  font-size:11px;
+  font-weight:800;
+  line-height:1.45;
+}
+
+.info-banner-desc{
+  margin-top:4px;
+  font-size:10px;
+  color:#647187;
+  line-height:1.5;
+}
+
+.blog-tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  margin-bottom:0;
+}
+
+.blog-tab{
+  border:0;
+  padding:14px 5px;
+  background:#f7f8fb;
+  color:#60708a;
+  font-size:12px;
+  font-weight:800;
+}
+
+.blog-tab:first-child{
+  border-radius:15px 0 0 0;
+}
+
+.blog-tab:last-child{
+  border-radius:0 15px 0 0;
+}
+
+.blog-tab.active{
+  background:#fff0f5;
+  color:#ff2c69;
+  box-shadow:inset 0 -2px #ff2c69;
+}
+
+.blog-tab-info{
+  padding:11px 13px;
+  margin-bottom:11px;
+  border-radius:0 0 14px 14px;
+  background:#fff2f6;
+  color:#875269;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.blog-category-card{
+  margin-bottom:10px;
+  overflow:hidden;
+}
+
+.blog-category-head{
+  padding:13px;
+  cursor:pointer;
+}
+
+.blog-category-top{
+  display:grid;
+  grid-template-columns:42px 1fr auto;
+  gap:9px;
+  align-items:center;
+}
+
+.blog-category-icon{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#fff0f5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:19px;
+}
+
+.blog-category-name-line{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.blog-category-name{
+  font-size:14px;
+  font-weight:900;
+}
+
+.blog-count-badge{
+  padding:4px 8px;
+  border-radius:9px;
+  background:#f2f5f8;
+  font-size:10px;
+  font-weight:800;
+}
+
+.blog-cat-progress-row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:7px;
+}
+
+.blog-cat-progress{
+  flex:1;
+  height:7px;
+  background:#edf0f4;
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.blog-cat-progress > div{
+  height:100%;
+  background:#ff6f9b;
+  border-radius:999px;
+}
+
+.blog-percent{
+  font-size:9px;
+  color:#50617b;
+  font-weight:700;
+}
+
+.blog-category-point{
+  text-align:right;
+  min-width:75px;
+}
+
+.blog-category-point strong{
+  display:block;
+  color:#ff2c69;
+  font-size:15px;
+}
+
+.blog-category-point span{
+  display:block;
+  margin-top:2px;
+  color:#758095;
+  font-size:8.5px;
+}
+
+.blog-category-detail{
+  display:none;
+  padding:12px;
+  border-top:1px solid #f0f1f3;
+}
+
+.blog-category-card.open .blog-category-detail{
+  display:block;
+}
+
+.blog-detail-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:9px;
+}
+
+.blog-detail-title{
+  font-size:13px;
+  font-weight:900;
+}
+
+.mini-add-btn{
+  border:0;
+  border-radius:10px;
+  padding:8px 11px;
+  background:#fff0f5;
+  color:#ff2c69;
+  font-size:10px;
+  font-weight:800;
+}
+
+/* BLOG POST */
+
+.blog-post{
+  border-top:1px solid #f0f1f3;
+}
+
+.blog-post:first-of-type{
+  border-top:0;
+}
+
+.blog-post-summary{
+  display:grid;
+  grid-template-columns:82px minmax(0,1fr) 54px 28px 20px;
+  gap:5px;
+  align-items:center;
+  padding:8px 0;
+  cursor:pointer;
+}
+
+.blog-summary-date{
+  width:82px;
+  min-width:0;
+  border:0;
+  border-radius:7px;
+  background:#f5f7fa;
+  padding:7px 2px;
+  font-size:8px;
+  color:#10254c;
+}
+
+.blog-summary-title{
+  width:100%;
+  min-width:0;
+  border:0;
+  border-radius:7px;
+  background:#f5f7fa;
+  padding:8px 6px;
+  font-size:9px;
+  font-weight:700;
+  color:#10254c;
+}
+
+.blog-summary-point{
+  text-align:right;
+  font-size:8.5px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.blog-link-icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:27px;
+  height:27px;
+  border-radius:8px;
+  background:#eef6ff;
+  text-decoration:none;
+  font-size:12px;
+}
+
+.blog-post-arrow{
+  font-size:9px;
+  color:#adb4bf;
+  text-align:center;
+  transition:.2s;
+}
+
+.blog-post.open .blog-post-arrow{
+  transform:rotate(180deg);
+}
+
+.blog-post-detail{
+  display:none;
+  padding:10px;
+  margin-bottom:8px;
+  border-radius:11px;
+  background:#f8f9fb;
+}
+
+.blog-post.open .blog-post-detail{
+  display:block;
+}
+
+.blog-post-controls{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+
+.blog-control-label{
+  margin-bottom:4px;
+  font-size:8.5px;
+  color:#8993a1;
+}
+
+.blog-detail-select{
+  width:100%;
+  border:0;
+  border-radius:8px;
+  padding:8px 5px;
+  font-size:9px;
+}
+
+.grade-normal{
+  background:#eaf5ff;
+  color:#237bb0;
+}
+
+.grade-good{
+  background:#fff4d8;
+  color:#bf7b00;
+}
+
+.grade-supporter{
+  background:#f1e8ff;
+  color:#7f42c4;
+}
+
+.blog-url-box{
+  margin-top:9px;
+}
+
+.blog-url-edit{
+  display:grid;
+  grid-template-columns:1fr 45px;
+  gap:6px;
+}
+
+.blog-url-input{
+  width:100%;
+  min-width:0;
+  border:0;
+  border-radius:8px;
+  background:#fff;
+  padding:8px;
+  font-size:9px;
+  color:#10254c;
+}
+
+.blog-url-view{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 45px;
+  gap:6px;
+  align-items:center;
+}
+
+.blog-url-link{
+  min-width:0;
+  display:block;
+  padding:8px;
+  border-radius:8px;
+  background:#fff;
+  color:#2978cc;
+  font-size:9px;
+  text-decoration:underline;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.blog-edit-btn{
+  height:31px;
+  border:0;
+  border-radius:8px;
+  background:#eef1f5;
+  color:#516077;
+  font-size:9px;
+  font-weight:800;
+}
+
+.blog-post-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:9px;
+  padding-top:8px;
+  border-top:1px solid #e8eaee;
+}
+
+.blog-post-point-guide{
+  color:#7b8798;
+  font-size:8.5px;
+}
+
+.blog-delete-text{
+  border:0;
+  background:transparent;
+  color:#e05872;
+  font-size:9px;
+  font-weight:800;
+}
+
+.blog-category-footer{
+  margin-top:9px;
+  padding:9px;
+  border-radius:10px;
+  background:#f7f8fb;
+  text-align:center;
+  font-size:10px;
+}
+
+.blog-category-footer strong{
+  color:#ff2c69;
+}
+
+/* INFO SHARE */
+
+.share-top-summary{
+  padding:14px;
+  margin-bottom:12px;
+}
+
+.share-summary-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.share-summary-title{
+  font-size:12px;
+  color:#7c8797;
+}
+
+.share-summary-point{
+  margin-top:3px;
+  color:#ff2c69;
+  font-size:22px;
+  font-weight:900;
+}
+
+.share-post-add{
+  border:0;
+  border-radius:11px;
+  background:#fff0f5;
+  color:#ff2c69;
+  font-size:10px;
+  font-weight:800;
+  padding:10px 13px;
+}
+
+.share-post-card{
+  margin-bottom:10px;
+  overflow:hidden;
+}
+
+.share-post-head{
+  padding:13px;
+  cursor:pointer;
+}
+
+.share-post-head-top{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  align-items:flex-start;
+}
+
+.share-post-left{
+  flex:1;
+  min-width:0;
+}
+
+.share-post-date{
+  color:#8390a1;
+  font-size:9px;
+}
+
+.share-post-title{
+  margin-top:3px;
+  font-size:13px;
+  font-weight:900;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.share-post-meta{
+  margin-top:5px;
+  font-size:9px;
+  color:#778397;
+}
+
+.share-post-meta strong{
+  color:#ff2c69;
+}
+
+.share-head-url{
+  display:inline-block;
+  max-width:100%;
+  margin-top:6px;
+  color:#2978cc;
+  font-size:9px;
+  text-decoration:underline;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.share-post-detail{
+  display:none;
+  padding:12px;
+  border-top:1px solid #f0f1f3;
+}
+
+.share-post-card.open .share-post-detail{
+  display:block;
+}
+
+.share-post-fields{
+  display:grid;
+  grid-template-columns:82px minmax(0,1fr) 25px;
+  gap:6px;
+  align-items:end;
+  padding-bottom:10px;
+}
+
+.field-label{
+  margin-bottom:4px;
+  font-size:8.5px;
+  color:#8993a1;
+}
+
+.share-post-input{
+  width:100%;
+  min-width:0;
+  border:0;
+  border-radius:8px;
+  background:#f6f8fb;
+  padding:8px 6px;
+  font-size:9px;
+  color:#10254c;
+}
+
+.share-post-fields input[type="date"]{
+  padding-left:2px;
+  padding-right:1px;
+  font-size:7.7px;
+}
+
+.share-post-url-box{
+  padding:10px 0 11px;
+  border-bottom:1px solid #eee;
+}
+
+.share-post-url-edit{
+  width:100%;
+  border:0;
+  border-radius:8px;
+  background:#f6f8fb;
+  padding:8px 7px;
+  color:#10254c;
+  font-size:9px;
+}
+
+.share-table-head,
+.share-row{
+  display:grid;
+  grid-template-columns:76px 1fr 77px 48px 24px;
+  gap:4px;
+  align-items:center;
+}
+
+.share-table-head{
+  margin-top:11px;
+  padding:7px 2px;
+  border-radius:8px;
+  background:#f8f9fb;
+  font-size:8px;
+  color:#8590a0;
+  text-align:center;
+}
+
+.share-row{
+  padding:7px 0;
+  border-bottom:1px solid #f0f1f3;
+}
+
+.share-date-input{
+  width:76px;
+  border:0;
+  border-radius:7px;
+  background:#f5f7fa;
+  padding:7px 1px;
+  font-size:7.5px;
+  color:#10254c;
+}
+
+.email-input{
+  width:100%;
+  min-width:0;
+  border:0;
+  border-radius:7px;
+  background:#f5f7fa;
+  padding:7px 5px;
+  font-size:8px;
+  color:#10254c;
+}
+
+.share-status{
+  width:77px;
+  border:0;
+  border-radius:7px;
+  padding:7px 1px;
+  font-size:7.7px;
+}
+
+.share-point{
+  font-size:8px;
+  font-weight:800;
+  text-align:right;
+}
+
+
+/* CAFE ACTIVITY */
+.cafe-tabs{
+  display:flex;
+  gap:7px;
+  margin-bottom:11px;
+  overflow-x:auto;
+  padding-bottom:2px;
+}
+
+.cafe-tab{
+  flex:0 0 auto;
+  border:0;
+  border-radius:12px;
+  padding:10px 14px;
+  background:#f3f6fb;
+  color:#687386;
+  font-size:11px;
+  font-weight:800;
+}
+
+.cafe-tab.active{
+  background:#fff0f5;
+  color:#ff2c69;
+  box-shadow:inset 0 0 0 1px #ffd3df;
+}
+
+.cafe-basic-summary{
+  padding:15px;
+  margin-bottom:11px;
+}
+
+.cafe-basic-summary-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.cafe-basic-summary-label{
+  color:#7c8797;
+  font-size:11px;
+}
+
+.cafe-basic-summary-point{
+  color:#ff2c69;
+  font-size:22px;
+  font-weight:900;
+}
+
+.cafe-basic-card{
+  padding:15px;
+  margin-bottom:10px;
+}
+
+.cafe-basic-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.cafe-basic-title{
+  font-size:13px;
+  font-weight:900;
+}
+
+.cafe-basic-desc{
+  margin-top:4px;
+  color:#7c8797;
+  font-size:9.5px;
+  line-height:1.5;
+}
+
+.cafe-basic-point{
+  color:#ff2c69;
+  font-size:12px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.cafe-choice-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+
+.cafe-choice-btn{
+  width:100%;
+  border:1px solid #edf0f4;
+  border-radius:11px;
+  background:#f7f8fb;
+  color:#647187;
+  padding:10px 7px;
+  font-size:10.5px;
+  font-weight:800;
+}
+
+.cafe-choice-btn.active{
+  border-color:#ff9db9;
+  background:#fff0f5;
+  color:#ff2c69;
+}
+
+.cafe-consult-row{
+  display:grid;
+  grid-template-columns:90px 1fr;
+  gap:9px;
+  align-items:center;
+}
+
+.cafe-consult-input{
+  width:90px;
+  border:0;
+  border-radius:10px;
+  background:#f6f8fb;
+  color:#10254c;
+  padding:10px 8px;
+  font-size:12px;
+  font-weight:800;
+  text-align:center;
+}
+
+.cafe-consult-calc{
+  color:#687386;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.cafe-basic-note{
+  margin-top:10px;
+  padding:10px 11px;
+  border-radius:11px;
+  background:#f7f8fb;
+  color:#7c8797;
+  font-size:9.5px;
+  line-height:1.5;
+}
+
+/* NAV */
+
+.bottom-nav{
+  position:fixed;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:520px;
+  height:74px;
+  padding:5px 3px max(8px,env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.98);
+  border-top:1px solid #ededee;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  z-index:100;
+}
+
+.nav-item{
+  border:0;
+  background:transparent;
+  color:#687386;
+  border-radius:12px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:3px;
+  font-size:9px;
+  white-space:nowrap;
+}
+
+.nav-icon{
+  font-size:17px;
+}
+
+.nav-item.active{
+  background:#fff0f4;
+  color:#ff2c69;
+  font-weight:800;
+}
+
+
+
+
+/* CAFE PARTNER */
+.cafe-tab-panel{display:none;}
+.cafe-tab-panel.active{display:block;}
+
+.cafe-partner-summary{
+  padding:15px;
+  margin-bottom:11px;
+}
+
+.cafe-partner-summary-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.cafe-partner-summary-label{
+  color:#7c8797;
+  font-size:11px;
+}
+
+.cafe-partner-summary-point{
+  color:#ff2c69;
+  font-size:22px;
+  font-weight:900;
+}
+
+.cafe-partner-summary-meta{
+  margin-top:4px;
+  color:#8a94a3;
+  font-size:9.5px;
+}
+
+.partner-category-card{
+  margin-bottom:10px;
+  overflow:hidden;
+  transition:.18s;
+}
+
+.partner-category-card.excluded{
+  background:#f7f7f8;
+  border-color:#eceeef;
+  box-shadow:none;
+  opacity:.72;
+}
+
+.partner-category-head{
+  padding:13px;
+  cursor:pointer;
+}
+
+.partner-category-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+}
+
+.partner-category-name{
+  font-size:13px;
+  font-weight:900;
+}
+
+.partner-category-card.excluded .partner-category-name{
+  color:#8f98a4;
+}
+
+.partner-category-meta{
+  margin-top:4px;
+  color:#7d8796;
+  font-size:9.5px;
+}
+
+.partner-category-right{
+  text-align:right;
+  white-space:nowrap;
+}
+
+.partner-category-point{
+  color:#ff2c69;
+  font-size:11px;
+  font-weight:900;
+}
+
+.partner-category-card.excluded .partner-category-point{
+  color:#9aa1aa;
+}
+
+.partner-category-arrow{
+  margin-top:3px;
+  color:#aab1bb;
+  font-size:9px;
+  transition:.2s;
+}
+
+.partner-category-card.open .partner-category-arrow{
+  transform:rotate(180deg);
+}
+
+.partner-category-detail{
+  display:none;
+  padding:10px 12px 12px;
+  border-top:1px solid #f0f1f3;
+}
+
+.partner-category-card.open .partner-category-detail{
+  display:block;
+}
+
+.partner-list-head,
+.partner-item-row{
+  display:grid;
+  grid-template-columns:minmax(0,1.25fr) minmax(0,.95fr) 82px 56px;
+  gap:5px;
+  align-items:center;
+}
+
+.partner-list-head{
+  padding:0 2px 6px;
+  color:#8b94a1;
+  font-size:8px;
+  text-align:center;
+}
+
+.partner-item-row{
+  padding:8px 0;
+  border-top:1px solid #f0f1f3;
+  transition:.18s;
+}
+
+.partner-item-row.not-applicable{
+  margin-top:2px;
+  padding-left:5px;
+  padding-right:5px;
+  border-radius:9px;
+  background:#f4f5f6;
+  color:#9aa1aa;
+  opacity:.72;
+}
+
+.partner-item-name{
+  min-width:0;
+  font-size:9px;
+  font-weight:700;
+  line-height:1.35;
+}
+
+.partner-item-row.not-applicable .partner-item-name{
+  text-decoration:none;
+  color:#969da6;
+}
+
+.partner-url-input{
+  width:100%;
+  min-width:0;
+  border:0;
+  border-radius:7px;
+  background:#f5f7fa;
+  color:#10254c;
+  padding:7px 5px;
+  font-size:8px;
+}
+
+.partner-item-row.not-applicable .partner-url-input{
+  background:#eceeef;
+  color:#8f96a0;
+}
+
+.partner-status-select{
+  width:82px;
+  min-width:0;
+  border:0;
+  border-radius:7px;
+  padding:7px 2px;
+  font-size:8px;
+  font-weight:700;
+}
+
+.partner-status-empty{
+  background:#eef0f3;
+  color:#687386;
+}
+
+.partner-status-normal{
+  background:#eaf5ff;
+  color:#237bb0;
+}
+
+.partner-status-good{
+  background:#fff4d8;
+  color:#b27300;
+}
+
+.partner-status-na{
+  background:#e5e7ea;
+  color:#7f8791;
+}
+
+.partner-item-point{
+  text-align:right;
+  font-size:8px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.partner-section-note{
+  margin:10px 2px 0;
+  color:#7c8797;
+  font-size:9.5px;
+  line-height:1.55;
+}
+
+@media(max-width:380px){
+  .partner-list-head,
+  .partner-item-row{
+    grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr) 75px 48px;
+    gap:3px;
+  }
+
+  .partner-status-select{
+    width:75px;
+    font-size:7.3px;
+  }
+
+  .partner-item-name,
+  .partner-url-input,
+  .partner-item-point{
+    font-size:7.4px;
+  }
+}
+
+/* HOME SETTINGS / INTRO */
+.editable-home-field{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.home-date-input,
+.home-goal-input{
+  border:0;
+  background:transparent;
+  color:#10254c;
+  font-weight:800;
+  padding:0;
+  outline:none;
+}
+
+.home-date-input{
+  font-size:16px;
+  width:132px;
+}
+
+.home-goal-input{
+  font-size:18px;
+  width:100%;
+  min-width:0;
+}
+
+.home-goal-wrap{
+  display:flex;
+  align-items:center;
+  gap:2px;
+}
+
+.home-goal-unit{
+  font-size:18px;
+  font-weight:800;
+}
+
+.clickable-category{
+  cursor:pointer;
+}
+
+.intro-back{
+  border:0;
+  border-radius:11px;
+  background:#f3f6fb;
+  color:#10254c;
+  padding:9px 12px;
+  font-size:10.5px;
+  font-weight:800;
+  margin-bottom:12px;
+}
+
+.intro-summary{
+  padding:16px;
+  margin-bottom:11px;
+}
+
+.intro-summary-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.intro-summary-label{
+  font-size:11px;
+  color:#7c8797;
+}
+
+.intro-summary-point{
+  margin-top:3px;
+  color:#ff2c69;
+  font-size:22px;
+  font-weight:900;
+}
+
+.intro-list{
+  padding:12px;
+}
+
+.intro-head,
+.intro-row{
+  display:grid;
+  grid-template-columns:84px minmax(0,1fr) 72px 52px 24px;
+  gap:5px;
+  align-items:center;
+}
+
+.intro-head{
+  padding:0 1px 7px;
+  color:#8993a1;
+  font-size:8px;
+  text-align:center;
+}
+
+.intro-row{
+  padding:7px 0;
+  border-top:1px solid #f1f1f3;
+}
+
+.intro-date{
+  width:84px;
+  min-width:0;
+  border:0;
+  border-radius:8px;
+  background:#f6f8fb;
+  color:#10254c;
+  padding:7px 2px;
+  font-size:8px;
+}
+
+.intro-id{
+  width:100%;
+  min-width:0;
+  border:0;
+  border-radius:8px;
+  background:#f6f8fb;
+  color:#10254c;
+  padding:8px 6px;
+  font-size:9px;
+}
+
+.intro-contract{
+  width:72px;
+  border:0;
+  border-radius:8px;
+  padding:7px 2px;
+  background:#fff3d7;
+  color:#9a6500;
+  font-size:8px;
+}
+
+.intro-contract.done{
+  background:#ffe7ef;
+  color:#e12d69;
+}
+
+.intro-point{
+  text-align:right;
+  font-size:8px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+@media(max-width:380px){
+
+  .app{
+    padding-left:8px;
+    padding-right:8px;
+  }
+
+  .page-title{
+    font-size:22px;
+  }
+
+  .big-number{
+    font-size:18px;
+  }
+
+  .table-head,
+  .record-row{
+    grid-template-columns:80px 72px 1fr 24px;
+  }
+
+  .record-date-input{
+    width:80px;
+  }
+
+  .status-select{
+    width:72px;
+  }
+
+  .diary-header,
+  .diary-row{
+    grid-template-columns:80px 1fr 24px;
+  }
+
+  .diary-date{
+    width:80px;
+  }
+
+  .blog-post-summary{
+    grid-template-columns:76px minmax(0,1fr) 48px 27px 18px;
+    gap:4px;
+  }
+
+  .blog-summary-date{
+    width:76px;
+    font-size:7.3px;
+  }
+
+  .blog-summary-title{
+    font-size:8.5px;
+  }
+
+  .share-post-fields{
+    grid-template-columns:78px minmax(0,1fr) 24px;
+  }
+
+  .share-table-head,
+  .share-row{
+    grid-template-columns:70px 1fr 70px 43px 22px;
+    gap:3px;
+  }
+
+  .share-date-input{
+    width:70px;
+    font-size:7px;
+  }
+
+  .share-status{
+    width:70px;
+    font-size:7px;
+  }
+
+  .email-input{
+    font-size:7.5px;
+  }
+
+  .intro-head,
+  .intro-row{
+    grid-template-columns:78px minmax(0,1fr) 66px 46px 22px;
+    gap:3px;
+  }
+
+  .intro-date{
+    width:78px;
+    font-size:7.2px;
+  }
+
+  .intro-contract{
+    width:66px;
+    font-size:7.3px;
+  }
+
+  .intro-point{
+    font-size:7.4px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- HOME -->
+<section id="homePage" class="page active">
+
+<h1 class="page-title">다이렉트 포인트 현황</h1>
+
+<div class="card wedding-card">
+  <div>
+    <div class="label">예식일</div>
+    <div class="editable-home-field">
+      <input
+        id="weddingDateInput"
+        class="home-date-input"
+        type="date"
+        onchange="updateWeddingDate(this.value)"
+      >
+    </div>
+  </div>
+  <div class="dday" id="weddingDday"></div>
+</div>
+
+<div class="point-grid">
+  <div class="card point-card">
+    <div class="label">포인트 목표</div>
+    <div class="home-goal-wrap">
+      <input
+        id="pointGoalInput"
+        class="home-goal-input"
+        type="text"
+        inputmode="numeric"
+        oninput="formatPointGoalInput(this)"
+        onchange="updatePointGoal(this.value)"
+      >
+      <span class="home-goal-unit">원</span>
+    </div>
+  </div>
+
+  <div class="card point-card">
+    <div class="label">현재 포인트</div>
+    <div class="big-number current" id="currentPoint">0원</div>
+  </div>
+</div>
+
+  <div class="card point-progress-card">
+
+  <div class="point-progress-top">
+    <div class="point-progress-title">
+      목표 달성률
+    </div>
+
+    <div
+      class="point-progress-percent"
+      id="pointProgressPercent"
+    >
+      0%
+    </div>
+  </div>
+
+  <div class="progress">
+    <div
+      class="progress-bar"
+      id="pointProgressBar"
+    ></div>
+  </div>
+
+  <div
+    class="point-progress-text"
+    id="pointProgressText"
+  ></div>
+
+</div>
+
+<div class="category-grid">
+
+  <div
+    class="card category clickable-category"
+    onclick="showPage('introPage')"
+  >
+    <div class="icon pink-bg">👥</div>
+    <div class="category-title">소개 가입 포인트</div>
+    <div class="category-point" id="homeIntroPoint">0원</div>
+    <div class="category-count" id="homeIntroCount">0건</div>
+  </div>
+
+  <div class="card category cafe-category">
+    <div class="icon blue-bg">✏️</div>
+    <div class="category-title">블로그 활동 포인트</div>
+
+    <div class="cafe-point-breakdown">
+      <div class="cafe-point-row">
+        <span>글작성</span>
+        <strong id="homeBlogWritePoint">0원</strong>
+      </div>
+
+      <div class="cafe-point-row">
+        <span>정보공유</span>
+        <strong id="homeBlogSharePoint">0원</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="card category cafe-category">
+    <div class="icon brown-bg">☕️</div>
+    <div class="category-title">카페 활동 포인트</div>
+
+    <div class="cafe-point-breakdown">
+      <div class="cafe-point-row">
+        <span>월별신청</span>
+        <strong id="homeCafeMonthlyPoint">0원</strong>
+      </div>
+
+      <div class="cafe-point-row">
+        <span>일일활동</span>
+        <strong id="homeCafeDailyPoint">0원</strong>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="card monthly-summary">
+
+  <div class="monthly-head">
+    <div class="monthly-title">놓치면 안되는 이번 달 포인트</div>
+    <div class="month-name" id="homeMonthName"></div>
+  </div>
+
+  <div class="today-text" id="homeTodayText"></div>
+
+  <div class="summary-task">
+    <div class="task-icon pink-bg">💬</div>
+    <div>
+      <div class="task-head">
+        <div class="task-name">댓글</div>
+        <div class="task-count" id="homeCommentCount"></div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar" id="homeCommentBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-task">
+    <div class="task-icon blue-bg">📄</div>
+    <div>
+      <div class="task-head">
+        <div class="task-name">일기</div>
+        <div class="task-count" id="homeDiaryCount"></div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar blue-bar" id="homeDiaryBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-task">
+    <div class="task-icon green-bg">🍴</div>
+    <div>
+      <div class="task-head">
+        <div class="task-name">맛집 소개글</div>
+        <div class="task-count" id="homeFoodCount"></div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar green-bar" id="homeFoodBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <button class="detail-btn" onclick="showPage('monthPage')">
+    이번 달 포인트 자세히 보기 ›
+  </button>
+
+</div>
+</section>
+
+
+<!-- INTRO -->
+<section id="introPage" class="page">
+
+<button class="intro-back" onclick="showPage('homePage')">‹ 홈으로</button>
+
+<h1 class="page-title">소개가입</h1>
+
+<div class="card intro-summary">
+  <div class="intro-summary-row">
+    <div>
+      <div class="intro-summary-label">소개가입 포인트</div>
+      <div class="intro-summary-point" id="introTotalPoint">0P</div>
+    </div>
+
+    <button class="share-post-add" onclick="addIntroRecord()">
+      + 소개가입 추가
+    </button>
+  </div>
+</div>
+
+<div class="card intro-list">
+
+  <div class="intro-head">
+    <div>신청날짜</div>
+    <div>소개가입 아이디</div>
+    <div>계약여부</div>
+    <div>포인트</div>
+    <div></div>
+  </div>
+
+  <div id="introRows"></div>
+
+</div>
+
+</section>
+
+
+<!-- HISTORY -->
+<section id="historyPage" class="page">
+
+<h1 class="page-title">적립내역</h1>
+
+<div class="card history-total">
+  <div class="history-total-label">앱에서 새로 기록한 적립완료 포인트</div>
+  <div class="history-total-number" id="historyTotal">0P</div>
+</div>
+
+<div class="card history-list">
+  <div class="history-head">
+    <div>날짜</div>
+    <div>항목</div>
+    <div style="text-align:right">포인트</div>
+  </div>
+
+  <div id="historyRows"></div>
+</div>
+
+<div class="card backup-box">
+  <div class="backup-title">내 데이터 백업</div>
+  <div class="backup-desc">
+    기록은 현재 휴대폰 브라우저에 저장돼요.
+    휴대폰 변경이나 Safari 데이터 삭제에 대비해 가끔 백업 파일을 저장해두세요.
+  </div>
+
+  <div class="backup-buttons">
+    <button class="backup-btn" onclick="exportData()">백업 저장</button>
+    <button class="backup-btn restore-btn" onclick="document.getElementById('importFile').click()">백업 불러오기</button>
+  </div>
+
+  <input
+    id="importFile"
+    type="file"
+    accept=".json,application/json"
+    onchange="importData(event)"
+  >
+</div>
+</section>
+
+
+<!-- MONTH -->
+<section id="monthPage" class="page">
+
+<h1 class="page-title">월별신청</h1>
+
+<div class="month-selector">
+  <button onclick="changeMonth(-1)">‹</button>
+  <div class="selected-month" id="selectedMonthText"></div>
+  <button onclick="changeMonth(1)">›</button>
+</div>
+
+<div class="month-status" id="monthStatusText"></div>
+
+<div class="section-title">이번 달 활동</div>
+<div id="monthlyActivities"></div>
+
+<div class="section-title">횟수제한</div>
+
+<div class="limit-info">
+  전체 기간동안 최대 횟수가 정해진 활동이에요.
+</div>
+
+<div id="limitedActivities"></div>
+
+</section>
+
+
+<!-- CAFE -->
+<section id="cafePage" class="page">
+
+<h1 class="page-title">카페활동</h1>
+
+<div class="cafe-tabs">
+  <button
+    id="cafeTabBasic"
+    class="cafe-tab active"
+    onclick="setCafeTab('basic')"
+  >
+    기본적립
+  </button>
+
+  <button
+    id="cafeTabPartner"
+    class="cafe-tab"
+    onclick="setCafeTab('partner')"
+  >
+    제휴업체
+  </button>
+</div>
+
+<div id="cafeBasicPanel" class="cafe-tab-panel active">
+
+  <div class="card cafe-basic-summary">
+    <div class="cafe-basic-summary-row">
+      <div>
+        <div class="cafe-basic-summary-label">기본적립 포인트</div>
+        <div class="cafe-basic-summary-point" id="cafeBasicTotalPoint">0P</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card cafe-basic-card">
+    <div class="cafe-basic-head">
+      <div>
+        <div class="cafe-basic-title">가입 시 추천인 작성</div>
+        <div class="cafe-basic-desc">가입할 때 추천인을 작성했다면 30,000P</div>
+      </div>
+      <div class="cafe-basic-point" id="cafeReferralPoint">0P</div>
+    </div>
+
+    <div class="cafe-choice-grid">
+      <button
+        id="cafeReferralYes"
+        class="cafe-choice-btn"
+        onclick="updateCafeReferral('작성O')"
+      >
+        작성 O · 30,000P
+      </button>
+
+      <button
+        id="cafeReferralNo"
+        class="cafe-choice-btn"
+        onclick="updateCafeReferral('작성X')"
+      >
+        작성 X · 0P
+      </button>
+    </div>
+  </div>
+
+  <div class="card cafe-basic-card">
+    <div class="cafe-basic-head">
+      <div>
+        <div class="cafe-basic-title">웨딩박람회 방문</div>
+        <div class="cafe-basic-desc">방문한 박람회 종류를 선택해 주세요.</div>
+      </div>
+      <div class="cafe-basic-point" id="cafeExpoPoint">0P</div>
+    </div>
+
+    <div class="cafe-choice-grid">
+      <button
+        id="cafeExpoBig"
+        class="cafe-choice-btn"
+        onclick="updateCafeExpo('대박람회')"
+      >
+        대박람회 · 50,000P
+      </button>
+
+      <button
+        id="cafeExpoNormal"
+        class="cafe-choice-btn"
+        onclick="updateCafeExpo('일반박람회')"
+      >
+        일반박람회 · 30,000P
+      </button>
+    </div>
+  </div>
+
+  <div class="card cafe-basic-card">
+    <div class="cafe-basic-head">
+      <div>
+        <div class="cafe-basic-title">박람회 업체 상담</div>
+        <div class="cafe-basic-desc">상담한 업체 수 × 5,000P로 계산돼요.</div>
+      </div>
+      <div class="cafe-basic-point" id="cafeConsultPoint">0P</div>
+    </div>
+
+    <div class="cafe-consult-row">
+      <input
+        id="cafeConsultCount"
+        class="cafe-consult-input"
+        type="number"
+        min="0"
+        step="1"
+        inputmode="numeric"
+        value="0"
+        onchange="updateCafeConsultCount(this.value)"
+      >
+
+      <div class="cafe-consult-calc" id="cafeConsultCalc">
+        0개 × 5,000P = 0P
+      </div>
+    </div>
+  </div>
+
+  <div class="cafe-basic-note">
+    기본적립에서 계산된 포인트는 홈의 <strong>카페 활동 포인트 → 일일활동</strong>에 합산돼요.
+  </div>
+
+</div>
+
+<div id="cafePartnerPanel" class="cafe-tab-panel">
+
+  <div class="card cafe-partner-summary">
+    <div class="cafe-partner-summary-row">
+      <div>
+        <div class="cafe-partner-summary-label">제휴업체 적립 포인트</div>
+        <div class="cafe-partner-summary-point" id="cafePartnerTotalPoint">0P</div>
+        <div class="cafe-partner-summary-meta" id="cafePartnerProgress">작성 0 / 0 · 남은 0개</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="cafePartnerCategories"></div>
+
+  <div class="partner-section-note">
+    <strong>비해당</strong>을 선택한 항목은 포인트가 0P이고 전체 가능 개수에서 제외돼요.
+    비해당 항목은 같은 카테고리의 맨 아래로 이동하며, 모든 항목이 비해당인 카테고리는 회색 처리되어 전체 목록 맨 아래로 이동해요.
+    제휴업체 포인트는 홈의 <strong>카페 활동 포인트 → 일일활동</strong>에 기본적립 포인트와 함께 합산돼요.
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- BLOG -->
+<section id="blogPage" class="page">
+
+<h1 class="page-title">블로그</h1>
+
+<div class="card info-banner">
+  <div class="info-banner-icon">📄</div>
+  <div>
+    <div class="info-banner-title">
+      블로그 글 작성 시 건당 포인트가 적립되는 공간입니다.
+    </div>
+    <div class="info-banner-desc">
+      일반 2,000P · 우수 5,000P · 서포터즈 50,000P
+    </div>
+  </div>
+</div>
+
+<div class="blog-tabs">
+  <button
+    id="blogTab20"
+    class="blog-tab active"
+    onclick="setBlogTab(20)"
+  >
+    20개 작성 가능 (5)
+  </button>
+
+  <button
+    id="blogTab10"
+    class="blog-tab"
+    onclick="setBlogTab(10)"
+  >
+    10개 작성 가능 (10)
+  </button>
+</div>
+
+<div class="blog-tab-info" id="blogTabInfo"></div>
+
+<div id="blogCategories"></div>
+
+</section>
+
+
+<!-- SHARE -->
+<section id="sharePage" class="page">
+
+<h1 class="page-title">정보공유</h1>
+
+<div class="card info-banner">
+  <div class="info-banner-icon">✉️</div>
+  <div>
+    <div class="info-banner-title">
+      자료 공유 이메일 내역을 관리하는 공간입니다.
+    </div>
+    <div class="info-banner-desc">
+      공유 이메일 1건당 적립완료 시 1,000P
+    </div>
+  </div>
+</div>
+
+<div class="card share-top-summary">
+  <div class="share-summary-row">
+
+    <div>
+      <div class="share-summary-title">정보공유 적립완료 포인트</div>
+      <div class="share-summary-point" id="shareTotalPoint">0P</div>
+    </div>
+
+    <button class="share-post-add" onclick="addSharePost()">
+      + 글 추가
+    </button>
+
+  </div>
+</div>
+
+<div id="sharePosts"></div>
+
+</section>
+
+</div>
+
+
+<!-- NAV -->
+<nav class="bottom-nav">
+
+<button
+  class="nav-item active"
+  data-page="homePage"
+  onclick="showPage('homePage')"
+>
+  <div class="nav-icon">⌂</div>
+  <div>홈</div>
+</button>
+
+<button
+  class="nav-item"
+  data-page="historyPage"
+  onclick="showPage('historyPage')"
+>
+  <div class="nav-icon">☷</div>
+  <div>적립내역</div>
+</button>
+
+<button
+  class="nav-item"
+  data-page="monthPage"
+  onclick="showPage('monthPage')"
+>
+  <div class="nav-icon">▣</div>
+  <div>월별신청</div>
+</button>
+
+<button
+  class="nav-item"
+  data-page="cafePage"
+  onclick="showPage('cafePage')"
+>
+  <div class="nav-icon">☕️</div>
+  <div>카페활동</div>
+</button>
+
+<button
+  class="nav-item"
+  data-page="blogPage"
+  onclick="showPage('blogPage')"
+>
+  <div class="nav-icon">✎</div>
+  <div>블로그</div>
+</button>
+
+<button
+  class="nav-item"
+  data-page="sharePage"
+  onclick="showPage('sharePage')"
+>
+  <div class="nav-icon">⌯</div>
+  <div>정보공유</div>
+</button>
+
+</nav>
+
+
+<script>
+
+/* =========================
+   BASIC DATA
+========================= */
+
+const STORAGE_KEY = "directPointData_v1";
+
+let selectedDate = new Date();
+selectedDate.setDate(1);
+
+let blogTab = 20;
+
+const openActivities = new Set();
+const openBlogCategories = new Set();
+const openBlogRecords = new Set();
+const editingBlogUrls = new Set();
+const openSharePosts = new Set();
+let cafeTab = "basic";
+const openPartnerCategories = new Set();
+
+const activities = {
+
+  comment:{
+    name:"댓글교류",
+    rule:"1회당 1,000P · 월 최대 10회",
+    monthlyMax:10,
+    totalMax:null,
+    point:1000,
+    batch:true
+  },
+
+  food:{
+    name:"맛집소개",
+    rule:"1건당 1,000P · 월 최대 1회",
+    monthlyMax:1,
+    totalMax:null,
+    point:1000
+  },
+
+  diary:{
+    name:"결혼일기",
+    rule:"월 20회 작성 시 5,000P",
+    monthlyMax:20,
+    totalMax:null,
+    point:5000,
+    batch:true
+  },
+
+  discussion:{
+    name:"결혼준비토론",
+    rule:"1회당 10,000P · 월 1회 · 최대 10회",
+    monthlyMax:1,
+    totalMax:10,
+    point:10000
+  },
+
+  likes:{
+    name:"좋아요 30개",
+    rule:"1회당 1,000P · 월 2회 · 최대 20회",
+    monthlyMax:2,
+    totalMax:20,
+    point:1000
+  },
+
+  instagram:{
+    name:"인스타그램",
+    rule:"포스팅 1건당 1,000P · 월 2회 · 최대 20회",
+    monthlyMax:2,
+    totalMax:20,
+    point:1000
+  }
+
+};
+
+const blogCategories = [
+
+  {id:"hall",name:"웨딩홀",max:20,icon:"💍"},
+  {id:"studio",name:"스튜디오",max:20,icon:"📷"},
+  {id:"dress",name:"드레스",max:20,icon:"👗"},
+  {id:"makeup",name:"메이크업",max:20,icon:"💄"},
+  {id:"direct",name:"다이렉트",max:20,icon:"📄"},
+
+  {id:"hanbok",name:"한복",max:10,icon:"🎀"},
+  {id:"jewelry",name:"예물",max:10,icon:"💎"},
+  {id:"photo",name:"본식사진",max:10,icon:"📸"},
+  {id:"honeymoon",name:"허니문",max:10,icon:"✈️"},
+  {id:"bouquet",name:"부케",max:10,icon:"💐"},
+  {id:"pyebaek",name:"폐백",max:10,icon:"🎎"},
+  {id:"weddingcar",name:"웨딩카",max:10,icon:"🚗"},
+  {id:"dvd",name:"DVD",max:10,icon:"🎥"},
+  {id:"music",name:"축하연주",max:10,icon:"🎵"},
+  {id:"appliance",name:"가전",max:10,icon:"🏠"}
+
+];
+
+const gradePoints = {
+  "일반":2000,
+  "우수":5000,
+  "서포터즈":50000
+};
+
+
+
+
+const cafePartnerCategories = [
+  {
+    id:"directEtc",
+    name:"다이렉트 · 기타",
+    items:[
+      {id:"weddingPhotoPride",name:"내 웨딩사진 자랑하기 (스튜디오 원본·수정본)",normal:30000,good:0},
+      {id:"directVisit",name:"다이렉트 상담방문(스드메)",normal:5000,good:10000},
+      {id:"directOnlineExpo",name:"다이렉트 온라인 박람회",normal:5000,good:0},
+      {id:"applianceEstimate",name:"이달의 가전 한딜매장 상담 견적",normal:10000,good:0}
+    ]
+  },
+  {
+    id:"weddingHall",
+    name:"웨딩홀",
+    items:[
+      {id:"tour1",name:"웨딩홀(투어1)",normal:5000,good:10000},
+      {id:"tour2",name:"웨딩홀(투어2)",normal:5000,good:10000},
+      {id:"contract",name:"웨딩홀(계약)",normal:5000,good:10000},
+      {id:"ceremony",name:"웨딩홀(본식)",normal:5000,good:10000},
+      {id:"groomView",name:"웨딩홀(신랑뷰)",normal:5000,good:10000}
+    ]
+  },
+  {
+    id:"studioPartner",
+    name:"스튜디오",
+    items:[
+      {id:"shootReview",name:"스튜디오(촬영후기)",normal:5000,good:10000},
+      {id:"select",name:"스튜디오(셀렉)",normal:5000,good:10000},
+      {id:"album",name:"스튜디오(앨범수령)",normal:5000,good:10000},
+      {id:"groomView",name:"스튜디오(신랑뷰)",normal:5000,good:10000}
+    ]
+  },
+  {
+    id:"dressPartner",
+    name:"웨딩드레스",
+    items:[
+      {id:"tour1",name:"웨딩드레스(투어1)",normal:5000,good:10000},
+      {id:"tour2",name:"웨딩드레스(투어2)",normal:5000,good:10000},
+      {id:"shootFitting",name:"웨딩드레스(촬영가봉)",normal:5000,good:10000},
+      {id:"mainFitting",name:"웨딩드레스(본식가봉)",normal:5000,good:10000},
+      {id:"shootDay",name:"웨딩드레스(촬영당일)",normal:5000,good:10000},
+      {id:"mainDay",name:"웨딩드레스(본식당일)",normal:5000,good:10000},
+      {id:"helper",name:"웨딩드레스(헬퍼)",normal:5000,good:10000},
+      {id:"groomView",name:"웨딩드레스(신랑뷰)",normal:5000,good:10000}
+    ]
+  },
+  {
+    id:"makeupPartner",
+    name:"메이크업",
+    items:[
+      {id:"consultContract",name:"메이크업(상담 및 계약후기)",normal:5000,good:10000},
+      {id:"shootMakeup",name:"메이크업(촬영 메이크업)",normal:5000,good:10000},
+      {id:"shootHair",name:"메이크업(촬영 헤어)",normal:5000,good:10000},
+      {id:"shootGroom",name:"메이크업(촬영날 신랑)",normal:5000,good:10000},
+      {id:"mainMakeup",name:"메이크업(본식 메이크업)",normal:5000,good:10000},
+      {id:"mainHair",name:"메이크업(본식 헤어)",normal:5000,good:10000},
+      {id:"parentsMakeup",name:"메이크업(혼주 메이크업)",normal:5000,good:10000},
+      {id:"mainGroom",name:"메이크업(본식 신랑)",normal:5000,good:10000}
+    ]
+  },
+  {
+    id:"mainPhotoPartner",
+    name:"본식사진",
+    items:[
+      {id:"shoot",name:"본식사진(촬영)",normal:5000,good:10000},
+      {id:"album",name:"본식사진(앨범수령)",normal:5000,good:10000}
+    ]
+  },
+  {
+    id:"hanbokPartner",
+    name:"한복",
+    items:[
+      {id:"consultContract",name:"한복(상담/계약)",normal:5000,good:10000},
+      {id:"fitting",name:"한복(가봉)",normal:5000,good:10000},
+      {id:"shoot",name:"한복(촬영)",normal:5000,good:10000},
+      {id:"mainCouple",name:"한복(본식, 신랑신부)",normal:5000,good:10000},
+      {id:"mainParents",name:"한복(본식, 혼주)",normal:5000,good:10000}
+    ]
+  },
+  {
+    id:"jewelryPartner",
+    name:"예물",
+    items:[
+      {id:"consultContract",name:"예물(상담/계약)",normal:5000,good:10000},
+      {id:"pickupReview",name:"예물(수령후기)",normal:5000,good:10000},
+      {id:"watch",name:"예물(시계)",normal:5000,good:10000},
+      {id:"proposalRing",name:"예물(프로포즈링)",normal:5000,good:10000}
+    ]
+  },
+  {
+    id:"suitPartner",
+    name:"예복",
+    items:[
+      {id:"consultContract",name:"예복(상담/계약)",normal:5000,good:10000},
+      {id:"fitting",name:"예복(가봉)",normal:5000,good:10000},
+      {id:"weddingSuit",name:"예복(결혼식 예복)",normal:5000,good:10000},
+      {id:"shoot",name:"예복(촬영)",normal:5000,good:10000},
+      {id:"parentsSuit",name:"예복(결혼식 혼주)",normal:5000,good:10000}
+    ]
+  },
+  {
+    id:"honeymoonPartner",
+    name:"허니문",
+    items:[
+      {id:"consultContract",name:"허니문(상담/계약)",normal:5000,good:10000},
+      {id:"review",name:"허니문(후기)",normal:5000,good:10000},
+      {id:"hotel",name:"허니문(숙소)",normal:5000,good:10000},
+      {id:"flight",name:"허니문(항공)",normal:5000,good:10000}
+    ]
+  },
+  {
+    id:"ceremonyEtc",
+    name:"본식 기타",
+    items:[
+      {id:"bouquet",name:"부케",normal:5000,good:10000},
+      {id:"pyebaek",name:"폐백",normal:5000,good:10000},
+      {id:"weddingCar",name:"웨딩카",normal:5000,good:10000},
+      {id:"dvd",name:"DVD",normal:5000,good:10000},
+      {id:"music",name:"축가주례",normal:5000,good:10000}
+    ]
+  },
+  {
+    id:"appliancePartner",
+    name:"가전",
+    items:[
+      {id:"consultContract",name:"가전 상담/계약",normal:5000,good:10000},
+      {id:"installUse",name:"가전 설치/사용",normal:5000,good:10000}
+    ]
+  },
+  {
+    id:"ceremonyComplete",
+    name:"예식완료",
+    items:[
+      {id:"hall",name:"예식완료(웨딩홀)",normal:20000,good:0},
+      {id:"all",name:"예식완료(결혼준비 전체)",normal:20000,good:0}
+    ]
+  },
+  {
+    id:"skinCare",
+    name:"피부관리",
+    items:[
+      {id:"review",name:"피부관리",normal:5000,good:10000}
+    ]
+  },
+  {
+    id:"companionService",
+    name:"동행서비스",
+    items:[
+      {id:"review",name:"동행서비스 후기",normal:5000,good:0}
+    ]
+  },
+  {
+    id:"newlywedHome",
+    name:"신혼 혼수",
+    items:[
+      {id:"furniture",name:"신혼 혼수(가구)",normal:5000,good:0},
+      {id:"internet",name:"신혼 혼수(인터넷)",normal:5000,good:0},
+      {id:"rental",name:"신혼 혼수(렌탈)",normal:5000,good:0},
+      {id:"interior",name:"신혼 혼수(인테리어)",normal:5000,good:0},
+      {id:"cleaning",name:"신혼 혼수(입주청소)",normal:5000,good:0},
+      {id:"moving",name:"신혼 혼수(이사)",normal:5000,good:0},
+      {id:"card",name:"신혼 혼수(신용카드)",normal:5000,good:0},
+      {id:"insurance",name:"신혼 혼수(보험)",normal:5000,good:0}
+    ]
+  },
+  {
+    id:"honeymoonSnap",
+    name:"허니문 스냅",
+    items:[
+      {id:"snap",name:"허니문 스냅",normal:5000,good:0}
+    ]
+  }
+];
+
+function partnerItemKey(categoryId,itemId){
+  return `${categoryId}:${itemId}`;
+}
+
+/* =========================
+   STORAGE
+========================= */
+
+function loadData(){
+
+  const saved = localStorage.getItem(STORAGE_KEY);
+
+  if(!saved){
+    return{
+      records:[],
+      monthlyClaims:{},
+      blogRecords:[],
+      sharePosts:[],
+      introRecords:[],
+      cafeBasic:{
+        referral:"",
+        referralDate:"",
+        expoType:"",
+        expoDate:"",
+        consultCount:0,
+        consultDate:""
+      },
+      cafePartner:{},
+      settings:{
+        weddingDate:getTodayString(),
+        pointGoal:3000000
+      }
+    };
+  }
+
+  try{
+
+    const data = JSON.parse(saved);
+
+    if(!Array.isArray(data.records)){
+      data.records = [];
+    }
+
+    if(!data.monthlyClaims){
+      data.monthlyClaims = {};
+    }
+
+    if(!Array.isArray(data.blogRecords)){
+      data.blogRecords = [];
+    }
+
+    if(!Array.isArray(data.sharePosts)){
+      data.sharePosts = [];
+    }
+
+    if(!Array.isArray(data.introRecords)){
+      data.introRecords = [];
+    }
+
+    if(!data.cafeBasic){
+      data.cafeBasic = {
+        referral:"",
+        referralDate:"",
+        expoType:"",
+        expoDate:"",
+        consultCount:0,
+        consultDate:""
+      };
+    }
+
+    if(!data.cafePartner || typeof data.cafePartner!=="object"){
+      data.cafePartner = {};
+    }
+
+    if(!data.settings){
+      data.settings = {};
+    }
+
+    if(!data.settings.weddingDate){
+      data.settings.weddingDate = getTodayString();
+    }
+
+    if(
+      data.settings.pointGoal===undefined
+      ||
+      data.settings.pointGoal===null
+      ||
+      data.settings.pointGoal===""
+    ){
+      data.settings.pointGoal = 3000000;
+    }
+
+    if(data.diaryClaims){
+
+      Object.keys(data.diaryClaims).forEach(monthKey=>{
+
+        const oldStatus = data.diaryClaims[monthKey];
+
+        const key = `diary:${monthKey}`;
+
+        if(!data.monthlyClaims[key]){
+
+          data.monthlyClaims[key] = {
+            status:oldStatus==="작성완료" ? "미신청" : oldStatus,
+            date:""
+          };
+
+        }
+
+      });
+
+    }
+
+    return data;
+
+  }catch{
+
+    return{
+      records:[],
+      monthlyClaims:{},
+      blogRecords:[],
+      sharePosts:[],
+      introRecords:[],
+      cafeBasic:{
+        referral:"",
+        referralDate:"",
+        expoType:"",
+        expoDate:"",
+        consultCount:0,
+        consultDate:""
+      },
+      cafePartner:{},
+      settings:{
+        weddingDate:getTodayString(),
+        pointGoal:3000000
+      }
+    };
+
+  }
+
+}
+
+
+let appData = loadData();
+
+normalizeData();
+
+
+function normalizeData(){
+
+  if(!Array.isArray(appData.blogRecords)){
+    appData.blogRecords = [];
+  }
+
+  if(!Array.isArray(appData.sharePosts)){
+    appData.sharePosts = [];
+  }
+
+  if(!Array.isArray(appData.introRecords)){
+    appData.introRecords = [];
+  }
+
+  if(!appData.cafeBasic){
+    appData.cafeBasic = {};
+  }
+
+  if(!appData.cafePartner || typeof appData.cafePartner!=="object"){
+    appData.cafePartner = {};
+  }
+
+  cafePartnerCategories.forEach(category=>{
+    category.items.forEach(item=>{
+      const key = partnerItemKey(category.id,item.id);
+      const saved = appData.cafePartner[key];
+
+      if(!saved || typeof saved!=="object"){
+        appData.cafePartner[key] = {
+          status:"",
+          url:"",
+          date:""
+        };
+        return;
+      }
+
+      if(!["","일반","우수","비해당"].includes(saved.status)){
+        saved.status = "";
+      }
+      if(typeof saved.url!=="string"){
+        saved.url = "";
+      }
+      if(typeof saved.date!=="string"){
+        saved.date = "";
+      }
+    });
+  });
+
+  if(appData.cafeBasic.referral===undefined){
+    appData.cafeBasic.referral = "";
+  }
+
+  if(appData.cafeBasic.referralDate===undefined){
+    appData.cafeBasic.referralDate = "";
+  }
+
+  if(appData.cafeBasic.expoType===undefined){
+    appData.cafeBasic.expoType = "";
+  }
+
+  if(appData.cafeBasic.expoDate===undefined){
+    appData.cafeBasic.expoDate = "";
+  }
+
+  if(appData.cafeBasic.consultCount===undefined){
+    appData.cafeBasic.consultCount = 0;
+  }
+
+  if(appData.cafeBasic.consultDate===undefined){
+    appData.cafeBasic.consultDate = "";
+  }
+
+  appData.cafeBasic.consultCount = Math.max(
+    0,
+    Math.floor(Number(appData.cafeBasic.consultCount) || 0)
+  );
+
+  if(!appData.settings){
+    appData.settings = {};
+  }
+
+  if(!appData.settings.weddingDate){
+    appData.settings.weddingDate = getTodayString();
+  }
+
+  if(
+    appData.settings.pointGoal===undefined
+    ||
+    appData.settings.pointGoal===null
+    ||
+    appData.settings.pointGoal===""
+  ){
+    appData.settings.pointGoal = 3000000;
+  }
+
+  appData.records.forEach(record=>{
+
+    if(
+      record.activity==="diary"
+      &&
+      record.urlNo===undefined
+    ){
+      record.urlNo = "";
+    }
+
+  });
+
+  const seen = new Set();
+
+  appData.records = appData.records.filter(record=>{
+
+    if(record.activity!=="comment"){
+      return true;
+    }
+
+    const key = `${record.month}|${record.date}`;
+
+    if(seen.has(key)){
+      return false;
+    }
+
+    seen.add(key);
+
+    return true;
+
+  });
+
+  appData.blogRecords.forEach(record=>{
+
+    if(record.title===undefined){
+      record.title = "";
+    }
+
+    if(record.url===undefined){
+      record.url = "";
+    }
+
+    if(!record.grade){
+      record.grade = "일반";
+    }
+
+    if(!record.status){
+      record.status = "작성완료";
+    }
+
+  });
+
+  appData.sharePosts.forEach(post=>{
+
+    if(!Array.isArray(post.shares)){
+      post.shares = [];
+    }
+
+    if(post.url===undefined){
+      post.url = "";
+    }
+
+  });
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(appData)
+  );
+
+}
+
+
+function saveData(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(appData)
+  );
+
+  renderAll();
+
+}
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function newId(){
+
+  return (
+    Date.now().toString()
+    +
+    Math.random().toString(16).slice(2)
+  );
+
+}
+
+
+function formatNumber(num){
+
+  return Number(num || 0).toLocaleString("ko-KR");
+
+}
+
+
+function getMonthKey(date){
+
+  const y = date.getFullYear();
+
+  const m = String(
+    date.getMonth()+1
+  ).padStart(2,"0");
+
+  return `${y}-${m}`;
+
+}
+
+
+function getTodayString(){
+
+  const d = new Date();
+
+  const y = d.getFullYear();
+
+  const m = String(
+    d.getMonth()+1
+  ).padStart(2,"0");
+
+  const day = String(
+    d.getDate()
+  ).padStart(2,"0");
+
+  return `${y}-${m}-${day}`;
+
+}
+
+
+function defaultDateForSelectedMonth(){
+
+  const today = new Date();
+
+  const [
+    selectedYear,
+    selectedMonthNumber
+  ] = getMonthKey(selectedDate)
+    .split("-")
+    .map(Number);
+
+  const todayDay =
+    today.getDate();
+
+  const lastDay =
+    new Date(
+      selectedYear,
+      selectedMonthNumber,
+      0
+    ).getDate();
+
+  const day =
+    Math.min(
+      todayDay,
+      lastDay
+    );
+
+  return `${selectedYear}-${String(
+    selectedMonthNumber
+  ).padStart(2,"0")}-${String(
+    day
+  ).padStart(2,"0")}`;
+
+}
+
+function recordsFor(key,monthKey){
+
+  return appData.records.filter(
+    r=>r.activity===key && r.month===monthKey
+  );
+
+}
+
+
+function allRecordsFor(key){
+
+  return appData.records.filter(
+    r=>r.activity===key
+  );
+
+}
+
+
+function completedFor(key,monthKey){
+
+  return recordsFor(key,monthKey).filter(
+    r=>r.status==="적립완료"
+  );
+
+}
+
+
+function statusClass(status){
+
+  if(status==="작성완료" || status==="전송완료"){
+    return "status-written";
+  }
+
+  if(status==="적립신청"){
+    return "status-request";
+  }
+
+  if(status==="적립완료"){
+    return "status-done";
+  }
+
+  return "status-none";
+
+}
+
+
+function gradeClass(grade){
+
+  if(grade==="일반"){
+    return "grade-normal";
+  }
+
+  if(grade==="우수"){
+    return "grade-good";
+  }
+
+  return "grade-supporter";
+
+}
+
+
+function safeUrl(value){
+
+  let url = String(value || "").trim();
+
+  if(!url){
+    return "";
+  }
+
+  if(!/^https?:\/\//i.test(url)){
+    url = "https://" + url;
+  }
+
+  return url;
+
+}
+
+
+/* =========================
+   MONTH CLAIM
+========================= */
+
+function claimKey(activity,monthKey){
+
+  return `${activity}:${monthKey}`;
+
+}
+
+
+function getClaim(activity,monthKey){
+
+  const key = claimKey(activity,monthKey);
+
+  if(!appData.monthlyClaims[key]){
+
+    appData.monthlyClaims[key] = {
+      status:"미신청",
+      date:getTodayString()
+    };
+
+  }
+
+  return appData.monthlyClaims[key];
+
+}
+
+
+function resetClaimIfNeeded(activity,monthKey){
+
+  const claim = getClaim(activity,monthKey);
+
+  if(claim.status!=="미신청"){
+
+    claim.status = "미신청";
+    claim.date = getTodayString();
+
+  }
+
+}
+
+
+/* =========================
+   COMMENT
+========================= */
+
+function commentRecords(monthKey){
+
+  return recordsFor("comment",monthKey);
+
+}
+
+
+function commentCount(monthKey){
+
+  return commentRecords(monthKey).length;
+
+}
+
+
+function toggleCommentDate(dateString){
+
+  const monthKey = dateString.slice(0,7);
+
+  openActivities.add("comment");
+
+  const found = appData.records.find(
+    r=>r.activity==="comment" && r.date===dateString
+  );
+
+  if(found){
+
+    appData.records = appData.records.filter(
+      r=>!(
+        r.activity==="comment"
+        &&
+        r.date===dateString
+      )
+    );
+
+    resetClaimIfNeeded("comment",monthKey);
+
+    saveData();
+
+    return;
+  }
+
+  if(commentCount(monthKey)>=10){
+
+    alert("댓글교류는 한 달에 최대 10회까지 체크할 수 있어.");
+
+    return;
+  }
+
+  appData.records.push({
+    id:newId(),
+    activity:"comment",
+    month:monthKey,
+    date:dateString,
+    status:"작성완료"
+  });
+
+  resetClaimIfNeeded("comment",monthKey);
+
+  saveData();
+
+}
+
+
+function createCommentCalendar(monthKey){
+
+  const [yearText,monthText] = monthKey.split("-");
+
+  const year = Number(yearText);
+  const month = Number(monthText);
+
+  const firstDay = new Date(
+    year,
+    month-1,
+    1
+  ).getDay();
+
+  const lastDate = new Date(
+    year,
+    month,
+    0
+  ).getDate();
+
+  const selected = new Set(
+    commentRecords(monthKey).map(r=>r.date)
+  );
+
+  let days = "";
+
+  for(let i=0;i<firstDay;i++){
+    days += `<div class="calendar-empty"></div>`;
+  }
+
+  const today = getTodayString();
+
+  for(let day=1;day<=lastDate;day++){
+
+    const dayText = String(day).padStart(2,"0");
+
+    const dateString = `${monthKey}-${dayText}`;
+
+    days += `
+      <button
+        class="
+          calendar-day
+          ${selected.has(dateString) ? "selected" : ""}
+          ${today===dateString ? "today" : ""}
+        "
+        onclick="toggleCommentDate('${dateString}')"
+      >
+        ${day}
+      </button>
+    `;
+
+  }
+
+  return `
+    <div class="calendar-help">
+      댓글교류한 날짜를 눌러 체크해요.
+      다시 누르면 체크가 해제돼요.
+    </div>
+
+    <div class="calendar">
+
+      <div class="calendar-week">
+        <div class="week-day">일</div>
+        <div class="week-day">월</div>
+        <div class="week-day">화</div>
+        <div class="week-day">수</div>
+        <div class="week-day">목</div>
+        <div class="week-day">금</div>
+        <div class="week-day">토</div>
+      </div>
+
+      <div class="calendar-days">
+        ${days}
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+/* =========================
+   DIARY
+========================= */
+
+function diaryValidUrlCount(monthKey){
+
+  return recordsFor("diary",monthKey).filter(
+    r=>String(r.urlNo || "").trim()!==""
+  ).length;
+
+}
+
+
+function addDiaryRecord(){
+
+  const monthKey = getMonthKey(selectedDate);
+
+  openActivities.add("diary");
+
+  if(recordsFor("diary",monthKey).length>=20){
+
+    alert("결혼일기는 한 달에 최대 20개까지 기록할 수 있어.");
+
+    return;
+  }
+
+  appData.records.push({
+    id:newId(),
+    activity:"diary",
+    month:monthKey,
+    date:defaultDateForSelectedMonth(),
+    urlNo:"",
+    status:"작성완료"
+  });
+
+  resetClaimIfNeeded("diary",monthKey);
+
+  saveData();
+
+}
+
+function updateDiaryDate(id,value){
+
+  if(!value){
+    return;
+  }
+
+  const record = appData.records.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openActivities.add("diary");
+
+  const oldMonth = record.month;
+  const newMonth = value.slice(0,7);
+
+  if(oldMonth!==newMonth){
+
+    const targetCount = recordsFor(
+      "diary",
+      newMonth
+    ).filter(r=>r.id!==id).length;
+
+    if(targetCount>=20){
+
+      alert("변경하려는 달에는 결혼일기가 이미 20개 있어.");
+
+      renderAll();
+
+      return;
+    }
+
+  }
+
+  record.date = value;
+  record.month = newMonth;
+
+  resetClaimIfNeeded("diary",oldMonth);
+  resetClaimIfNeeded("diary",newMonth);
+
+  saveData();
+
+}
+
+
+function updateDiaryUrl(id,value){
+
+  const record = appData.records.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openActivities.add("diary");
+
+  record.urlNo = value.trim();
+
+  resetClaimIfNeeded(
+    "diary",
+    record.month
+  );
+
+  saveData();
+
+}
+
+
+function deleteDiaryRecord(id){
+
+  const record = appData.records.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openActivities.add("diary");
+
+  if(!confirm("이 결혼일기 기록을 삭제할까?")){
+    return;
+  }
+
+  const monthKey = record.month;
+
+  appData.records = appData.records.filter(
+    r=>r.id!==id
+  );
+
+  resetClaimIfNeeded("diary",monthKey);
+
+  saveData();
+
+}
+
+
+/* =========================
+   BATCH CLAIM
+========================= */
+
+function batchEligible(activity,monthKey){
+
+  if(activity==="comment"){
+
+    return commentCount(monthKey)>0;
+
+  }
+
+  if(activity==="diary"){
+
+    const records = recordsFor(
+      "diary",
+      monthKey
+    );
+
+    return (
+      records.length===20
+      &&
+      diaryValidUrlCount(monthKey)===20
+    );
+
+  }
+
+  return false;
+
+}
+
+
+function updateClaimDate(activity,monthKey,value){
+
+  openActivities.add(activity);
+
+  const claim = getClaim(
+    activity,
+    monthKey
+  );
+
+  claim.date = value;
+
+  saveData();
+
+}
+
+
+function updateBatchStatus(activity,monthKey,value){
+
+  openActivities.add(activity);
+
+  const claim = getClaim(
+    activity,
+    monthKey
+  );
+
+  if(value!=="미신청"){
+
+    if(!batchEligible(activity,monthKey)){
+
+      if(activity==="diary"){
+
+        alert("결혼일기 20개와 URL 번호 20개를 모두 입력한 뒤 신청할 수 있어.");
+
+      }else{
+
+        alert("댓글교류 날짜를 먼저 체크해줘.");
+
+      }
+
+      renderAll();
+
+      return;
+    }
+
+    if(!claim.date){
+
+      alert("신청일을 먼저 선택해줘.");
+
+      renderAll();
+
+      return;
+    }
+
+  }
+
+  claim.status = value;
+
+  saveData();
+
+}
+
+
+/* =========================
+   MONTH POINT
+========================= */
+
+function earnedPointsFor(key,monthKey){
+
+  const activity = activities[key];
+
+  if(key==="comment"){
+
+    const claim = getClaim(
+      "comment",
+      monthKey
+    );
+
+    if(claim.status==="적립완료"){
+      return commentCount(monthKey)*1000;
+    }
+
+    return 0;
+
+  }
+
+  if(key==="diary"){
+
+    const claim = getClaim(
+      "diary",
+      monthKey
+    );
+
+    if(
+      claim.status==="적립완료"
+      &&
+      batchEligible("diary",monthKey)
+    ){
+      return 5000;
+    }
+
+    return 0;
+
+  }
+
+  return (
+    completedFor(key,monthKey).length
+    *
+    activity.point
+  );
+
+}
+
+
+function allMonthlyEarnedPoints(){
+
+  let total = 0;
+
+  appData.records.forEach(record=>{
+
+    const activity = activities[
+      record.activity
+    ];
+
+    if(
+      !activity
+      ||
+      activity.batch
+      ||
+      record.status!=="적립완료"
+    ){
+      return;
+    }
+
+    total += activity.point;
+
+  });
+
+  const months = new Set();
+
+  appData.records.forEach(record=>{
+
+    if(
+      record.activity==="comment"
+      ||
+      record.activity==="diary"
+    ){
+      months.add(record.month);
+    }
+
+  });
+
+  months.forEach(monthKey=>{
+
+    total += earnedPointsFor(
+      "comment",
+      monthKey
+    );
+
+    total += earnedPointsFor(
+      "diary",
+      monthKey
+    );
+
+  });
+
+  return total;
+
+}
+
+
+/* =========================
+   PAGE
+========================= */
+
+function showPage(pageId){
+
+  document.querySelectorAll(".page").forEach(
+    page=>page.classList.remove("active")
+  );
+
+  document.getElementById(
+    pageId
+  ).classList.add("active");
+
+  document.querySelectorAll(".nav-item").forEach(
+    btn=>btn.classList.remove("active")
+  );
+
+  const nav = document.querySelector(
+    `.nav-item[data-page="${pageId}"]`
+  );
+
+  if(nav){
+    nav.classList.add("active");
+  }
+
+  renderAll();
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================
+   MONTH UI
+========================= */
+
+function changeMonth(direction){
+
+  selectedDate.setMonth(
+    selectedDate.getMonth()+direction
+  );
+
+  renderMonthPage();
+
+}
+
+
+function toggleActivity(key){
+
+  if(openActivities.has(key)){
+    openActivities.delete(key);
+  }else{
+    openActivities.add(key);
+  }
+
+  renderMonthPage();
+
+}
+
+
+/* =========================
+   NORMAL MONTH RECORD
+========================= */
+
+function addRecord(key){
+
+  openActivities.add(key);
+
+  const activity = activities[key];
+  const monthKey = getMonthKey(selectedDate);
+
+  const monthRecords = recordsFor(
+    key,
+    monthKey
+  );
+
+  if(monthRecords.length>=activity.monthlyMax){
+
+    alert(
+      `${activity.name}은(는) 이번 달 최대 ${activity.monthlyMax}회까지 작성할 수 있어.`
+    );
+
+    return;
+  }
+
+  if(
+    activity.totalMax
+    &&
+    allRecordsFor(key).length>=activity.totalMax
+  ){
+
+    alert(
+      `${activity.name}은(는) 전체 기간 최대 ${activity.totalMax}회까지 가능해.`
+    );
+
+    return;
+  }
+
+  appData.records.push({
+    id:newId(),
+    activity:key,
+    month:monthKey,
+    date:defaultDateForSelectedMonth(),
+    status:"작성완료"
+  });
+
+  saveData();
+
+}
+
+
+function updateRecordDate(id,value){
+
+  if(!value){
+    return;
+  }
+
+  const record = appData.records.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openActivities.add(record.activity);
+
+  const oldMonth = record.month;
+  const newMonth = value.slice(0,7);
+
+  const activity = activities[
+    record.activity
+  ];
+
+  if(oldMonth!==newMonth){
+
+    const destinationCount = recordsFor(
+      record.activity,
+      newMonth
+    )
+    .filter(r=>r.id!==id)
+    .length;
+
+    if(destinationCount>=activity.monthlyMax){
+
+      alert(
+        `변경하려는 달에는 ${activity.name} 기록이 이미 최대 횟수까지 있어.`
+      );
+
+      renderAll();
+
+      return;
+    }
+
+  }
+
+  record.date = value;
+  record.month = newMonth;
+
+  saveData();
+
+}
+
+
+function updateStatus(id,value){
+
+  const record = appData.records.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openActivities.add(record.activity);
+
+  record.status = value;
+
+  saveData();
+
+}
+
+
+function deleteRecord(id){
+
+  const record = appData.records.find(
+    r=>r.id===id
+  );
+
+  if(record){
+    openActivities.add(record.activity);
+  }
+
+  if(!confirm("이 작성 내역을 삭제할까?")){
+    return;
+  }
+
+  appData.records = appData.records.filter(
+    r=>r.id!==id
+  );
+
+  saveData();
+
+}
+
+
+/* =========================
+   CLAIM HTML
+========================= */
+
+function createBatchClaim(activity,monthKey){
+
+  const claim = getClaim(
+    activity,
+    monthKey
+  );
+
+  const eligible = batchEligible(
+    activity,
+    monthKey
+  );
+
+  let potentialPoint = 0;
+
+  if(activity==="comment"){
+    potentialPoint = commentCount(monthKey)*1000;
+  }
+
+  if(activity==="diary"){
+    potentialPoint = eligible ? 5000 : 0;
+  }
+
+  let desc = "";
+
+  if(activity==="comment"){
+
+    desc = "작성한 댓글교류 횟수를 월말 또는 다음 달에 한 번에 신청해요.";
+
+  }else if(eligible){
+
+    desc = "20개 작성과 URL 번호 입력이 모두 완료됐어요. 이제 한 번에 신청할 수 있어요.";
+
+  }else{
+
+    desc = "결혼일기 20개와 URL 번호 20개를 모두 입력하면 신청할 수 있어요.";
+
+  }
+
+  return `
+    <div class="batch-claim">
+
+      <div class="batch-title">월별 적립신청</div>
+
+      <div class="batch-desc">
+        ${desc}
+      </div>
+
+      <div class="batch-fields">
+
+        <div>
+          <div class="batch-field-label">신청일</div>
+          <input
+            type="date"
+            class="claim-date"
+            value="${claim.date || ""}"
+            onchange="updateClaimDate('${activity}','${monthKey}',this.value)"
+            ${eligible ? "" : "disabled"}
+          >
+        </div>
+
+        <div>
+          <div class="batch-field-label">관리</div>
+
+          <select
+            class="claim-select ${statusClass(claim.status)}"
+            onchange="updateBatchStatus('${activity}','${monthKey}',this.value)"
+            ${eligible ? "" : "disabled"}
+          >
+
+            <option value="미신청" ${claim.status==="미신청" ? "selected" : ""}>
+              미신청
+            </option>
+
+            <option value="적립신청" ${claim.status==="적립신청" ? "selected" : ""}>
+              적립신청
+            </option>
+
+            <option value="적립완료" ${claim.status==="적립완료" ? "selected" : ""}>
+              적립완료
+            </option>
+
+          </select>
+        </div>
+
+      </div>
+
+      <div class="claim-bottom">
+
+        <div class="claim-status-text">
+          ${
+            claim.status==="적립완료"
+            ? "적립 완료"
+            : claim.status==="적립신청"
+            ? "적립 신청 중"
+            : "아직 적립되지 않았어요"
+          }
+        </div>
+
+        <div class="claim-point">
+          ${
+            claim.status==="적립완료"
+            ? `${formatNumber(potentialPoint)}P`
+            : potentialPoint>0
+            ? `신청 ${formatNumber(potentialPoint)}P`
+            : "-"
+          }
+        </div>
+
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+/* =========================
+   COMMENT CARD
+========================= */
+
+function createCommentCard(){
+
+  const monthKey = getMonthKey(selectedDate);
+
+  const count = commentCount(monthKey);
+
+  const earned = earnedPointsFor("comment",monthKey);
+
+  const percentage = Math.min(100,count/10*100);
+
+  return `
+    <div class="card activity-card ${openActivities.has("comment") ? "open" : ""}">
+
+      <div class="activity-main" onclick="toggleActivity('comment')">
+
+        <div class="activity-top">
+
+          <div>
+
+            <div class="activity-name-row">
+              <div class="activity-name">댓글교류</div>
+              <div class="fold-arrow">▼</div>
+            </div>
+
+            <div class="activity-rule">
+              1회당 1,000P · 월 최대 10회
+            </div>
+
+          </div>
+
+          <div class="activity-right">
+            <div class="activity-count">${count} / 10</div>
+            <div class="activity-points">${formatNumber(earned)}P</div>
+          </div>
+
+        </div>
+
+        <div class="progress small-progress">
+          <div class="progress-bar" style="width:${percentage}%"></div>
+        </div>
+
+      </div>
+
+      <div class="activity-detail">
+
+        ${createCommentCalendar(monthKey)}
+
+        <div class="comment-result">
+          <div class="comment-result-top">
+            <div class="comment-result-count">
+              현재 ${count} / 10회
+            </div>
+
+            <div class="comment-result-point">
+              신청 가능 ${formatNumber(count*1000)}P
+            </div>
+          </div>
+
+          <div class="comment-max-text">
+            최대 10회 · 10,000P
+          </div>
+        </div>
+
+        ${createBatchClaim("comment",monthKey)}
+
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+/* =========================
+   DIARY CARD
+========================= */
+
+function createDiaryCard(){
+
+  const monthKey = getMonthKey(selectedDate);
+
+  const records = recordsFor(
+    "diary",
+    monthKey
+  )
+  .slice()
+  .sort((a,b)=>a.date.localeCompare(b.date));
+
+  const count = records.length;
+
+  const urlCount = diaryValidUrlCount(monthKey);
+
+  const earned = earnedPointsFor("diary",monthKey);
+
+  const percentage = Math.min(100,count/20*100);
+
+  let rows = "";
+
+  if(count===0){
+
+    rows = `
+      <div class="empty">
+        아직 작성한 결혼일기가 없어요.
+      </div>
+    `;
+
+  }else{
+
+    rows = records.map(record=>`
+
+      <div class="diary-row">
+
+        <input
+          type="date"
+          class="diary-date"
+          value="${record.date}"
+          onchange="updateDiaryDate('${record.id}',this.value)"
+        >
+
+        <input
+          type="text"
+          inputmode="numeric"
+          class="url-number"
+          value="${record.urlNo || ""}"
+          placeholder="URL 번호"
+          onchange="updateDiaryUrl('${record.id}',this.value)"
+        >
+
+        <button
+          class="delete-btn"
+          onclick="deleteDiaryRecord('${record.id}')"
+        >
+          ×
+        </button>
+
+      </div>
+
+    `).join("");
+
+  }
+
+  let progressMessage = "";
+
+  if(count<20){
+
+    progressMessage = `${20-count}개 더 작성하면 신청 가능`;
+
+  }else if(urlCount<20){
+
+    progressMessage = `URL 번호 ${20-urlCount}개 더 입력하면 신청 가능`;
+
+  }else{
+
+    progressMessage = "20개 작성 완료 · 신청 가능";
+
+  }
+
+  return `
+    <div class="card activity-card ${openActivities.has("diary") ? "open" : ""}">
+
+      <div class="activity-main" onclick="toggleActivity('diary')">
+
+        <div class="activity-top">
+
+          <div>
+
+            <div class="activity-name-row">
+              <div class="activity-name">결혼일기</div>
+              <div class="fold-arrow">▼</div>
+            </div>
+
+            <div class="activity-rule">
+              월 20회 작성 시 5,000P
+            </div>
+
+          </div>
+
+          <div class="activity-right">
+            <div class="activity-count">${count} / 20</div>
+            <div class="activity-points">${formatNumber(earned)}P</div>
+          </div>
+
+        </div>
+
+        <div class="progress small-progress">
+          <div
+            class="progress-bar blue-bar"
+            style="width:${percentage}%"
+          ></div>
+        </div>
+
+      </div>
+
+      <div class="activity-detail">
+      
+        <button
+          class="add-btn"
+          onclick="addDiaryRecord()"
+        >
+          + 결혼일기 추가
+        </button>
+        
+        <div class="diary-header">
+          <div>작성일</div>
+          <div>URL 번호</div>
+          <div></div>
+        </div>
+
+        ${rows}
+
+        <div class="diary-progress-info">
+
+          <div class="diary-progress-main">
+            <div class="diary-progress-count">
+              ${count} / 20 작성
+            </div>
+
+            <div class="diary-progress-message">
+              URL ${urlCount} / 20
+            </div>
+          </div>
+
+          <div
+            class="${
+              count===20 && urlCount===20
+              ? "diary-complete"
+              : "diary-warning"
+            }"
+          >
+            ${progressMessage}
+          </div>
+
+        </div>
+
+        ${createBatchClaim("diary",monthKey)}
+
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+/* =========================
+   NORMAL MONTH CARD
+========================= */
+
+function createNormalActivityCard(key){
+
+  const activity = activities[key];
+
+  const monthKey = getMonthKey(selectedDate);
+
+  const records = recordsFor(key,monthKey);
+
+  const earned = earnedPointsFor(key,monthKey);
+
+  const percentage = Math.min(
+    100,
+    records.length/activity.monthlyMax*100
+  );
+
+  let rows = "";
+
+  if(records.length===0){
+
+    rows = `
+      <div class="empty">
+        아직 작성한 내역이 없어요.
+      </div>
+    `;
+
+  }else{
+
+    rows = records
+    .slice()
+    .sort((a,b)=>b.date.localeCompare(a.date))
+    .map(record=>{
+
+      const pointText =
+        record.status==="적립완료"
+        ? `${formatNumber(activity.point)}P`
+        : "-";
+
+      return `
+        <div class="record-row">
+
+          <input
+            type="date"
+            class="record-date-input"
+            value="${record.date}"
+            onchange="updateRecordDate('${record.id}',this.value)"
+          >
+
+          <select
+            class="status-select ${statusClass(record.status)}"
+            onchange="updateStatus('${record.id}',this.value)"
+          >
+
+            <option value="작성완료" ${record.status==="작성완료" ? "selected" : ""}>
+              작성완료
+            </option>
+
+            <option value="적립신청" ${record.status==="적립신청" ? "selected" : ""}>
+              적립신청
+            </option>
+
+            <option value="적립완료" ${record.status==="적립완료" ? "selected" : ""}>
+              적립완료
+            </option>
+
+          </select>
+
+          <div class="record-point">
+            ${pointText}
+          </div>
+
+          <button
+            class="delete-btn"
+            onclick="deleteRecord('${record.id}')"
+          >
+            ×
+          </button>
+
+        </div>
+      `;
+
+    })
+    .join("");
+
+  }
+
+  const totalText = activity.totalMax
+  ? `
+      <div class="activity-rule">
+        전체 ${allRecordsFor(key).length} / ${activity.totalMax}회
+      </div>
+    `
+  : "";
+
+  return `
+    <div class="card activity-card ${openActivities.has(key) ? "open" : ""}">
+
+      <div class="activity-main" onclick="toggleActivity('${key}')">
+
+        <div class="activity-top">
+
+          <div>
+
+            <div class="activity-name-row">
+              <div class="activity-name">${activity.name}</div>
+              <div class="fold-arrow">▼</div>
+            </div>
+
+            <div class="activity-rule">
+              ${activity.rule}
+            </div>
+
+            ${totalText}
+
+          </div>
+
+          <div class="activity-right">
+            <div class="activity-count">
+              ${records.length} / ${activity.monthlyMax}
+            </div>
+
+            <div class="activity-points">
+              ${formatNumber(earned)}P
+            </div>
+          </div>
+
+        </div>
+
+        <div class="progress small-progress">
+          <div
+            class="progress-bar"
+            style="width:${percentage}%"
+          ></div>
+        </div>
+
+      </div>
+
+      <div class="activity-detail">
+
+        <div class="table-head">
+          <div>작성일</div>
+          <div>관리</div>
+          <div style="text-align:right">비고</div>
+          <div></div>
+        </div>
+
+        ${rows}
+
+        <button
+          class="add-btn"
+          onclick="addRecord('${key}')"
+        >
+          + 작성 추가
+        </button>
+
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+/* =========================
+   MONTH RENDER
+========================= */
+
+function renderMonthPage(){
+
+  const year = selectedDate.getFullYear();
+  const month = selectedDate.getMonth()+1;
+
+  document.getElementById(
+    "selectedMonthText"
+  ).textContent = `${year}년 ${month}월`;
+
+  const now = new Date();
+
+  if(
+    year===now.getFullYear()
+    &&
+    month===now.getMonth()+1
+  ){
+
+    const lastDay = new Date(
+      year,
+      month,
+      0
+    ).getDate();
+
+    const remaining = lastDay-now.getDate();
+
+    document.getElementById(
+      "monthStatusText"
+    ).textContent =
+      `오늘은 ${month}월 ${now.getDate()}일 | 이번 달 D-${remaining}`;
+
+  }else{
+
+    document.getElementById(
+      "monthStatusText"
+    ).textContent =
+      `${year}년 ${month}월 활동 내역`;
+
+  }
+
+  document.getElementById(
+    "monthlyActivities"
+  ).innerHTML =
+    createCommentCard()
+    +
+    createNormalActivityCard("food")
+    +
+    createDiaryCard();
+
+  document.getElementById(
+    "limitedActivities"
+  ).innerHTML =
+    createNormalActivityCard("discussion")
+    +
+    createNormalActivityCard("likes")
+    +
+    createNormalActivityCard("instagram");
+
+}
+
+
+/* =========================
+   BLOG
+========================= */
+
+function setBlogTab(max){
+
+  blogTab = max;
+
+  renderBlog();
+
+}
+
+
+function blogRecordsForCategory(categoryId){
+
+  return appData.blogRecords.filter(
+    r=>r.category===categoryId
+  );
+
+}
+
+
+function blogRecordPoint(record){
+
+  if(record.status!=="적립완료"){
+    return 0;
+  }
+
+  return gradePoints[
+    record.grade
+  ] || 0;
+
+}
+
+
+function blogCategoryPoint(categoryId){
+
+  return blogRecordsForCategory(
+    categoryId
+  ).reduce(
+    (sum,record)=>sum+blogRecordPoint(record),
+    0
+  );
+
+}
+
+
+function totalBlogEarnedPoints(){
+
+  return appData.blogRecords.reduce(
+    (sum,record)=>sum+blogRecordPoint(record),
+    0
+  );
+
+}
+
+
+function completedBlogCount(){
+
+  return appData.blogRecords.filter(
+    r=>r.status==="적립완료"
+  ).length;
+
+}
+
+
+function toggleBlogCategory(categoryId){
+
+  if(openBlogCategories.has(categoryId)){
+    openBlogCategories.delete(categoryId);
+  }else{
+    openBlogCategories.add(categoryId);
+  }
+
+  renderBlog();
+
+}
+
+
+function toggleBlogRecord(id){
+
+  if(openBlogRecords.has(id)){
+    openBlogRecords.delete(id);
+  }else{
+    openBlogRecords.add(id);
+  }
+
+  renderBlog();
+
+}
+
+
+function addBlogRecord(categoryId){
+
+  const category = blogCategories.find(
+    c=>c.id===categoryId
+  );
+
+  if(!category){
+    return;
+  }
+
+  const current = blogRecordsForCategory(
+    categoryId
+  );
+
+  if(current.length>=category.max){
+
+    alert(
+      `${category.name}은(는) 최대 ${category.max}개까지 작성할 수 있어.`
+    );
+
+    return;
+  }
+
+  openBlogCategories.add(categoryId);
+
+  const id = newId();
+
+  appData.blogRecords.push({
+    id,
+    category:categoryId,
+    date:getTodayString(),
+    title:"",
+    url:"",
+    grade:"일반",
+    status:"작성완료"
+  });
+
+  openBlogRecords.add(id);
+  editingBlogUrls.add(id);
+
+  saveData();
+
+}
+
+
+function updateBlogDate(id,value){
+
+  if(!value){
+    return;
+  }
+
+  const record = appData.blogRecords.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openBlogCategories.add(record.category);
+
+  record.date = value;
+
+  saveData();
+
+}
+
+
+function updateBlogTitle(id,value){
+
+  const record = appData.blogRecords.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openBlogCategories.add(record.category);
+
+  record.title = value;
+
+  saveData();
+
+}
+
+
+function updateBlogGrade(id,value){
+
+  const record = appData.blogRecords.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openBlogCategories.add(record.category);
+  openBlogRecords.add(id);
+
+  record.grade = value;
+
+  saveData();
+
+}
+
+
+function updateBlogStatus(id,value){
+
+  const record = appData.blogRecords.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openBlogCategories.add(record.category);
+  openBlogRecords.add(id);
+
+  record.status = value;
+
+  saveData();
+
+}
+
+
+function updateBlogUrl(id,value){
+
+  const record = appData.blogRecords.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openBlogCategories.add(record.category);
+  openBlogRecords.add(id);
+
+  record.url = value.trim();
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(appData)
+  );
+
+}
+
+
+function startEditBlogUrl(id){
+
+  editingBlogUrls.add(id);
+  openBlogRecords.add(id);
+
+  renderBlog();
+
+}
+
+
+function finishEditBlogUrl(id){
+
+  editingBlogUrls.delete(id);
+
+  saveData();
+
+}
+
+
+function deleteBlogRecord(id){
+
+  const record = appData.blogRecords.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  openBlogCategories.add(record.category);
+
+  if(!confirm("이 블로그 기록을 삭제할까?")){
+    return;
+  }
+
+  appData.blogRecords = appData.blogRecords.filter(
+    r=>r.id!==id
+  );
+
+  openBlogRecords.delete(id);
+  editingBlogUrls.delete(id);
+
+  saveData();
+
+}
+
+
+function createBlogRecordRow(record){
+
+  const pointValue = blogRecordPoint(record);
+
+  const isOpen = openBlogRecords.has(
+    record.id
+  );
+
+  const isEditingUrl = editingBlogUrls.has(
+    record.id
+  );
+
+  const targetUrl = safeUrl(
+    record.url
+  );
+
+  let urlArea = "";
+
+  if(
+    isEditingUrl
+    ||
+    !targetUrl
+  ){
+
+    urlArea = `
+      <div class="blog-url-edit">
+
+        <input
+          type="text"
+          class="blog-url-input"
+          value="${escapeAttribute(record.url || "")}"
+          placeholder="https://blog.naver.com/..."
+          onclick="event.stopPropagation()"
+          onchange="updateBlogUrl('${record.id}',this.value)"
+        >
+
+        <button
+          class="blog-edit-btn"
+          onclick="event.stopPropagation();finishEditBlogUrl('${record.id}')"
+        >
+          저장
+        </button>
+
+      </div>
+    `;
+
+  }else{
+
+    urlArea = `
+      <div class="blog-url-view">
+
+        <a
+          class="blog-url-link"
+          href="${escapeAttribute(targetUrl)}"
+          target="_blank"
+          rel="noopener"
+          onclick="event.stopPropagation()"
+        >
+          ${escapeHtml(record.url)}
+        </a>
+
+        <button
+          class="blog-edit-btn"
+          onclick="event.stopPropagation();startEditBlogUrl('${record.id}')"
+        >
+          수정
+        </button>
+
+      </div>
+    `;
+
+  }
+
+  return `
+    <div class="blog-post ${isOpen ? "open" : ""}">
+
+      <div
+        class="blog-post-summary"
+        onclick="toggleBlogRecord('${record.id}')"
+      >
+
+        <input
+          type="date"
+          class="blog-summary-date"
+          value="${record.date}"
+          onclick="event.stopPropagation()"
+          onchange="updateBlogDate('${record.id}',this.value)"
+        >
+
+        <input
+          type="text"
+          class="blog-summary-title"
+          value="${escapeAttribute(record.title || "")}"
+          placeholder="글 제목"
+          onclick="event.stopPropagation()"
+          onchange="updateBlogTitle('${record.id}',this.value)"
+        >
+
+        <div class="blog-summary-point">
+          ${
+            pointValue>0
+            ? `${formatNumber(pointValue)}P`
+            : "-"
+          }
+        </div>
+
+        ${
+          targetUrl
+          ?
+          `
+          <a
+            class="blog-link-icon"
+            href="${escapeAttribute(targetUrl)}"
+            target="_blank"
+            rel="noopener"
+            onclick="event.stopPropagation()"
+          >
+            🔗
+          </a>
+          `
+          :
+          `<div></div>`
+        }
+
+        <div class="blog-post-arrow">
+          ▼
+        </div>
+
+      </div>
+
+      <div class="blog-post-detail">
+
+        <div class="blog-post-controls">
+
+          <div>
+
+            <div class="blog-control-label">
+              등급
+            </div>
+
+            <select
+              class="blog-detail-select ${gradeClass(record.grade)}"
+              onchange="updateBlogGrade('${record.id}',this.value)"
+            >
+
+              <option
+                value="일반"
+                ${record.grade==="일반" ? "selected" : ""}
+              >
+                일반
+              </option>
+
+              <option
+                value="우수"
+                ${record.grade==="우수" ? "selected" : ""}
+              >
+                우수
+              </option>
+
+              <option
+                value="서포터즈"
+                ${record.grade==="서포터즈" ? "selected" : ""}
+              >
+                서포터즈
+              </option>
+
+            </select>
+
+          </div>
+
+          <div>
+
+            <div class="blog-control-label">
+              관리
+            </div>
+
+            <select
+              class="blog-detail-select ${statusClass(record.status)}"
+              onchange="updateBlogStatus('${record.id}',this.value)"
+            >
+
+              <option
+                value="작성완료"
+                ${record.status==="작성완료" ? "selected" : ""}
+              >
+                작성완료
+              </option>
+
+              <option
+                value="적립신청"
+                ${record.status==="적립신청" ? "selected" : ""}
+              >
+                적립신청
+              </option>
+
+              <option
+                value="적립완료"
+                ${record.status==="적립완료" ? "selected" : ""}
+              >
+                적립완료
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+        <div class="blog-url-box">
+
+          <div class="blog-control-label">
+            게시물 링크
+          </div>
+
+          ${urlArea}
+
+        </div>
+
+        <div class="blog-post-bottom">
+
+          <div class="blog-post-point-guide">
+            적립완료 시
+            ${formatNumber(gradePoints[record.grade] || 0)}P
+          </div>
+
+          <button
+            class="blog-delete-text"
+            onclick="deleteBlogRecord('${record.id}')"
+          >
+            삭제
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+function createBlogCategoryCard(category){
+
+  const records = blogRecordsForCategory(
+    category.id
+  )
+  .slice()
+  .sort(
+    (a,b)=>b.date.localeCompare(a.date)
+  );
+
+  const point = blogCategoryPoint(
+    category.id
+  );
+
+  const completed = records.filter(
+    r=>r.status==="적립완료"
+  ).length;
+
+  const percentage = Math.min(
+    100,
+    records.length/category.max*100
+  );
+
+  let rows = "";
+
+  if(records.length===0){
+
+    rows = `
+      <div class="empty">
+        아직 작성한 글이 없어요.
+      </div>
+    `;
+
+  }else{
+
+    rows = records
+      .map(createBlogRecordRow)
+      .join("");
+
+  }
+
+  return `
+    <div class="card blog-category-card ${openBlogCategories.has(category.id) ? "open" : ""}">
+
+      <div
+        class="blog-category-head"
+        onclick="toggleBlogCategory('${category.id}')"
+      >
+
+        <div class="blog-category-top">
+
+          <div class="blog-category-icon">
+            ${category.icon}
+          </div>
+
+          <div>
+
+            <div class="blog-category-name-line">
+              <div class="blog-category-name">
+                ${category.name}
+              </div>
+
+              <div class="blog-count-badge">
+                ${records.length} / ${category.max}
+              </div>
+            </div>
+
+            <div class="blog-cat-progress-row">
+
+              <div class="blog-cat-progress">
+                <div style="width:${percentage}%"></div>
+              </div>
+
+              <div class="blog-percent">
+                ${Math.round(percentage)}%
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="blog-category-point">
+
+            <strong>
+              ${formatNumber(point)}P
+            </strong>
+
+            <span>
+              적립완료 기준
+            </span>
+
+            <div
+              class="fold-arrow"
+              style="margin-top:5px;"
+            >
+              ▼
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="blog-category-detail">
+
+        <div class="blog-detail-top">
+
+          <div class="blog-detail-title">
+            작성한 글 (${records.length})
+          </div>
+
+          <button
+            class="mini-add-btn"
+            onclick="event.stopPropagation();addBlogRecord('${category.id}')"
+          >
+            + 글 추가
+          </button>
+
+        </div>
+
+        ${rows}
+
+        <div class="blog-category-footer">
+          적립완료
+          <strong>${completed}건</strong>
+          &nbsp; | &nbsp;
+          <strong>${formatNumber(point)}P</strong>
+        </div>
+
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+function renderBlog(){
+
+  document.getElementById(
+    "blogTab20"
+  ).classList.toggle(
+    "active",
+    blogTab===20
+  );
+
+  document.getElementById(
+    "blogTab10"
+  ).classList.toggle(
+    "active",
+    blogTab===10
+  );
+
+  document.getElementById(
+    "blogTabInfo"
+  ).textContent =
+    blogTab===20
+    ? "대분류별로 최대 20개까지 작성할 수 있어요. 항목을 눌러 작성 내역을 확인해보세요."
+    : "대분류별로 최대 10개까지 작성할 수 있어요. 항목을 눌러 작성 내역을 확인해보세요.";
+
+  const categories = blogCategories.filter(
+    c=>c.max===blogTab
+  );
+
+  document.getElementById(
+    "blogCategories"
+  ).innerHTML =
+    categories
+    .map(createBlogCategoryCard)
+    .join("");
+
+}
+
+
+/* =========================
+   INFORMATION SHARE
+========================= */
+
+function totalShareEarnedPoints(){
+
+  let total = 0;
+
+  appData.sharePosts.forEach(post=>{
+
+    post.shares.forEach(share=>{
+
+      if(share.status==="적립완료"){
+        total += 1000;
+      }
+
+    });
+
+  });
+
+  return total;
+
+}
+
+
+function completedShareCount(){
+
+  let count = 0;
+
+  appData.sharePosts.forEach(post=>{
+
+    post.shares.forEach(share=>{
+
+      if(share.status==="적립완료"){
+        count++;
+      }
+
+    });
+
+  });
+
+  return count;
+
+}
+
+
+function addSharePost(){
+
+  const id = newId();
+
+  appData.sharePosts.unshift({
+    id,
+    date:getTodayString(),
+    title:"새 정보공유 글",
+    url:"",
+    shares:[]
+  });
+
+  openSharePosts.add(id);
+
+  saveData();
+
+}
+
+
+function toggleSharePost(id){
+
+  if(openSharePosts.has(id)){
+    openSharePosts.delete(id);
+  }else{
+    openSharePosts.add(id);
+  }
+
+  renderShare();
+
+}
+
+
+function updateSharePostDate(id,value){
+
+  if(!value){
+    return;
+  }
+
+  const post = appData.sharePosts.find(
+    p=>p.id===id
+  );
+
+  if(!post){
+    return;
+  }
+
+  openSharePosts.add(id);
+
+  post.date = value;
+
+  saveData();
+
+}
+
+
+function updateSharePostTitle(id,value){
+
+  const post = appData.sharePosts.find(
+    p=>p.id===id
+  );
+
+  if(!post){
+    return;
+  }
+
+  openSharePosts.add(id);
+
+  post.title = value.trim() || "제목 없음";
+
+  saveData();
+
+}
+
+
+function updateSharePostUrl(id,value){
+
+  const post = appData.sharePosts.find(
+    p=>p.id===id
+  );
+
+  if(!post){
+    return;
+  }
+
+  openSharePosts.add(id);
+
+  post.url = value.trim();
+
+  saveData();
+
+}
+
+
+function deleteSharePost(id){
+
+  if(!confirm("이 정보공유 글과 안에 있는 공유 내역을 모두 삭제할까?")){
+    return;
+  }
+
+  appData.sharePosts = appData.sharePosts.filter(
+    p=>p.id!==id
+  );
+
+  openSharePosts.delete(id);
+
+  saveData();
+
+}
+
+
+function addShareRecord(postId){
+
+  const post = appData.sharePosts.find(
+    p=>p.id===postId
+  );
+
+  if(!post){
+    return;
+  }
+
+  openSharePosts.add(postId);
+
+  post.shares.unshift({
+    id:newId(),
+    date:getTodayString(),
+    email:"",
+    status:"전송완료"
+  });
+
+  saveData();
+
+}
+
+
+function updateShareDate(postId,shareId,value){
+
+  if(!value){
+    return;
+  }
+
+  const post = appData.sharePosts.find(
+    p=>p.id===postId
+  );
+
+  if(!post){
+    return;
+  }
+
+  const share = post.shares.find(
+    s=>s.id===shareId
+  );
+
+  if(!share){
+    return;
+  }
+
+  openSharePosts.add(postId);
+
+  share.date = value;
+
+  saveData();
+
+}
+
+
+function updateShareEmail(postId,shareId,value){
+
+  const post = appData.sharePosts.find(
+    p=>p.id===postId
+  );
+
+  if(!post){
+    return;
+  }
+
+  const share = post.shares.find(
+    s=>s.id===shareId
+  );
+
+  if(!share){
+    return;
+  }
+
+  openSharePosts.add(postId);
+
+  share.email = value.trim();
+
+  saveData();
+
+}
+
+
+function updateShareStatus(postId,shareId,value){
+
+  const post = appData.sharePosts.find(
+    p=>p.id===postId
+  );
+
+  if(!post){
+    return;
+  }
+
+  const share = post.shares.find(
+    s=>s.id===shareId
+  );
+
+  if(!share){
+    return;
+  }
+
+  openSharePosts.add(postId);
+
+  share.status = value;
+
+  saveData();
+
+}
+
+
+function deleteShareRecord(postId,shareId){
+
+  const post = appData.sharePosts.find(
+    p=>p.id===postId
+  );
+
+  if(!post){
+    return;
+  }
+
+  openSharePosts.add(postId);
+
+  if(!confirm("이 공유 내역을 삭제할까?")){
+    return;
+  }
+
+  post.shares = post.shares.filter(
+    s=>s.id!==shareId
+  );
+
+  saveData();
+
+}
+
+
+function createSharePostCard(post){
+
+  const totalShares = post.shares.length;
+
+  const completedShares = post.shares.filter(
+    s=>s.status==="적립완료"
+  ).length;
+
+  const point = completedShares*1000;
+
+  const targetUrl = safeUrl(
+    post.url
+  );
+
+  let rows = "";
+
+  if(totalShares===0){
+
+    rows = `
+      <div class="empty">
+        아직 이메일 공유 내역이 없어요.
+      </div>
+    `;
+
+  }else{
+
+    const sortedShares = post.shares
+    .slice()
+    .sort(
+      (a,b)=>b.date.localeCompare(a.date)
+    );
+
+    rows = sortedShares.map(share=>`
+
+      <div class="share-row">
+
+        <input
+          type="date"
+          class="share-date-input"
+          value="${share.date}"
+          onchange="updateShareDate('${post.id}','${share.id}',this.value)"
+        >
+
+        <input
+          type="email"
+          class="email-input"
+          value="${escapeAttribute(share.email || "")}"
+          placeholder="이메일 주소"
+          onchange="updateShareEmail('${post.id}','${share.id}',this.value)"
+        >
+
+        <select
+          class="share-status ${statusClass(share.status)}"
+          onchange="updateShareStatus('${post.id}','${share.id}',this.value)"
+        >
+
+          <option
+            value="전송완료"
+            ${share.status==="전송완료" ? "selected" : ""}
+          >
+            전송완료
+          </option>
+
+          <option
+            value="적립신청"
+            ${share.status==="적립신청" ? "selected" : ""}
+          >
+            적립신청
+          </option>
+
+          <option
+            value="적립완료"
+            ${share.status==="적립완료" ? "selected" : ""}
+          >
+            적립완료
+          </option>
+
+        </select>
+
+        <div class="share-point">
+          ${
+            share.status==="적립완료"
+            ? "1,000P"
+            : "-"
+          }
+        </div>
+
+        <button
+          class="delete-btn"
+          onclick="deleteShareRecord('${post.id}','${share.id}')"
+        >
+          ×
+        </button>
+
+      </div>
+
+    `).join("");
+
+  }
+
+  return `
+    <div class="card share-post-card ${openSharePosts.has(post.id) ? "open" : ""}">
+
+      <div
+        class="share-post-head"
+        onclick="toggleSharePost('${post.id}')"
+      >
+
+        <div class="share-post-head-top">
+
+          <div class="share-post-left">
+
+            <div class="share-post-date">
+              ${post.date}
+            </div>
+
+            <div class="share-post-title">
+              ${escapeHtml(post.title || "제목 없음")}
+            </div>
+
+            <div class="share-post-meta">
+              공유 ${totalShares}건 ·
+              적립완료
+              <strong>${completedShares}건</strong>
+              ·
+              <strong>${formatNumber(point)}P</strong>
+            </div>
+
+            ${
+              targetUrl
+              ?
+              `
+              <a
+                class="share-head-url"
+                href="${escapeAttribute(targetUrl)}"
+                target="_blank"
+                rel="noopener"
+                onclick="event.stopPropagation()"
+              >
+                🔗 ${escapeHtml(post.url)}
+              </a>
+              `
+              :
+              ""
+            }
+
+          </div>
+
+          <div class="fold-arrow">
+            ▼
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="share-post-detail">
+
+        <div class="share-post-fields">
+
+          <div>
+            <div class="field-label">작성일</div>
+
+            <input
+              type="date"
+              class="share-post-input"
+              value="${post.date}"
+              onchange="updateSharePostDate('${post.id}',this.value)"
+            >
+          </div>
+
+          <div>
+            <div class="field-label">글 제목</div>
+
+            <input
+              type="text"
+              class="share-post-input"
+              value="${escapeAttribute(post.title || "")}"
+              placeholder="정보공유 글 제목"
+              onchange="updateSharePostTitle('${post.id}',this.value)"
+            >
+          </div>
+
+          <button
+            class="delete-btn"
+            onclick="deleteSharePost('${post.id}')"
+          >
+            ×
+          </button>
+
+        </div>
+
+        <div class="share-post-url-box">
+
+          <div class="field-label">
+            게시물 URL
+          </div>
+
+          <input
+            type="text"
+            class="share-post-url-edit"
+            value="${escapeAttribute(post.url || "")}"
+            placeholder="https://blog.naver.com/..."
+            onchange="updateSharePostUrl('${post.id}',this.value)"
+          >
+
+        </div>
+
+        <button
+          class="add-btn"
+          onclick="addShareRecord('${post.id}')"
+        >
+         + 공유 추가
+        </button>
+
+        <div class="share-table-head">
+          <div>공유일</div>
+          <div>이메일</div>
+          <div>관리</div>
+          <div>포인트</div>
+          <div></div>
+        </div>
+
+        ${rows}
+
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+function renderShare(){
+
+  document.getElementById(
+    "shareTotalPoint"
+  ).textContent =
+    `${formatNumber(totalShareEarnedPoints())}P`;
+
+  if(appData.sharePosts.length===0){
+
+    document.getElementById(
+      "sharePosts"
+    ).innerHTML = `
+      <div class="card empty" style="padding:30px 15px;">
+        아직 등록한 정보공유 글이 없어요.<br>
+        위의 + 글 추가를 눌러 시작해보세요.
+      </div>
+    `;
+
+    return;
+  }
+
+  document.getElementById(
+    "sharePosts"
+  ).innerHTML =
+    appData.sharePosts
+    .slice()
+    .sort(
+      (a,b)=>b.date.localeCompare(a.date)
+    )
+    .map(createSharePostCard)
+    .join("");
+
+}
+
+
+/* =========================
+   ESCAPE
+========================= */
+
+function escapeHtml(value){
+
+  return String(value || "")
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
+
+}
+
+
+function escapeAttribute(value){
+
+  return escapeHtml(value);
+
+}
+
+
+
+/* =========================
+   HOME SETTINGS
+========================= */
+
+function updateWeddingDate(value){
+
+  appData.settings.weddingDate =
+    value || getTodayString();
+
+  saveData();
+
+}
+
+
+function updatePointGoal(value){
+
+  const number = Number(
+    String(value).replace(/[^0-9]/g,"")
+  );
+
+  appData.settings.pointGoal =
+    Number.isFinite(number) && number>=0
+    ? number
+    : 3000000;
+
+  saveData();
+
+}
+function formatPointGoalInput(input){
+
+  const number = input.value.replace(/[^0-9]/g,"");
+
+  if(!number){
+    input.value = "";
+    return;
+  }
+
+  input.value =
+    Number(number).toLocaleString("ko-KR");
+
+}
+
+
+/* =========================
+   INTRO
+========================= */
+
+function introRecordPoint(record){
+
+  return record.contract==="계약"
+    ? 73000
+    : 3000;
+
+}
+
+
+function totalIntroPoints(){
+
+  return appData.introRecords.reduce(
+    (sum,record)=>sum+introRecordPoint(record),
+    0
+  );
+
+}
+
+
+function addIntroRecord(){
+
+  appData.introRecords.unshift({
+    id:newId(),
+    date:getTodayString(),
+    userId:"",
+    contract:"미계약"
+  });
+
+  saveData();
+
+}
+
+
+function updateIntroDate(id,value){
+
+  if(!value){
+    return;
+  }
+
+  const record = appData.introRecords.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  record.date = value;
+
+  saveData();
+
+}
+
+
+function updateIntroId(id,value){
+
+  const record = appData.introRecords.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  record.userId = value.trim();
+
+  saveData();
+
+}
+
+
+function updateIntroContract(id,value){
+
+  const record = appData.introRecords.find(
+    r=>r.id===id
+  );
+
+  if(!record){
+    return;
+  }
+
+  record.contract = value;
+
+  saveData();
+
+}
+
+
+function deleteIntroRecord(id){
+
+  if(!confirm("이 소개가입 기록을 삭제할까?")){
+    return;
+  }
+
+  appData.introRecords = appData.introRecords.filter(
+    r=>r.id!==id
+  );
+
+  saveData();
+
+}
+
+
+function renderIntro(){
+
+  document.getElementById(
+    "introTotalPoint"
+  ).textContent =
+    `${formatNumber(totalIntroPoints())}P`;
+
+  if(appData.introRecords.length===0){
+
+    document.getElementById(
+      "introRows"
+    ).innerHTML = `
+      <div class="empty">
+        아직 등록한 소개가입 내역이 없어요.
+      </div>
+    `;
+
+    return;
+  }
+
+  document.getElementById(
+    "introRows"
+  ).innerHTML =
+    appData.introRecords
+    .slice()
+    .sort((a,b)=>b.date.localeCompare(a.date))
+    .map(record=>{
+
+      const point = introRecordPoint(record);
+
+      return `
+        <div class="intro-row">
+
+          <input
+            type="date"
+            class="intro-date"
+            value="${record.date || getTodayString()}"
+            onchange="updateIntroDate('${record.id}',this.value)"
+          >
+
+          <input
+            type="text"
+            class="intro-id"
+            value="${escapeAttribute(record.userId || "")}"
+            placeholder="아이디 입력"
+            onchange="updateIntroId('${record.id}',this.value)"
+          >
+
+          <select
+            class="intro-contract ${record.contract==="계약" ? "done" : ""}"
+            onchange="updateIntroContract('${record.id}',this.value)"
+          >
+            <option
+              value="미계약"
+              ${record.contract!=="계약" ? "selected" : ""}
+            >
+              미계약
+            </option>
+
+            <option
+              value="계약"
+              ${record.contract==="계약" ? "selected" : ""}
+            >
+              계약
+            </option>
+          </select>
+
+          <div class="intro-point">
+            ${formatNumber(point)}P
+          </div>
+
+          <button
+            class="delete-btn"
+            onclick="deleteIntroRecord('${record.id}')"
+          >
+            ×
+          </button>
+
+        </div>
+      `;
+
+    })
+    .join("");
+
+}
+
+
+
+/* =========================
+   CAFE BASIC / PARTNER
+========================= */
+
+function cafeReferralPoint(){
+
+  return appData.cafeBasic.referral==="작성O"
+    ? 30000
+    : 0;
+
+}
+
+
+function cafeExpoPoint(){
+
+  if(appData.cafeBasic.expoType==="대박람회"){
+    return 50000;
+  }
+
+  if(appData.cafeBasic.expoType==="일반박람회"){
+    return 30000;
+  }
+
+  return 0;
+
+}
+
+
+function cafeConsultPoint(){
+
+  const count = Math.max(
+    0,
+    Math.floor(Number(appData.cafeBasic.consultCount) || 0)
+  );
+
+  return count * 5000;
+
+}
+
+
+function partnerRecord(categoryId,itemId){
+
+  const key = partnerItemKey(categoryId,itemId);
+
+  if(!appData.cafePartner[key]){
+    appData.cafePartner[key] = {
+      status:"",
+      url:"",
+      date:""
+    };
+  }
+
+  return appData.cafePartner[key];
+
+}
+
+
+function partnerItemPoint(item,record){
+
+  if(record.status==="일반"){
+    return item.normal || 0;
+  }
+
+  if(record.status==="우수"){
+    return item.good || 0;
+  }
+
+  return 0;
+
+}
+
+
+function totalCafePartnerPoints(){
+
+  let total = 0;
+
+  cafePartnerCategories.forEach(category=>{
+    category.items.forEach(item=>{
+      total += partnerItemPoint(
+        item,
+        partnerRecord(category.id,item.id)
+      );
+    });
+  });
+
+  return total;
+
+}
+
+
+function partnerCategoryStats(category){
+
+  let excluded = 0;
+  let completed = 0;
+  let point = 0;
+
+  category.items.forEach(item=>{
+    const record = partnerRecord(category.id,item.id);
+
+    if(record.status==="비해당"){
+      excluded += 1;
+      return;
+    }
+
+    if(record.status==="일반" || record.status==="우수"){
+      completed += 1;
+      point += partnerItemPoint(item,record);
+    }
+  });
+
+  const available = Math.max(
+    0,
+    category.items.length - excluded
+  );
+
+  const remaining = Math.max(
+    0,
+    available - completed
+  );
+
+  return{
+    available,
+    completed,
+    remaining,
+    excluded,
+    point,
+    allExcluded:
+      category.items.length>0 && available===0
+  };
+
+}
+
+
+function totalPartnerStats(){
+
+  let available = 0;
+  let completed = 0;
+  let excluded = 0;
+
+  cafePartnerCategories.forEach(category=>{
+    const stats = partnerCategoryStats(category);
+    available += stats.available;
+    completed += stats.completed;
+    excluded += stats.excluded;
+  });
+
+  return{
+    available,
+    completed,
+    excluded,
+    remaining:Math.max(0,available-completed)
+  };
+
+}
+
+
+function totalCafeDailyPoints(){
+
+  return (
+    cafeReferralPoint()
+    +
+    cafeExpoPoint()
+    +
+    cafeConsultPoint()
+    +
+    totalCafePartnerPoints()
+  );
+
+}
+
+
+function setCafeTab(tab){
+
+  cafeTab = tab;
+  renderCafe();
+
+}
+
+
+function updateCafeReferral(value){
+
+  appData.cafeBasic.referral = value;
+  appData.cafeBasic.referralDate = getTodayString();
+
+  saveData();
+
+}
+
+
+function updateCafeExpo(value){
+
+  appData.cafeBasic.expoType = value;
+  appData.cafeBasic.expoDate = getTodayString();
+
+  saveData();
+
+}
+
+
+function updateCafeConsultCount(value){
+
+  const count = Math.max(
+    0,
+    Math.floor(Number(value) || 0)
+  );
+
+  appData.cafeBasic.consultCount = count;
+  appData.cafeBasic.consultDate = count > 0
+    ? getTodayString()
+    : "";
+
+  saveData();
+
+}
+
+
+function togglePartnerCategory(categoryId){
+
+  if(openPartnerCategories.has(categoryId)){
+    openPartnerCategories.delete(categoryId);
+  }else{
+    openPartnerCategories.add(categoryId);
+  }
+
+  renderCafePartner();
+
+}
+
+
+function updatePartnerStatus(categoryId,itemId,value){
+
+  const record = partnerRecord(categoryId,itemId);
+  record.status = value;
+
+  if(value==="일반" || value==="우수"){
+    record.date = getTodayString();
+  }else if(value===""){
+    record.date = "";
+  }
+
+  openPartnerCategories.add(categoryId);
+
+  saveData();
+
+}
+
+
+function updatePartnerUrl(categoryId,itemId,value){
+
+  const record = partnerRecord(categoryId,itemId);
+  record.url = value.trim();
+  openPartnerCategories.add(categoryId);
+
+  saveData();
+
+}
+
+
+function partnerStatusClass(status){
+
+  if(status==="일반"){
+    return "partner-status-normal";
+  }
+
+  if(status==="우수"){
+    return "partner-status-good";
+  }
+
+  if(status==="비해당"){
+    return "partner-status-na";
+  }
+
+  return "partner-status-empty";
+
+}
+
+
+function renderCafePartner(){
+
+  const container = document.getElementById(
+    "cafePartnerCategories"
+  );
+
+  if(!container){
+    return;
+  }
+
+  const orderedCategories = cafePartnerCategories
+    .map((category,index)=>({
+      category,
+      index,
+      stats:partnerCategoryStats(category)
+    }))
+    .sort((a,b)=>{
+      if(a.stats.allExcluded!==b.stats.allExcluded){
+        return a.stats.allExcluded ? 1 : -1;
+      }
+      return a.index-b.index;
+    });
+
+  container.innerHTML = orderedCategories
+    .map(({category,stats})=>{
+
+      const isOpen = openPartnerCategories.has(category.id);
+
+      const orderedItems = category.items
+        .map((item,index)=>({
+          item,
+          index,
+          record:partnerRecord(category.id,item.id)
+        }))
+        .sort((a,b)=>{
+          const aNa = a.record.status==="비해당";
+          const bNa = b.record.status==="비해당";
+
+          if(aNa!==bNa){
+            return aNa ? 1 : -1;
+          }
+
+          return a.index-b.index;
+        });
+
+      const rows = orderedItems
+        .map(({item,record})=>{
+
+          const point = partnerItemPoint(item,record);
+          const isNa = record.status==="비해당";
+          const statusClass = partnerStatusClass(record.status);
+
+          return `
+            <div class="partner-item-row ${isNa ? "not-applicable" : ""}">
+
+              <div class="partner-item-name">
+                ${escapeHtml(item.name)}
+              </div>
+
+              <input
+                class="partner-url-input"
+                type="url"
+                inputmode="url"
+                placeholder="URL"
+                value="${escapeHtml(record.url || "")}"
+                onchange="updatePartnerUrl('${category.id}','${item.id}',this.value)"
+              >
+
+              <select
+                class="partner-status-select ${statusClass}"
+                onchange="updatePartnerStatus('${category.id}','${item.id}',this.value)"
+              >
+                <option value="" ${record.status==="" ? "selected" : ""}>
+                  선택
+                </option>
+
+                <option value="일반" ${record.status==="일반" ? "selected" : ""}>
+                  일반
+                </option>
+
+                <option
+                  value="우수"
+                  ${record.status==="우수" ? "selected" : ""}
+                  ${item.good>0 ? "" : "disabled"}
+                >
+                  우수
+                </option>
+
+                <option value="비해당" ${record.status==="비해당" ? "selected" : ""}>
+                  비해당
+                </option>
+              </select>
+
+              <div class="partner-item-point">
+                ${formatNumber(point)}P
+              </div>
+
+            </div>
+          `;
+
+        })
+        .join("");
+
+      const meta = stats.allExcluded
+        ? `비해당 · 가능 0개`
+        : `작성 ${stats.completed}/${stats.available} · 남은 ${stats.remaining}개`;
+
+      return `
+        <div class="card partner-category-card ${isOpen ? "open" : ""} ${stats.allExcluded ? "excluded" : ""}">
+
+          <div
+            class="partner-category-head"
+            onclick="togglePartnerCategory('${category.id}')"
+          >
+            <div class="partner-category-top">
+              <div>
+                <div class="partner-category-name">
+                  ${escapeHtml(category.name)}
+                </div>
+                <div class="partner-category-meta">
+                  ${meta}
+                </div>
+              </div>
+
+              <div class="partner-category-right">
+                <div class="partner-category-point">
+                  ${formatNumber(stats.point)}P
+                </div>
+                <div class="partner-category-arrow">▼</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="partner-category-detail">
+            <div class="partner-list-head">
+              <div>항목</div>
+              <div>URL</div>
+              <div>구분</div>
+              <div>포인트</div>
+            </div>
+
+            ${rows}
+          </div>
+
+        </div>
+      `;
+
+    })
+    .join("");
+
+  const totalStats = totalPartnerStats();
+
+  document.getElementById(
+    "cafePartnerTotalPoint"
+  ).textContent =
+    `${formatNumber(totalCafePartnerPoints())}P`;
+
+  document.getElementById(
+    "cafePartnerProgress"
+  ).textContent =
+    `작성 ${totalStats.completed} / ${totalStats.available} · 남은 ${totalStats.remaining}개`;
+
+}
+
+
+function renderCafe(){
+
+  const referral = appData.cafeBasic.referral;
+  const expoType = appData.cafeBasic.expoType;
+  const consultCount = Math.max(
+    0,
+    Math.floor(Number(appData.cafeBasic.consultCount) || 0)
+  );
+
+  const basicTab = document.getElementById("cafeTabBasic");
+  const partnerTab = document.getElementById("cafeTabPartner");
+  const basicPanel = document.getElementById("cafeBasicPanel");
+  const partnerPanel = document.getElementById("cafePartnerPanel");
+
+  if(basicTab && partnerTab && basicPanel && partnerPanel){
+    basicTab.classList.toggle("active",cafeTab==="basic");
+    partnerTab.classList.toggle("active",cafeTab==="partner");
+    basicPanel.classList.toggle("active",cafeTab==="basic");
+    partnerPanel.classList.toggle("active",cafeTab==="partner");
+  }
+
+  const referralYes = document.getElementById(
+    "cafeReferralYes"
+  );
+
+  const referralNo = document.getElementById(
+    "cafeReferralNo"
+  );
+
+  if(referralYes && referralNo){
+    referralYes.classList.toggle(
+      "active",
+      referral==="작성O"
+    );
+
+    referralNo.classList.toggle(
+      "active",
+      referral==="작성X"
+    );
+  }
+
+  const expoBig = document.getElementById("cafeExpoBig");
+  const expoNormal = document.getElementById("cafeExpoNormal");
+
+  if(expoBig){
+    expoBig.classList.toggle(
+      "active",
+      expoType==="대박람회"
+    );
+  }
+
+  if(expoNormal){
+    expoNormal.classList.toggle(
+      "active",
+      expoType==="일반박람회"
+    );
+  }
+
+  const referralPointEl = document.getElementById("cafeReferralPoint");
+  const expoPointEl = document.getElementById("cafeExpoPoint");
+  const consultPointEl = document.getElementById("cafeConsultPoint");
+  const consultCountEl = document.getElementById("cafeConsultCount");
+  const consultCalcEl = document.getElementById("cafeConsultCalc");
+  const basicTotalEl = document.getElementById("cafeBasicTotalPoint");
+
+  if(referralPointEl){
+    referralPointEl.textContent =
+      `${formatNumber(cafeReferralPoint())}P`;
+  }
+
+  if(expoPointEl){
+    expoPointEl.textContent =
+      `${formatNumber(cafeExpoPoint())}P`;
+  }
+
+  if(consultPointEl){
+    consultPointEl.textContent =
+      `${formatNumber(cafeConsultPoint())}P`;
+  }
+
+  if(consultCountEl){
+    consultCountEl.value = consultCount;
+  }
+
+  if(consultCalcEl){
+    consultCalcEl.textContent =
+      `${consultCount}개 × 5,000P = ${formatNumber(cafeConsultPoint())}P`;
+  }
+
+  if(basicTotalEl){
+    basicTotalEl.textContent =
+      `${formatNumber(
+        cafeReferralPoint()+cafeExpoPoint()+cafeConsultPoint()
+      )}P`;
+  }
+
+  renderCafePartner();
+
+}
+
+
+/* =========================
+   TOTAL POINT
+========================= */
+
+function newEarnedPoints(){
+
+  return (
+    totalIntroPoints()
+    +
+    allMonthlyEarnedPoints()
+    +
+    totalBlogEarnedPoints()
+    +
+    totalShareEarnedPoints()
+    +
+    totalCafeDailyPoints()
+  );
+
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+function renderHome(){
+
+  const now = new Date();
+
+  document.getElementById(
+    "weddingDateInput"
+  ).value =
+    appData.settings.weddingDate || getTodayString();
+
+  document.getElementById(
+  "pointGoalInput"
+).value =
+  formatNumber(
+    Number(appData.settings.pointGoal || 3000000)
+  );
+  
+  document.getElementById(
+    "homeIntroPoint"
+  ).textContent =
+    `${formatNumber(totalIntroPoints())}원`;
+
+  document.getElementById(
+    "homeIntroCount"
+  ).textContent =
+    `${appData.introRecords.length}건`;
+
+  const monthKey = getMonthKey(
+    now
+  );
+
+  const commentValue = commentCount(
+    monthKey
+  );
+
+  const diaryCount = recordsFor(
+    "diary",
+    monthKey
+  ).length;
+
+  const foodCount = recordsFor(
+    "food",
+    monthKey
+  ).length;
+
+  document.getElementById(
+    "homeCommentCount"
+  ).textContent =
+    `${commentValue} / 10`;
+
+  document.getElementById(
+    "homeDiaryCount"
+  ).textContent =
+    `${diaryCount} / 20`;
+
+  document.getElementById(
+    "homeFoodCount"
+  ).textContent =
+    `${foodCount} / 1`;
+
+  document.getElementById(
+    "homeCommentBar"
+  ).style.width =
+    `${Math.min(100,commentValue/10*100)}%`;
+
+  document.getElementById(
+    "homeDiaryBar"
+  ).style.width =
+    `${Math.min(100,diaryCount/20*100)}%`;
+
+  document.getElementById(
+    "homeFoodBar"
+  ).style.width =
+    `${Math.min(100,foodCount*100)}%`;
+
+  document.getElementById(
+    "homeMonthName"
+  ).textContent =
+    `${now.getFullYear()}년 ${now.getMonth()+1}월`;
+
+  const lastDay = new Date(
+    now.getFullYear(),
+    now.getMonth()+1,
+    0
+  ).getDate();
+
+  const remain = lastDay-now.getDate();
+
+  document.getElementById(
+    "homeTodayText"
+  ).textContent =
+    `오늘은 ${now.getMonth()+1}월 ${now.getDate()}일 | 이번 달 D-${remain}`;
+
+  const blogWritePoint =
+    totalBlogEarnedPoints();
+
+  const blogSharePoint =
+    totalShareEarnedPoints();
+
+  document.getElementById(
+    "homeBlogWritePoint"
+  ).textContent =
+    `${formatNumber(blogWritePoint)}원`;
+
+  document.getElementById(
+    "homeBlogSharePoint"
+  ).textContent =
+    `${formatNumber(blogSharePoint)}원`;
+
+  const cafeMonthlyPoint =
+    allMonthlyEarnedPoints();
+
+  const cafeDailyPoint =
+    totalCafeDailyPoints();
+
+  document.getElementById(
+    "homeCafeMonthlyPoint"
+  ).textContent =
+    `${formatNumber(cafeMonthlyPoint)}원`;
+
+  document.getElementById(
+    "homeCafeDailyPoint"
+  ).textContent =
+    `${formatNumber(cafeDailyPoint)}원`;
+
+  const currentPoint =
+    newEarnedPoints();
+
+  document.getElementById(
+    "currentPoint"
+  ).textContent =
+    `${formatNumber(currentPoint)}원`;
+
+  const pointGoal =
+    Number(appData.settings.pointGoal || 3000000);
+
+  const progressPercent =
+    pointGoal > 0
+      ? Math.min(
+          (currentPoint / pointGoal) * 100,
+          100
+        )
+      : 0;
+
+  document.getElementById(
+    "pointProgressBar"
+  ).style.width =
+    `${progressPercent}%`;
+
+  document.getElementById(
+    "pointProgressPercent"
+  ).textContent =
+    `${progressPercent.toFixed(1)}%`;
+
+  document.getElementById(
+    "pointProgressText"
+  ).textContent =
+    `${formatNumber(currentPoint)}원 / ${formatNumber(pointGoal)}원`;
+
+}
+  
+/* =========================
+   HISTORY
+========================= */
+
+function getHistory(){
+
+  const history = [];
+
+  appData.records.forEach(record=>{
+
+    const activity = activities[
+      record.activity
+    ];
+
+    if(
+      !activity
+      ||
+      activity.batch
+      ||
+      record.status!=="적립완료"
+    ){
+      return;
+    }
+
+    history.push({
+      type:"month",
+      date:record.date,
+      name:activity.name,
+      point:activity.point
+    });
+
+  });
+
+  Object.keys(
+    appData.monthlyClaims
+  ).forEach(key=>{
+
+    const claim = appData.monthlyClaims[
+      key
+    ];
+
+    if(claim.status!=="적립완료"){
+      return;
+    }
+
+    const splitIndex = key.indexOf(":");
+
+    if(splitIndex===-1){
+      return;
+    }
+
+    const activity = key.slice(
+      0,
+      splitIndex
+    );
+
+    const monthKey = key.slice(
+      splitIndex+1
+    );
+
+    const monthNumber = Number(
+      monthKey.split("-")[1]
+    );
+
+    if(activity==="comment"){
+
+      const count = commentCount(
+        monthKey
+      );
+
+      if(count===0){
+        return;
+      }
+
+      history.push({
+        type:"month",
+        date:claim.date || `${monthKey}-01`,
+        name:`${monthNumber}월 댓글교류 ${count}회`,
+        point:count*1000
+      });
+
+    }
+
+    if(activity==="diary"){
+
+      if(!batchEligible("diary",monthKey)){
+        return;
+      }
+
+      history.push({
+        type:"month",
+        date:claim.date || `${monthKey}-01`,
+        name:`${monthNumber}월 결혼일기 20회`,
+        point:5000
+      });
+
+    }
+
+  });
+
+  appData.blogRecords.forEach(record=>{
+
+    if(record.status!=="적립완료"){
+      return;
+    }
+
+    const category = blogCategories.find(
+      c=>c.id===record.category
+    );
+
+    if(!category){
+      return;
+    }
+
+    history.push({
+      type:"blog",
+      date:record.date,
+      name:
+        record.title
+        ? `블로그 · ${record.title}`
+        : `블로그 · ${category.name} · ${record.grade}`,
+      point:gradePoints[record.grade] || 0
+    });
+
+  });
+
+  appData.sharePosts.forEach(post=>{
+
+    post.shares.forEach(share=>{
+
+      if(share.status!=="적립완료"){
+        return;
+      }
+
+      history.push({
+        type:"share",
+        date:share.date,
+        name:`정보공유 · ${post.title || "제목 없음"}`,
+        point:1000
+      });
+
+    });
+
+  });
+
+
+  if(cafeReferralPoint()>0){
+
+    history.push({
+      type:"cafe",
+      date:appData.cafeBasic.referralDate || getTodayString(),
+      name:"카페 기본적립 · 가입 시 추천인 작성",
+      point:cafeReferralPoint()
+    });
+
+  }
+
+  if(cafeExpoPoint()>0){
+
+    history.push({
+      type:"cafe",
+      date:appData.cafeBasic.expoDate || getTodayString(),
+      name:`카페 기본적립 · ${appData.cafeBasic.expoType} 방문`,
+      point:cafeExpoPoint()
+    });
+
+  }
+
+  if(cafeConsultPoint()>0){
+
+    history.push({
+      type:"cafe",
+      date:appData.cafeBasic.consultDate || getTodayString(),
+      name:`카페 기본적립 · 박람회 업체 상담 ${appData.cafeBasic.consultCount}개`,
+      point:cafeConsultPoint()
+    });
+
+  }
+
+  cafePartnerCategories.forEach(category=>{
+    category.items.forEach(item=>{
+      const record = partnerRecord(category.id,item.id);
+      const point = partnerItemPoint(item,record);
+
+      if(point<=0){
+        return;
+      }
+
+      history.push({
+        type:"cafePartner",
+        date:record.date || getTodayString(),
+        name:`카페 제휴업체 · ${item.name} · ${record.status}`,
+        point
+      });
+    });
+  });
+
+  return history.sort(
+    (a,b)=>b.date.localeCompare(a.date)
+  );
+
+}
+
+
+function renderHistory(){
+
+  const history = getHistory();
+
+  const total = history.reduce(
+    (sum,item)=>sum+item.point,
+    0
+  );
+
+  document.getElementById(
+    "historyTotal"
+  ).textContent =
+    `${formatNumber(total)}P`;
+
+  if(history.length===0){
+
+    document.getElementById(
+      "historyRows"
+    ).innerHTML = `
+      <div class="history-empty">
+        아직 적립완료된 내역이 없어요.
+      </div>
+    `;
+
+    return;
+  }
+
+  document.getElementById(
+    "historyRows"
+  ).innerHTML =
+    history.map(item=>`
+
+      <div class="history-row">
+
+        <div class="history-date">
+          ${item.date.slice(5).replace("-",".")}
+        </div>
+
+        <div class="history-name">
+          ${escapeHtml(item.name)}
+        </div>
+
+        <div class="history-point">
+          +${formatNumber(item.point)}P
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+/* =========================
+   WEDDING
+========================= */
+
+function renderWeddingDday(){
+
+  const weddingDate =
+    appData.settings.weddingDate
+    || getTodayString();
+
+  const wedding = new Date(
+    `${weddingDate}T00:00:00`
+  );
+
+  const today = new Date();
+
+  today.setHours(0,0,0,0);
+
+  const diff = Math.ceil(
+    (wedding-today)
+    /
+    (1000*60*60*24)
+  );
+
+  document.getElementById(
+    "weddingDday"
+  ).textContent =
+    diff===0
+    ? "D-DAY"
+    : diff>0
+    ? `D-${diff}`
+    : `D+${Math.abs(diff)}`;
+
+}
+
+
+/* =========================
+   BACKUP
+========================= */
+
+function exportData(){
+
+  const backup = {
+    version:6,
+    savedAt:new Date().toISOString(),
+    data:appData
+  };
+
+  const blob = new Blob(
+    [
+      JSON.stringify(
+        backup,
+        null,
+        2
+      )
+    ],
+    {
+      type:"application/json"
+    }
+  );
+
+  const url = URL.createObjectURL(
+    blob
+  );
+
+  const a = document.createElement(
+    "a"
+  );
+
+  a.href = url;
+
+  a.download =
+    `다이렉트포인트_백업_${getTodayString()}.json`;
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  setTimeout(
+    ()=>URL.revokeObjectURL(url),
+    1000
+  );
+
+}
+
+
+function importData(event){
+
+  const file = event.target.files[0];
+
+  if(!file){
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+
+    try{
+
+      const parsed = JSON.parse(
+        e.target.result
+      );
+
+      const imported =
+        parsed.data || parsed;
+
+      if(!Array.isArray(imported.records)){
+        throw new Error();
+      }
+
+      if(!confirm("현재 기록을 백업 파일의 기록으로 바꿀까?")){
+
+        event.target.value = "";
+
+        return;
+      }
+
+      appData = {
+        records:imported.records || [],
+        monthlyClaims:imported.monthlyClaims || {},
+        blogRecords:imported.blogRecords || [],
+        sharePosts:imported.sharePosts || [],
+        introRecords:imported.introRecords || [],
+        cafeBasic:imported.cafeBasic || {
+          referral:"",
+          referralDate:"",
+          expoType:"",
+          expoDate:"",
+          consultCount:0,
+          consultDate:""
+        },
+        cafePartner:imported.cafePartner || {},
+        settings:imported.settings || {
+          weddingDate:getTodayString(),
+          pointGoal:3000000
+        }
+      };
+
+      if(imported.diaryClaims){
+
+        Object.keys(
+          imported.diaryClaims
+        ).forEach(monthKey=>{
+
+          const status = imported.diaryClaims[
+            monthKey
+          ];
+
+          appData.monthlyClaims[
+            `diary:${monthKey}`
+          ] = {
+            status:
+              status==="작성완료"
+              ? "미신청"
+              : status,
+            date:""
+          };
+
+        });
+
+      }
+
+      normalizeData();
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(appData)
+      );
+
+      renderAll();
+
+      alert("백업 데이터를 불러왔어.");
+
+    }catch{
+
+      alert("이 파일은 사용할 수 있는 백업 파일이 아니야.");
+
+    }
+
+    event.target.value = "";
+
+  };
+
+  reader.readAsText(file);
+
+}
+
+
+/* =========================
+   RENDER
+========================= */
+
+function renderAll(){
+
+  renderWeddingDday();
+  renderHome();
+  renderIntro();
+  renderMonthPage();
+  renderCafe();
+  renderBlog();
+  renderShare();
+  renderHistory();
+
+}
+
+renderAll();
+
+</script>
+
+</body>
+</html>
