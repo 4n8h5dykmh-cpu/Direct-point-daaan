@@ -1842,7 +1842,7 @@ button{
 .partner-list-head,
 .partner-item-row{
   display:grid;
-  grid-template-columns:minmax(0,1.25fr) minmax(0,.95fr) 82px 56px;
+  grid-template-columns:minmax(0,1.3fr) 74px 84px 52px;
   gap:5px;
   align-items:center;
 }
@@ -1882,30 +1882,19 @@ button{
   color:#969da6;
 }
 
-.partner-url-input{
+.partner-status-select,
+.partner-manage-select{
   width:100%;
-  min-width:0;
-  border:0;
-  border-radius:7px;
-  background:#f5f7fa;
-  color:#10254c;
-  padding:7px 5px;
-  font-size:8px;
-}
-
-.partner-item-row.not-applicable .partner-url-input{
-  background:#eceeef;
-  color:#8f96a0;
-}
-
-.partner-status-select{
-  width:82px;
   min-width:0;
   border:0;
   border-radius:7px;
   padding:7px 2px;
   font-size:8px;
   font-weight:700;
+}
+
+.partner-item-row.not-applicable .partner-manage-select{
+  opacity:.45;
 }
 
 .partner-status-empty{
@@ -1945,17 +1934,16 @@ button{
 @media(max-width:380px){
   .partner-list-head,
   .partner-item-row{
-    grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr) 75px 48px;
+    grid-template-columns:minmax(0,1.2fr) 66px 76px 46px;
     gap:3px;
   }
 
-  .partner-status-select{
-    width:75px;
+  .partner-status-select,
+  .partner-manage-select{
     font-size:7.3px;
   }
 
   .partner-item-name,
-  .partner-url-input,
   .partner-item-point{
     font-size:7.4px;
   }
@@ -2444,8 +2432,8 @@ button{
 <div class="card backup-box">
   <div class="backup-title">내 데이터 백업</div>
   <div class="backup-desc">
-    기록은 현재 휴대폰 브라우저에 저장돼요.
-    휴대폰 변경이나 Safari 데이터 삭제에 대비해 가끔 백업 파일을 저장해두세요.
+    기록은 휴대폰 브라우저에 저장됩니다.
+    데이터 삭제에 대비해 백업 파일을 수시로 저장해두세요.
   </div>
 
   <div class="backup-buttons">
@@ -3040,26 +3028,26 @@ const cafeExpoReviewCategories = [
     id:"bigExpoReview",
     name:"대박람회",
     items:[
-      {id:"integrated",name:"대박람회 웨딩 통합후기(스드메웨딩홀)",normal:5000,good:10000},
-      {id:"jewelry",name:"대박람회 후기(예물)",normal:5000,good:10000},
-      {id:"suit",name:"대박람회 후기(예복)",normal:5000,good:10000},
-      {id:"hanbok",name:"대박람회 후기(한복)",normal:5000,good:10000},
-      {id:"honeymoon",name:"대박람회 후기(허니문)",normal:5000,good:10000},
-      {id:"appliance",name:"대박람회 후기(가전)",normal:5000,good:10000},
-      {id:"furniture",name:"대박람회 후기(가구)",normal:5000,good:10000},
-      {id:"skinCare",name:"대박람회 후기(피부관리)",normal:5000,good:10000}
+      {id:"integrated",name:"대박람회 웨딩 통합후기",normal:5000,good:10000},
+      {id:"jewelry",name:"예물",normal:5000,good:10000},
+      {id:"suit",name:"예복",normal:5000,good:10000},
+      {id:"hanbok",name:"한복",normal:5000,good:10000},
+      {id:"honeymoon",name:"허니문",normal:5000,good:10000},
+      {id:"appliance",name:"가전",normal:5000,good:10000},
+      {id:"furniture",name:"가구",normal:5000,good:10000},
+      {id:"skinCare",name:"피부관리",normal:5000,good:10000}
     ]
   },
   {
     id:"expoReview",
     name:"박람회",
     items:[
-      {id:"all",name:"박람회 후기(전체)",normal:5000,good:10000},
-      {id:"hanbok",name:"박람회 후기(한복)",normal:5000,good:10000},
-      {id:"jewelry",name:"박람회 후기(예물)",normal:5000,good:10000},
-      {id:"suit",name:"박람회 후기(예복)",normal:5000,good:10000},
-      {id:"honeymoon",name:"박람회 후기(허니문)",normal:5000,good:10000},
-      {id:"appliance",name:"박람회 후기(가전)",normal:5000,good:10000}
+      {id:"all",name:"박람회 웨딩 통합후기",normal:5000,good:10000},
+      {id:"hanbok",name:"한복",normal:5000,good:10000},
+      {id:"jewelry",name:"예물",normal:5000,good:10000},
+      {id:"suit",name:"예복",normal:5000,good:10000},
+      {id:"honeymoon",name:"허니문",normal:5000,good:10000},
+      {id:"appliance",name:"가전",normal:5000,good:10000}
     ]
   }
 ];
@@ -3225,131 +3213,131 @@ const cafePartnerCategories = [
     id:"staffPraise",
     name:"담당자 칭찬",
     items:[
-      {id:"planner",name:"담당자 칭찬(플래너)",normal:2000,good:0},
-      {id:"weddingHall",name:"담당자 칭찬(웨딩홀)",normal:2000,good:0},
-      {id:"studio",name:"담당자 칭찬(스튜디오)",normal:2000,good:0},
-      {id:"dressHelper",name:"담당자 칭찬(드레스/헬퍼포함)",normal:2000,good:0},
-      {id:"hairMakeup",name:"담당자 칭찬(헤어메이크업)",normal:2000,good:0},
-      {id:"honeymoon",name:"담당자 칭찬(허니문)",normal:2000,good:0},
-      {id:"jewelry",name:"담당자 칭찬(예물)",normal:2000,good:0},
-      {id:"suit",name:"담당자 칭찬(예복)",normal:2000,good:0},
-      {id:"hanbok",name:"담당자 칭찬(한복)",normal:2000,good:0},
-      {id:"appliance",name:"담당자 칭찬(가전)",normal:2000,good:0},
-      {id:"weddingCar",name:"담당자 칭찬(웨딩카)",normal:2000,good:0},
-      {id:"pyebaek",name:"담당자 칭찬(폐백)",normal:2000,good:0},
-      {id:"bouquet",name:"담당자 칭찬(부케)",normal:2000,good:0},
-      {id:"song",name:"담당자 칭찬(축가)",normal:2000,good:0},
-      {id:"mainPhoto",name:"담당자 칭찬(본식사진)",normal:2000,good:0},
-      {id:"dvd",name:"담당자 칭찬(dvd)",normal:2000,good:0}
+      {id:"planner",name:"플래너",normal:2000,good:0},
+      {id:"weddingHall",name:"웨딩홀",normal:2000,good:0},
+      {id:"studio",name:"스튜디",normal:2000,good:0},
+      {id:"dressHelper",name:"드레스/헬퍼",normal:2000,good:0},
+      {id:"hairMakeup",name:"헤어 메이크업",normal:2000,good:0},
+      {id:"honeymoon",name:"허니문",normal:2000,good:0},
+      {id:"jewelry",name:"예물",normal:2000,good:0},
+      {id:"suit",name:"예복",normal:2000,good:0},
+      {id:"hanbok",name:"한복",normal:2000,good:0},
+      {id:"appliance",name:"가전",normal:2000,good:0},
+      {id:"weddingCar",name:"웨딩카",normal:2000,good:0},
+      {id:"pyebaek",name:"폐백",normal:2000,good:0},
+      {id:"bouquet",name:"부케",normal:2000,good:0},
+      {id:"song",name:"축가",normal:2000,good:0},
+      {id:"mainPhoto",name:"본식사진",normal:2000,good:0},
+      {id:"dvd",name:"DVD",normal:2000,good:0}
     ]
   },
   {
     id:"directEtc",
     name:"다이렉트 · 기타",
     items:[
-      {id:"weddingPhotoPride",name:"내 웨딩사진 자랑하기 (스튜디오 원본·수정본)",normal:30000,good:0},
+      {id:"weddingPhotoPride",name:"내 웨딩사진 자랑하기",normal:30000,good:0},
       {id:"directVisit",name:"다이렉트 상담방문(스드메)",normal:5000,good:10000},
       {id:"directOnlineExpo",name:"다이렉트 온라인 박람회",normal:5000,good:0},
-      {id:"applianceEstimate",name:"이달의 가전 한딜매장 상담 견적",normal:10000,good:0}
+      {id:"applianceEstimate",name:"이달의 가전 한딜매장 상담",normal:10000,good:0}
     ]
   },
   {
     id:"weddingHall",
     name:"웨딩홀",
     items:[
-      {id:"tour1",name:"웨딩홀(투어1)",normal:5000,good:10000},
-      {id:"tour2",name:"웨딩홀(투어2)",normal:5000,good:10000},
-      {id:"contract",name:"웨딩홀(계약)",normal:5000,good:10000},
-      {id:"ceremony",name:"웨딩홀(본식)",normal:5000,good:10000},
-      {id:"groomView",name:"웨딩홀(신랑뷰)",normal:5000,good:10000}
+      {id:"tour1",name:"웨딩홀 투어1",normal:5000,good:10000},
+      {id:"tour2",name:"웨딩홀 투어2",normal:5000,good:10000},
+      {id:"contract",name:"계약",normal:5000,good:10000},
+      {id:"ceremony",name:"본식날 웨딩홀",normal:5000,good:10000},
+      {id:"groomView",name:"신랑이 본 예식 당일",normal:5000,good:10000}
     ]
   },
   {
     id:"studioPartner",
     name:"스튜디오",
     items:[
-      {id:"shootReview",name:"스튜디오(촬영후기)",normal:5000,good:10000},
-      {id:"select",name:"스튜디오(셀렉)",normal:5000,good:10000},
-      {id:"album",name:"스튜디오(앨범수령)",normal:5000,good:10000},
-      {id:"groomView",name:"스튜디오(신랑뷰)",normal:5000,good:10000}
+      {id:"shootReview",name:"촬영 후기",normal:5000,good:10000},
+      {id:"select",name:"사진 셀렉",normal:5000,good:10000},
+      {id:"album",name:"앨범수령",normal:5000,good:10000},
+      {id:"groomView",name:"신랑이 본 촬영 당일",normal:5000,good:10000}
     ]
   },
   {
     id:"dressPartner",
     name:"웨딩드레스",
     items:[
-      {id:"tour1",name:"웨딩드레스(투어1)",normal:5000,good:10000},
-      {id:"tour2",name:"웨딩드레스(투어2)",normal:5000,good:10000},
-      {id:"shootFitting",name:"웨딩드레스(촬영가봉)",normal:5000,good:10000},
-      {id:"mainFitting",name:"웨딩드레스(본식가봉)",normal:5000,good:10000},
-      {id:"shootDay",name:"웨딩드레스(촬영당일)",normal:5000,good:10000},
-      {id:"mainDay",name:"웨딩드레스(본식당일)",normal:5000,good:10000},
-      {id:"helper",name:"웨딩드레스(헬퍼)",normal:5000,good:10000},
-      {id:"groomView",name:"웨딩드레스(신랑뷰)",normal:5000,good:10000}
+      {id:"tour1",name:"웨딩드레스 투어1",normal:5000,good:10000},
+      {id:"tour2",name:"웨딩드레스 투어2",normal:5000,good:10000},
+      {id:"shootFitting",name:"촬영 가봉",normal:5000,good:10000},
+      {id:"mainFitting",name:"본식 가봉",normal:5000,good:10000},
+      {id:"shootDay",name:"촬영 당일드레스",normal:5000,good:10000},
+      {id:"mainDay",name:"본식 당일 드레스",normal:5000,good:10000},
+      {id:"helper",name:"드레스 헬퍼",normal:5000,good:10000},
+      {id:"groomView",name:"신랑이 본 드레스 투어",normal:5000,good:10000}
     ]
   },
   {
     id:"makeupPartner",
     name:"메이크업",
     items:[
-      {id:"consultContract",name:"메이크업(상담 및 계약후기)",normal:5000,good:10000},
-      {id:"shootMakeup",name:"메이크업(촬영 메이크업)",normal:5000,good:10000},
-      {id:"shootHair",name:"메이크업(촬영 헤어)",normal:5000,good:10000},
-      {id:"shootGroom",name:"메이크업(촬영날 신랑)",normal:5000,good:10000},
-      {id:"mainMakeup",name:"메이크업(본식 메이크업)",normal:5000,good:10000},
-      {id:"mainHair",name:"메이크업(본식 헤어)",normal:5000,good:10000},
-      {id:"parentsMakeup",name:"메이크업(혼주 메이크업)",normal:5000,good:10000},
-      {id:"mainGroom",name:"메이크업(본식 신랑)",normal:5000,good:10000}
+      {id:"consultContract",name:"메이크업 상담/계약",normal:5000,good:10000},
+      {id:"shootMakeup",name:"촬영 메이크업",normal:5000,good:10000},
+      {id:"shootHair",name:"촬영 헤어",normal:5000,good:10000},
+      {id:"shootGroom",name:"촬영날 신랑",normal:5000,good:10000},
+      {id:"mainMakeup",name:"본식 메이크업",normal:5000,good:10000},
+      {id:"mainHair",name:"본식 헤어",normal:5000,good:10000},
+      {id:"parentsMakeup",name:"혼주 메이크업",normal:5000,good:10000},
+      {id:"mainGroom",name:"본식날 신랑",normal:5000,good:10000}
     ]
   },
   {
     id:"mainPhotoPartner",
-    name:"본식사진",
+    name:"본식 사진",
     items:[
-      {id:"shoot",name:"본식사진(촬영)",normal:5000,good:10000},
-      {id:"album",name:"본식사진(앨범수령)",normal:5000,good:10000}
+      {id:"shoot",name:"촬영",normal:5000,good:10000},
+      {id:"album",name:"앨범수령",normal:5000,good:10000}
     ]
   },
   {
     id:"hanbokPartner",
     name:"한복",
     items:[
-      {id:"consultContract",name:"한복(상담/계약)",normal:5000,good:10000},
-      {id:"fitting",name:"한복(가봉)",normal:5000,good:10000},
-      {id:"shoot",name:"한복(촬영)",normal:5000,good:10000},
-      {id:"mainCouple",name:"한복(본식, 신랑신부)",normal:5000,good:10000},
-      {id:"mainParents",name:"한복(본식, 혼주)",normal:5000,good:10000}
+      {id:"consultContract",name:"한복 상담/계약",normal:5000,good:10000},
+      {id:"fitting",name:"한복 가봉",normal:5000,good:10000},
+      {id:"shoot",name:"촬영 한복",normal:5000,good:10000},
+      {id:"mainCouple",name:"본식 당일 신랑신부 한복",normal:5000,good:10000},
+      {id:"mainParents",name:"본식 당일 혼주 한복",normal:5000,good:10000}
     ]
   },
   {
     id:"jewelryPartner",
     name:"예물",
     items:[
-      {id:"consultContract",name:"예물(상담/계약)",normal:5000,good:10000},
-      {id:"pickupReview",name:"예물(수령후기)",normal:5000,good:10000},
-      {id:"watch",name:"예물(시계)",normal:5000,good:10000},
-      {id:"proposalRing",name:"예물(프로포즈링)",normal:5000,good:10000}
+      {id:"consultContract",name:"예물 상담/계약",normal:5000,good:10000},
+      {id:"pickupReview",name:"예물 수령 후기",normal:5000,good:10000},
+      {id:"watch",name:"예물 시계",normal:5000,good:10000},
+      {id:"proposalRing",name:"프로포즈링",normal:5000,good:10000}
     ]
   },
   {
     id:"suitPartner",
     name:"예복",
     items:[
-      {id:"consultContract",name:"예복(상담/계약)",normal:5000,good:10000},
-      {id:"fitting",name:"예복(가봉)",normal:5000,good:10000},
-      {id:"weddingSuit",name:"예복(결혼식 예복)",normal:5000,good:10000},
-      {id:"shoot",name:"예복(촬영)",normal:5000,good:10000},
-      {id:"parentsSuit",name:"예복(결혼식 혼주)",normal:5000,good:10000}
+      {id:"consultContract",name:"예복 상담/계약",normal:5000,good:10000},
+      {id:"fitting",name:"가봉",normal:5000,good:10000},
+      {id:"weddingSuit",name:"결혼식 예복",normal:5000,good:10000},
+      {id:"shoot",name:"촬영날 예복",normal:5000,good:10000},
+      {id:"parentsSuit",name:"결혼식 혼주 예복",normal:5000,good:10000}
     ]
   },
   {
     id:"honeymoonPartner",
     name:"허니문",
     items:[
-      {id:"consultContract",name:"허니문(상담/계약)",normal:5000,good:10000},
-      {id:"review",name:"허니문(후기)",normal:5000,good:10000},
-      {id:"hotel",name:"허니문(숙소)",normal:5000,good:10000},
-      {id:"flight",name:"허니문(항공)",normal:5000,good:10000}
+      {id:"consultContract",name:"허니문 상담/계약",normal:5000,good:10000},
+      {id:"review",name:"허니문 후기",normal:5000,good:10000},
+      {id:"hotel",name:"허니문 숙소",normal:5000,good:10000},
+      {id:"flight",name:"허니문 항공",normal:5000,good:10000}
     ]
   },
   {
@@ -3373,10 +3361,10 @@ const cafePartnerCategories = [
   },
   {
     id:"ceremonyComplete",
-    name:"예식완료",
+    name:"예식완료 총 후기 & 비용 정리",
     items:[
-      {id:"hall",name:"예식완료(웨딩홀)",normal:20000,good:0},
-      {id:"all",name:"예식완료(결혼준비 전체)",normal:20000,good:0}
+      {id:"hall",name:"웨딩홀 후기",normal:20000,good:0},
+      {id:"all",name:"결혼준비 전체",normal:20000,good:0}
     ]
   },
   {
@@ -3397,14 +3385,14 @@ const cafePartnerCategories = [
     id:"newlywedHome",
     name:"신혼 혼수",
     items:[
-      {id:"furniture",name:"신혼 혼수(가구)",normal:5000,good:0},
-      {id:"internet",name:"신혼 혼수(인터넷)",normal:5000,good:0},
-      {id:"rental",name:"신혼 혼수(렌탈)",normal:5000,good:0},
-      {id:"interior",name:"신혼 혼수(인테리어)",normal:5000,good:0},
-      {id:"cleaning",name:"신혼 혼수(입주청소)",normal:5000,good:0},
-      {id:"moving",name:"신혼 혼수(이사)",normal:5000,good:0},
-      {id:"card",name:"신혼 혼수(신용카드)",normal:5000,good:0},
-      {id:"insurance",name:"신혼 혼수(보험)",normal:5000,good:0}
+      {id:"furniture",name:"가구",normal:5000,good:0},
+      {id:"internet",name:"인터넷",normal:5000,good:0},
+      {id:"rental",name:"렌탈",normal:5000,good:0},
+      {id:"interior",name:"인테리어",normal:5000,good:0},
+      {id:"cleaning",name:"입주청소",normal:5000,good:0},
+      {id:"moving",name:"이사",normal:5000,good:0},
+      {id:"card",name:"신용카드",normal:5000,good:0},
+      {id:"insurance",name:"보험",normal:5000,good:0}
     ]
   },
   {
@@ -3594,6 +3582,7 @@ function normalizeData(){
       if(!saved || typeof saved!=="object"){
         appData.cafePartner[key] = {
           status:"",
+          manageStatus:"",
           url:"",
           date:""
         };
@@ -3603,9 +3592,18 @@ function normalizeData(){
       if(!["","일반","우수","비해당"].includes(saved.status)){
         saved.status = "";
       }
+
+      if(!["","작성완료","적립신청","적립완료"].includes(saved.manageStatus)){
+        saved.manageStatus =
+          saved.status==="일반" || saved.status==="우수"
+            ? "작성완료"
+            : "";
+      }
+
       if(typeof saved.url!=="string"){
         saved.url = "";
       }
+
       if(typeof saved.date!=="string"){
         saved.date = "";
       }
@@ -6126,6 +6124,14 @@ function updateSharePostUrl(id,value){
 
   post.url = value.trim();
 
+  if(post.url){
+    post.shares.forEach(share=>{
+      if(!share.status){
+        share.status = "전송완료";
+      }
+    });
+  }
+
   saveData();
 
 }
@@ -6164,7 +6170,7 @@ function addShareRecord(postId){
     id:newId(),
     date:getTodayString(),
     email:"",
-    status:"전송완료"
+    status:""
   });
 
   saveData();
@@ -6337,6 +6343,13 @@ function createSharePostCard(post){
           class="share-status ${statusClass(share.status)}"
           onchange="updateShareStatus('${post.id}','${share.id}',this.value)"
         >
+
+          <option
+            value=""
+            ${share.status==="" ? "selected" : ""}
+          >
+            선택
+          </option>
 
           <option
             value="전송완료"
@@ -6906,6 +6919,7 @@ function partnerRecord(categoryId,itemId){
       else{
         appData.cafePartner[key] = {
           status:"",
+          manageStatus:"",
           url:"",
           date:""
         };
@@ -6914,12 +6928,33 @@ function partnerRecord(categoryId,itemId){
 
   }
 
-  return appData.cafePartner[key];
+  const record = appData.cafePartner[key];
+
+  if(!["","일반","우수","비해당"].includes(record.status)){
+    record.status = "";
+  }
+
+  if(!["","작성완료","적립신청","적립완료"].includes(record.manageStatus)){
+    record.manageStatus =
+      record.status==="일반" || record.status==="우수"
+        ? "작성완료"
+        : "";
+  }
+
+  if(typeof record.url!=="string"){
+    record.url = "";
+  }
+
+  if(typeof record.date!=="string"){
+    record.date = "";
+  }
+
+  return record;
 
 }
 
 
-function partnerItemPoint(item,record){
+function partnerItemBasePoint(item,record){
 
   if(record.status==="일반"){
     return item.normal || 0;
@@ -6930,6 +6965,20 @@ function partnerItemPoint(item,record){
   }
 
   return 0;
+
+}
+
+
+function partnerItemPoint(item,record){
+
+  if(record.manageStatus!=="적립완료"){
+    return 0;
+  }
+
+  return partnerItemBasePoint(
+    item,
+    record
+  );
 
 }
 
@@ -7226,11 +7275,54 @@ function togglePartnerCategory(categoryId){
 function updatePartnerStatus(categoryId,itemId,value){
 
   const record = partnerRecord(categoryId,itemId);
+
   record.status = value;
 
   if(value==="일반" || value==="우수"){
+
+    if(!record.manageStatus){
+      record.manageStatus = "작성완료";
+    }
+
+  }else{
+
+    record.manageStatus = "";
+    record.date = "";
+
+  }
+
+  openPartnerCategories.add(categoryId);
+
+  saveData();
+
+}
+
+
+function updatePartnerManageStatus(categoryId,itemId,value){
+
+  const record = partnerRecord(categoryId,itemId);
+
+  if(
+    record.status!=="일반"
+    &&
+    record.status!=="우수"
+  ){
+    record.manageStatus = "";
+    record.date = "";
+    openPartnerCategories.add(categoryId);
+    saveData();
+    return;
+  }
+
+  if(!["작성완료","적립신청","적립완료"].includes(value)){
+    value = "작성완료";
+  }
+
+  record.manageStatus = value;
+
+  if(value==="적립완료"){
     record.date = getTodayString();
-  }else if(value===""){
+  }else{
     record.date = "";
   }
 
@@ -7241,6 +7333,7 @@ function updatePartnerStatus(categoryId,itemId,value){
 }
 
 
+/* 이전에 저장된 URL 데이터는 백업 호환을 위해 유지하지만 화면에서는 더 이상 사용하지 않음 */
 function updatePartnerUrl(categoryId,itemId,value){
 
   const record = partnerRecord(categoryId,itemId);
@@ -7270,6 +7363,107 @@ function partnerStatusClass(status){
 
 }
 
+
+function partnerManageClass(status){
+
+  if(status==="작성완료"){
+    return "status-written";
+  }
+
+  if(status==="적립신청"){
+    return "status-request";
+  }
+
+  if(status==="적립완료"){
+    return "status-done";
+  }
+
+  return "status-none";
+
+}
+
+
+function renderCafeItemRow(category,item,record){
+
+  const displayPoint = partnerItemBasePoint(
+    item,
+    record
+  );
+
+  const isNa = record.status==="비해당";
+
+  const statusClass =
+    partnerStatusClass(
+      record.status
+    );
+
+  const manageClass =
+    partnerManageClass(
+      record.manageStatus
+    );
+
+  return `
+    <div class="partner-item-row ${isNa ? "not-applicable" : ""}">
+
+      <div class="partner-item-name">
+        ${escapeHtml(item.name)}
+      </div>
+
+      <select
+        class="partner-status-select ${statusClass}"
+        onchange="updatePartnerStatus('${category.id}','${item.id}',this.value)"
+      >
+        <option value="" ${record.status==="" ? "selected" : ""}>
+          선택
+        </option>
+
+        <option value="일반" ${record.status==="일반" ? "selected" : ""}>
+          일반
+        </option>
+
+        <option
+          value="우수"
+          ${record.status==="우수" ? "selected" : ""}
+          ${item.good>0 ? "" : "disabled"}
+        >
+          우수
+        </option>
+
+        <option value="비해당" ${record.status==="비해당" ? "selected" : ""}>
+          비해당
+        </option>
+      </select>
+
+      <select
+        class="partner-manage-select ${manageClass}"
+        onchange="updatePartnerManageStatus('${category.id}','${item.id}',this.value)"
+        ${isNa || record.status==="" ? "disabled" : ""}
+      >
+        <option value="" ${record.manageStatus==="" ? "selected" : ""}>
+          선택
+        </option>
+
+        <option value="작성완료" ${record.manageStatus==="작성완료" ? "selected" : ""}>
+          작성완료
+        </option>
+
+        <option value="적립신청" ${record.manageStatus==="적립신청" ? "selected" : ""}>
+          적립신청
+        </option>
+
+        <option value="적립완료" ${record.manageStatus==="적립완료" ? "selected" : ""}>
+          적립완료
+        </option>
+      </select>
+
+      <div class="partner-item-point">
+        ${formatNumber(displayPoint)}P
+      </div>
+
+    </div>
+  `;
+
+}
 
 function renderCafePartner(){
 
@@ -7308,70 +7502,14 @@ function renderCafePartner(){
         .sort((a,b)=>{
           const aNa = a.record.status==="비해당";
           const bNa = b.record.status==="비해당";
-
           if(aNa!==bNa){
             return aNa ? 1 : -1;
           }
-
           return a.index-b.index;
         });
 
       const rows = orderedItems
-        .map(({item,record})=>{
-
-          const point = partnerItemPoint(item,record);
-          const isNa = record.status==="비해당";
-          const statusClass = partnerStatusClass(record.status);
-
-          return `
-            <div class="partner-item-row ${isNa ? "not-applicable" : ""}">
-
-              <div class="partner-item-name">
-                ${escapeHtml(item.name)}
-              </div>
-
-              <input
-                class="partner-url-input"
-                type="url"
-                inputmode="url"
-                placeholder="URL"
-                value="${escapeHtml(record.url || "")}"
-                onchange="updatePartnerUrl('${category.id}','${item.id}',this.value)"
-              >
-
-              <select
-                class="partner-status-select ${statusClass}"
-                onchange="updatePartnerStatus('${category.id}','${item.id}',this.value)"
-              >
-                <option value="" ${record.status==="" ? "selected" : ""}>
-                  선택
-                </option>
-
-                <option value="일반" ${record.status==="일반" ? "selected" : ""}>
-                  일반
-                </option>
-
-                <option
-                  value="우수"
-                  ${record.status==="우수" ? "selected" : ""}
-                  ${item.good>0 ? "" : "disabled"}
-                >
-                  우수
-                </option>
-
-                <option value="비해당" ${record.status==="비해당" ? "selected" : ""}>
-                  비해당
-                </option>
-              </select>
-
-              <div class="partner-item-point">
-                ${formatNumber(point)}P
-              </div>
-
-            </div>
-          `;
-
-        })
+        .map(({item,record})=>renderCafeItemRow(category,item,record))
         .join("");
 
       const meta = stats.allExcluded
@@ -7380,44 +7518,26 @@ function renderCafePartner(){
 
       return `
         <div class="card partner-category-card ${isOpen ? "open" : ""} ${stats.allExcluded ? "excluded" : ""}">
-
-          <div
-            class="partner-category-head"
-            onclick="togglePartnerCategory('${category.id}')"
-          >
+          <div class="partner-category-head" onclick="togglePartnerCategory('${category.id}')">
             <div class="partner-category-top">
               <div>
-                <div class="partner-category-name">
-                  ${escapeHtml(category.name)}
-                </div>
-                <div class="partner-category-meta">
-                  ${meta}
-                </div>
+                <div class="partner-category-name">${escapeHtml(category.name)}</div>
+                <div class="partner-category-meta">${meta}</div>
               </div>
-
               <div class="partner-category-right">
-                <div class="partner-category-point">
-                  ${formatNumber(stats.point)}P
-                </div>
+                <div class="partner-category-point">${formatNumber(stats.point)}P</div>
                 <div class="partner-category-arrow">▼</div>
               </div>
             </div>
           </div>
-
           <div class="partner-category-detail">
             <div class="partner-list-head">
-              <div>항목</div>
-              <div>URL</div>
-              <div>구분</div>
-              <div>포인트</div>
+              <div>항목</div><div>구분</div><div>관리</div><div>포인트</div>
             </div>
-
             ${rows}
           </div>
-
         </div>
       `;
-
     })
     .join("");
 
@@ -7425,16 +7545,13 @@ function renderCafePartner(){
 
   document.getElementById(
     "cafePartnerTotalPoint"
-  ).textContent =
-    `${formatNumber(totalCafePartnerPoints())}P`;
+  ).textContent = `${formatNumber(totalCafePartnerPoints())}P`;
 
   document.getElementById(
     "cafePartnerProgress"
-  ).textContent =
-    `작성 ${totalStats.completed} / ${totalStats.available} · 남은 ${totalStats.remaining}개`;
+  ).textContent = `작성 ${totalStats.completed} / ${totalStats.available} · 남은 ${totalStats.remaining}개`;
 
 }
-
 
 function renderCafeCertified(){
 
@@ -7473,70 +7590,14 @@ function renderCafeCertified(){
         .sort((a,b)=>{
           const aNa = a.record.status==="비해당";
           const bNa = b.record.status==="비해당";
-
           if(aNa!==bNa){
             return aNa ? 1 : -1;
           }
-
           return a.index-b.index;
         });
 
       const rows = orderedItems
-        .map(({item,record})=>{
-
-          const point = partnerItemPoint(item,record);
-          const isNa = record.status==="비해당";
-          const statusClass = partnerStatusClass(record.status);
-
-          return `
-            <div class="partner-item-row ${isNa ? "not-applicable" : ""}">
-
-              <div class="partner-item-name">
-                ${escapeHtml(item.name)}
-              </div>
-
-              <input
-                class="partner-url-input"
-                type="url"
-                inputmode="url"
-                placeholder="URL"
-                value="${escapeHtml(record.url || "")}"
-                onchange="updatePartnerUrl('${category.id}','${item.id}',this.value)"
-              >
-
-              <select
-                class="partner-status-select ${statusClass}"
-                onchange="updatePartnerStatus('${category.id}','${item.id}',this.value)"
-              >
-                <option value="" ${record.status==="" ? "selected" : ""}>
-                  선택
-                </option>
-
-                <option value="일반" ${record.status==="일반" ? "selected" : ""}>
-                  일반
-                </option>
-
-                <option
-                  value="우수"
-                  ${record.status==="우수" ? "selected" : ""}
-                  ${item.good>0 ? "" : "disabled"}
-                >
-                  우수
-                </option>
-
-                <option value="비해당" ${record.status==="비해당" ? "selected" : ""}>
-                  비해당
-                </option>
-              </select>
-
-              <div class="partner-item-point">
-                ${formatNumber(point)}P
-              </div>
-
-            </div>
-          `;
-
-        })
+        .map(({item,record})=>renderCafeItemRow(category,item,record))
         .join("");
 
       const meta = stats.allExcluded
@@ -7545,44 +7606,26 @@ function renderCafeCertified(){
 
       return `
         <div class="card partner-category-card ${isOpen ? "open" : ""} ${stats.allExcluded ? "excluded" : ""}">
-
-          <div
-            class="partner-category-head"
-            onclick="togglePartnerCategory('${category.id}')"
-          >
+          <div class="partner-category-head" onclick="togglePartnerCategory('${category.id}')">
             <div class="partner-category-top">
               <div>
-                <div class="partner-category-name">
-                  ${escapeHtml(category.name)}
-                </div>
-                <div class="partner-category-meta">
-                  ${meta}
-                </div>
+                <div class="partner-category-name">${escapeHtml(category.name)}</div>
+                <div class="partner-category-meta">${meta}</div>
               </div>
-
               <div class="partner-category-right">
-                <div class="partner-category-point">
-                  ${formatNumber(stats.point)}P
-                </div>
+                <div class="partner-category-point">${formatNumber(stats.point)}P</div>
                 <div class="partner-category-arrow">▼</div>
               </div>
             </div>
           </div>
-
           <div class="partner-category-detail">
             <div class="partner-list-head">
-              <div>항목</div>
-              <div>URL</div>
-              <div>구분</div>
-              <div>포인트</div>
+              <div>항목</div><div>구분</div><div>관리</div><div>포인트</div>
             </div>
-
             ${rows}
           </div>
-
         </div>
       `;
-
     })
     .join("");
 
@@ -7590,16 +7633,13 @@ function renderCafeCertified(){
 
   document.getElementById(
     "cafeCertifiedTotalPoint"
-  ).textContent =
-    `${formatNumber(totalCafeCertifiedPoints())}P`;
+  ).textContent = `${formatNumber(totalCafeCertifiedPoints())}P`;
 
   document.getElementById(
     "cafeCertifiedProgress"
-  ).textContent =
-    `작성 ${totalStats.completed} / ${totalStats.available} · 남은 ${totalStats.remaining}개`;
+  ).textContent = `작성 ${totalStats.completed} / ${totalStats.available} · 남은 ${totalStats.remaining}개`;
 
 }
-
 
 function renderCafeCategoryCollection(categories,containerId,totalPointId,progressId,totalPointFn){
 
@@ -7630,35 +7670,9 @@ function renderCafeCategoryCollection(categories,containerId,totalPointId,progre
         return a.index-b.index;
       });
 
-    const rows = orderedItems.map(({item,record})=>{
-      const point = partnerItemPoint(item,record);
-      const isNa = record.status==="비해당";
-      const statusClass = partnerStatusClass(record.status);
-
-      return `
-        <div class="partner-item-row ${isNa ? "not-applicable" : ""}">
-          <div class="partner-item-name">${escapeHtml(item.name)}</div>
-          <input
-            class="partner-url-input"
-            type="url"
-            inputmode="url"
-            placeholder="URL"
-            value="${escapeHtml(record.url || "")}"
-            onchange="updatePartnerUrl('${category.id}','${item.id}',this.value)"
-          >
-          <select
-            class="partner-status-select ${statusClass}"
-            onchange="updatePartnerStatus('${category.id}','${item.id}',this.value)"
-          >
-            <option value="" ${record.status==="" ? "selected" : ""}>선택</option>
-            <option value="일반" ${record.status==="일반" ? "selected" : ""}>일반</option>
-            <option value="우수" ${record.status==="우수" ? "selected" : ""} ${item.good>0 ? "" : "disabled"}>우수</option>
-            <option value="비해당" ${record.status==="비해당" ? "selected" : ""}>비해당</option>
-          </select>
-          <div class="partner-item-point">${formatNumber(point)}P</div>
-        </div>
-      `;
-    }).join("");
+    const rows = orderedItems
+      .map(({item,record})=>renderCafeItemRow(category,item,record))
+      .join("");
 
     const meta = stats.allExcluded
       ? `비해당 · 가능 0개`
@@ -7680,7 +7694,7 @@ function renderCafeCategoryCollection(categories,containerId,totalPointId,progre
         </div>
         <div class="partner-category-detail">
           <div class="partner-list-head">
-            <div>항목</div><div>URL</div><div>구분</div><div>포인트</div>
+            <div>항목</div><div>구분</div><div>관리</div><div>포인트</div>
           </div>
           ${rows}
         </div>
@@ -8496,7 +8510,7 @@ function importData(event){
         throw new Error();
       }
 
-      if(!confirm("현재 기록을 백업 파일의 기록으로 바꿀까?")){
+      if(!confirm("현재 기록을 백업 파일의 기록으로 변경하시겠습니까?")){
 
         event.target.value = "";
 
