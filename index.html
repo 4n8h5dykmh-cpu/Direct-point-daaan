@@ -2505,6 +2505,14 @@ button{
   </button>
 
   <button
+    id="cafeTabExpoReview"
+    class="cafe-tab"
+    onclick="setCafeTab('expoReview')"
+  >
+    박람회
+  </button>
+
+  <button
     id="cafeTabPartner"
     class="cafe-tab"
     onclick="setCafeTab('partner')"
@@ -2525,7 +2533,7 @@ button{
     class="cafe-tab"
     onclick="setCafeTab('weddingReview')"
   >
-    결혼준비 후기
+    결혼준비
   </button>
 
   <button
@@ -2533,7 +2541,7 @@ button{
     class="cafe-tab"
     onclick="setCafeTab('newlywedBirth')"
   >
-    신혼·임신·출산
+    신혼
   </button>
 </div>
 
@@ -2631,8 +2639,38 @@ button{
     </div>
   </div>
 
+  <div class="section-title">기타 기본적립</div>
+
+  <div style="display:none">
+    <span id="cafeBasicExtraTotalPoint"></span>
+    <span id="cafeBasicExtraProgress"></span>
+  </div>
+  <div id="cafeBasicExtraCategories"></div>
+
   <div class="cafe-basic-note">
     기본적립에서 계산된 포인트는 홈의 <strong>카페 활동 포인트 → 일일활동</strong>에 합산돼요.
+  </div>
+
+</div>
+
+<div id="cafeExpoReviewPanel" class="cafe-tab-panel">
+
+  <div class="card cafe-partner-summary">
+    <div class="cafe-partner-summary-row">
+      <div>
+        <div class="cafe-partner-summary-label">박람회 적립 포인트</div>
+        <div class="cafe-partner-summary-point" id="cafeExpoReviewTotalPoint">0P</div>
+        <div class="cafe-partner-summary-meta" id="cafeExpoReviewProgress">작성 0 / 0 · 남은 0개</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="cafeExpoReviewCategories"></div>
+
+  <div class="partner-section-note">
+    대박람회와 일반 박람회 후기를 각각 관리할 수 있어요.
+    <strong>비해당</strong> 선택 시 포인트는 0P이고 가능 개수에서 제외되며 목록 아래로 이동해요.
+    박람회 포인트도 홈의 <strong>카페 활동 포인트 → 일일활동</strong>에 합산돼요.
   </div>
 
 </div>
@@ -2686,7 +2724,7 @@ button{
   <div class="card cafe-partner-summary">
     <div class="cafe-partner-summary-row">
       <div>
-        <div class="cafe-partner-summary-label">결혼준비 후기 적립 포인트</div>
+        <div class="cafe-partner-summary-label">결혼준비 적립 포인트</div>
         <div class="cafe-partner-summary-point" id="cafeWeddingReviewTotalPoint">0P</div>
         <div class="cafe-partner-summary-meta" id="cafeWeddingReviewProgress">작성 0 / 0 · 남은 0개</div>
       </div>
@@ -2708,7 +2746,7 @@ button{
   <div class="card cafe-partner-summary">
     <div class="cafe-partner-summary-row">
       <div>
-        <div class="cafe-partner-summary-label">신혼·임신·출산 적립 포인트</div>
+        <div class="cafe-partner-summary-label">신혼 적립 포인트</div>
         <div class="cafe-partner-summary-point" id="cafeNewlywedBirthTotalPoint">0P</div>
         <div class="cafe-partner-summary-meta" id="cafeNewlywedBirthProgress">작성 0 / 0 · 남은 0개</div>
       </div>
@@ -2974,32 +3012,126 @@ const gradePoints = {
 
 
 
+const cafeBasicExtraCategories = [
+  {
+    id:"basicInfo",
+    name:"기본 활동",
+    items:[
+      {id:"weddingResource",name:"결혼준비 자료실",normal:5000,good:0},
+      {id:"questionAnswer",name:"궁금한점 질문답변",normal:1000,good:0},
+      {id:"costContractOpen",name:"결혼준비 비용&계약 내용 공개",normal:3000,good:10000},
+      {id:"brideGroomPride",name:"내신랑신부자랑하기",normal:3000,good:0},
+      {id:"weAreGettingMarried",name:"우리결혼합니다",normal:3000,good:0},
+      {id:"honeymoonReason",name:"허니문 지역선정 이유",normal:3000,good:0}
+    ]
+  },
+  {
+    id:"basicDiet",
+    name:"다이어트 후기",
+    items:[
+      {id:"diet1",name:"다이어트 후기 1",normal:1000,good:0},
+      {id:"diet2",name:"다이어트 후기 2",normal:1000,good:0}
+    ]
+  }
+];
+
+const cafeExpoReviewCategories = [
+  {
+    id:"bigExpoReview",
+    name:"대박람회",
+    items:[
+      {id:"integrated",name:"대박람회 웨딩 통합후기(스드메웨딩홀)",normal:5000,good:10000},
+      {id:"jewelry",name:"대박람회 후기(예물)",normal:5000,good:10000},
+      {id:"suit",name:"대박람회 후기(예복)",normal:5000,good:10000},
+      {id:"hanbok",name:"대박람회 후기(한복)",normal:5000,good:10000},
+      {id:"honeymoon",name:"대박람회 후기(허니문)",normal:5000,good:10000},
+      {id:"appliance",name:"대박람회 후기(가전)",normal:5000,good:10000},
+      {id:"furniture",name:"대박람회 후기(가구)",normal:5000,good:10000},
+      {id:"skinCare",name:"대박람회 후기(피부관리)",normal:5000,good:10000}
+    ]
+  },
+  {
+    id:"expoReview",
+    name:"박람회",
+    items:[
+      {id:"all",name:"박람회 후기(전체)",normal:5000,good:10000},
+      {id:"hanbok",name:"박람회 후기(한복)",normal:5000,good:10000},
+      {id:"jewelry",name:"박람회 후기(예물)",normal:5000,good:10000},
+      {id:"suit",name:"박람회 후기(예복)",normal:5000,good:10000},
+      {id:"honeymoon",name:"박람회 후기(허니문)",normal:5000,good:10000},
+      {id:"appliance",name:"박람회 후기(가전)",normal:5000,good:10000}
+    ]
+  }
+];
+
 const cafeWeddingReviewCategories = [
   {
-    id:"weddingReviewMain",
-    name:"결혼준비 후기",
+    id:"weddingProposal",
+    name:"프로포즈",
     items:[
-      {id:"proposal",name:"프로포즈",normal:5000,good:10000},
-      {id:"meetingFamilies",name:"상견례",normal:5000,good:10000},
+      {id:"proposal",name:"프로포즈",normal:5000,good:10000}
+    ]
+  },
+  {
+    id:"weddingMeetingFamilies",
+    name:"상견례",
+    items:[
+      {id:"meetingFamilies",name:"상견례",normal:5000,good:10000}
+    ]
+  },
+  {
+    id:"weddingInterior",
+    name:"인테리어",
+    items:[
       {id:"interiorBeforeAfter",name:"인테리어(전후)",normal:5000,good:10000},
-      {id:"interiorProps",name:"인테리어(인테리어소품)",normal:5000,good:10000},
+      {id:"interiorProps",name:"인테리어(인테리어소품)",normal:5000,good:10000}
+    ]
+  },
+  {
+    id:"weddingYedam",
+    name:"예단",
+    items:[
       {id:"yedamGroomHam",name:"예단(신랑+함)",normal:5000,good:10000},
-      {id:"yedamCash",name:"예단(현금)",normal:5000,good:10000},
-      {id:"firstGreetingGift",name:"양가 첫인사선물",normal:5000,good:10000},
-      {id:"onlineHousewarming",name:"신혼집 랜선집들이",normal:10000,good:0},
-      {id:"directCompare",name:"타사와 비교한 다이렉트",normal:10000,good:0},
+      {id:"yedamCash",name:"예단(현금)",normal:5000,good:10000}
+    ]
+  },
+  {
+    id:"weddingGreetingGift",
+    name:"양가선물",
+    items:[
+      {id:"firstGreetingGift",name:"양가 첫인사선물",normal:5000,good:10000}
+    ]
+  },
+  {
+    id:"weddingHousewarming",
+    name:"랜선집들이",
+    items:[
+      {id:"onlineHousewarming",name:"신혼집 랜선집들이",normal:10000,good:0}
+    ]
+  },
+  {
+    id:"weddingDirect",
+    name:"다이렉트",
+    items:[
+      {id:"directCompare",name:"타사와 비교한 다이렉트",normal:10000,good:0}
+    ]
+  },
+  {
+    id:"weddingPropsCategory",
+    name:"웨딩소품",
+    items:[
       {id:"weddingProps",name:"웨딩 소품 후기",normal:10000,good:0}
     ]
   },
   {
     id:"newlywedApplianceIntro",
-    name:"우리 신혼집 가전 소개",
+    name:"신혼 가전",
     items:[
-      {id:"appliance1",name:"우리 신혼집 가전 소개 1",normal:5000,good:0},
-      {id:"appliance2",name:"우리 신혼집 가전 소개 2",normal:5000,good:0},
-      {id:"appliance3",name:"우리 신혼집 가전 소개 3",normal:5000,good:0},
-      {id:"appliance4",name:"우리 신혼집 가전 소개 4",normal:5000,good:0},
-      {id:"appliance5",name:"우리 신혼집 가전 소개 5",normal:5000,good:0}
+      {id:"appliance1",name:"신혼 가전 1",normal:5000,good:0},
+      {id:"appliance2",name:"신혼 가전 2",normal:5000,good:0},
+      {id:"appliance3",name:"신혼 가전 3",normal:5000,good:0},
+      {id:"appliance4",name:"신혼 가전 4",normal:5000,good:0},
+      {id:"appliance5",name:"신혼 가전 5",normal:5000,good:0}
     ]
   }
 ];
@@ -6747,11 +6879,37 @@ function partnerRecord(categoryId,itemId){
       };
     }
     else{
-      appData.cafePartner[key] = {
-        status:"",
-        url:"",
-        date:""
-      };
+      const weddingReviewCategoryIds = [
+        "weddingProposal",
+        "weddingMeetingFamilies",
+        "weddingInterior",
+        "weddingYedam",
+        "weddingGreetingGift",
+        "weddingHousewarming",
+        "weddingDirect",
+        "weddingPropsCategory"
+      ];
+
+      const oldWeddingReviewKey = partnerItemKey(
+        "weddingReviewMain",
+        itemId
+      );
+
+      if(
+        weddingReviewCategoryIds.includes(categoryId)
+        && appData.cafePartner[oldWeddingReviewKey]
+      ){
+        appData.cafePartner[key] = {
+          ...appData.cafePartner[oldWeddingReviewKey]
+        };
+      }
+      else{
+        appData.cafePartner[key] = {
+          status:"",
+          url:"",
+          date:""
+        };
+      }
     }
 
   }
@@ -6803,6 +6961,34 @@ function totalCafeCertifiedPoints(){
         item,
         partnerRecord(category.id,item.id)
       );
+    });
+  });
+
+  return total;
+
+}
+
+function totalCafeBasicExtraPoints(){
+
+  let total = 0;
+
+  cafeBasicExtraCategories.forEach(category=>{
+    category.items.forEach(item=>{
+      total += partnerItemPoint(item,partnerRecord(category.id,item.id));
+    });
+  });
+
+  return total;
+
+}
+
+function totalCafeExpoReviewPoints(){
+
+  let total = 0;
+
+  cafeExpoReviewCategories.forEach(category=>{
+    category.items.forEach(item=>{
+      total += partnerItemPoint(item,partnerRecord(category.id,item.id));
     });
   });
 
@@ -6958,6 +7144,10 @@ function totalCafeDailyPoints(){
     +
     cafeConsultPoint()
     +
+    totalCafeBasicExtraPoints()
+    +
+    totalCafeExpoReviewPoints()
+    +
     totalCafePartnerPoints()
     +
     totalCafeCertifiedPoints()
@@ -7023,6 +7213,8 @@ function togglePartnerCategory(categoryId){
     openPartnerCategories.add(categoryId);
   }
 
+  renderCafeBasicExtra();
+  renderCafeExpoReview();
   renderCafePartner();
   renderCafeCertified();
   renderCafeWeddingReview();
@@ -7508,6 +7700,26 @@ function renderCafeCategoryCollection(categories,containerId,totalPointId,progre
   }
 }
 
+function renderCafeBasicExtra(){
+  renderCafeCategoryCollection(
+    cafeBasicExtraCategories,
+    "cafeBasicExtraCategories",
+    "cafeBasicExtraTotalPoint",
+    "cafeBasicExtraProgress",
+    totalCafeBasicExtraPoints
+  );
+}
+
+function renderCafeExpoReview(){
+  renderCafeCategoryCollection(
+    cafeExpoReviewCategories,
+    "cafeExpoReviewCategories",
+    "cafeExpoReviewTotalPoint",
+    "cafeExpoReviewProgress",
+    totalCafeExpoReviewPoints
+  );
+}
+
 function renderCafeWeddingReview(){
   renderCafeCategoryCollection(
     cafeWeddingReviewCategories,
@@ -7538,28 +7750,32 @@ function renderCafe(){
   );
 
   const basicTab = document.getElementById("cafeTabBasic");
+  const expoReviewTab = document.getElementById("cafeTabExpoReview");
   const partnerTab = document.getElementById("cafeTabPartner");
   const certifiedTab = document.getElementById("cafeTabCertified");
   const weddingReviewTab = document.getElementById("cafeTabWeddingReview");
   const newlywedBirthTab = document.getElementById("cafeTabNewlywedBirth");
 
   const basicPanel = document.getElementById("cafeBasicPanel");
+  const expoReviewPanel = document.getElementById("cafeExpoReviewPanel");
   const partnerPanel = document.getElementById("cafePartnerPanel");
   const certifiedPanel = document.getElementById("cafeCertifiedPanel");
   const weddingReviewPanel = document.getElementById("cafeWeddingReviewPanel");
   const newlywedBirthPanel = document.getElementById("cafeNewlywedBirthPanel");
 
   if(
-    basicTab && partnerTab && certifiedTab && weddingReviewTab && newlywedBirthTab
-    && basicPanel && partnerPanel && certifiedPanel && weddingReviewPanel && newlywedBirthPanel
+    basicTab && expoReviewTab && partnerTab && certifiedTab && weddingReviewTab && newlywedBirthTab
+    && basicPanel && expoReviewPanel && partnerPanel && certifiedPanel && weddingReviewPanel && newlywedBirthPanel
   ){
     basicTab.classList.toggle("active",cafeTab==="basic");
+    expoReviewTab.classList.toggle("active",cafeTab==="expoReview");
     partnerTab.classList.toggle("active",cafeTab==="partner");
     certifiedTab.classList.toggle("active",cafeTab==="certified");
     weddingReviewTab.classList.toggle("active",cafeTab==="weddingReview");
     newlywedBirthTab.classList.toggle("active",cafeTab==="newlywedBirth");
 
     basicPanel.classList.toggle("active",cafeTab==="basic");
+    expoReviewPanel.classList.toggle("active",cafeTab==="expoReview");
     partnerPanel.classList.toggle("active",cafeTab==="partner");
     certifiedPanel.classList.toggle("active",cafeTab==="certified");
     weddingReviewPanel.classList.toggle("active",cafeTab==="weddingReview");
@@ -7637,7 +7853,7 @@ function renderCafe(){
   if(basicTotalEl){
     basicTotalEl.textContent =
       `${formatNumber(
-        cafeReferralPoint()+cafeExpoPoint()+cafeConsultPoint()
+        cafeReferralPoint()+cafeExpoPoint()+cafeConsultPoint()+totalCafeBasicExtraPoints()
       )}P`;
   }
 
@@ -8013,6 +8229,34 @@ function getHistory(){
 
   }
 
+  cafeBasicExtraCategories.forEach(category=>{
+    category.items.forEach(item=>{
+      const record = partnerRecord(category.id,item.id);
+      const point = partnerItemPoint(item,record);
+      if(point<=0){ return; }
+      history.push({
+        type:"cafeBasicExtra",
+        date:record.date || getTodayString(),
+        name:`카페 기본적립 · ${item.name} · ${record.status}`,
+        point
+      });
+    });
+  });
+
+  cafeExpoReviewCategories.forEach(category=>{
+    category.items.forEach(item=>{
+      const record = partnerRecord(category.id,item.id);
+      const point = partnerItemPoint(item,record);
+      if(point<=0){ return; }
+      history.push({
+        type:"cafeExpoReview",
+        date:record.date || getTodayString(),
+        name:`카페 박람회 · ${item.name} · ${record.status}`,
+        point
+      });
+    });
+  });
+
   cafePartnerCategories.forEach(category=>{
     category.items.forEach(item=>{
       const record = partnerRecord(category.id,item.id);
@@ -8057,7 +8301,7 @@ function getHistory(){
       history.push({
         type:"cafeWeddingReview",
         date:record.date || getTodayString(),
-        name:`카페 결혼준비 후기 · ${item.name} · ${record.status}`,
+        name:`카페 결혼준비 · ${item.name} · ${record.status}`,
         point
       });
     });
@@ -8071,7 +8315,7 @@ function getHistory(){
       history.push({
         type:"cafeNewlywedBirth",
         date:record.date || getTodayString(),
-        name:`카페 신혼·임신·출산 · ${item.name} · ${record.status}`,
+        name:`카페 신혼 · ${item.name} · ${record.status}`,
         point
       });
     });
