@@ -887,6 +887,87 @@ button{
   font-size:11px;
 }
 
+/* HISTORY SPLIT */
+.history-split{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  align-items:start;
+}
+
+.history-column{
+  min-width:0;
+}
+
+.history-total-compact{
+  padding:13px 10px;
+  margin-bottom:8px;
+}
+
+.history-total-compact .history-total-label{
+  font-size:9.5px;
+}
+
+.history-total-compact .history-total-number{
+  font-size:18px;
+}
+
+.history-request-total{
+  color:#b27300;
+}
+
+.history-column-title{
+  padding:10px 8px;
+  background:#fafafa;
+  font-size:10px;
+  font-weight:900;
+  text-align:center;
+}
+
+.history-completed-title{
+  color:#e12d69;
+}
+
+.history-request-title{
+  color:#b27300;
+}
+
+.history-split-row{
+  padding:10px 8px;
+  border-top:1px solid #f1f1f3;
+}
+
+.history-split-date{
+  margin-bottom:4px;
+  color:#7c8797;
+  font-size:8px;
+}
+
+.history-split-name{
+  font-size:9px;
+  font-weight:700;
+  line-height:1.4;
+  word-break:keep-all;
+}
+
+.history-split-point{
+  margin-top:5px;
+  text-align:right;
+  color:#ff2c69;
+  font-size:9px;
+  font-weight:900;
+}
+
+.history-split-point.request{
+  color:#b27300;
+}
+
+.history-split .history-empty{
+  padding:28px 7px;
+  font-size:9px;
+  line-height:1.5;
+}
+
 /* BACKUP */
 
 .backup-box{
@@ -2233,7 +2314,7 @@ button{
     </div>
   </div>
 
-  <div class="card point-card">
+  <div class="card point-card" onclick="showPage('historyPage')" style="cursor:pointer;">
     <div class="label">현재 포인트</div>
     <div class="big-number current" id="currentPoint">0원</div>
   </div>
@@ -2414,19 +2495,30 @@ button{
 
 <h1 class="page-title">적립내역</h1>
 
-<div class="card history-total">
-  <div class="history-total-label">앱에서 새로 기록한 적립완료 포인트</div>
-  <div class="history-total-number" id="historyTotal">0P</div>
-</div>
+<div class="history-split">
+  <div class="history-column">
+    <div class="card history-total history-total-compact">
+      <div class="history-total-label">적립완료 포인트</div>
+      <div class="history-total-number" id="historyCompletedTotal">0P</div>
+    </div>
 
-<div class="card history-list">
-  <div class="history-head">
-    <div>날짜</div>
-    <div>항목</div>
-    <div style="text-align:right">포인트</div>
+    <div class="card history-list">
+      <div class="history-column-title history-completed-title">적립완료 내역</div>
+      <div id="historyCompletedRows"></div>
+    </div>
   </div>
 
-  <div id="historyRows"></div>
+  <div class="history-column">
+    <div class="card history-total history-total-compact">
+      <div class="history-total-label">적립신청 포인트</div>
+      <div class="history-total-number history-request-total" id="historyRequestTotal">0P</div>
+    </div>
+
+    <div class="card history-list">
+      <div class="history-column-title history-request-title">적립신청 내역</div>
+      <div id="historyRequestRows"></div>
+    </div>
+  </div>
 </div>
 
 <div class="card backup-box">
@@ -5030,6 +5122,22 @@ function createDiaryCard(){
    NORMAL MONTH CARD
 ========================= */
 
+function managementStatusRank(status){
+
+  const ranks = {
+    "":0,
+    "작성완료":1,
+    "전송완료":1,
+    "적립신청":2,
+    "적립완료":3,
+    "비해당":4
+  };
+
+  return ranks[status] ?? 0;
+
+}
+
+
 function createNormalActivityCard(key){
 
   const activity = activities[key];
@@ -5059,7 +5167,11 @@ function createNormalActivityCard(key){
 
     rows = records
     .slice()
-    .sort((a,b)=>b.date.localeCompare(a.date))
+    .sort((a,b)=>{
+      const statusDiff = managementStatusRank(a.status)-managementStatusRank(b.status);
+      if(statusDiff!==0){ return statusDiff; }
+      return b.date.localeCompare(a.date);
+    })
     .map(record=>{
 
       const pointText =
@@ -5793,9 +5905,11 @@ function createBlogCategoryCard(category){
     category.id
   )
   .slice()
-  .sort(
-    (a,b)=>b.date.localeCompare(a.date)
-  );
+  .sort((a,b)=>{
+    const statusDiff = managementStatusRank(a.status)-managementStatusRank(b.status);
+    if(statusDiff!==0){ return statusDiff; }
+    return b.date.localeCompare(a.date);
+  });
 
   const point = blogCategoryPoint(
     category.id
@@ -6288,9 +6402,11 @@ function createSharePostCard(post){
 
     const sortedShares = post.shares
     .slice()
-    .sort(
-      (a,b)=>b.date.localeCompare(a.date)
-    );
+    .sort((a,b)=>{
+      const statusDiff = managementStatusRank(a.status)-managementStatusRank(b.status);
+      if(statusDiff!==0){ return statusDiff; }
+      return b.date.localeCompare(a.date);
+    });
 
     rows = sortedShares.map(share=>`
 
@@ -7292,7 +7408,7 @@ function updatePartnerManageStatus(categoryId,itemId,value){
 
   record.manageStatus = value;
 
-  if(value==="적립완료"){
+  if(value==="적립신청" || value==="적립완료"){
     record.date = getTodayString();
   }else{
     record.date = "";
@@ -7472,10 +7588,14 @@ function renderCafePartner(){
           record:partnerRecord(category.id,item.id)
         }))
         .sort((a,b)=>{
-          const aNa = a.record.status==="비해당";
-          const bNa = b.record.status==="비해당";
-          if(aNa!==bNa){
-            return aNa ? 1 : -1;
+          const aRank = a.record.status==="비해당"
+            ? managementStatusRank("비해당")
+            : managementStatusRank(a.record.manageStatus);
+          const bRank = b.record.status==="비해당"
+            ? managementStatusRank("비해당")
+            : managementStatusRank(b.record.manageStatus);
+          if(aRank!==bRank){
+            return aRank-bRank;
           }
           return a.index-b.index;
         });
@@ -7560,10 +7680,14 @@ function renderCafeCertified(){
           record:partnerRecord(category.id,item.id)
         }))
         .sort((a,b)=>{
-          const aNa = a.record.status==="비해당";
-          const bNa = b.record.status==="비해당";
-          if(aNa!==bNa){
-            return aNa ? 1 : -1;
+          const aRank = a.record.status==="비해당"
+            ? managementStatusRank("비해당")
+            : managementStatusRank(a.record.manageStatus);
+          const bRank = b.record.status==="비해당"
+            ? managementStatusRank("비해당")
+            : managementStatusRank(b.record.manageStatus);
+          if(aRank!==bRank){
+            return aRank-bRank;
           }
           return a.index-b.index;
         });
@@ -7634,10 +7758,14 @@ function renderCafeCategoryCollection(categories,containerId,totalPointId,progre
     const orderedItems = category.items
       .map((item,index)=>({item,index,record:partnerRecord(category.id,item.id)}))
       .sort((a,b)=>{
-        const aNa = a.record.status==="비해당";
-        const bNa = b.record.status==="비해당";
-        if(aNa!==bNa){
-          return aNa ? 1 : -1;
+        const aRank = a.record.status==="비해당"
+          ? managementStatusRank("비해당")
+          : managementStatusRank(a.record.manageStatus);
+        const bRank = b.record.status==="비해당"
+          ? managementStatusRank("비해당")
+          : managementStatusRank(b.record.manageStatus);
+        if(aRank!==bRank){
+          return aRank-bRank;
         }
         return a.index-b.index;
       });
@@ -8046,325 +8174,229 @@ function getHistory(){
 
   const history = [];
 
+  function addHistoryItem(item){
+    history.push(item);
+  }
+
   appData.records.forEach(record=>{
 
-    const activity = activities[
-      record.activity
-    ];
+    const activity = activities[record.activity];
 
     if(
       !activity
       ||
       activity.batch
       ||
-      record.status!=="적립완료"
+      !["적립신청","적립완료"].includes(record.status)
     ){
       return;
     }
 
-    history.push({
+    addHistoryItem({
       type:"month",
       date:record.date,
       name:activity.name,
-      point:activity.point
+      point:activity.point,
+      status:record.status
     });
 
   });
 
-  Object.keys(
-    appData.monthlyClaims
-  ).forEach(key=>{
+  Object.keys(appData.monthlyClaims).forEach(key=>{
 
-    const claim = appData.monthlyClaims[
-      key
-    ];
+    const claim = appData.monthlyClaims[key];
 
-    if(claim.status!=="적립완료"){
+    if(!["적립신청","적립완료"].includes(claim.status)){
       return;
     }
 
     const splitIndex = key.indexOf(":");
+    if(splitIndex===-1){ return; }
 
-    if(splitIndex===-1){
-      return;
-    }
-
-    const activity = key.slice(
-      0,
-      splitIndex
-    );
-
-    const monthKey = key.slice(
-      splitIndex+1
-    );
-
-    const monthNumber = Number(
-      monthKey.split("-")[1]
-    );
+    const activity = key.slice(0,splitIndex);
+    const monthKey = key.slice(splitIndex+1);
+    const monthNumber = Number(monthKey.split("-")[1]);
 
     if(activity==="comment"){
-
-      const count = commentCount(
-        monthKey
-      );
-
-      if(count===0){
-        return;
-      }
-
-      history.push({
+      const count = commentCount(monthKey);
+      if(count===0){ return; }
+      addHistoryItem({
         type:"month",
         date:claim.date || `${monthKey}-01`,
         name:`${monthNumber}월 댓글교류 ${count}회`,
-        point:count*1000
+        point:count*1000,
+        status:claim.status
       });
-
     }
 
     if(activity==="diary"){
-
-      if(!batchEligible("diary",monthKey)){
-        return;
-      }
-
-      history.push({
+      if(!batchEligible("diary",monthKey)){ return; }
+      addHistoryItem({
         type:"month",
         date:claim.date || `${monthKey}-01`,
         name:`${monthNumber}월 결혼일기 20회`,
-        point:5000
+        point:5000,
+        status:claim.status
       });
-
     }
 
   });
 
   appData.blogRecords.forEach(record=>{
 
-    if(record.status!=="적립완료"){
+    if(!["적립신청","적립완료"].includes(record.status)){
       return;
     }
 
-    const category = blogCategories.find(
-      c=>c.id===record.category
-    );
+    const category = blogCategories.find(c=>c.id===record.category);
+    if(!category){ return; }
 
-    if(!category){
-      return;
-    }
-
-    history.push({
+    addHistoryItem({
       type:"blog",
       date:record.date,
-      name:
-        record.title
+      name:record.title
         ? `블로그 · ${record.title}`
         : `블로그 · ${category.name} · ${record.grade}`,
-      point:gradePoints[record.grade] || 0
+      point:gradePoints[record.grade] || 0,
+      status:record.status
     });
 
   });
 
   appData.sharePosts.forEach(post=>{
-
     post.shares.forEach(share=>{
 
-      if(share.status!=="적립완료"){
+      if(!["적립신청","적립완료"].includes(share.status)){
         return;
       }
 
-      history.push({
+      addHistoryItem({
         type:"share",
         date:share.date,
         name:`정보공유 · ${post.title || "제목 없음"}`,
-        point:1000
+        point:1000,
+        status:share.status
       });
 
     });
-
   });
 
-
   if(cafeReferralPoint()>0){
-
-    history.push({
+    addHistoryItem({
       type:"cafe",
       date:appData.cafeBasic.referralDate || getTodayString(),
       name:"카페 기본적립 · 가입 시 추천인 작성",
-      point:cafeReferralPoint()
+      point:cafeReferralPoint(),
+      status:"적립완료"
     });
-
   }
 
   if(cafeExpoPoint()>0){
-
-    history.push({
+    addHistoryItem({
       type:"cafe",
       date:appData.cafeBasic.expoDate || getTodayString(),
       name:`카페 기본적립 · ${appData.cafeBasic.expoType} 방문`,
-      point:cafeExpoPoint()
+      point:cafeExpoPoint(),
+      status:"적립완료"
     });
-
   }
 
   if(cafeConsultPoint()>0){
-
-    history.push({
+    addHistoryItem({
       type:"cafe",
       date:appData.cafeBasic.consultDate || getTodayString(),
       name:`카페 기본적립 · 박람회 업체 상담 ${appData.cafeBasic.consultCount}개`,
-      point:cafeConsultPoint()
+      point:cafeConsultPoint(),
+      status:"적립완료"
     });
-
   }
 
-  cafeBasicExtraCategories.forEach(category=>{
-    category.items.forEach(item=>{
-      const record = partnerRecord(category.id,item.id);
-      const point = partnerItemPoint(item,record);
-      if(point<=0){ return; }
-      history.push({
-        type:"cafeBasicExtra",
-        date:record.date || getTodayString(),
-        name:`카페 기본적립 · ${item.name} · ${record.status}`,
-        point
+  function addCafeHistory(categories,type,prefix){
+    categories.forEach(category=>{
+      category.items.forEach(item=>{
+        const record = partnerRecord(category.id,item.id);
+        if(!["적립신청","적립완료"].includes(record.manageStatus)){
+          return;
+        }
+        const point = partnerItemBasePoint(item,record);
+        if(point<=0){ return; }
+        addHistoryItem({
+          type,
+          date:record.date || getTodayString(),
+          name:`${prefix} · ${item.name} · ${record.status}`,
+          point,
+          status:record.manageStatus
+        });
       });
     });
+  }
+
+  addCafeHistory(cafeBasicExtraCategories,"cafeBasicExtra","카페 기본적립");
+  addCafeHistory(cafeExpoReviewCategories,"cafeExpoReview","카페 박람회");
+  addCafeHistory(cafePartnerCategories,"cafePartner","카페 제휴업체");
+  addCafeHistory(cafeCertifiedCategories,"cafeCertified","카페 인증업체");
+  addCafeHistory(cafeWeddingReviewCategories,"cafeWeddingReview","카페 결혼준비");
+  addCafeHistory(cafeNewlywedBirthCategories,"cafeNewlywedBirth","카페 신혼");
+
+  return history.sort((a,b)=>{
+    const dateDiff = b.date.localeCompare(a.date);
+    if(dateDiff!==0){ return dateDiff; }
+    return managementStatusRank(a.status)-managementStatusRank(b.status);
   });
-
-  cafeExpoReviewCategories.forEach(category=>{
-    category.items.forEach(item=>{
-      const record = partnerRecord(category.id,item.id);
-      const point = partnerItemPoint(item,record);
-      if(point<=0){ return; }
-      history.push({
-        type:"cafeExpoReview",
-        date:record.date || getTodayString(),
-        name:`카페 박람회 · ${item.name} · ${record.status}`,
-        point
-      });
-    });
-  });
-
-  cafePartnerCategories.forEach(category=>{
-    category.items.forEach(item=>{
-      const record = partnerRecord(category.id,item.id);
-      const point = partnerItemPoint(item,record);
-
-      if(point<=0){
-        return;
-      }
-
-      history.push({
-        type:"cafePartner",
-        date:record.date || getTodayString(),
-        name:`카페 제휴업체 · ${item.name} · ${record.status}`,
-        point
-      });
-    });
-  });
-
-  cafeCertifiedCategories.forEach(category=>{
-    category.items.forEach(item=>{
-      const record = partnerRecord(category.id,item.id);
-      const point = partnerItemPoint(item,record);
-
-      if(point<=0){
-        return;
-      }
-
-      history.push({
-        type:"cafeCertified",
-        date:record.date || getTodayString(),
-        name:`카페 인증업체 · ${item.name} · ${record.status}`,
-        point
-      });
-    });
-  });
-
-  cafeWeddingReviewCategories.forEach(category=>{
-    category.items.forEach(item=>{
-      const record = partnerRecord(category.id,item.id);
-      const point = partnerItemPoint(item,record);
-      if(point<=0){ return; }
-      history.push({
-        type:"cafeWeddingReview",
-        date:record.date || getTodayString(),
-        name:`카페 결혼준비 · ${item.name} · ${record.status}`,
-        point
-      });
-    });
-  });
-
-  cafeNewlywedBirthCategories.forEach(category=>{
-    category.items.forEach(item=>{
-      const record = partnerRecord(category.id,item.id);
-      const point = partnerItemPoint(item,record);
-      if(point<=0){ return; }
-      history.push({
-        type:"cafeNewlywedBirth",
-        date:record.date || getTodayString(),
-        name:`카페 신혼 · ${item.name} · ${record.status}`,
-        point
-      });
-    });
-  });
-
-  return history.sort(
-    (a,b)=>b.date.localeCompare(a.date)
-  );
 
 }
-
 
 function renderHistory(){
 
   const history = getHistory();
+  const completedHistory = history.filter(item=>item.status==="적립완료");
+  const requestHistory = history.filter(item=>item.status==="적립신청");
 
-  const total = history.reduce(
+  const completedTotal = completedHistory.reduce(
     (sum,item)=>sum+item.point,
     0
   );
 
-  document.getElementById(
-    "historyTotal"
-  ).textContent =
-    `${formatNumber(total)}P`;
+  const requestTotal = requestHistory.reduce(
+    (sum,item)=>sum+item.point,
+    0
+  );
 
-  if(history.length===0){
+  document.getElementById("historyCompletedTotal").textContent =
+    `${formatNumber(completedTotal)}P`;
 
-    document.getElementById(
-      "historyRows"
-    ).innerHTML = `
-      <div class="history-empty">
-        아직 적립완료된 내역이 없어요.
-      </div>
-    `;
+  document.getElementById("historyRequestTotal").textContent =
+    `${formatNumber(requestTotal)}P`;
 
-    return;
-  }
+  function renderHistoryGroup(items,status){
+    if(items.length===0){
+      return `
+        <div class="history-empty">
+          아직 ${status}된 내역이 없어요.
+        </div>
+      `;
+    }
 
-  document.getElementById(
-    "historyRows"
-  ).innerHTML =
-    history.map(item=>`
-
-      <div class="history-row">
-
-        <div class="history-date">
+    return items.map(item=>`
+      <div class="history-split-row">
+        <div class="history-split-date">
           ${item.date.slice(5).replace("-",".")}
         </div>
-
-        <div class="history-name">
+        <div class="history-split-name">
           ${escapeHtml(item.name)}
         </div>
-
-        <div class="history-point">
-          +${formatNumber(item.point)}P
+        <div class="history-split-point ${status==="적립신청" ? "request" : ""}">
+          ${status==="적립완료" ? "+" : ""}${formatNumber(item.point)}P
         </div>
-
       </div>
-
     `).join("");
+  }
+
+  document.getElementById("historyCompletedRows").innerHTML =
+    renderHistoryGroup(completedHistory,"적립완료");
+
+  document.getElementById("historyRequestRows").innerHTML =
+    renderHistoryGroup(requestHistory,"적립신청");
 
 }
 
