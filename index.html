@@ -590,6 +590,36 @@ button{
   border-top:1px solid #f1f1f3;
 }
 
+.diary-columns{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  align-items:start;
+}
+
+.diary-column{
+  min-width:0;
+}
+
+.diary-column .diary-header,
+.diary-column .diary-row{
+  grid-template-columns:82px 82px 22px;
+  gap:5px;
+  justify-content:start;
+}
+
+.diary-column .diary-date,
+.diary-column .url-number{
+  width:82px;
+  min-width:82px;
+  max-width:82px;
+}
+
+.diary-column .delete-btn{
+  width:22px;
+  height:22px;
+}
+
 .diary-date{
   width:86px;
   min-width:0;
@@ -2296,6 +2326,32 @@ button{
     width:80px;
   }
 
+  .diary-columns{
+    gap:6px;
+  }
+
+  .diary-column .diary-header,
+  .diary-column .diary-row{
+    grid-template-columns:66px 66px 20px;
+    gap:3px;
+  }
+
+  .diary-column .diary-date,
+  .diary-column .url-number{
+    width:66px;
+    min-width:66px;
+    max-width:66px;
+    padding-left:1px;
+    padding-right:1px;
+    font-size:7px;
+  }
+
+  .diary-column .delete-btn{
+    width:20px;
+    height:20px;
+    font-size:12px;
+  }
+
   .blog-post-summary{
     grid-template-columns:76px minmax(0,1fr) 48px 27px 18px;
     gap:4px;
@@ -2824,9 +2880,6 @@ button{
         <div class="cafe-partner-summary-label">박람회 적립 포인트</div>
         <div class="cafe-partner-summary-point" id="cafeExpoReviewTotalPoint">0P</div>
         <div class="cafe-partner-summary-meta" id="cafeExpoReviewProgress">작성 0 / 0 · 남은 0개</div>
-<div class="cafe-partner-summary-meta" style="margin-top:6px;">
-  ※ 박람회에서 계약한 항목만 글을 작성할 수 있습니다.
-</div>
       </div>
     </div>
   </div>
@@ -5132,18 +5185,8 @@ function createDiaryCard(){
 
   let rows = "";
 
-  if(count===0){
-
-    rows = `
-      <div class="empty">
-        아직 작성한 결혼일기가 없어요.
-      </div>
-    `;
-
-  }else{
-
-    rows = records.map(record=>`
-
+  function diaryRow(record){
+    return `
       <div class="diary-row">
 
         <input
@@ -5173,8 +5216,41 @@ function createDiaryCard(){
         </button>
 
       </div>
+    `;
+  }
 
-    `).join("");
+  function diaryColumn(columnRecords){
+    return `
+      <div class="diary-column">
+        <div class="diary-header">
+          <div>작성일</div>
+          <div>URL 번호</div>
+          <div></div>
+        </div>
+        ${columnRecords.map(diaryRow).join("")}
+      </div>
+    `;
+  }
+
+  if(count===0){
+
+    rows = `
+      <div class="empty">
+        아직 작성한 결혼일기가 없어요.
+      </div>
+    `;
+
+  }else{
+
+    const leftRecords = records.slice(0,10);
+    const rightRecords = records.slice(10,20);
+
+    rows = `
+      <div class="diary-columns">
+        ${diaryColumn(leftRecords)}
+        ${diaryColumn(rightRecords)}
+      </div>
+    `;
 
   }
 
@@ -5241,12 +5317,6 @@ function createDiaryCard(){
           + 결혼일기 추가
         </button>
         
-        <div class="diary-header">
-          <div>작성일</div>
-          <div>URL 번호</div>
-          <div></div>
-        </div>
-
         ${rows}
 
         <div class="diary-progress-info">
@@ -5291,6 +5361,7 @@ function managementStatusRank(status){
 
   const ranks = {
     "":0,
+    "선택":0,
     "작성완료":1,
     "전송완료":1,
     "적립신청":2,
@@ -5577,6 +5648,15 @@ function blogRecordsForCategory(categoryId){
 }
 
 
+function writtenBlogRecordsForCategory(categoryId){
+
+  return blogRecordsForCategory(categoryId).filter(
+    r=>r.status!=="선택"
+  );
+
+}
+
+
 function blogRecordPoint(record){
 
   if(record.status!=="적립완료"){
@@ -5661,7 +5741,11 @@ function addBlogRecord(categoryId){
     categoryId
   );
 
-  if(current.length>=category.max){
+  const writtenCurrent = current.filter(
+    r=>r.status!=="선택"
+  );
+
+  if(writtenCurrent.length>=category.max){
 
     alert(
       `${category.name}은(는) 최대 ${category.max}개까지 작성할 수 있어.`
@@ -5762,6 +5846,30 @@ function updateBlogStatus(id,value){
 
   if(!record){
     return;
+  }
+
+  const category = blogCategories.find(
+    c=>c.id===record.category
+  );
+
+  if(
+    record.status==="선택"
+    && value!=="선택"
+    && category
+  ){
+
+    const writtenCount = blogRecordsForCategory(
+      record.category
+    ).filter(
+      r=>r.id!==id && r.status!=="선택"
+    ).length;
+
+    if(writtenCount>=category.max){
+      alert(`${category.name}은(는) 최대 ${category.max}개까지 작성할 수 있어.`);
+      renderBlog();
+      return;
+    }
+
   }
 
   openBlogCategories.add(record.category);
@@ -6026,6 +6134,13 @@ function createBlogRecordRow(record){
             >
 
               <option
+                value="선택"
+                ${record.status==="선택" ? "selected" : ""}
+              >
+                선택
+              </option>
+
+              <option
                 value="작성완료"
                 ${record.status==="작성완료" ? "selected" : ""}
               >
@@ -6098,6 +6213,14 @@ function createBlogCategoryCard(category){
     return b.date.localeCompare(a.date);
   });
 
+  const writtenRecords = records.filter(
+    r=>r.status!=="선택"
+  );
+
+  const selectedCount = records.filter(
+    r=>r.status==="선택"
+  ).length;
+
   const point = blogCategoryPoint(
     category.id
   );
@@ -6108,7 +6231,7 @@ function createBlogCategoryCard(category){
 
   const percentage = Math.min(
     100,
-    records.length/category.max*100
+    writtenRecords.length/category.max*100
   );
 
   let rows = "";
@@ -6151,7 +6274,7 @@ function createBlogCategoryCard(category){
               </div>
 
               <div class="blog-count-badge">
-                ${records.length} / ${category.max}
+                ${writtenRecords.length} / ${category.max}
               </div>
             </div>
 
@@ -6197,7 +6320,7 @@ function createBlogCategoryCard(category){
         <div class="blog-detail-top">
 
           <div class="blog-detail-title">
-            작성한 글 (${records.length})
+            작성한 글 (${writtenRecords.length})${selectedCount>0 ? ` · 선택 ${selectedCount}` : ""}
           </div>
 
           <button
