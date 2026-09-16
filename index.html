@@ -8573,23 +8573,43 @@ function getHistory(){
 
   });
 
+  // 정보공유는 같은 제목 + 같은 관리상태끼리 한 줄로 통합한다.
+  // 예: 같은 글에서 적립신청 3건이면 3,000P 한 줄로 표시.
+  const shareHistoryMap = new Map();
+
   appData.sharePosts.forEach(post=>{
+    const title = (post.title || "제목 없음").trim() || "제목 없음";
+
     post.shares.forEach(share=>{
 
       if(!["적립신청","적립완료"].includes(share.status)){
         return;
       }
 
-      addHistoryItem({
-        type:"share",
-        date:share.date,
-        name:`정보공유 · ${post.title || "제목 없음"}`,
-        point:1000,
-        status:share.status
-      });
+      const key = `${share.status}::${title}`;
+      const current = shareHistoryMap.get(key);
+      const shareDate = share.date || post.date || getTodayString();
+
+      if(current){
+        current.point += 1000;
+        // 통합 행은 가장 최근 날짜 기준으로 정렬/표시한다.
+        if(shareDate > current.date){
+          current.date = shareDate;
+        }
+      }else{
+        shareHistoryMap.set(key,{
+          type:"share",
+          date:shareDate,
+          name:`정보공유 · ${title}`,
+          point:1000,
+          status:share.status
+        });
+      }
 
     });
   });
+
+  shareHistoryMap.forEach(item=>addHistoryItem(item));
 
   appData.introRecords.forEach(record=>{
 
