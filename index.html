@@ -593,7 +593,7 @@ button{
 .diary-columns{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
+  gap:8px;
   align-items:start;
 }
 
@@ -603,16 +603,19 @@ button{
 
 .diary-column .diary-header,
 .diary-column .diary-row{
-  grid-template-columns:82px 82px 22px;
-  gap:5px;
+  grid-template-columns:70px 70px 22px;
+  gap:4px;
   justify-content:start;
 }
 
 .diary-column .diary-date,
 .diary-column .url-number{
-  width:82px;
-  min-width:82px;
-  max-width:82px;
+  width:70px;
+  min-width:70px;
+  max-width:70px;
+  padding-left:2px;
+  padding-right:2px;
+  font-size:7.5px;
 }
 
 .diary-column .delete-btn{
@@ -2332,18 +2335,18 @@ button{
 
   .diary-column .diary-header,
   .diary-column .diary-row{
-    grid-template-columns:66px 66px 20px;
+    grid-template-columns:62px 62px 20px;
     gap:3px;
   }
 
   .diary-column .diary-date,
   .diary-column .url-number{
-    width:66px;
-    min-width:66px;
-    max-width:66px;
+    width:62px;
+    min-width:62px;
+    max-width:62px;
     padding-left:1px;
     padding-right:1px;
-    font-size:7px;
+    font-size:6.8px;
   }
 
   .diary-column .delete-btn{
@@ -5199,12 +5202,11 @@ function createDiaryCard(){
         <input
           type="text"
           inputmode="numeric"
-          maxlength="6"
           pattern="[0-9]*"
           class="url-number"
           value="${record.urlNo || ""}"
           placeholder="URL 번호"
-          oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,6)"
+          oninput="this.value=this.value.replace(/[^0-9]/g,'')"
           onchange="updateDiaryUrl('${record.id}',this.value)"
         >
 
@@ -5436,12 +5438,11 @@ function createNormalActivityCard(key){
             <input
               type="text"
               inputmode="numeric"
-              maxlength="6"
               pattern="[0-9]*"
               class="record-url-input"
               value="${escapeAttribute(record.url || "")}"
               placeholder="URL 번호"
-              oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,6)"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'')"
               onchange="updateRecordUrl('${record.id}',this.value)"
             >
           ` : ""}
